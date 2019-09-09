@@ -1,0 +1,16 @@
+{
+  "name": "node-blog",
+  "version": "1.0.0",
+  "main": "bin/wwww.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.2.1",
+    "nodemon": "^1.19.2"
+  }
+}
