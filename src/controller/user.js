@@ -1,4 +1,4 @@
-const loginCheck = (username, passworld) => {
+const login = (username, passworld) => {
   if (username === 'zhangsan' && passworld === '123') {
     return true
   } 
@@ -6,5 +6,5 @@ const loginCheck = (username, passworld) => {
 }
 
 module.exports = {
-  loginCheck
+  login
 }
