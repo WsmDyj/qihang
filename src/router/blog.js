@@ -21,7 +21,7 @@ const handleBlogRouter = (req, res) => {
   }
   // 新建一篇博客
   if(method === 'POST' && req.path === '/api/blog/new') {
-    req.body.author = 'zhangsan' // 假数据， 待开发登录时在改为真数据
+    req.body.author = req.session.username
     const result = newBlog(req.body)
     return result.then(data => {
       return new SuccessModel(data)
@@ -40,7 +40,7 @@ const handleBlogRouter = (req, res) => {
   }
   // 删除一篇博客
   if(method === 'POST' && req.path === '/api/blog/del') {
-    const author = 'zhangsan' // 假数据， 待开发登录时在改为真数据
+    const author = req.session.username
     const result = delBlog(id, author)
     return result.then(val => {
       if (val) {

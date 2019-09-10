@@ -13,8 +13,5 @@
  2. 通过post data传递数据
  3. 浏览器无法直接演示，postman
 
- ## mysql
- 表链接 Join
-  1. 内链接 Inner Join
-   基于链接谓词将两张表(如 A 和 B)的列组合在一起，产生新的结果表
-  2. 做外链接
+ ## redis 简介
+ 
