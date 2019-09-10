@@ -1,6 +1,17 @@
 const querystring = require('querystring')
 const handleBlogRouter = require('./src/router/blog')
 const handelUserRouter = require('./src/router/user')
+
+// session 数据
+const SESSION_DATA = {}
+
+// 获取cookie 的过期时间
+const getCookieExpires = () => {
+  const d = new Date()
+  d.setTime(d.getTime() + (24 * 60 * 60 * 1000))
+  return d.toGMTString() 
+}
+
 // 用于处理post data
 const getPostData = (req) => {
   const promise = new Promise((reslove, reject) => {
@@ -49,23 +60,49 @@ const serverHandle = (req, res) => {
     req.cookie[key] = val
   })
 
+  // 解析session
+  let needSetCookie = false
+  let userId = req.cookie.userid
+  if (userId) {
+    if (!SESSION_DATA[userId]) {
+      SESSION_DATA[userId] = {}
+    }
+  } else {
+    needSetCookie = true
+    userId = `${Date.now()}_${Math.random()}`
+    SESSION_DATA[userId] = {}
+  }
+  req.session = SESSION_DATA[userId]
+
+
   // 处理postData
   getPostData(req).then(postData => {
     req.body = postData
     // 处理 blog 路由
-    const blogData = handleBlogRouter(req, res)
-    if (blogData) {
-      res.end(
-        JSON.stringify(blogData)
-      )
+    const blogResult = handleBlogRouter(req, res)
+    if (blogResult) {
+      blogResult.then(blogData => {
+        if (needSetCookie) {
+          res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`)
+        }
+        res.end(
+          JSON.stringify(blogData)
+        )
+      })
       return
     }
-    // 处理 user 路由
-    const userData = handelUserRouter(req, res)
-    if (userData) {
-      res.end(JSON.stringify(userData))
+    
+    const userResult = handelUserRouter(req, res)
+    if (userResult) {
+      userResult.then(userData => {
+        if (needSetCookie) {
+          res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`)
+        }
+        res.end(JSON.stringify(userData))
+      })
       return
     }
+
     // 404
     res.writeHead(404, {"Content-type": "text/plain"})
     res.write("404 Not Found\n")
