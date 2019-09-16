@@ -13,7 +13,6 @@ const handelUserRouter = (req, res) => {
         req.session.username = data.username
         req.session.realname = data.realname
         set(req.sessionId, req.session)
-        console.log(req.session)
         return new SuccessModel()
       }
       return new ErrorModel('登录失败')

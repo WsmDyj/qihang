@@ -14,6 +14,7 @@ const handleBlogRouter = (req, res) => {
   const id = req.query.id 
   // 获取博客列表
   if(method === 'GET' && req.path === '/api/blog/list') {
+
     const author = req.query.author || ''
     const keyworld = req.query.keyworld || ''
     const result = getList(author, keyworld)
@@ -32,8 +33,8 @@ const handleBlogRouter = (req, res) => {
   if(method === 'POST' && req.path === '/api/blog/new') {
     const loginChunkResult = loginChunk(req)
     if (loginChunkResult) {
-      return loginChunk
-    }
+      return loginChunk(req)
+    } 
     req.body.author = req.session.username
     const result = newBlog(req.body)
     return result.then(data => {
@@ -44,7 +45,7 @@ const handleBlogRouter = (req, res) => {
   if(method === 'POST' && req.path === '/api/blog/update') {
     const loginChunkResult = loginChunk(req)
     if (loginChunkResult) {
-      return loginChunk
+      return loginChunk(req)
     }
     const result = updateBlog(id, req.body)
     return result.then(val => {
@@ -59,7 +60,7 @@ const handleBlogRouter = (req, res) => {
   if(method === 'POST' && req.path === '/api/blog/del') {
     const loginChunkResult = loginChunk(req)
     if (loginChunkResult) {
-      return loginChunk
+      return loginChunk(req)
     }
     const author = req.session.username
     const result = delBlog(id, author)

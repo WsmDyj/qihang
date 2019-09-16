@@ -12,7 +12,6 @@ const con = mysql.createConnection(
   }
 )
 
-
 // 开始链接
 con.connect()
 

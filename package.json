@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "bin/wwww.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
-    "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/api.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/api.js"
   },
   "keywords": [],
   "author": "",
