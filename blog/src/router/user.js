@@ -6,8 +6,8 @@ const handelUserRouter = (req, res) => {
   const method = req.method // GET POST
   // 登录
   if(method === 'POST' && req.path === '/api/user/login') {
-    const { username, passworld } = req.body
-    const result = login(username, passworld)
+    const { username, password } = req.body
+    const result = login(username, password)
     return result.then(data => {
       if (data.username) {
         req.session.username = data.username
