@@ -24,9 +24,6 @@ const handleBlogRouter = (req, res) => {
   if (method === 'GET' && req.path === '/api/blog/list') {
       let author = req.query.author || ''
       const keyword = req.query.keyword || ''
-      // const listData = getList(author, keyword)
-      // return new SuccessModel(listData)
-
       if (req.query.isadmin) {
           // 管理员界面
           const loginCheckResult = loginCheck(req)
