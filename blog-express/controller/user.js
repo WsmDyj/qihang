@@ -1,7 +1,12 @@
-const { exec } = require('../db/mysql')
+const { exec, escape } = require('../db/mysql')
+const { genPassword } = require('../utils/crpy')
 
-const login = (username, passworld) => {
-  const sql = `select username, realname from users where username='${username}' and passworld='${passworld}' `
+const login = (username, password) => {
+  username = escape(username)
+   // 生成密码加密
+  password = genPassword(password)
+  password = escape(password)
+  const sql = `select username, realname from users where username=${username} and password=${password} `
   return exec(sql).then(rows => {
     return rows[0] || {}
   })
