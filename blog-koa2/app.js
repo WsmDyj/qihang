@@ -4,6 +4,9 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const session = require('koa-generic-session')
+const redisStore = require('koa-redis')
+
 
 const blog = require('./routes/blog')
 const user = require('./routes/user')
@@ -26,6 +29,21 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+// session 配置
+app.keys = ['WJiol#23123_']
+app.use(session({
+  // 配置cookie
+  cookie: {
+    path: '/', 
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
+  },
+  // 配置 redis
+  store: redisStore({
+    all: '127.0.0.1:6379'  // 写死本地的 redis
+    
+  })
+}))
 
 app.use(blog.routes(), blog.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
