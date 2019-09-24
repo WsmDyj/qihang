@@ -12,21 +12,7 @@ const userRouter = require('./routes/user')
 
 var app = express();
 
-const ENV = process.env.NODE_ENV
-if (ENV !== 'production') {
-  // 开发环境 / 测试环境
-  app.use(logger('dev'));
-} else {
-  // 线上环境
-  const logFileName = path.join(__dirname, 'logs', 'access.log')
-  const writeStream = fs.createWriteStream(logFileName, {
-    flags: 'a'
-  })
-  app.use(logger('combined', {
-    stream: writeStream
-  }));
-}
-
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

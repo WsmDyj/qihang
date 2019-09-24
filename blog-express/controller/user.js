@@ -1,5 +1,5 @@
 const { exec, escape } = require('../db/mysql')
-const { genPassword } = require('../utils/crpy')
+const { genPassword } = require('../utils/cryp')
 
 const login = (username, password) => {
   username = escape(username)

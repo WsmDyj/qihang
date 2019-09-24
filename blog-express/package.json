@@ -7,13 +7,14 @@
     "dev": "cross-env NODE_ENV=dev nodemon ./bin/www"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "connect-redis": "^4.0.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.16.2",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
+    "jade": "^1.11.0",
     "morgan": "~1.9.1",
     "mysql": "^2.17.1",
     "redis": "^2.8.0",
