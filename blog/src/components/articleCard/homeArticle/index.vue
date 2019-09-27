@@ -30,6 +30,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .article {
+  cursor: pointer;
   .el-main {
     margin: 0;
     padding: 0;
@@ -40,13 +41,15 @@ export default {
     width: 620px;
     height: 90px;
     padding: 14px 24px;
+    &:hover {
+      background: #fcfcfc;
+    }
     .info-box {
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       .info-row {
-        cursor: pointer;
         color: #909090;
         font-size: 14px;
       }

@@ -67,7 +67,7 @@ export default {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,.3);
-  z-index: 500;
+  z-index: 900;
   .auth-form {
     position: relative;
     padding: 24px;

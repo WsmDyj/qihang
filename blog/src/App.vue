@@ -22,4 +22,13 @@ export default {
   overflow-y: scroll;
   background-color: #f4f5f5;
 }
+.el-input .el-input__inner{
+  border: 1px solid #fff !important;
+}
+.el-input.is-disabled .el-input__inner {
+  background: #fff;
+  cursor: auto;
+  color: #909090;
+}
+
 </style>

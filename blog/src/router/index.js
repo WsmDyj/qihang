@@ -15,6 +15,11 @@ export default new Router({
       path: '/author',
       name: 'author',
       component: () => import('../views/author')
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('../views/settings')
     }
   ]
 })

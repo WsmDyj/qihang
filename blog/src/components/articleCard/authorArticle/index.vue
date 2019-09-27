@@ -52,6 +52,7 @@ export default {
 .article {
   margin: 20px  auto 0 auto;
   width: 668px;
+  cursor: pointer;
   background: #fff;
   .sub-header {
     height: 50px;
@@ -97,6 +98,9 @@ export default {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid rgba(230,230,231,.5);
+    &:hover {
+      background: #fcfcfc;
+    }
     .userInfo-row {
       padding: 4px 0 18px;
     }
@@ -121,7 +125,6 @@ export default {
         line-height: 1.6;
         letter-spacing: 0.28;
         color: #8b8b8b;
-        cursor: pointer;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 4;
