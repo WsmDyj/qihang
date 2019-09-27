@@ -2,7 +2,7 @@
   <div class="container">
     <div class="author">
       <div class="author-avatar">
-        <el-avatar :size="45" src ="https://user-gold-cdn.xitu.io/2018/3/25/1625c2608942e5bb?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"></el-avatar>
+        <el-avatar :size="45" src ="https://user-gold-cdn.xitu.io/2018/6/6/163d309e773f1235?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1"></el-avatar>
       </div>
       <div class="author-info">
         <div class="author-usernam">深红</div>

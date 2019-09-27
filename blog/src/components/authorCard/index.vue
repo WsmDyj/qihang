@@ -6,8 +6,8 @@
     <div class="author-info">
       <div class="username">{{ userInfo.nickname }}</div>
       <div class="position">
-        <div v-if="userInfo.job">
-          <i class="el-icon-s-cooperation author-icon"></i>
+        <div class="center" v-if="userInfo.job">
+          <svg width="21" height="18" viewBox="0 0 21 18" class="icon position-icon"><g fill="none" fill-rule="evenodd"><path data-v-34b23271="" fill="#72777B" d="M3 8.909V6.947a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1V8.92l-6 2.184v-.42c0-.436-.336-.79-.75-.79h-1.5c-.414 0-.75.354-.75.79v.409L3 8.909zm0 .7l6 2.184v.47c0 .436.336.79.75.79h1.5c.414 0 .75-.354.75-.79v-.46l6-2.183V16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.609zm6.75 1.075h1.5v1.58h-1.5v-1.58z"></path> <path data-v-34b23271="" stroke="#72777B" d="M7.5 5.213V4A1.5 1.5 0 0 1 9 2.5h3A1.5 1.5 0 0 1 13.5 4v1.213"></path></g></svg>
           <span>{{ userInfo.job }} | {{ userInfo.company }}</span>
         </div>
         <div class="addInfo" v-else>
@@ -15,8 +15,8 @@
         </div>
       </div>
       <div class="intro">
-        <div v-if="userInfo.autograph">
-          <i class="el-icon-s-order author-icon"></i>
+        <div class="center" v-if="userInfo.autograph">
+          <svg width="21" height="18" viewBox="0 0 21 18" class="icon intro-icon"><path fill="#72777B" fill-rule="evenodd" d="M4 4h13a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3 3a3 3 0 0 0-6 0h6zM5 7v1h4V7H5zm0 2.5v1h4v-1H5zM5 12v1h4v-1H5z"></path></svg>
           <span>{{ userInfo.autograph }}</span>
         </div>
         <div class="addInfo" v-else>
@@ -38,10 +38,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .author {
-  margin: 80px  auto 0 auto;
   padding: 30px;
   box-sizing: border-box;
-  width: 708px;
+  width: 668px;
   height: 153px;
   background: #fff;
   display: flex;
@@ -53,17 +52,14 @@ export default {
     flex-direction: column;
     justify-content: center;
     .username {
-      margin: 0;
-      padding: 0;
       font-size: 28px;
       font-weight: 600;
       line-height: 1.2;
       color: #000;
     }
     .position {
-      margin-top: 14px;
-      display: flex;
-      font-size: 16px;
+      margin-top: 10px;
+      font-size: 14px;
       line-height: 1.5;
       color: #72777b;
       overflow: hidden;
@@ -71,16 +67,26 @@ export default {
         color: #4a68ad;
         cursor: pointer;
       }
+      .icon {
+        margin-right: 5px;
+      }
     }
     .intro {
-      margin-top: 4px;
-      display: flex;
-      font-size: 16px;
+      font-size: 14px;
+      line-height: 1.5;
       color: #72777b;
-      overflow: hidden;
+      margin-top: 5px;
+      display: flex;
       .addInfo {
         color: #4a68ad;
         cursor: pointer;
+      }
+      .center {
+        display: flex;
+        align-items: center;
+      }
+      .icon {
+        margin-right: 5px;
       }
     }
     .author-icon {

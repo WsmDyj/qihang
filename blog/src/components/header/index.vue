@@ -1,43 +1,45 @@
 <template>
   <div class="header">
-      <div class="container">
-        <div class="logo">
-          <img src="https://b-gold-cdn.xitu.io/v3/static/img/logo.a7995ad.svg" class="logo-img" alt="掘金">
+    <div class="container">
+      <div class="logo">
+        <img src="https://b-gold-cdn.xitu.io/v3/static/img/logo.a7995ad.svg" class="logo-img" alt="掘金">
+      </div>
+      <div class="navigation">
+        <div class="nav-list">
+          <div class="menu" v-for="(action, index) in actions" :key="index">
+            <div class="menu-item" @click="handleAction(action)">{{ action.name }}</div>
+          </div>
         </div>
-        <div class="navigation">
-          <div class="nav-list">
-            <div class="menu" v-for="(action, index) in actions" :key="index">
-              <div class="menu-item" @click="handleAction(action)">{{ action.name }}</div>
+        <div class="nav-list" v-if="islogin">
+          <div class="nav-item">
+            <el-button size="mini" type="primary">写文章</el-button>
+          </div>
+          <div class="nav-item notice">
+            <el-badge :value="12" class="item" type="primary">
+              <i class="iconfont notice-icon">&#xe61e;</i>
+            </el-badge>
+          </div>
+          <div class="nav-item auth">
+            <div @click="show = !show">
+              <el-avatar size="medium" :src= userInfo.avatar></el-avatar>
+            </div>
+            <div>
+              <Dropdown v-show="show" />
             </div>
           </div>
-          <div class="nav-list" v-if="islogin">
-            <div class="nav-item">
-              <el-button size="mini" type="primary">写文章</el-button>
-            </div>
-            <div class="nav-item notice">
-              <el-badge :value="12" class="item" type="primary">
-                <i class="iconfont notice-icon">&#xe61e;</i>
-              </el-badge>
-            </div>
-            <div class="nav-item auth">
-              <div @click="show = !show">
-                <el-avatar size="medium" :src= userInfo.avatar></el-avatar>
-              </div>
-              <Dropdown  v-show="show" />
-            </div>
+        </div>
+        <div class="nav-list" v-else>
+          <div class="nav-item submit">
+            <img src="https://b-gold-cdn.xitu.io/v3/static/img/submit-icon.53f4253.svg" class="icon">
+            <span>写文章</span>
           </div>
-          <div class="nav-list" v-else>
-            <div class="nav-item submit">
-              <img src="https://b-gold-cdn.xitu.io/v3/static/img/submit-icon.53f4253.svg" class="icon">
-              <span>写文章</span>
-            </div>
-            <div class="nav-item auth">
-              <span @click="login" class="login">登录</span>
-              <span class="register">注册</span>
-            </div>
+          <div class="nav-item auth">
+            <span @click="login" class="login">登录</span>
+            <span class="register">注册</span>
           </div>
         </div>
       </div>
+    </div>
     <Login :visible= visible @close='hanleClose'/>
   </div>
 </template>
@@ -47,11 +49,13 @@ import Login from '../login'
 import axios from 'axios';
 import store from '../../store'
 import Dropdown from '../menu/dropdown'
+import Navigation from './navigation'
 import { getToken } from '@/utils/auth' 
 export default {
   components: {
     Login,
-    Dropdown
+    Dropdown,
+    Navigation
   },
   data() {
     return {
@@ -93,12 +97,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
-  position: fixed;
+  // position: fixed;
   top: 0;
   width: 100%;
   height: 60px;
   background: #fff;
   z-index: 99;
+  border-bottom: 1px solid #f1f1f1;
   .container {
     height: 100%;
     max-width: 960px;
@@ -169,8 +174,8 @@ export default {
   }
 }
 .el-button--primary {
-   background-color: #007fff;
-   font-size: 16px;
-   border: none;
- }
+  background-color: #007fff;
+  font-size: 16px;
+  border: none;
+}
 </style>

@@ -1,12 +1,14 @@
 <template>
   <div class="home">
     <Header />
+    <Navigation/>
     <div class="main">
       <div class="article">
         <article-card :articles = articles></article-card>
       </div>
       <div class="asside">
         <ranking-card></ranking-card>
+        <about-card></about-card>
       </div>
     </div>
   </div>
@@ -16,12 +18,16 @@ import axios from 'axios'
 import getFormatDate from '../utils/formatDate'
 import Header from '../components/header'
 import articleCard from '../components/articleCard/homeArticle'
-import rankingCard from '../components/rankingCard'
+import rankingCard from '../components/card/rankingCard'
+import Navigation from '../components/header/navigation'
+import aboutCard from '../components/card/about'
 export default {
   components: {
     Header,
     articleCard,
-    rankingCard
+    rankingCard,
+    Navigation,
+    aboutCard
   },
   data() {
     return {
@@ -59,9 +65,10 @@ export default {
   .main {
     position: relative;
     width: 932px;
-    margin-top: 80px;
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
   }
 }
 </style>

@@ -51,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 .article {
   margin: 20px  auto 0 auto;
-  width: 708px;
+  width: 668px;
   background: #fff;
   .sub-header {
     height: 50px;
@@ -90,7 +90,7 @@ export default {
     }
   }
   .entry-list {
-    width: 708px;
+    width: 100%;
     background: #fff;
     padding: 30px;
     box-sizing: border-box;

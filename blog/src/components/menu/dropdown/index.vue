@@ -65,6 +65,7 @@ export default {
 <style lang="scss" scoped>
 .nav-menu {
   position: absolute;
+  z-index: 999;
   width: 154px;
   left: 50%;
   top: 130%;
