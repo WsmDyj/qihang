@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="author-action">
+    <div class="author-action" @click="editInfo">
       <el-button type="primary" plain>编辑个人资料</el-button>
     </div>
   </div>
@@ -33,6 +33,11 @@
 import { mapState } from 'vuex';
 export default {
   computed: mapState(["userInfo"]),
+  methods: {
+    editInfo() {
+      this.$router.push('/settings')
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

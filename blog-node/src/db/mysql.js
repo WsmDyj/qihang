@@ -3,13 +3,7 @@ const { MYSQL_CONF } = require('../conf/db')
 
 // 创建链接对象
 const con = mysql.createConnection(
-  {
-    host: 'localhost',
-    user: 'root',
-    password: '123456',
-    port: '3306',
-    database: 'myblog'
-  }
+  MYSQL_CONF
 )
 
 // 开始链接

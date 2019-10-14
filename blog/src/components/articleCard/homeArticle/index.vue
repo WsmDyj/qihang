@@ -6,7 +6,7 @@
           <article-tilte :article= article ></article-tilte>
           <div class="info-row title-row">{{ article.title }}</div>
           <div class="info-row action-row">
-            <article-action :article= article></article-action>
+            <article-action @handleClick='getLike(article)' :article= article></article-action>
           </div>
         </div>
       </div>
@@ -24,6 +24,12 @@ export default {
   props: {
     articles: {
       type: Array
+    }
+  },
+  methods: {
+    getLike(article) {
+      console.log(article)
+      article.likeCont += 1
     }
   }
 }

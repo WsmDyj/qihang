@@ -20,6 +20,11 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: () => import('../views/settings')
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/test')
     }
   ]
 })

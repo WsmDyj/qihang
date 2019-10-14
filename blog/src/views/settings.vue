@@ -8,7 +8,7 @@
 </template>
 <script>
 import Header from '../components/header'
-import Setting from '../components/srtting'
+import Setting from '../components/setting'
 export default {
   components: {
     Header,

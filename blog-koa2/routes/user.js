@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const { login } = require('../controller/user')
+const { login, getUserInfo, updateUser } = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 router.prefix('/api/user')
 
@@ -15,6 +15,23 @@ router.post('/login', async function (ctx, next) {
     return
   }
   ctx.body = new ErrorModel('登录失败')
+})
+
+router.get('/getInfo', async function (ctx, next) {
+  const username = ctx.session.username
+  const data = await getUserInfo(username)
+  ctx.body = new SuccessModel(data)
+})
+
+router.post('/updateUser', async function (ctx, next) {
+  const username = ctx.session.username
+  const userData = ctx.request.body
+  const val = await updateUser(username, userData)
+  if (val) {
+    ctx.body = new SuccessModel()
+  } else {
+    ctx.body = new ErrorModel('更新个人资料失败')
+  }
 })
 
 module.exports = router

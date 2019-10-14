@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       show: false,
-      visible: false,
+      visible: true,
       islogin: false,
       userInfo: {},
       actions: [

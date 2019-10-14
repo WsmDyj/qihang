@@ -1,11 +1,11 @@
 <template>
   <div class="action-list">
-    <div class="clickable likeBtn">
+    <div class="clickable likeBtn" @click="getLike">
       <i class="iconfont">&#xe60c;</i>
       <span class="count">{{ article.likeCont}}</span>
     </div>
       <div class="clickable commentBtn">
-      <i class="el-icon-s-comment iconfont"></i>
+      <i class="el-icon-s-comment"></i>
       <span class="count">12</span>
     </div>
   </div>
@@ -15,6 +15,11 @@ export default {
   props: {
     article: {
       type: Object,
+    }
+  },
+  methods: {
+    getLike() {
+      this.$emit('handleClick')
     }
   }
 }
@@ -38,6 +43,7 @@ export default {
   }
   .likeBtn {
     border-right: none;
+    color: #6cbd65 !important;
   }
 }
 </style>
