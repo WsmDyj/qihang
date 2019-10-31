@@ -56,8 +56,6 @@ class User extends VuexModule implements IUserState {
       const { data } = await login({ username, password })
       setToken(data.accessToken)
       this.SET_TOKEN(data.accessToken)
-      console.log(data)
-      return data
     } catch (error) {
       return error
     }
