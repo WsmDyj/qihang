@@ -10,7 +10,7 @@
             <div class="menu-item" @click="handleAction(action)">{{ action.name }}</div>
           </div>
         </div>
-        <div class="nav-list" v-if="islogin">
+        <div class="nav-list" v-if="!islogin">
           <div class="nav-item">
             <el-button size="mini" type="primary">写文章</el-button>
           </div>
@@ -21,10 +21,10 @@
           </div>
           <div class="nav-item auth">
             <div @click="show = !show">
-              <el-avatar size="medium" :src= userInfo.avatar></el-avatar>
+              <el-avatar size="medium" :src= avatar></el-avatar>
             </div>
             <div>
-              <Dropdown v-show="show" />
+              <!-- <Dropdown v-show="show" /> -->
             </div>
           </div>
         </div>
@@ -40,32 +40,45 @@
         </div>
       </div>
     </div>
+    <login  />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-
+import Login from '../login/index.vue'
+import { UserModule } from '../../store/modules/user'
 interface Iactions {
   id: number
   name: string
   path: string
 }
+
+@Component({
+  components: {
+    Login,
+  },
+})
+
 export default class extends Vue {
   private show: boolean = false
-  private islogin: boolean = false
   private curAction: number = 0
   private actions: Iactions[] = [
     { id: 0, name: '首页', path: '/' },
     { id: 1,  name: '沸点', path: '/' },
     { id: 2, name: '话题', path: '/' },
     { id: 3, name: '活动' , path: '/'},]
-  
-  handleAction() {
-
+  get islogin() {
+    return UserModule.islogin
   }
-  login() {
-
+  get avatar() {
+    return UserModule.avatar
+  }
+  private handleAction(action: Iactions): void {
+    console.log(action)
+  }
+  private login() {
+    UserModule.handleIslogin(true)
   }
 }
 </script>

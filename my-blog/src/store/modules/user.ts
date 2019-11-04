@@ -4,6 +4,7 @@ import { getToken, setToken, removeToken } from '@/utils/cookies'
 import store from '@/store'
 
 export interface IUserState {
+  islogin: boolean
   token: string
   autograph: string
   avatar: string
@@ -14,6 +15,7 @@ export interface IUserState {
 
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule implements IUserState {
+  public islogin = false
   public token = getToken() || ''
   public autograph = ''
   public avatar = ''
@@ -24,6 +26,10 @@ class User extends VuexModule implements IUserState {
   @Mutation
   private SET_TOKEN(token: string) {
     this.token = token
+  }
+  @Mutation
+  private SET_Login(islogin: boolean) {
+    this.islogin = islogin
   }
 
   @Mutation 
@@ -56,6 +62,7 @@ class User extends VuexModule implements IUserState {
       const { data } = await login({ username, password })
       setToken(data.accessToken)
       this.SET_TOKEN(data.accessToken)
+      this.SET_Login(false)
     } catch (error) {
       return error
     }
@@ -65,6 +72,11 @@ class User extends VuexModule implements IUserState {
   public ResetToken() {
     removeToken()
     this.SET_TOKEN('')
+  }
+
+  @Action
+  public handleIslogin(params: boolean) {
+    this.SET_Login(params)
   }
 
   @Action

@@ -1,8 +1,13 @@
 import request from '@/utils/request'
+interface author {
+  isadmin: string
+}
 
-export function fetchList() {
-  return request({
+export const getArticles = (params?: author) =>
+  request({
     url: 'api/blog/list',
     method: 'get',
+    params
   })
-}
+
+

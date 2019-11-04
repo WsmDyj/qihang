@@ -1,5 +1,4 @@
 {
-  // "defaultSeverity": "warning",
   "defaultSeverity": "none",
   "extends": [
     "tslint:recommended"

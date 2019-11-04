@@ -1,5 +1,5 @@
 <template>
-  <div class="login" v-if='visible'>
+  <div class="login" v-if='islogin'>
     <div class="auth-form">
       <div class="panfish">
         <img src="https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png" class="normal" style="">
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { UserModule } from '../../store/modules/user'
 import { Form as ElForm, Input } from 'element-ui'
 
@@ -57,15 +57,17 @@ export default class extends Vue {
     username: [{ validator: this.validateUsername, trigger: 'blur'}],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
-  private visible: boolean = true
+  // private visible: boolean = true
+  get islogin() {
+    return UserModule.islogin
+  }
   private closeLogin() {
-    this.visible = false
+     UserModule.handleIslogin(false)
   }
   private handleLogin() {
     (this.$refs.loginForm as ElForm).validate( async (valid: boolean) => {
       if (valid) {
         const data = await UserModule.Login(this.loginForm)
-        this.visible = data === undefined ? false : true
       } else {
         return false
       }

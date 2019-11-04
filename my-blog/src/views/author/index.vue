@@ -3,42 +3,42 @@
     <Header />
     <div class="main">
       <div class="article">
-        <article-list :articles = articles></article-list>
+        <author-card></author-card>
+        <author-article :articles= articles></author-article>
       </div>
-      <!-- <div class="asside">
-        <ranking-card></ranking-card>
-        <about-card></about-card>
-      </div> -->
+      <div class="asside">
+        <!-- <achievement-card></achievement-card> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
-import articleList from '@/components/articleList/homeArticle/index.vue'
+import authorCard from '@/components/authorCard/index.vue'
+import authorArticle from '@/components/articleList/authorArticle/index.vue'
 import { IArticleData } from '../../api/types'
 import formatDate from '../../utils/formatDate'
 import { getArticles } from '../../api/blog'
 
-
 @Component({
-  name:'home',
+  name: 'author',
   components: {
     Header,
-    articleList
-  },
+    authorCard,
+    authorArticle
+  }
 })
 
 export default class extends Vue {
   private articles: IArticleData[] = []
-
   created() {
     this.getList()
   }
 
   private async getList() {
-    const { data } = await getArticles()
+    const { data } = await getArticles({isadmin: '1'})
     data.forEach((item: IArticleData) => {
       item.createtime = formatDate(item.createtime)
     })
@@ -52,7 +52,6 @@ export default class extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   .main {
     position: relative;
     width: 932px;

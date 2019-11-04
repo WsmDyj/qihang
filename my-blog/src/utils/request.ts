@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import { Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import { UserModule } from '../store/modules/user'
 
 const service = axios.create({
@@ -8,7 +8,7 @@ const service = axios.create({
   withCredentials: true,
 })
 
-service.interceptors.request.use((config) => {
+service.interceptors.request.use((config: AxiosRequestConfig) => {
   if (UserModule.token) {
     config.headers['authorization'] = UserModule.token
   }
@@ -22,11 +22,20 @@ service.interceptors.response.use((response: AxiosResponse) => {
   if (res.errno === 0) {
     return Promise.resolve(res)
   } else {
-    Message({
-      message: res.data.message || 'Error',
-      type: 'error',
-      duration: 5 * 1000
-    })
+    if (res.data.code === 50014 || res.status === 500) {
+      MessageBox.confirm(
+        '您登录以过期，请重新登录',
+        '登录过期',
+        {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        UserModule.ResetToken()
+        UserModule.handleIslogin(true)
+      })
+    }
     return Promise.reject(res)
   }
 }, (error: any) => {

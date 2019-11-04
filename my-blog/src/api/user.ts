@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-export const login = (data: any) =>
+export const login = (data: {username: string, password: string}) =>
   request({
     url: 'api/user/login',
     method: 'post',

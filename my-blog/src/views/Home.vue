@@ -50,7 +50,7 @@ export default class App extends Vue {
   }
   async created() {
     // await UserModule.ResetToken()
-    // await UserModule.Login({username: 'zhangsan', password: '123'})
+    await UserModule.Login({username: 'zhangsan', password: '123'})
     await UserModule.GetUserInfo()
 
     this.getUser()
