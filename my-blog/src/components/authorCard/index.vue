@@ -32,28 +32,15 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { UserModule }  from '../../store/modules/user'
-export interface IProfile {
-  autograph: string
-  company: string
-  job: string
-  nickname: string
-}
-
-const defaultProfile: IProfile = {
-  autograph: 'Loading...',
-  company: 'Loading...',
-  job: 'Loading...',
-  nickname: 'Loading...'
-}
+import { IUserInfo } from '../../api/types'
 
 @Component({
   components: {
   },
 })
 
-export default class App extends Vue {
-  msg: string = 'this is home page'
-  public userInfo = defaultProfile
+export default class extends Vue {
+  private userInfo!: IUserInfo
   get nickname() {
     return UserModule.nickname
   }
@@ -70,18 +57,20 @@ export default class App extends Vue {
     return UserModule.company
   }
   async created() {
-    await UserModule.GetUserInfo()
     this.getUser()
   }
   private getUser() {
     this.userInfo = {
+      avatar: this.avatar,
       autograph: this.autograph,
       company: this.company,
       job: this.job,
       nickname: this.nickname
     }
   }
-  private editInfo() {}
+  private editInfo() {
+    this.$router.push({path: '/settings'})
+  }
 }
 </script>
 <style lang="scss" scoped>

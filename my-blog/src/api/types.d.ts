@@ -7,3 +7,10 @@ export interface IArticleData {
   likeCont: number
 }
 
+export interface IUserInfo {
+  avatar: string
+  autograph: string
+  company: string
+  job: string
+  nickname: string
+}

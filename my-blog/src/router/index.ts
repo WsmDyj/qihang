@@ -15,6 +15,11 @@ const routes = [
     component: () => import('../views/author/index.vue')
   },
   { 
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../views/settings/index.vue') 
+  },
+  { 
     path: '/token',
     name: 'token',
     component: () => import('../views/Home.vue') 
