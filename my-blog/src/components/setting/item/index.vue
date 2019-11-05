@@ -4,11 +4,11 @@
     <slot name="avatar"/>
     <div class="action-box" v-if="title !== 'avatar'">
       <div class="center">
-        <el-input @focus="focus" @blur="blur" v-model="value"></el-input>
+        <el-input @focus="show = true" @blur="blur" v-model="value"></el-input>
       </div>
       <div v-if="show" class="agree action-button">
         <span class="confirm" @click.stop="confirm">保存</span>
-        <span class="cancel" @click.stop="cancel">取消</span>
+        <span class="cancel" @click.stop="show = false">取消</span>
       </div>
       <div v-else class="edit action-button">
         <i class="el-icon-edit"></i>
@@ -42,11 +42,11 @@ export default class extends Vue {
   private value: string = ''
 
   @Watch('info', {immediate: true})
-  watchInfo(val: string) {
+  private watchInfo(val: string) {
     this.value = val
   }
   
-  get header():string {
+  get header(): string {
     const curTitle = defaultIsetItemTitle.filter(item => item.value === this.title)
     return curTitle[0].label
   }
@@ -54,12 +54,6 @@ export default class extends Vue {
     if(this.info === this.value) {
       this.show = false
     }
-  }
-  private focus() {
-    this.show = true
-  }
-  private cancel() {
-    this.show = false
   }
   @Emit('updateInfo')
   private confirm() {

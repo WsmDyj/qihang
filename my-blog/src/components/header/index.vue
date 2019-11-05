@@ -7,10 +7,10 @@
       <div class="navigation">
         <div class="nav-list">
           <div class="menu" v-for="(action, index) in actions" :key="index">
-            <div class="menu-item" @click="handleAction(action)">{{ action.name }}</div>
+            <router-link class="menu-item" tag="div" :to='{path: action.path}'>{{ action.name }}</router-link>
           </div>
         </div>
-        <div class="nav-list" v-if="!islogin">
+        <div class="nav-list" v-if="visivle">
           <div class="nav-item">
             <el-button size="mini" type="primary">写文章</el-button>
           </div>
@@ -19,14 +19,10 @@
               <i class="iconfont notice-icon">&#xe61e;</i>
             </el-badge>
           </div>
-          <div class="nav-item auth">
-            <div @click="show = !show">
-              <el-avatar size="medium" :src= avatar></el-avatar>
-            </div>
-            <div>
-              <!-- <Dropdown v-show="show" /> -->
-            </div>
-          </div>
+          <el-popover trigger="click" width="150" class="nav-item auth">
+            <Dropdown />
+            <el-avatar slot="reference" size="medium" :src= avatar></el-avatar>
+          </el-popover>
         </div>
         <div class="nav-list" v-else>
           <div class="nav-item submit">
@@ -45,9 +41,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Provide } from 'vue-property-decorator'
 import Login from '../login/index.vue'
 import { UserModule } from '../../store/modules/user'
+import Dropdown from '@/components/menu/dropdown/index.vue'
 interface Iactions {
   id: number
   name: string
@@ -57,23 +54,36 @@ interface Iactions {
 @Component({
   components: {
     Login,
+    Dropdown
   },
 })
 
 export default class extends Vue {
-  private show: boolean = false
+  // private visivle: boolean = false
   private curAction: number = 0
   private actions: Iactions[] = [
     { id: 0, name: '首页', path: '/' },
-    { id: 1,  name: '沸点', path: '/' },
+    { id: 1, name: '沸点', path: '/' },
     { id: 2, name: '话题', path: '/' },
-    { id: 3, name: '活动' , path: '/'},]
-  get islogin() {
-    return UserModule.islogin
-  }
+    { id: 3, name: '活动' , path: '/'}]
+
   get avatar() {
     return UserModule.avatar
   }
+  get token() {
+    return UserModule.token
+  }
+  get visivle(): boolean {
+    return this.token ?  true :  false
+  }
+  // @Provide() private isRouterAlive: boolean = true
+
+  // private reload() {
+  //   this.isRouterAlive = false
+  //   this.$nextTick((): void =>  {
+  //     this.isRouterAlive = true
+  //   }) 
+  // }
   private handleAction(action: Iactions): void {
     console.log(action)
   }
@@ -121,7 +131,7 @@ export default class extends Vue {
           padding: 0 24px;
           color: #71777c;
           font-size: 17px;
-          &:hover {
+          &:hover,&:focus,&:active {
             color: #007fff;
           }
         }

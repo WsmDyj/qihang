@@ -1,23 +1,33 @@
 <template>
   <div class="info-row meta-row">
-    <span class="item post">专栏</span>
-    <span class="item author">{{ article.author }}</span>
-    <span class="createtime">{{ article.createtime }}</span>
+    <div class="item avatar" v-if="isAvatar">
+      <el-avatar size="medium" :src= avatar></el-avatar>
+    </div>
+    <div class="item post" v-else>专栏</div>
+    <div class="item author">{{ article.author }}</div>
+    <div class="createtime">{{ article.createtime }}</div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
+import { UserModule } from '../../store/modules/user'
 
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
+  @Prop() private isAvatar!: boolean
+  get avatar() {
+    return UserModule.avatar
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .info-row {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   color: #909090;
   font-size: 14px;
@@ -30,6 +40,12 @@ export default class extends Vue {
       content: "·";
       color: #b2bac2;
       margin: 0px 2px;
+    }
+  }
+  .avatar {
+    padding-right: 10px;
+    &::after {
+      display: none;
     }
   }
   .post {

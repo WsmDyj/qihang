@@ -9,7 +9,7 @@
     </div>
     <div class="entry-list" v-for="(article, index) in articles" :key="index">
       <div class="row userInfo-row">
-        <article-title :article= article></article-title>
+        <article-title :isAvatar = true :article= article></article-title>
       </div>
       <div class="row abstract-row">
         <span class="title">{{ article.title }}</span>

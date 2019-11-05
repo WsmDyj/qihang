@@ -62,12 +62,13 @@ export default class extends Vue {
     return UserModule.islogin
   }
   private closeLogin() {
-     UserModule.handleIslogin(false)
+    UserModule.handleIslogin(false)
   }
   private handleLogin() {
     (this.$refs.loginForm as ElForm).validate( async (valid: boolean) => {
       if (valid) {
         const data = await UserModule.Login(this.loginForm)
+        await UserModule.GetUserInfo()
       } else {
         return false
       }

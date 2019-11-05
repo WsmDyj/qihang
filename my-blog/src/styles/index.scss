@@ -1,5 +1,5 @@
 @import './icon.scss';
-@import './variables';
+@import './transition';
 
 body {
   height: 100%;
@@ -27,5 +27,8 @@ html {
   background: #fff;
   cursor: auto;
   color: #909090;
+}
+.el-popover {
+  padding: 0;
 }
 

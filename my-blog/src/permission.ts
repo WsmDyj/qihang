@@ -4,10 +4,10 @@ import { UserModule } from './store/modules/user'
 
 
 router.beforeEach(async(to: Route, from: Route, next: any) => {
-  // if (UserModule.token) {
+  if (UserModule.token) {
     await UserModule.GetUserInfo()
     next()
-  // } else {
-    
-  // }
+  } else {
+    next()
+  }
 })

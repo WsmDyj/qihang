@@ -4,6 +4,9 @@ import router from './router';
 import store from './store';
 import './permission'
 import * as Element from 'element-ui';
+
+import 'element-ui/lib/theme-chalk/base.css'; // fade style
+
 import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css';
 import '@/styles/index.scss'
