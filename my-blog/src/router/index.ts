@@ -15,9 +15,19 @@ const routes = [
     component: () => import('../views/author/index.vue')
   },
   { 
+    path: '/article',
+    name: 'article',
+    component: () => import('../views/article/index.vue')
+  },
+  { 
     path: '/settings',
     name: 'settings',
     component: () => import('../views/settings/index.vue') 
+  },
+  { 
+    path: '/markdown',
+    name: 'markdown',
+    component: () => import('../views/markdown/index.vue') 
   },
   { 
     path: '/token',

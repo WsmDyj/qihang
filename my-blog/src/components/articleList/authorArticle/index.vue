@@ -7,7 +7,7 @@
         <span class="sub-type action">最新</span>
       </div>
     </div>
-    <div class="entry-list" v-for="(article, index) in articles" :key="index">
+    <div class="entry-list" @click="checkArticle(article)" v-for="(article, index) in articles" :key="index">
       <div class="row userInfo-row">
         <article-title :isAvatar = true :article= article></article-title>
       </div>
@@ -34,11 +34,15 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import articleTitle from '../../articleTitle/index.vue'
 import articleAction from '../../articleAction/index.vue'
 import { IArticleData } from '../../../api/types'
 
+interface ArticleId {
+  path: string
+  params: {id: number}
+}
 @Component({
   name: 'authorArticle',
   components: {
@@ -49,6 +53,10 @@ import { IArticleData } from '../../../api/types'
 
 export default class extends Vue {
   @Prop({ required: true }) private articles!: IArticleData[]
+
+  public checkArticle(article: IArticleData) {
+    this.$router.push({path: `/article?articleId=${article.id}`})
+  }
 }
 </script>
 <style lang="scss" scoped>

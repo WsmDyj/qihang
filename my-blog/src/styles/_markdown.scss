@@ -1,0 +1,71 @@
+.article-content {
+  font-size: 15px;
+  word-break: break-word;
+  line-height: 1.75;
+  font-weight: 400;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+  text-rendering: optimizeLegibility;
+    /*对 markdown 样式的补充*/
+  pre {
+    display: block;
+    padding: 10px;
+    margin: 0 0 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #abb2bf;
+    background: #282c34;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: auto;
+  }
+  blockquote {
+    color: #666;
+    padding: 1px 23px;
+    margin: 22px 0;
+    border-left: 4px solid #cbcbcb;
+    background-color: #f8f8f8;
+  }
+  h1,h2,h3,h4,h5,h6{
+    margin-top: 1em;
+    /* margin-bottom: 1em; */
+  }
+  h1, h2 {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ececec;
+  }
+  strong {
+    font-weight: bold;
+  }
+  p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  p > code:not([class]) {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+  }
+  p img{
+    /* 图片居中 */
+    margin: 0 auto;
+    display: flex;
+  }
+  img {
+    margin-top: 2em;
+    margin: 0 auto;
+    max-width: 900px;
+    zoom: 60%;
+  }
+  a {
+    text-decoration: none;
+    color: #0269c8;
+    border-bottom: 1px solid #d1e9ff;
+  }
+}
+

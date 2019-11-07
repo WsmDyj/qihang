@@ -1,6 +1,6 @@
 <template>
   <el-main class="article">
-    <div class="entry-box" v-for="(article, index) in articles" :key="index">
+    <div class="entry-box" @click="checkArticle(article)" v-for="(article, index) in articles" :key="index">
       <div class="content-box">
         <div class="info-box">
           <article-title :article= article ></article-title>
@@ -30,6 +30,11 @@ import { IArticleData } from '../../../api/types'
 
 export default class extends Vue {
   @Prop({ required: true }) private articles!: IArticleData[]
+
+  public checkArticle(article: IArticleData) {
+    console.log(article)
+
+  }
 }
 </script>
 
