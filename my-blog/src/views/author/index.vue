@@ -7,7 +7,7 @@
         <author-article></author-article>
       </div>
       <div class="asside">
-        <!-- <achievement-card></achievement-card> -->
+        <achievement-card></achievement-card>
       </div>
     </div>
   </div>
@@ -20,13 +20,15 @@ import authorCard from '@/components/authorCard/index.vue'
 import authorArticle from '@/components/articleList/authorArticle/index.vue'
 import { IArticleData } from '../../api/types'
 import { getArticles } from '../../api/blog'
+import achievementCard from '@/components/card/achievement/index.vue'
 
 @Component({
   name: 'author',
   components: {
     Header,
     authorCard,
-    authorArticle
+    authorArticle,
+    achievementCard
   }
 })
 
