@@ -6,23 +6,27 @@ const getList = async (author, keyworld) => {
     sql += `and author = '${author}' `
   }
   if (keyworld) {
-    sql += `and title like '%${keyworld}%' `
+    sql += `and title like '%${keyworld}%' ` 
   }
   sql += `order by createtime desc;` 
   return await exec(sql)
 }
 const getDetail = async (id) => {
-  const sql = `select * from blogs where id = '${id}' `
-  const rows = await exec(sql)
-  return rows[0]
+  const sqlArticle = `select * from blogs where article_id = '${id}' `
+  const sqlComment = `select * from comment where article_id = '${id}'`
+  const articles = await exec(sqlArticle)
+  const comment = await exec(sqlComment)
+  articles[0].comments = comment
+  return articles[0]
 }
 const newBlog = async (blogData = {}) => {
   // blogData 是一个博客对象， 包含title content author属性
   const title = blogData.title
   const content = blogData.content
+  const markdown = blogData.markdown
   const author = blogData.author
   const createtime = Date.now()
-  const sql =  `insert into blogs (title, content, createtime, author) values ('${title}','${content}','${createtime}','${author}'); `
+  const sql =  `insert into blogs (title, content, createtime, author, markdown) values ('${title}','${content}','${createtime}','${author}', '${markdown}'); `
   const insertData = await exec(sql)
   return {
     id: insertData.insertId
@@ -41,7 +45,7 @@ const updateBlog = async (id, blogData = {}) => {
   return false
 }
 const delBlog = async (id, author) => {
-  const sql = `delete from blogs where id='${id}' and author= '${author}'; `
+  const sql = `delete from blogs where id='${id}';`
   const delData = await exec(sql)
   if (delData.affectedRows > 0) {
     return true

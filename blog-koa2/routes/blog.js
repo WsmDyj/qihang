@@ -52,11 +52,10 @@ router.post('/update', loginCheck, async (ctx, next) => {
   }
 })
 
-router.post('/del', loginCheck, async (ctx, next) => {
-  const author = ctx.session.username
-  const val = await delBlog(ctx.request.query.id, author)
+router.post('/del', async (ctx, next) => {
+  const val = await delBlog(ctx.request.body.id)
   if (val) {
-    ctx.body = new SuccessModel()
+    ctx.body = new SuccessModel({message: '删除博客成功'})
   } else {
     ctx.body = new ErrorModel('删除博客失败')
   }

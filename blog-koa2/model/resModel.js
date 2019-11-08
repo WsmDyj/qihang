@@ -18,6 +18,7 @@ class SuccessModel extends BaseModel {
   constructor(data, message) {
     super(data, message)
     this.errno = 0
+    this.code = 200
   }
 }
 
@@ -25,6 +26,7 @@ class ErrorModel extends BaseModel {
   constructor(data, message) {
     super(data, message)
     this.errno = -1
+    this.code = 200
   }
 }
 module.exports = {

@@ -9,10 +9,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bluebird": "^3.7.1",
     "cross-env": "^6.0.0",
     "debug": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
     "koa-convert": "^1.2.0",
     "koa-generic-session": "^2.0.1",
     "koa-json": "^2.0.2",
@@ -22,6 +25,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
+    "koa2-cors": "^2.0.6",
     "mysql": "^2.17.1",
     "pm2": "^3.5.1",
     "pug": "^2.0.3",
