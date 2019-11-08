@@ -4,7 +4,7 @@
     <div class="main">
       <div class="article">
         <author-card></author-card>
-        <author-article :articles= articles></author-article>
+        <author-article></author-article>
       </div>
       <div class="asside">
         <!-- <achievement-card></achievement-card> -->
@@ -19,7 +19,6 @@ import Header from '@/components/header/index.vue'
 import authorCard from '@/components/authorCard/index.vue'
 import authorArticle from '@/components/articleList/authorArticle/index.vue'
 import { IArticleData } from '../../api/types'
-import formatDate from '../../utils/formatDate'
 import { getArticles } from '../../api/blog'
 
 @Component({
@@ -32,18 +31,6 @@ import { getArticles } from '../../api/blog'
 })
 
 export default class extends Vue {
-  private articles: IArticleData[] = []
-  created() {
-    this.getList()
-  }
-
-  private async getList() {
-    const { data } = await getArticles({isadmin: '1'})
-    data.forEach((item: IArticleData) => {
-      item.createtime = formatDate(item.createtime)
-    })
-    this.articles = data
-  }
 }
 </script>
 

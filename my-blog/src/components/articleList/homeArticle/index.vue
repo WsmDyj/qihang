@@ -30,10 +30,8 @@ import { IArticleData } from '../../../api/types'
 
 export default class extends Vue {
   @Prop({ required: true }) private articles!: IArticleData[]
-
   public checkArticle(article: IArticleData) {
-    console.log(article)
-
+    this.$router.push({path: `/article?articleId=${article.id}`})
   }
 }
 </script>

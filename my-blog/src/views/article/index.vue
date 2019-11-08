@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
-import { deleteArticle } from '../../api/blog'
+import { detailArticle } from '../../api/blog'
 
 @Component({
   components: {
@@ -27,8 +27,8 @@ export default class  extends Vue {
   private article: string = ''
   private title : string = ''
   private async created() {
-    const articleId:string | (string | null)[] = this.$route.query.articleId
-    const { data } = await deleteArticle({ id: articleId })
+    const articleId: string | (string | null)[] = this.$route.query.articleId
+    const { data } = await detailArticle({ id: articleId })
     this.article = data.content
     this.title = data.title
     
@@ -44,7 +44,7 @@ export default class  extends Vue {
   .main {
     position: relative;
     width: 932px;
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;

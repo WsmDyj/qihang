@@ -32,7 +32,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import MarkdownEditor from '@/components/markdownEditor/index.vue'
 import { UserModule } from '../../store/modules/user'
 import debounce from '../../utils/debounce'
-import { deleteArticle, createArticle } from '../../api/blog'
+import { detailArticle, createArticle } from '../../api/blog'
 
 interface article {
   title: string
@@ -61,10 +61,14 @@ export default class  extends Vue {
   private watchHeight(val: number) {
     this.height = val
   }
-  // private async created() {
-  //   const { data } = await deleteArticle({id: '28'})
-  //   this.content = data.markdown
-  // }
+  private async created() {
+    const articleId: string | (string | null)[] = this.$route.query.articleId
+    if (articleId) {
+      const { data } = await detailArticle({id: articleId})
+      this.content = data.markdown
+      this.title =  data.title
+    }
+  }
   mounted() {
     window.scrollTo(0, 0)
     window.onresize = debounce(() => {

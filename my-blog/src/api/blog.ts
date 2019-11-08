@@ -13,7 +13,7 @@ export const getArticles = (params?: author) =>
     params
   })
 
-export const deleteArticle = (params: articleId) => 
+export const detailArticle = (params: articleId) => 
   request({
     url:'api/blog/detail',
     method: 'get',
@@ -26,5 +26,12 @@ export const createArticle = (data: any) =>
     method: 'post',
     data
   })
+export const delArticle = (data: {id: number}) => {
+  request({
+    url: 'api/blog/del',
+    method: 'post',
+    data
+  })
+}
 
 

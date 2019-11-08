@@ -7,11 +7,11 @@
         <span class="sub-type action">最新</span>
       </div>
     </div>
-    <div class="entry-list" @click="checkArticle(article)" v-for="(article, index) in articles" :key="index">
+    <div class="entry-list" v-for="(article, index) in articles" :key="index">
       <div class="row userInfo-row">
         <article-title :isAvatar = true :article= article></article-title>
       </div>
-      <div class="row abstract-row">
+      <div class="row abstract-row" @click="checkArticle(article)">
         <span class="title">{{ article.title }}</span>
         <span class="abstract">{{ article.content}}</span>
       </div>
@@ -20,12 +20,12 @@
           <article-action :article= article></article-action>
         </div>
         <div class="action-box">
-          <span class="read-action">阅读全文</span>
-          <el-dropdown placement="top">
+          <span class="read-action" @click="checkArticle(article)">阅读全文</span>
+          <el-dropdown placement="top" trigger="click" @click.native="handleClick(article)" @command="handleCommand">
             <span class="el-icon-more"></span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>编辑</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item command='edit'>编辑</el-dropdown-item>
+              <el-dropdown-item command='delete'>删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -34,15 +34,14 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
 import articleTitle from '../../articleTitle/index.vue'
 import articleAction from '../../articleAction/index.vue'
 import { IArticleData } from '../../../api/types'
+import { delArticle, getArticles } from '../../../api/blog'
+import { Message, MessageBox } from 'element-ui'
+import formatDate from '../../../utils/formatDate'
 
-interface ArticleId {
-  path: string
-  params: {id: number}
-}
 @Component({
   name: 'authorArticle',
   components: {
@@ -52,10 +51,51 @@ interface ArticleId {
 })
 
 export default class extends Vue {
-  @Prop({ required: true }) private articles!: IArticleData[]
+  private articles: IArticleData[] = []
+  private articleId: number = 0
 
   public checkArticle(article: IArticleData) {
     this.$router.push({path: `/article?articleId=${article.id}`})
+  }
+
+  private async getList() {
+    const { data } = await getArticles({isadmin: '1'})
+    data.forEach((item: IArticleData) => {
+      item.content = item.content.replace(/<\/?.+?\/?>/g,'')
+      item.createtime = formatDate(item.createtime)
+    })
+    this.articles = data
+  }
+  
+  private async handleCommand(command: string) {
+    if (command === 'delete') {
+      MessageBox.confirm(
+        '您确定删除这篇博客吗？删除之后可能无法找回了',
+        '确定删除',
+        {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(async () => {
+        await delArticle({id: this.articleId})
+        this.getList()
+        Message({
+          message: '博客删除成功',
+          type: 'success',
+          duration: 5 * 1000
+        })
+      })
+      
+    } else {
+      this.$router.push({path: `/markdown?articleId=${this.articleId}`})
+    }
+  }
+  private handleClick(article: IArticleData) {
+    this.articleId = article.id
+  }
+  private created () {
+    this.getList()
   }
 }
 </script>
@@ -132,7 +172,7 @@ export default class extends Vue {
       }
       .abstract {
         width: 100%;
-        max-height: 109px;
+        max-height: 120px;
         line-height: 1.6;
         letter-spacing: 0.28;
         color: #8b8b8b;
