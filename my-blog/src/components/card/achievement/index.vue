@@ -11,8 +11,8 @@
           <span class="center">获得点赞数 4678</span>
         </div>
         <div class="card-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" class="icon stat-jp-icon"><g data-v-b0eaf47e="" data-v-3670f9b4="" fill="none" fill-rule="evenodd"><circle data-v-b0eaf47e="" data-v-3670f9b4="" cx="12.5" cy="12.5" r="12.5" fill="#E1EFFF"></circle> <path data-v-b0eaf47e="" data-v-3670f9b4="" fill="#7BB9FF" d="M16.694 13.516l-3.719 3.055a1.1 1.1 0 0 1-1.412-.013l-2.77-2.362-3.597 2.437a.693.693 0 0 1-.895-.101.649.649 0 0 1-.008-.876l3.68-4.096a1.1 1.1 0 0 1 1.507-.122l2.653 2.135 2.248-2.4-1.34-1.358a.5.5 0 0 1 .327-.85l5.438-.313a.5.5 0 0 1 .528.533l-.368 5.449a.5.5 0 0 1-.855.317l-1.417-1.435z"></path></g></svg>
-          <span class="center">掘力值 5598</span>
+          <svg data-v-70685a54="" data-v-3d7951e8="" width="25" height="25" viewBox="0 0 25 25" class="icon stat-view-icon"><g data-v-70685a54="" data-v-3d7951e8="" fill="none" fill-rule="evenodd"><circle data-v-70685a54="" data-v-3d7951e8="" cx="12.5" cy="12.5" r="12.5" fill="#E1EFFF"></circle> <path data-v-70685a54="" data-v-3d7951e8="" fill="#7BB9FF" d="M4 12.5S6.917 7 12.75 7s8.75 5.5 8.75 5.5-2.917 5.5-8.75 5.5S4 12.5 4 12.5zm8.75 2.292c1.208 0 2.188-1.026 2.188-2.292 0-1.266-.98-2.292-2.188-2.292-1.208 0-2.188 1.026-2.188 2.292 0 1.266.98 2.292 2.188 2.292z"></path></g></svg>
+          <span class="center">文章被阅读 5598</span>
         </div>
       </div>
     </cardModule>

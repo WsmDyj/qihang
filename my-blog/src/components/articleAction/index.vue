@@ -1,23 +1,26 @@
 <template>
   <div class="action-list">
-    <div class="clickable likeBtn" @click="getLike">
+    <div class="clickable likeBtn" @click.stop="getLike(article)">
       <i class="iconfont">&#xe60c;</i>
       <span class="count">{{ article.likeCont}}</span>
     </div>
-      <div class="clickable commentBtn">
+    <div class="clickable commentBtn">
       <i class="el-icon-s-comment"></i>
       <span class="count">12</span>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
+import { getlikeArticle } from '../../api/actions'
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
 
-  getLike() {}
+  private async getLike(article) {
+    await getlikeArticle({article_id: article.article_id})
+  }
 }
 </script>
 <style lang="scss" scoped>

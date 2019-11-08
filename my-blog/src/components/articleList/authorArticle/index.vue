@@ -55,7 +55,7 @@ export default class extends Vue {
   private articleId: number = 0
 
   public checkArticle(article: IArticleData) {
-    this.$router.push({path: `/article?articleId=${article.id}`})
+    this.$router.push({path: `/article?articleId=${article.article_id}`})
   }
 
   private async getList() {
@@ -92,7 +92,7 @@ export default class extends Vue {
     }
   }
   private handleClick(article: IArticleData) {
-    this.articleId = article.id
+    this.articleId = article.article_id
   }
   private created () {
     this.getList()

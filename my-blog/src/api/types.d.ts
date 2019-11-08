@@ -1,5 +1,5 @@
 export interface IArticleData {
-  id: number
+  article_id: number
   title: string
   content: string
   createtime: string

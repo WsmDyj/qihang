@@ -4,7 +4,7 @@ import { IArticleData } from '../../api/types'
 
 @Module({ dynamic: true, store, name: 'article' })
 class Article extends VuexModule implements IArticleData {
-  public id = 0
+  public article_id = 0
   public title = ''
   public content = ''
   public createtime = ''
@@ -13,7 +13,7 @@ class Article extends VuexModule implements IArticleData {
 
   @Mutation
   private SET_ID(id: number) {
-    this.id = id
+    this.article_id = id
   }
   @Mutation
   private SET_TITLE(title: string) {
@@ -37,8 +37,8 @@ class Article extends VuexModule implements IArticleData {
   }
   @Action
   public async CheckArticle(params: IArticleData) {
-    const { id, title, content, createtime, author, likeCont } = params
-    this.SET_ID(id)
+    const { article_id, title, content, createtime, author, likeCont } = params
+    this.SET_ID(article_id)
     this.SET_TITLE(title)
     this.SET_CONTENT(content)
     this.SET_CREATETIME(createtime)
