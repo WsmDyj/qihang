@@ -23,6 +23,9 @@ app.use(cookieParser());
 // })
 app.use(session({
   secret: 'WJiol#23123_',
+  name: 'sid',
+  saveUninitialized: true,
+  'resave': false,
   cookie: {
     // path: '/',   // 默认配置
     // httpOnly: true,  // 默认配置
