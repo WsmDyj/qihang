@@ -37,7 +37,7 @@ const updateBlog = async (id, blogData = {}) => {
   // id 更新博客 blogData 是一个博客对象， 包含title content
   const title = blogData.title
   const content = blogData.content
-  const sql = `update blogs set title='${title}', content='${content}' where id='${id}' `
+  const sql = `update blogs set title='${title}', content='${content}' where article_id='${id}' `
   const updataData = await exec(sql)
   if (updataData.affectedRows > 0) {
     return true
@@ -45,7 +45,7 @@ const updateBlog = async (id, blogData = {}) => {
   return false
 }
 const delBlog = async (id, author) => {
-  const sql = `delete from blogs where id='${id}';`
+  const sql = `delete from blogs where article_id='${id}';`
   const delData = await exec(sql)
   if (delData.affectedRows > 0) {
     return true
