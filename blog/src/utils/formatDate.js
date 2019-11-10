@@ -6,5 +6,5 @@ export default function getFormatDate(dt) {
   let h = date.getHours() + ':'
   let m = date.getMinutes() + ':'
   let s = date.getSeconds()
-  return Y+M+D+h+m+s
+  return Y + M + D + h + m + s
 }

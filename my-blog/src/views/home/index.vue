@@ -14,13 +14,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import articleList from '@/components/articleList/homeArticle/index.vue'
 import rankingCard from '@/components/card/rankingCard/index.vue'
 import aboutCard from '@/components/card/about/index.vue'
 import { IArticleData } from '../../api/types'
 import formatDate from '../../utils/formatDate'
+import { ArticleModule } from '../../store/modules/article'
 import { getArticles } from '../../api/blog'
 
 
@@ -36,17 +37,30 @@ import { getArticles } from '../../api/blog'
 
 export default class extends Vue {
   private articles: IArticleData[] = []
+  private result: number[] = []
 
-  created() {
+  private async created() {
+    await ArticleModule.getLikeLists()
+    const { data } = await getArticles()
+    this.articles = data
     this.getList()
+  }
+  @Watch('result', {immediate: true})
+  private watchResult(val) {
+    this.result = val
   }
 
   private async getList() {
-    const { data } = await getArticles()
-    data.forEach((item: IArticleData) => {
-      item.createtime = formatDate(item.createtime)
+    ArticleModule.likeArticles.forEach((item: IArticleData) => {
+      this.result.push(item.article_id)
     })
-    this.articles = data
+    this.articles.forEach((item: IArticleData) => {
+      item.createtime = formatDate(item.createtime)
+      Object.assign(item, {islike: false})
+      if (this.result.indexOf(item.article_id) != -1) {
+        item.islike = true
+      }
+    })
   }
 }
 </script>

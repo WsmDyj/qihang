@@ -1,8 +1,8 @@
 <template>
   <div class="action-list">
     <div class="clickable likeBtn" @click.stop="getLike(article)">
-      <i class="iconfont">&#xe60c;</i>
-      <span class="count">{{ article.likeCont}}</span>
+      <i class="iconfont" :style="{color: active ? '#6cbd65' : '' }">&#xe60c;</i>
+      <span class="count" :style="{color: active ? '#6cbd65' : '' }">{{ article.likeCount}}</span>
     </div>
     <div class="clickable commentBtn">
       <i class="el-icon-s-comment"></i>
@@ -14,12 +14,24 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
 import { getlikeArticle } from '../../api/actions'
+import { ArticleModule } from '../../store/modules/article'
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
-
-  private async getLike(article) {
+  get active() {
+    if (this.article.islike) {
+      return true
+    }
+  }
+  private async getLike(article: IArticleData) {
     await getlikeArticle({article_id: article.article_id})
+    await ArticleModule.getLikeLists()
+    // if (this.islike) {
+    //   console.log('hello')
+    // } else {
+    //   this.islike = true
+    //   await getlikeArticle({article_id: article.article_id})
+    // }
   }
 }
 </script>
@@ -39,10 +51,6 @@ export default class extends Vue {
     &:hover {
       background: #edeeef;
     }
-  }
-  .likeBtn {
-    border-right: none;
-    // color: #6cbd65 !important;
   }
   .count {
     padding-left: 5px;

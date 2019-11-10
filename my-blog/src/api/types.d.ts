@@ -5,7 +5,8 @@ export interface IArticleData {
   createtime: string
   author: string
   likeCont: number
-  // markdown: string
+  islike?: boolean
+  markdown: string
 }
 
 export interface IUserInfo {

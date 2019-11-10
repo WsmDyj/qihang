@@ -19,6 +19,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import articleTitle from '../../articleTitle/index.vue'
 import articleAction from '../../articleAction/index.vue'
 import { IArticleData } from '../../../api/types'
+// import { getlikeArticle, getlikesList } from '../../../api/actions'
 
 @Component({
   name: 'homeArticle',
@@ -30,10 +31,10 @@ import { IArticleData } from '../../../api/types'
 
 export default class extends Vue {
   @Prop({ required: true }) private articles!: IArticleData[]
+
   public checkArticle(article: IArticleData) {
     this.$router.push({path: `/article?articleId=${article.article_id}`})
   }
- 
 }
 </script>
 
