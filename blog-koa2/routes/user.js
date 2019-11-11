@@ -13,8 +13,9 @@ router.post('/login', async function (ctx, next) {
     ctx.session.username = data.username
     ctx.session.realname = data.realname
 
-    let payload = {username:data.username,time:new Date().getTime()}
     let secret = 'WJiol#23123_'
+    
+    let payload = {username:data.username,time:new Date().getTime()}
     let token = jwt.sign(payload, secret)
 
     ctx.body = new SuccessModel({accessToken: token,message:'获取token成功'})
