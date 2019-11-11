@@ -36,11 +36,11 @@ app.use(logger())
 
 // logger
 app.use(async (ctx, next) => {
-  ctx.set("Access-Control-Allow-Origin", "http://localhost:8080")
-  ctx.set("Access-Control-Allow-Credentials", "true")
-  ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-  ctx.set("Access-Control-Allow-Headers", "content-type, authorization")
-  ctx.set("Access-Control-Max-Age", 86400)
+  // ctx.set("Access-Control-Allow-Origin", "http://localhost:8080")
+  // ctx.set("Access-Control-Allow-Credentials", "true")
+  // ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+  // ctx.set("Access-Control-Allow-Headers", "content-type, authorization")
+  // ctx.set("Access-Control-Max-Age", 86400)
   const start = new Date()
   await next()
   const ms = new Date() - start
