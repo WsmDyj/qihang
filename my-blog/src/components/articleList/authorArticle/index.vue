@@ -1,36 +1,39 @@
 <template>
   <div class="article">
     <div class="sub-header">
-      <div class="sub-header-title">我的专栏</div>
-      <div class="sub-type-box">
-        <span class="sub-type">热门</span>
-        <span class="sub-type action">最新</span>
+      <el-menu :default-active="activeIndex" class="sub-header" mode="horizontal" @select="handleSelect">
+        <el-menu-item index="1">我的专栏 ({{articles.length}})</el-menu-item>
+        <el-menu-item index="2">我点赞的 ({{likeArticlId.length}})</el-menu-item>
+      </el-menu>
+    </div>
+    <div class="" v-if="activeIndex == '1'">
+      <div class="entry-list"  v-for="(article, index) in articles" :key="index">
+        <div class="row userInfo-row">
+          <article-title :isAvatar = true :article= article></article-title>
+        </div>
+        <div class="row abstract-row" @click="checkArticle(article)">
+          <span class="title">{{ article.title }}</span>
+          <span class="abstract">{{ article.content}}</span>
+        </div>
+        <div class="row action-row">
+          <div class="action-list">
+            <article-action :article= article></article-action>
+          </div>
+          <div class="action-box">
+            <span class="read-action" @click="checkArticle(article)">阅读全文</span>
+            <el-dropdown placement="top" trigger="click" @click.native="handleClick(article)" @command="handleCommand">
+              <span class="el-icon-more"></span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command='edit'>编辑</el-dropdown-item>
+                <el-dropdown-item command='delete'>删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="entry-list" v-for="(article, index) in articles" :key="index">
-      <div class="row userInfo-row">
-        <article-title :isAvatar = true :article= article></article-title>
-      </div>
-      <div class="row abstract-row" @click="checkArticle(article)">
-        <span class="title">{{ article.title }}</span>
-        <span class="abstract">{{ article.content}}</span>
-      </div>
-      <div class="row action-row">
-        <div class="action-list">
-          <article-action :article= article></article-action>
-        </div>
-        <div class="action-box">
-          <span class="read-action" @click="checkArticle(article)">阅读全文</span>
-          <el-dropdown placement="top" trigger="click" @click.native="handleClick(article)" @command="handleCommand">
-            <span class="el-icon-more"></span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command='edit'>编辑</el-dropdown-item>
-              <el-dropdown-item command='delete'>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div>
-    </div>
+   
+    <article-list v-else :articles = likeLists></article-list>
   </div>
 </template>
 <script lang="ts">
@@ -41,30 +44,58 @@ import { IArticleData } from '../../../api/types'
 import { delArticle, getArticles } from '../../../api/blog'
 import { Message, MessageBox } from 'element-ui'
 import formatDate from '../../../utils/formatDate'
+import { ArticleModule } from '../../../store/modules/article'
+import articleList from '../homeArticle/index.vue'
 
 @Component({
   name: 'authorArticle',
   components: {
     articleTitle,
-    articleAction
+    articleAction,
+    articleList
   },
 })
 
 export default class extends Vue {
   private articles: IArticleData[] = []
+  private likeLists: IArticleData[] =[]
   private articleId: number = 0
+  private activeIndex: string = '1'
 
   public checkArticle(article: IArticleData) {
     this.$router.push({path: `/article?articleId=${article.article_id}`})
   }
 
+  get likeArticles() {
+    return ArticleModule.likeArticles
+  }
+  get likeArticlId() {
+    return ArticleModule.likeArticlId
+  }
   private async getList() {
     const { data } = await getArticles({isadmin: '1'})
+    this.fommentArticle(data)
+    this.articles = data
+  }
+  // 文章去除标签
+  private fommentArticle(data: IArticleData[]) {
     data.forEach((item: IArticleData) => {
       item.content = item.content.replace(/<\/?.+?\/?>/g,'')
       item.createtime = formatDate(item.createtime)
+      if (this.likeArticlId.indexOf(item.article_id) != -1) {
+        item.islike = true
+      }
     })
-    this.articles = data
+  }
+  
+  private handleSelect(key: number) {
+    if (key == 2) {
+      this.activeIndex = '2'
+      this.likeLists = this.likeArticles
+    } else {
+      this.activeIndex = '1'
+      this.getList()
+    }
   }
   
   private async handleCommand(command: string) {
@@ -107,39 +138,7 @@ export default class extends Vue {
   background: #fff;
   .sub-header {
     height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0 30px;
-    color: #000;
-    white-space: nowrap;
     border-bottom: 1px solid rgba(230,230,231,.5);
-    .sub-header-title {
-      font-size: 16px;
-      font-weight: 700;
-    }
-    .sub-type-box {
-      color: #72777b;
-      .sub-type:first-child {
-        position: relative;
-        margin-right: 20px;
-        &::after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          right: -14px;
-          margin-top: -7px;
-          width: 1px;
-          height: 14px;
-          background-color: #b2bac2;
-          opacity: .5;
-        }
-      }
-      .action {
-        color: #000;
-      }
-    }
   }
   .entry-list {
     width: 100%;

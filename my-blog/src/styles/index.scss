@@ -32,3 +32,9 @@ html {
 .el-popover {
   padding: 0;
 }
+.el-menu--horizontal>.el-menu-item {
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+  color: #909399;
+}

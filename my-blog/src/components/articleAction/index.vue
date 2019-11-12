@@ -1,8 +1,8 @@
 <template>
   <div class="action-list">
     <div class="clickable likeBtn" @click.stop="getLike(article)">
-      <i class="iconfont" :style="{color: active || article.islike ? '#6cbd65' : '' }">&#xe60c;</i>
-      <span class="count" :style="{color: active || article.islike ? '#6cbd65' : '' }">{{ likes }}</span>
+      <i class="iconfont" :style="{color: active ? '#6cbd65' : '' }">&#xe60c;</i>
+      <span class="count" :style="{color: active ? '#6cbd65' : '' }">{{ likes }}</span>
     </div>
     <div class="clickable commentBtn">
       <i class="el-icon-s-comment"></i>
@@ -14,6 +14,7 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
 import { getlikeArticle, removelike } from '../../api/actions'
+
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
@@ -23,17 +24,16 @@ export default class extends Vue {
   private async getLike(article: IArticleData) {
     if (!this.active) {
       await getlikeArticle({article_id: article.article_id})
-      console.log('like')
       this.likes = this.likes + 1
       this.active = true 
     } else {
-      this.active = false
-      this.likes = this.likes - 1
       await removelike({article_id: article.article_id})
-      console.log('unlike')
+      this.likes = this.likes - 1
+      this.active = false
     }
   }
   created() {
+    this.active = this.article.islike || false
     this.likes = this.article.likeCount
   }
 }
