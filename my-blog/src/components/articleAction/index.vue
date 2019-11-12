@@ -1,8 +1,8 @@
 <template>
   <div class="action-list">
     <div class="clickable likeBtn" @click.stop="getLike(article)">
-      <i class="iconfont" :style="{color: active ? '#6cbd65' : '' }">&#xe60c;</i>
-      <span class="count" :style="{color: active ? '#6cbd65' : '' }">{{ article.likeCount}}</span>
+      <i class="iconfont" :style="{color: active || article.islike ? '#6cbd65' : '' }">&#xe60c;</i>
+      <span class="count" :style="{color: active || article.islike ? '#6cbd65' : '' }">{{ likes }}</span>
     </div>
     <div class="clickable commentBtn">
       <i class="el-icon-s-comment"></i>
@@ -13,25 +13,28 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
-import { getlikeArticle } from '../../api/actions'
-import { ArticleModule } from '../../store/modules/article'
+import { getlikeArticle, removelike } from '../../api/actions'
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
-  get active() {
-    if (this.article.islike) {
-      return true
+  private active: boolean = false
+  private likes: number = 0
+  
+  private async getLike(article: IArticleData) {
+    if (!this.active) {
+      await getlikeArticle({article_id: article.article_id})
+      console.log('like')
+      this.likes = this.likes + 1
+      this.active = true 
+    } else {
+      this.active = false
+      this.likes = this.likes - 1
+      await removelike({article_id: article.article_id})
+      console.log('unlike')
     }
   }
-  private async getLike(article: IArticleData) {
-    await getlikeArticle({article_id: article.article_id})
-    await ArticleModule.getLikeLists()
-    // if (this.islike) {
-    //   console.log('hello')
-    // } else {
-    //   this.islike = true
-    //   await getlikeArticle({article_id: article.article_id})
-    // }
+  created() {
+    this.likes = this.article.likeCount
   }
 }
 </script>

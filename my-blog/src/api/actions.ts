@@ -9,8 +9,14 @@ export const getlikeArticle = (data: articleId) =>
     method: 'post',
     data
   })
+export const removelike = (data: articleId) =>
+  request({
+    url: 'api/actions/removelike',
+    method: 'post',
+    data
+  })
 
-  export const getlikesList = () =>
+export const getlikesList = () =>
   request({
     url: 'api/actions/getLikelists',
     method: 'get',

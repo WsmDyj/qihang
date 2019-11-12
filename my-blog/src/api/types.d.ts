@@ -4,7 +4,7 @@ export interface IArticleData {
   content: string
   createtime: string
   author: string
-  likeCont: number
+  likeCount: number
   islike?: boolean
   markdown: string
 }

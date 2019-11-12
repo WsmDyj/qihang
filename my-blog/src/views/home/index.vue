@@ -45,10 +45,6 @@ export default class extends Vue {
     this.articles = data
     this.getList()
   }
-  @Watch('result', {immediate: true})
-  private watchResult(val) {
-    this.result = val
-  }
 
   private async getList() {
     ArticleModule.likeArticles.forEach((item: IArticleData) => {
