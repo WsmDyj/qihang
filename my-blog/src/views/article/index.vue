@@ -5,7 +5,7 @@
       <div class="article">
         <h1 class="article-title">{{article.title}}</h1>
         <div ref="wrapper" id="wrapper" class="article-content" v-html="article.content"></div>
-        <comment @newComment='handleComment' :comments = comments />
+        <comment />
       </div>
       <div class="asside">
         <!-- <achievement-card></achievement-card> -->
@@ -20,9 +20,7 @@ import Header from '@/components/header/index.vue'
 import { detailArticle } from '../../api/blog'
 import { getUserInfo } from '../../api/user'
 import comment from '@/components/comment/index.vue'
-import { IUserInfo, IComment } from '../../api/types'
-import { createComment, getComment } from '../../api/comments'
-import GenNonDuplicateID from '../../utils/createId'
+import { createComment } from '../../api/comments'
 
 @Component({
   components: {
@@ -32,29 +30,11 @@ import GenNonDuplicateID from '../../utils/createId'
 })
 export default class  extends Vue {
   private article: string = ''
-  private comments: IComment[] = []
-
-  private async handleComment(event: string) {
-    const comment: any = {
-      article_id: (this.article as any).article_id,
-      comment_conent: event,
-      comment_likes: 0,
-      comment_id: GenNonDuplicateID()
-    }
-    await createComment(comment)
-    this.getComment()
-  }
-  
-  private async getComment() {
-    const { data } = await getComment({ article_id: this.$route.query.articleId })
-    this.comments = data
-  }
 
   private async created() {
     const articleId: string | (string | null)[] = this.$route.query.articleId
     const { data } = await detailArticle({ id: articleId })
     this.article = data
-    this.getComment()
   }
 }
 </script>

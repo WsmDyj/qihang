@@ -17,3 +17,9 @@ export const getComment = (params: articleId) =>
     method: 'get',
     params
   })
+export const createReply = (data: any) =>
+  request({
+    url: 'api/comment/newReply',
+    method: 'post',
+    data
+  })

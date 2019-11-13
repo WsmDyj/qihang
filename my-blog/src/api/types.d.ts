@@ -33,4 +33,19 @@ export interface IComment {
   comment_time: string
   comment_id: string
   userInfo?: IUserInfo
+  showReply?: boolean
+}
+/*
+* 二级评论
+*/
+export interface IReply {
+  reply_id: string
+  avatar?: string
+  comment_author?: string
+  job?: string
+  comment_id?: string
+  reply_author: string
+  reply_conent: string
+  reply_time?: string
+  showReply?: boolean
 }
