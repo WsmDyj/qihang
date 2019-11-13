@@ -37,23 +37,19 @@ import { getArticles } from '../../api/blog'
 
 export default class extends Vue {
   private articles: IArticleData[] = []
-  private result: number[] = []
 
   private async created() {
-    await ArticleModule.getLikeLists()
     const { data } = await getArticles()
     this.articles = data
     this.getList()
   }
-
+  get likeArticlId() {
+    return ArticleModule.likeArticlId
+  }
   private async getList() {
-    ArticleModule.likeArticles.forEach((item: IArticleData) => {
-      this.result.push(item.article_id)
-    })
     this.articles.forEach((item: IArticleData) => {
-      item.createtime = formatDate(item.createtime)
       Object.assign(item, {islike: false})
-      if (this.result.indexOf(item.article_id) != -1) {
+      if (this.likeArticlId.indexOf(item.article_id) != -1) {
         item.islike = true
       }
     })

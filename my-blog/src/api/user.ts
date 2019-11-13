@@ -1,6 +1,8 @@
 import request from '@/utils/request'
 import { IUserInfo } from './types'
-
+interface author {
+  username: string
+}
 export const login = (data: {username: string, password: string}) =>
   request({
     url: 'api/user/login',
@@ -8,10 +10,11 @@ export const login = (data: {username: string, password: string}) =>
     data
 })
 
-export const getUserInfo = () =>
+export const getUserInfo = (params?: author) =>
   request({
     url: 'api/user/getInfo',
     method: 'get',
+    params
 })
 
 export const updateUserInfo = (data: IUserInfo) => 

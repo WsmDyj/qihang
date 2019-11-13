@@ -54,6 +54,9 @@ export default class extends Vue {
     &:hover {
       background: #edeeef;
     }
+    &:last-child {
+      border-left: none;
+    }
   }
   .count {
     padding-left: 5px;

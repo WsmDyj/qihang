@@ -11,14 +11,14 @@
       </div>
     </div>
     <div class="nav-menu-group">
-      <router-link class="nav-menu-item" tag="div" :to="{path: '/author'}">
+      <router-link class="nav-menu-item" tag="div" :to="{path: '/author', query:{activeIndex: '1'}}">
         <span class="el-icon-user-solid"></span>
         <span class="item-text">我的主页</span>
       </router-link>
-      <div class="nav-menu-item">
+      <router-link tag="div" :to="{path: '/author', query:{activeIndex: '2'}}" class="nav-menu-item">
         <i class="iconfont item-icon">&#xe60c;</i>
         <span class="item-text">我赞过的</span>
-      </div>
+      </router-link>
       <div class="nav-menu-item">
         <span class="el-icon-s-tools"></span>
         <span class="item-text">设置</span>

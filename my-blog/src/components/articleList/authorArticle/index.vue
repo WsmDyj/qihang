@@ -2,8 +2,8 @@
   <div class="article">
     <div class="sub-header">
       <el-menu :default-active="activeIndex" class="sub-header" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">我的专栏 ({{articles.length}})</el-menu-item>
-        <el-menu-item index="2">我点赞的 ({{likeArticlId.length}})</el-menu-item>
+        <el-menu-item index="1">专栏 ({{articles.length}})</el-menu-item>
+        <el-menu-item index="2">赞过的 ({{likeArticlId.length}})</el-menu-item>
       </el-menu>
     </div>
     <div class="" v-if="activeIndex == '1'">
@@ -47,6 +47,10 @@ import formatDate from '../../../utils/formatDate'
 import { ArticleModule } from '../../../store/modules/article'
 import articleList from '../homeArticle/index.vue'
 
+interface routerQuery {
+  path: string
+  query: any
+}
 @Component({
   name: 'authorArticle',
   components: {
@@ -60,12 +64,16 @@ export default class extends Vue {
   private articles: IArticleData[] = []
   private likeLists: IArticleData[] =[]
   private articleId: number = 0
-  private activeIndex: string = '1'
-
+  private activeIndex: string | (string | null)[] = '1'
+  
   public checkArticle(article: IArticleData) {
-    this.$router.push({path: `/article?articleId=${article.article_id}`})
+    let result:routerQuery = {
+      path: "/article",
+      query: { articleId: article.article_id } 
+     }
+    let routeUrl = this.$router.resolve(result)
+     window.open(routeUrl .href, '_blank');
   }
-
   get likeArticles() {
     return ArticleModule.likeArticles
   }
@@ -81,23 +89,20 @@ export default class extends Vue {
   private fommentArticle(data: IArticleData[]) {
     data.forEach((item: IArticleData) => {
       item.content = item.content.replace(/<\/?.+?\/?>/g,'')
-      item.createtime = formatDate(item.createtime)
       if (this.likeArticlId.indexOf(item.article_id) != -1) {
         item.islike = true
       }
     })
   }
-  
-  private handleSelect(key: number) {
-    if (key == 2) {
+ 
+  private async handleSelect(key: any) {
+    if (key === '2') {
       this.activeIndex = '2'
       this.likeLists = this.likeArticles
     } else {
       this.activeIndex = '1'
-      this.getList()
     }
   }
-  
   private async handleCommand(command: string) {
     if (command === 'delete') {
       MessageBox.confirm(
@@ -127,6 +132,8 @@ export default class extends Vue {
   }
   private created () {
     this.getList()
+    this.handleSelect(this.$route.query.activeIndex)
+    this.activeIndex = this.$route.query.activeIndex
   }
 }
 </script>
@@ -152,7 +159,7 @@ export default class extends Vue {
       background: #fcfcfc;
     }
     .userInfo-row {
-      padding: 4px 0 18px;
+      padding: 4px 0 10px 4px;
     }
     .abstract-row {
       display: flex;

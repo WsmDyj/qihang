@@ -5,7 +5,7 @@
     </div>
     <div class="item post" v-else>专栏</div>
     <div class="item author">{{ article.author }}</div>
-    <div class="createtime">{{ article.createtime }}</div>
+    <div class="createtime">{{ articleTime }}</div>
   </div>
 </template>
 
@@ -13,13 +13,18 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
 import { UserModule } from '../../store/modules/user'
+import formatDate from '../../utils/formatDate'
 
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
   @Prop() private isAvatar!: boolean
+  private articleTime: string =''
   get avatar() {
     return UserModule.avatar
+  }
+  created() {
+    this.articleTime = formatDate(this.article.createtime)
   }
 }
 </script>
