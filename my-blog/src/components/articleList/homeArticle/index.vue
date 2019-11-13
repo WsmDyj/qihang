@@ -1,6 +1,6 @@
 <template>
   <el-main class="article">
-    <router-link target="_blank" :to="{path:'/article',query:{articleId:article.article_id}}" class="entry-box" v-for="(article, index) in articles" :key="index">
+    <div @click="checkArticle(article)" class="entry-box" v-for="(article, index) in articles" :key="index">
       <div class="content-box">
         <div class="info-box">
           <article-title :article= article ></article-title>
@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-    </router-link>
+    </div>
   </el-main>
 </template>
 
@@ -20,6 +20,11 @@ import articleTitle from '../../articleTitle/index.vue'
 import articleAction from '../../articleAction/index.vue'
 import { IArticleData } from '../../../api/types'
 // import { getlikeArticle, getlikesList } from '../../../api/actions'
+
+interface routerQuery {
+  path: string
+  query: any
+}
 
 @Component({
   name: 'homeArticle',
@@ -31,9 +36,13 @@ import { IArticleData } from '../../../api/types'
 
 export default class extends Vue {
   @Prop({ required: true }) private articles!: IArticleData[]
-
   public checkArticle(article: IArticleData) {
-    this.$router.push({path: `/article?articleId=${article.article_id}`})
+    let result:routerQuery = {
+      path: "/article",
+      query: { articleId: article.article_id } 
+     }
+    let routeUrl = this.$router.resolve(result)
+    window.open(routeUrl .href, '_blank');
   }
 }
 </script>

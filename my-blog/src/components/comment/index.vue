@@ -14,8 +14,9 @@
       </div>
       <div class="comment-info">
         <div class="info-center">
-          <span>{{comment.comment_author}}
-          </span>
+          <div>{{comment.comment_author}}
+            <span style="font-size:12px;color: #8a9aa9;">{{comment.userInfo.job}}</span>
+          </div>
           <span style="color: #505050; font-size: 13px">{{comment.comment_conent}}</span>
         </div>
         <div class="info-time">
