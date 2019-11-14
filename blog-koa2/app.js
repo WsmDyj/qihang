@@ -13,6 +13,7 @@ const compress = require('koa-compress')
 const blog = require('./routes/blog')
 const user = require('./routes/user')
 const actions = require('./routes/actions')
+const comment = require('./routes/comment')
 
 const check = require('./middleware/check')
 
@@ -70,6 +71,7 @@ app.use(session({
 app.use(blog.routes(), blog.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
 app.use(actions.routes(), actions.allowedMethods())
+app.use(comment.routes(), comment.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

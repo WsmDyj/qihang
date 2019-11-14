@@ -13,10 +13,7 @@ const getList = async (author, keyworld) => {
 }
 const getDetail = async (id) => {
   const sqlArticle = `select * from blogs where article_id = '${id}' `
-  const sqlComment = `select * from comment where article_id = '${id}'`
   const articles = await exec(sqlArticle)
-  const comment = await exec(sqlComment)
-  articles[0].comments = comment
   return articles[0]
 }
 const newBlog = async (blogData = {}) => {
@@ -25,13 +22,13 @@ const newBlog = async (blogData = {}) => {
   const content = blogData.content
   const markdown = blogData.markdown
   const author = blogData.author
+  const article_id = blogData.article_id
   const createtime = Date.now()
-  const sql =  `insert into blogs (title, content, createtime, author, markdown) values ('${title}','${content}','${createtime}','${author}', '${markdown}'); `
+  const sql =  `insert into blogs (article_id, title, content, createtime, author, markdown) values ('${article_id}','${title}','${content}','${createtime}','${author}', '${markdown}'); `
   const insertData = await exec(sql)
   return {
     id: insertData.insertId
   }
-  
 }
 const updateBlog = async (id, blogData = {}) => {
   // id 更新博客 blogData 是一个博客对象， 包含title content

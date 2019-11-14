@@ -14,13 +14,13 @@ const login = async (username, password) => {
 }
 
 const getUserInfo = async (username) => {
-  let sql = `select autograph, avatar, company, job, nickname from users where username= '${username}' `
+  let sql = `select autograph, avatar, company, job, username, nickname from users where nickname= '${username}'; `
   const rows = await exec(sql)
   return rows[0] || {}
 }
 const updateUser = async (username, userData = {}) => {
   // id 更新用户名 userData 是一个用户对象， 包含nickname avatar authorgraph job company
-  const sql = `update users set nickname='${userData.nickname}', avatar='${userData.avatar}', job='${userData.job}', autograph='${userData.autograph}', company='${userData.company}' where username= '${username}' `
+  const sql = `update users set nickname='${userData.nickname}', avatar='${userData.avatar}', job='${userData.job}', autograph='${userData.autograph}', company='${userData.company}' where username= '${username}'; `
   const updataData = await exec(sql)
   if (updataData.affectedRows > 0) {
     return true

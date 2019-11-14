@@ -36,9 +36,9 @@ router.get('/detail',async (ctx, next) => {
   ctx.body = new SuccessModel(data)
 })
 
-router.post('/new', loginCheck, async (ctx, next) => {
+router.post('/new', async (ctx, next) => {
   const body = ctx.request.body
-  body.author = ctx.session.username
+  body.author = ctx.session.nickname
   const data = await newBlog(body)
   ctx.body = new SuccessModel(data)
 })

@@ -12,6 +12,7 @@ router.post('/login', async function (ctx, next) {
     // 设置 session
     ctx.session.username = data.username
     ctx.session.realname = data.realname
+    ctx.session.nickname = data.nickname
 
     let secret = 'WJiol#23123_'
     
@@ -25,14 +26,13 @@ router.post('/login', async function (ctx, next) {
 })
 
 router.get('/getInfo', async function (ctx, next) {
-  const username = ctx.session.username
+  const username = ctx.query.username || ctx.session.nickname
   if (username) {
     const data = await getUserInfo(username)
     ctx.body = new SuccessModel(data)
   } else {
     ctx.body = new ErrorModel('登录失败')
   }
-  
 })
 
 router.post('/updateUser', async function (ctx, next) {
