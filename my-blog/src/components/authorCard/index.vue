@@ -1,7 +1,7 @@
 <template>
   <div class="author">
     <div class="author-avatar">
-      <el-avatar :size="90" :src = avatar></el-avatar>
+      <el-avatar :size="90" :src = userInfo.avatar></el-avatar>
     </div>
     <div class="author-info">
       <div class="username">{{ userInfo.nickname }}</div>
@@ -24,52 +24,37 @@
         </div>
       </div>
     </div>
-    <div class="author-action" @click="editInfo">
+    <div class="author-action" v-show="visible" @click="editInfo">
       <el-button type="primary" plain>编辑个人资料</el-button>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { UserModule }  from '../../store/modules/user'
 import { IUserInfo } from '../../api/types'
+import { getUserInfo } from '../../api/user'
 
 @Component({
   components: {
   },
 })
 
+
 export default class extends Vue {
-  private userInfo!: IUserInfo
+  private visible: boolean = false
+  @Prop() private userInfo!: IUserInfo
   get nickname() {
     return UserModule.nickname
   }
-  get autograph() {
-    return UserModule.autograph
-  }
-  get avatar() {
-    return UserModule.avatar
-  }
-  get job() {
-    return UserModule.job
-  }
-  get company() {
-    return UserModule.company
-  }
-  async created() {
-    this.getUser()
-  }
-  private getUser() {
-    this.userInfo = {
-      avatar: this.avatar,
-      autograph: this.autograph,
-      company: this.company,
-      job: this.job,
-      nickname: this.nickname
-    }
-  }
+
   private editInfo() {
     this.$router.push({path: '/settings'})
+  }
+  private created() {
+    if (this.$route.query.author == this.nickname) {
+      this.visible = true
+    }
   }
 }
 </script>

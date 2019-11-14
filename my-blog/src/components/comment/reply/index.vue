@@ -6,7 +6,8 @@
       </div>
       <div class="comment-info">
         <div class="info-center">
-          <div>{{reply.comment_author}}
+          <div>{{reply.comment_author}} 
+           <span style="font-size:13px;color: #8a9aa9;">{{reply.job}}</span>
           </div>
           <span style="color: #505050; font-size: 13px; margin-top:8px">
             回复 

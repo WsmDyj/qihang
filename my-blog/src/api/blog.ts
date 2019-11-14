@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 interface author {
-  isadmin: string
+  author: string | (string | null)[]
 }
 interface articleId {
   id: string | (string | null)[]

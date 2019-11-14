@@ -11,6 +11,7 @@ export interface IUserState {
   company: string
   job: string
   nickname: string
+  username: string
 }
 
 @Module({ dynamic: true, store, name: 'user' })
@@ -22,6 +23,7 @@ class User extends VuexModule implements IUserState {
   public company = ''
   public job = ''
   public nickname = ''
+  public username = ''
 
   @Mutation
   private SET_TOKEN(token: string) {
@@ -52,6 +54,10 @@ class User extends VuexModule implements IUserState {
   @Mutation 
   private SET_NICKNAME(nickname: string) {
     this.nickname = nickname
+  }
+  @Mutation
+  private SET_USERNAME(username: string) {
+    this.username = username
   }
 
   @Action
@@ -85,12 +91,13 @@ class User extends VuexModule implements IUserState {
     if (!data) {
       throw Error('Verification failed, please Login again.')
     }
-    const { autograph, avatar, company, job, nickname } = data
+    const { autograph, avatar, company, job, nickname, username} = data
     this.SET_AUTOGRAPH(autograph)
     this.SET_AVATAR(avatar)
     this.SET_COMPANY(company)
     this.SET_JOB(job)
     this.SET_NICKNAME(nickname)
+    this.SET_USERNAME(username)
   }
 }
 

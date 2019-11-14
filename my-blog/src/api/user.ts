@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 import { IUserInfo } from './types'
 interface author {
-  username: string
+  username: string | (string | null)[]
 }
 export const login = (data: {username: string, password: string}) =>
   request({

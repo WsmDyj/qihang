@@ -52,3 +52,12 @@ export default function formatDate(timestamp: any) {
   }
   return '刚刚';
 }
+
+export function formatTime(timestamp: any) {
+  let time = new Date(timestamp)
+  let year = time.getFullYear()
+  let month = time.getMonth() + 1 < 10 ? '0' + time.getMonth() + 1 : time.getMonth() + 1
+  let date = time.getDate() < 10 ? '0' + time.getDate() : time.getDate()
+
+  return year + '年' + month + '月' + date + ' '
+}

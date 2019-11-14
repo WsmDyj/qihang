@@ -33,12 +33,14 @@ import MarkdownEditor from '@/components/markdownEditor/index.vue'
 import { UserModule } from '../../store/modules/user'
 import debounce from '../../utils/debounce'
 import { detailArticle, createArticle } from '../../api/blog'
+import GenNonDuplicateID from '../../utils/createId'
 
 interface article {
+  article_id: string
   title: string
   content: string
   createtime: Date
-  author: string
+  author?: string
   markdown: string
 }
 
@@ -78,13 +80,14 @@ export default class  extends Vue {
   private async publish() {
     this.html = (this.$refs.markdownEditor as MarkdownEditor).getHtml()
     const newArticle: article = {
+      article_id: GenNonDuplicateID(),
       title: this.title,
       content: this.html,
       createtime: new Date,
-      author: 'zhangsan',
       markdown: this.content
     }
     await createArticle(newArticle)
+    this.$router.push({path: '/'})
   } 
 }
 </script>

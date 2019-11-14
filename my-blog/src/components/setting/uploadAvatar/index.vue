@@ -16,7 +16,6 @@ export default {
   methods: {
     handleAvatarSuccess(res, file) {
       const imageUrl = URL.createObjectURL(file.raw);
-      console.log(res, file)
       if (!imageUrl) {
         this.$message.error('上传头像失败')
       }

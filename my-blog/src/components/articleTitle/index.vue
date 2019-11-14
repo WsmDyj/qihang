@@ -1,7 +1,7 @@
 <template>
   <div class="info-row meta-row">
     <div class="item avatar" v-if="isAvatar">
-      <el-avatar size="medium" :src= avatar></el-avatar>
+      <el-avatar size="medium" :src= isAvatar></el-avatar>
     </div>
     <div class="item post" v-else>专栏</div>
     <div class="item author">{{ article.author }}</div>
@@ -18,11 +18,9 @@ import formatDate from '../../utils/formatDate'
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
-  @Prop() private isAvatar!: boolean
+  @Prop() private isAvatar!: string
   private articleTime: string =''
-  get avatar() {
-    return UserModule.avatar
-  }
+ 
   created() {
     this.articleTime = formatDate(this.article.createtime)
   }
