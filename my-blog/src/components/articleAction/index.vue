@@ -14,14 +14,24 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
 import { getlikeArticle, removelike } from '../../api/actions'
+import { UserModule } from '../../store/modules/user'
 
 @Component
 export default class extends Vue {
   @Prop() private article!: IArticleData
   private active: boolean = false
   private likes: number = 0
-  
-  private async getLike(article: IArticleData) {
+  get token() {
+    return UserModule.token
+  }
+  private async getLike (article: IArticleData) {
+    if (this.token) {
+      this.handleLike(article)
+    } else {
+      UserModule.handleIslogin(true)
+    }
+  }
+  private async handleLike(article: IArticleData) {
     if (!this.active) {
       await getlikeArticle({article_id: article.article_id})
       this.likes = this.likes + 1

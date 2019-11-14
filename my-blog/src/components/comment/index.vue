@@ -4,8 +4,8 @@
     <div class="comment-form">
       <el-avatar size="medium" :src= avatar></el-avatar>
       <div class="comment-input">
-        <el-input v-model="comment_conent" @focus='visible=true' placeholder="请输入评论..."></el-input>
-        <div v-show="visible" :style="{opacity: comment_conent ? 1 : 0.4}" @click="createComment" class="action-box">评论</div>
+        <el-input type="text" v-model="comment_conent" @focus='visible=true' placeholder="请输入评论..."></el-input>
+        <el-button size="medium" style="float: right;margin-top: 10px;" v-show="visible" :disabled = disabled @click="createComment" type="primary">评论</el-button>
       </div>
     </div>
     <div class="comment-content" v-for="(comment, index) in comments" :key="index" >
@@ -28,7 +28,7 @@
         </div>
         <div class="info-input" v-show="comment.showReply">
           <el-input v-model="reply_conent" :autofocus = comment.showReply :placeholder="replyPlaceholder"></el-input>
-          <div :style="{opacity: reply_conent ? 1 : 0.4}" @click="handleReply(comment)" class="action-box">评论</div>
+          <el-button type="primary" size="small" style="float: right;margin-top: 10px;" :disabled = replyDisabled  @click="handleReply(comment)">评论</el-button>
         </div>
         <div v-show="comment.replys.length > 0">
           <reply @createReply='handleTwoReply' :replys = comment.replys :comment_id = comment.comment_id />
@@ -61,6 +61,25 @@ export default class extends Vue {
   get avatar() {
     return UserModule.avatar
   }
+  get token() {
+    return UserModule.token
+  }
+  get disabled() {
+    if (this.comment_conent === '') {
+      return true
+    } else {
+      return false
+    }
+  }
+  get replyDisabled() {
+    if (this.reply_conent === '') {
+      return true
+    } else {
+      return false
+    }
+  }
+
+
   @Watch('comments')
   
   private reply(comment: IComment) {
@@ -75,27 +94,35 @@ export default class extends Vue {
   
   // 提交一级评论
   private async createComment() {
-    const comment: any = {
-      article_id: this.$route.query.articleId,
-      comment_conent: this.comment_conent,
-      comment_likes: 0,
-      comment_id: GenNonDuplicateID()
+    if (this.token) {
+      const comment: any = {
+        article_id: this.$route.query.articleId,
+        comment_conent: this.comment_conent,
+        comment_likes: 0,
+        comment_id: GenNonDuplicateID()
+      }
+      await createComment(comment)
+      this.getComment()
+    } else {
+      UserModule.handleIslogin(true)
     }
-    await createComment(comment)
-    this.getComment()
     this.comment_conent = ''
   }
   // 提交二级评论按钮
   private async handleReply (comment: IComment) {
-    const reply: IReply = {
+    if (this.token) {
+      const reply: IReply = {
       comment_id: comment.comment_id,
       reply_conent: this.reply_conent,
       reply_id: GenNonDuplicateID(),
       reply_author: comment.comment_author,
     }
-    this.reply_conent = ''
     await createReply(reply)
     this.getComment()
+    } else {
+      UserModule.handleIslogin(true)
+    }
+    this.reply_conent = ''
   }
   private async handleTwoReply(event: IReply) {
     await createReply(event)
@@ -138,20 +165,6 @@ export default class extends Vue {
   .comment-input {
     width: 100%;
     margin-left: 20px;
-    .action-box {
-      height: 33px;
-      width: 60px;
-      line-height: 33px;
-      margin-top: 10px;
-      font-size: 15px;
-      float: right;
-      font-weight: 600;
-      text-align: center;
-      color: #fff;
-      background-color: #027fff;
-      border-radius: 2px;
-      cursor: pointer;
-    }
   }
 }
 .comment-content {

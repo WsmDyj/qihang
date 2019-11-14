@@ -22,7 +22,7 @@ service.interceptors.response.use((response: AxiosResponse) => {
   if (res.errno === 0) {
     return Promise.resolve(res)
   } else {
-    if (res.data.code === 50014 || res.status === 500) {
+    if ( res.code === 50014 || res.status === 500) {
       MessageBox.confirm(
         '您登录以过期，请重新登录',
         '登录过期',
@@ -36,6 +36,11 @@ service.interceptors.response.use((response: AxiosResponse) => {
         UserModule.handleIslogin(true)
       })
     }
+    Message({
+      message: res.message || 'Error',
+      type: 'error',
+      duration: 5 * 1000
+    })
     return Promise.reject(res)
   }
 }, (error: any) => {
