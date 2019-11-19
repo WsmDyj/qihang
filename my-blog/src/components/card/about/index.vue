@@ -53,8 +53,8 @@ import cardModule from '../cardModule/index.vue'
 </script>
 <style lang="scss" scoped>
 .about {
-  position: sticky;
-  top: 80px;
+  position: fixed;
+  overflow-y: auto;
   .author-info {
     display: flex;
     flex-direction: column;

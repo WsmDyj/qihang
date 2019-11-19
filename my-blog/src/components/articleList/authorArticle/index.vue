@@ -115,7 +115,7 @@ export default class extends Vue {
   // 文章去除标签
   private fommentArticle(data: IArticleData[]) {
     data.forEach((item: IArticleData) => {
-      item.content = item.content.replace(/<\/?.+?\/?>/g,'')
+      item.content = item.content.replace(/<[^>]+>/g, '')
       if (this.likeArticlId.indexOf(item.article_id) != -1) {
         item.islike = true
       }
@@ -144,6 +144,7 @@ export default class extends Vue {
       ).then(async () => {
         await delArticle({id: this.articleId})
         this.getList()
+        this.getLikeArticles()
         Message({
           message: '博客删除成功',
           type: 'success',

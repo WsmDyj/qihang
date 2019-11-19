@@ -95,13 +95,14 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .header {
-  // position: fixed;
+  position: fixed;
   top: 0;
   width: 100%;
   height: 60px;
   background: #fff;
   z-index: 99;
   border-bottom: 1px solid #f1f1f1;
+  // box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
   .container {
     height: 100%;
     max-width: 960px;

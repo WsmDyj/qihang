@@ -63,6 +63,7 @@ export default class extends Vue {
     &:hover {
       background: #fcfcfc;
     }
+    // &:visited {color: #00FF00}
     .info-box {
       height: 100%;
       display: flex;

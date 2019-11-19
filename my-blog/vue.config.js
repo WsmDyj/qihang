@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-
+const webpack = require('webpack')
 const devServerPort = 8080 
 
 module.exports = {
@@ -23,5 +23,10 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  configureWebpack: {
+    plugins: [
+
+    ]
+  },
 }

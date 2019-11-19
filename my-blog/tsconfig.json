@@ -1,18 +1,21 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
+    "target": "esnext", // 指定ECMAScript 目标版本
+    "module": "esnext", // 指定使用模版：'commentjs','amd'
+    "strict": true,  //启用所有的严格类型检查选项
     "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
+    "importHelpers": true, // 从 tslib 导入辅助工具函数
+    "moduleResolution": "node", // 选择模版解析策略
+    "experimentalDecorators": true, // 启用实验性的ES装饰器
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true,  // 允许从没有设置默认导出的模块中默认导入。
     // "suppressImplicitAnyIndexErrors":true,
-    // "noImplicitAny": false,
-    "sourceMap": true,
+    // "noImplicitAny": false, // 在表达式和声明上有隐含的any类型会报错
+    "sourceMap": true, // 把ts文件编译程js文件的时候，同时生成对应的map文件
     "baseUrl": ".",
+    "typeRoots": ["node_modules/@types"],
+    "outDir": "./dist",
+    "rootDir": "./src",
     "types": [
       "webpack-env"
     ],
@@ -28,7 +31,7 @@
       "scripthost"
     ]
   },
-  "include": [
+  "include": [  // 需要编译的ts文件一个*表示文件匹配**表示忽略文件的深度问题
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",

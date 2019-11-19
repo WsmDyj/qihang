@@ -21,6 +21,6 @@ export default class extends Vue {}
 <style lang="scss" scoped>
 .card {
   position: sticky;
-  top: 80px;
+  top: 90px;
 }
 </style>

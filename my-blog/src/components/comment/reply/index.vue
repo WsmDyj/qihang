@@ -23,7 +23,7 @@
         </div>
         <div class="info-input" v-show="reply.showReply">
           <el-input v-model="reply_conent" :autofocus = reply.showReply :placeholder="replyPlaceholder"></el-input>
-          <div :style="{opacity: reply_conent ? 1 : 0.4}" @click="createReply(reply)" class="action-box">评论</div>
+          <el-button size="medium" style="float: right;margin-top: 10px;" :disabled = disabled @click="createReply(reply)" type="primary">评论</el-button>
         </div>
       </div>
     </div>
@@ -42,8 +42,14 @@ export default class extends Vue {
   private lists!: IReply[]
   private replyPlaceholder: string = ''
   private reply_conent: string =''
-  @Watch('replys',{immediate: true})
-
+  
+  get disabled() {
+    if (this.reply_conent === '') {
+      return true
+    } else {
+      return false
+    }
+  }
   
   private handleReply(reply: IReply) {
     reply.showReply = true

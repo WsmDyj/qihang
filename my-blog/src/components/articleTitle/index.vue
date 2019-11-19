@@ -1,11 +1,11 @@
 <template>
-  <div class="info-row meta-row">
+  <div class="article-title">
     <div class="item avatar" v-if="isAvatar">
       <el-avatar size="medium" :src= isAvatar></el-avatar>
     </div>
     <div class="item post" v-else>专栏</div>
-    <div class="item author">{{ article.author }}</div>
-    <div class="createtime">{{ articleTime }}</div>
+    <div class="item author" @click.stop="hanleClick">{{ article.author }}</div>
+    <div style="font-size:12px;font-weight: 600;" class="createtime">{{ articleTime }}</div>
   </div>
 </template>
 
@@ -20,7 +20,14 @@ export default class extends Vue {
   @Prop() private article!: IArticleData
   @Prop() private isAvatar!: string
   private articleTime: string =''
- 
+  private hanleClick() {
+    let result = {
+      path: "/author",
+      query: { author: this.article.author } 
+    }
+    let routeUrl = this.$router.resolve(result)
+    window.open(routeUrl .href, '_blank')
+  }
   created() {
     this.articleTime = formatDate(this.article.createtime)
   }
@@ -28,14 +35,12 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.info-row {
+.article-title {
   display: flex;
   align-items: center;
   cursor: pointer;
   color: #909090;
   font-size: 14px;
-}
-.meta-row {
   color: #b2bac2;
   .item {
     position: relative;
@@ -54,6 +59,13 @@ export default class extends Vue {
   .post {
     font-weight: 500;
     color: #b71ed7;
+  }
+  .author {
+    font-size:12px;
+    font-weight: 600;
+    &:hover {
+      color: #007fff;
+    }
   }
 }
 </style>

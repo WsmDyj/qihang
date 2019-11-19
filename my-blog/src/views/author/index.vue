@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import authorCard from '@/components/authorCard/index.vue'
 import authorArticle from '@/components/articleList/authorArticle/index.vue'
@@ -44,9 +44,13 @@ export default class extends Vue {
   private author: string | (string | null)[] = ''
   private userInfo: IUserInfo = defaultIUserInfo
   
-  private async created() {
-    const { data } = await getUserInfo({username: this.$route.query.author})
+  private async loading(params: any) {
+    const { data } = await getUserInfo({username: params})
     Object.assign(this.userInfo, data)
+  }
+  private async created() {
+    this.author = this.$route.query.author
+    this.loading(this.author)
   }
 }
 </script>
@@ -59,7 +63,7 @@ export default class extends Vue {
   .main {
     position: relative;
     width: 932px;
-    margin-top: 30px;
+    margin-top: 90px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;

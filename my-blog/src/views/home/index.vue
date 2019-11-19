@@ -59,14 +59,14 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   .main {
-    position: relative;
     width: 932px;
-    margin-top: 30px;
+    margin-top: 90px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;

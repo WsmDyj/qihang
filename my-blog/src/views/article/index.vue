@@ -18,7 +18,8 @@
         <comment />
       </div>
       <div class="asside">
-        <!-- <achievement-card></achievement-card> -->
+        <achievement-card></achievement-card>
+        <catalog :article = article.content />
       </div>
     </div>
   </div>
@@ -27,17 +28,21 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
+import comment from '@/components/comment/index.vue'
+import catalog from '@/components/catalog/index.vue'
+import achievementCard from '@/components/card/achievement/index.vue'
 import { detailArticle } from '../../api/blog'
 import { IUserInfo } from '../../api/types'
 import { getUserInfo } from '../../api/user'
-import comment from '@/components/comment/index.vue'
 import { createComment } from '../../api/comments'
 import { formatTime } from '../../utils/formatDate'
 
 @Component({
   components: {
     Header,
-    comment
+    comment,
+    catalog,
+    achievementCard
   }
 })
 export default class  extends Vue {
@@ -51,10 +56,18 @@ export default class  extends Vue {
     let routeUrl = this.$router.resolve(result)
     window.open(routeUrl .href, '_blank')
   }
+ 
   private async created() {
     const articleId: string | (string | null)[] = this.$route.query.articleId
     const { data } = await detailArticle({ id: articleId })
     data.createtime = formatTime(data.createtime)
+    const toc: string[] | null = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
+    if (toc) {
+      toc.forEach((item: string, index: number) => {
+        let _toc = `<div id='${index}'>${item} </div>`
+        data.content = data.content.replace(item, _toc)
+      })
+    }
     this.article = data
     const _data = await getUserInfo({username: data.author})
     this.userInfo = _data.data
@@ -67,16 +80,19 @@ export default class  extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 60px;
   .main {
     position: relative;
-    width: 932px;
+    width: 984px;
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
     .article {
       padding: 30px;
-      width: 668px;
+      margin: 0 auto;
+      width: 698px;
+      box-sizing: border-box;
       cursor: pointer;
       background: #fff !important;
       .article-author {

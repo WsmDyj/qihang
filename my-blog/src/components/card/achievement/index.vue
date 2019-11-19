@@ -30,7 +30,6 @@ export default class extends Vue {}
 </script>
 <style lang="scss" scoped>
 .card {
-  position: sticky;
   top: 80px;
   .card-item {
     display: flex;
