@@ -2,21 +2,23 @@
   <div class="container">
     <div class="author">
       <div class="author-avatar">
-        <el-avatar :size="45" src ="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"></el-avatar>
+        <el-avatar :size="45" :src= userInfo.avatar ></el-avatar>
       </div>
       <div class="author-info">
-        <div class="author-usernam">等风来</div>
-        <div class="author-desc">前端 @JD</div>
-        <div class="author-desc">javascript 布道师</div>
+        <div class="author-usernam">{{userInfo.nickname}}</div>
+        <div class="author-desc">{{userInfo.job}} @ {{userInfo.company}}</div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { IUserInfo } from '../../../../api/types'
 
 @Component
-export default class extends Vue {}
+export default class extends Vue {
+   @Prop() private userInfo!: IUserInfo
+}
 </script>
 <style lang="scss" scoped>
 .author {

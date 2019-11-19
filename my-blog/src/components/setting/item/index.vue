@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="setting-item">
     <div class="title">{{ header }}</div>
     <slot name="avatar"/>
     <div class="action-box" v-if="title !== 'avatar'">
@@ -64,8 +64,8 @@ export default class extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
-.item {
+<style lang="scss">
+.setting-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -118,5 +118,14 @@ export default class extends Vue {
       }
     }
   }
+  .el-input .el-input__inner{
+    border: 1px solid #fff !important;
+  }
+  .el-input.is-disabled .el-input__inner {
+    background: #fff;
+    cursor: auto;
+    color: #909090;
+  }
 }
+
 </style>

@@ -8,6 +8,8 @@ export interface IArticleData {
   createtime: string
   author: string
   likeCount: number
+  comments: number
+  reviews: number
   islike?: boolean
   markdown: string
 }

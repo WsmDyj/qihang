@@ -8,7 +8,10 @@
             <el-avatar slot="reference" :size="48" :src='userInfo.avatar'></el-avatar>
             <div class="userInfo-desc">
               <div class="username">{{article.author}}</div>
-              <div class="create_time">{{article.createtime}}</div>
+              <div class="create_time">
+                <span>{{article.createtime}} </span>
+                <span class="review">阅读 {{article.reviews}}</span>
+              </div>
             </div>
           </div>
           <div class="check" @click="checkAuthor(article.author)">查看作者主页</div>
@@ -18,7 +21,7 @@
         <comment />
       </div>
       <div class="asside">
-        <achievement-card></achievement-card>
+        <achievement-card title= "关于作者" :userInfo= userInfo ></achievement-card>
         <catalog :article = article.content />
       </div>
     </div>
@@ -31,10 +34,12 @@ import Header from '@/components/header/index.vue'
 import comment from '@/components/comment/index.vue'
 import catalog from '@/components/catalog/index.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
+import authorList from '../../components/card/rankingCard/authorList/index.vue'
 import { detailArticle } from '../../api/blog'
 import { IUserInfo } from '../../api/types'
 import { getUserInfo } from '../../api/user'
 import { createComment } from '../../api/comments'
+import { getreviewArticle } from '../../api/actions'
 import { formatTime } from '../../utils/formatDate'
 
 @Component({
@@ -42,7 +47,8 @@ import { formatTime } from '../../utils/formatDate'
     Header,
     comment,
     catalog,
-    achievementCard
+    achievementCard,
+    authorList
   }
 })
 export default class  extends Vue {
@@ -59,6 +65,7 @@ export default class  extends Vue {
  
   private async created() {
     const articleId: string | (string | null)[] = this.$route.query.articleId
+    await getreviewArticle({article_id: articleId })
     const { data } = await detailArticle({ id: articleId })
     data.createtime = formatTime(data.createtime)
     const toc: string[] | null = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
@@ -89,7 +96,7 @@ export default class  extends Vue {
     justify-content: space-between;
     margin-bottom: 20px;
     .article {
-      padding: 30px;
+      padding: 30px 20px;
       margin: 0 auto;
       width: 698px;
       box-sizing: border-box;
@@ -114,7 +121,9 @@ export default class  extends Vue {
             .create_time {
               font-size: 13px;
               color: #909090;
-              letter-spacing: 1px;
+              .review {
+                padding-left: 5px;
+              }
             }
           }
         }

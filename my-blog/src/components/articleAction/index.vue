@@ -6,7 +6,7 @@
     </div>
     <div class="clickable commentBtn">
       <i class="el-icon-s-comment"></i>
-      <span class="count">12</span>
+      <span class="count">{{article.comments}}</span>
     </div>
   </div>
 </template>
@@ -15,6 +15,10 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { IArticleData } from '../../api/types'
 import { getlikeArticle, removelike } from '../../api/actions'
 import { UserModule } from '../../store/modules/user'
+interface routerQuery {
+  path: string
+  query: any
+}
 
 @Component
 export default class extends Vue {

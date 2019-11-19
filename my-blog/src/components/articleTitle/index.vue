@@ -5,7 +5,7 @@
     </div>
     <div class="item post" v-else>专栏</div>
     <div class="item author" @click.stop="hanleClick">{{ article.author }}</div>
-    <div style="font-size:12px;font-weight: 600;" class="createtime">{{ articleTime }}</div>
+    <div style="font-size:12px;font-weight: 600;">{{ articleTime }}</div>
   </div>
 </template>
 

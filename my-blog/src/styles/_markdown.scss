@@ -2,21 +2,23 @@
   font-size: 15px;
   word-break: break-word;
   line-height: 1.75;
+  color: #333;
   font-weight: 400;
   font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   text-rendering: optimizeLegibility;
     /*对 markdown 样式的补充*/
   pre {
     display: block;
-    padding: 10px;
-    margin: 0 0 10px;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.42857143;
-    color: #abb2bf;
-    background: #282c34;
+    color: #333;
+    font-size: 14px;
+    padding: 18px 15px 12px;
+    background: #f8f8f8;
     word-break: break-all;
     word-wrap: break-word;
     overflow: auto;
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
   }
   blockquote {
     color: #666;

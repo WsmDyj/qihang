@@ -32,7 +32,7 @@ export default class extends Vue {
   .main {
     position: relative;
     width: 932px;
-    margin-top: 30px;
+    margin-top: 90px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;

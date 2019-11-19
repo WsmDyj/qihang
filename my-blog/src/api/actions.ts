@@ -12,6 +12,12 @@ export const getlikeArticle = (data: articleId) =>
     method: 'post',
     data
   })
+export const getreviewArticle = (data: any) =>
+  request({
+    url: 'api/actions/review',
+    method: 'post',
+    data
+  })
 export const removelike = (data: articleId) =>
   request({
     url: 'api/actions/removelike',

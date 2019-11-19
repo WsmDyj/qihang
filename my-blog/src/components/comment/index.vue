@@ -1,5 +1,5 @@
 <template>
-  <div class="comment">
+  <div id="comment" class="comment">
     <div class="comment-title">评论</div>
     <div class="comment-form">
       <el-avatar size="medium" :src= avatar></el-avatar>
@@ -111,7 +111,8 @@ export default class extends Vue {
   // 提交二级评论按钮
   private async handleReply (comment: IComment) {
     if (this.token) {
-      const reply: IReply = {
+      const reply: any = {
+      article_id: this.$route.query.articleId,
       comment_id: comment.comment_id,
       reply_conent: this.reply_conent,
       reply_id: GenNonDuplicateID(),
