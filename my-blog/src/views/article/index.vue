@@ -16,6 +16,9 @@
           </div>
           <div class="check" @click="checkAuthor(article.author)">查看作者主页</div>
         </div>
+        <div class="article-img" v-show="article.articleImg">
+          <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
+        </div>
         <h1 class="article-title">{{article.title}}</h1>
         <div ref="wrapper" id="wrapper" class="article-content" v-html="article.content"></div>
         <comment />
@@ -137,6 +140,9 @@ export default class  extends Vue {
           color: #6cbd45;
           background-color: #fff;
         }
+      }
+      .article-img {
+        margin: 30px 0 24px
       }
       .article-title {
         font-size: 30px;

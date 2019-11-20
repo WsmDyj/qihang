@@ -19,10 +19,10 @@
         <i class="iconfont item-icon">&#xe60c;</i>
         <span class="item-text">我赞过的</span>
       </router-link>
-      <div class="nav-menu-item">
+      <router-link tag="div" to="/settings" class="nav-menu-item">
         <span class="el-icon-s-tools"></span>
         <span class="item-text">设置</span>
-      </div>
+      </router-link>
     </div>
     <div class="nav-menu-group">
       <div class="nav-menu-item" @click="loginOut">

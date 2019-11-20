@@ -3,6 +3,22 @@
     <div class="header">
       <el-input v-model="title" class="title" placeholder="请输入文章标题..."></el-input>
       <div class="author">
+        <el-popover width="290">
+          <div style="padding:24px;font-size: 18px;font-weight: 700; color: hsla(218,9%,51%,.8);" class="panel">
+            <div class="title">添加封面大图
+              <span v-show="imgUrl" @click="imgUrl=''" style="float:right"><i class="el-icon-delete-solid"></i></span>
+            </div>
+            <div style="width: 240px;margin-top:20px; height: 96px;line-height:96px;text-align:center;font-size: 16px;color: rgba(51,51,51,.4);background-color: hsla(0,0%,87%,.6);border: none;cursor: pointer;" class="upload">
+              <div v-if="imgUrl">
+                 <el-image style="width: 240px; height: 96px" :src="imgUrl"></el-image>
+              </div>
+              <div v-else>
+                <upload-avatar @upload='handleUpload'></upload-avatar>
+              </div>
+            </div>
+          </div>
+          <div slot="reference" class="toggle"><i class="el-icon-picture"></i></div>
+        </el-popover>
         <el-dropdown class="publish" >
           <span class="el-dropdown-link" @click="publish">
             <span>发布</span>
@@ -34,6 +50,7 @@ import { UserModule } from '../../store/modules/user'
 import debounce from '../../utils/debounce'
 import { detailArticle, createArticle } from '../../api/blog'
 import GenNonDuplicateID from '../../utils/createId'
+import uploadAvatar from '../../components/setting/uploadAvatar/index.vue'
 
 interface article {
   article_id: string
@@ -42,18 +59,21 @@ interface article {
   createtime: Date
   author?: string
   markdown: string
+  articleImg?: string
 }
 
 @Component({
   name: 'Markdown',
   components: {
-    MarkdownEditor
+    MarkdownEditor,
+    uploadAvatar
   }
 })
 export default class  extends Vue {
   private content = ''
   private title: string = ''
   private html: string = ''
+  private imgUrl: string = ''
   private height: number = document.documentElement.clientHeight - 68
   get avatar() {
     return UserModule.avatar
@@ -62,6 +82,10 @@ export default class  extends Vue {
   @Watch('height', {immediate: true})
   private watchHeight(val: number) {
     this.height = val
+  }
+  // 封面大图
+  private handleUpload(event: string) {
+    this.imgUrl = event
   }
   private async created() {
     const articleId: string | (string | null)[] = this.$route.query.articleId
@@ -84,7 +108,8 @@ export default class  extends Vue {
       title: this.title,
       content: this.html,
       createtime: new Date,
-      markdown: this.content
+      markdown: this.content,
+      articleImg: this.imgUrl
     }
     await createArticle(newArticle)
     this.$router.push({path: '/'})
@@ -111,6 +136,15 @@ export default class  extends Vue {
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      .panel {
+        padding: 24px;
+      }
+      .toggle {
+        font-size: 28px;
+        color: #ddd;
+        margin-right: 25px;
+        cursor: pointer;
+      }
       .publish {
         margin-right: 10%;
         white-space: nowrap;
