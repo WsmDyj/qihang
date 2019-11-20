@@ -6,7 +6,6 @@
         <article-list :articles = articles></article-list>
       </div>
       <div class="asside">
-        <ranking-card></ranking-card>
         <about-card></about-card>
       </div>
     </div>
@@ -17,7 +16,6 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import articleList from '@/components/articleList/homeArticle/index.vue'
-import rankingCard from '@/components/card/rankingCard/index.vue'
 import aboutCard from '@/components/card/about/index.vue'
 import { IArticleData } from '../../api/types'
 import formatDate from '../../utils/formatDate'
@@ -30,7 +28,6 @@ import { getArticles } from '../../api/blog'
   components: {
     Header,
     articleList,
-    rankingCard,
     aboutCard
   },
 })

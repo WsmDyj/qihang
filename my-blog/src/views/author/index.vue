@@ -7,7 +7,7 @@
         <author-article :userInfo = userInfo></author-article>
       </div>
       <div class="asside">
-        <achievement-card></achievement-card>
+        <achievement-card :author= true title="个人成就" :userInfo = userInfo ></achievement-card>
       </div>
     </div>
   </div>
@@ -29,6 +29,8 @@ const defaultIUserInfo = {
   company: '',
   job: '',
   nickname: '',
+  likes: 0,
+  comments: 0
 }
 @Component({
   name: 'author',

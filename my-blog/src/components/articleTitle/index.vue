@@ -1,9 +1,9 @@
 <template>
   <div class="article-title">
-    <div class="item avatar" v-if="isAvatar">
+    <div class="item avatar" @click.stop="hanleClick" v-if="isAvatar">
       <el-avatar size="medium" :src= isAvatar></el-avatar>
     </div>
-    <div class="item post" v-else>专栏</div>
+    <div class="item post" :style="{color: article.likeCount > 20 ? 'red' : ''}" v-else>{{article.likeCount > 20 ? '热' :'专栏'}}</div>
     <div class="item author" @click.stop="hanleClick">{{ article.author }}</div>
     <div style="font-size:12px;font-weight: 600;">{{ articleTime }}</div>
   </div>

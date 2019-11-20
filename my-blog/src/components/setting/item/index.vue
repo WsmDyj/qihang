@@ -4,13 +4,13 @@
     <slot name="avatar"/>
     <div class="action-box" v-if="title !== 'avatar'">
       <div class="center">
-        <el-input @focus="show = true" @blur="blur" v-model="value"></el-input>
+        <el-input :autofocus= show @focus="show = true" @blur="blur" v-model="value"></el-input>
       </div>
       <div v-if="show" class="agree action-button">
         <span class="confirm" @click.stop="confirm">保存</span>
         <span class="cancel" @click.stop="show = false">取消</span>
       </div>
-      <div v-else class="edit action-button">
+      <div v-else @click="show = true" class="edit action-button">
         <i class="el-icon-edit"></i>
         <span>修改</span>
       </div>

@@ -21,7 +21,7 @@
               <article-action :article= article></article-action>
             </div>
             <div class="action-box">
-              <span class="read-action" @click="checkArticle(article)">阅读全文</span>
+              <span class="read-action" @click="checkArticle(article)">阅读 {{article.reviews}}</span>
               <el-dropdown placement="top" v-show="visible" trigger="click" @click.native="handleClick(article)" @command="handleCommand">
                 <span class="el-icon-more"></span>
                 <el-dropdown-menu slot="dropdown">

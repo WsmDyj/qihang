@@ -2,7 +2,9 @@
   <div class="login" v-if='islogin'>
     <div class="auth-form">
       <div class="panfish">
-        <img src="https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png" class="normal" style="">
+        <img :src= imageURL class="normal" style="">
+        <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png" class="normal" alt=""> -->
+        <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/blindfold.58ce423.png" class="normal" alt=""> -->
       </div>
       <i title="关闭" @click="closeLogin" class="close-btn iconfont">&#xe710;</i>
       <div class="panel">
@@ -15,7 +17,7 @@
             <el-input type="password" placeholder="请输入密码" v-model="loginForm.password" @keyup.enter.native="handleLogin" show-password></el-input>
           </el-form-item>
         </el-form>
-          <el-button class="btn" @click.native.prevent="handleLogin" type="primary">登录</el-button>
+        <el-button class="btn" @click.native.prevent="handleLogin" type="primary">登录</el-button>
         <div class="prompt-box">
           没有账号？ 
           <span class="clickable">注册</span>
@@ -53,6 +55,7 @@ export default class extends Vue {
     username: '',
     password: ''
   }
+  private imageURL: string = 'https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png'
   private loginRules = {
     username: [{ validator: this.validateUsername, trigger: 'blur'}],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
@@ -73,6 +76,10 @@ export default class extends Vue {
         return false
       }
     })
+  }
+  private focus() {
+    console.log('hello')
+    this.imageURL = 'https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png'
   }
 }
 </script>

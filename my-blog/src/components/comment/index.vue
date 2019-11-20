@@ -4,7 +4,7 @@
     <div class="comment-form">
       <el-avatar size="medium" :src= avatar></el-avatar>
       <div class="comment-input">
-        <el-input type="text" v-model="comment_conent" @focus='visible=true' placeholder="请输入评论..."></el-input>
+        <el-input type="text" v-model="comment_conent" @focus='handleFocus' placeholder="请输入评论..."></el-input>
         <el-button size="medium" style="float: right;margin-top: 10px;" v-show="visible" :disabled = disabled @click="createComment" type="primary">评论</el-button>
       </div>
     </div>
@@ -91,10 +91,15 @@ export default class extends Vue {
     })
     this.replyPlaceholder = `回复${comment.comment_author}...`
   }
-  
+  private handleFocus() {
+    if (this.token) {
+      this.visible = true
+    } else {
+       UserModule.handleIslogin(true)
+    }
+  }
   // 提交一级评论
   private async createComment() {
-    if (this.token) {
       const comment: any = {
         article_id: this.$route.query.articleId,
         comment_conent: this.comment_conent,
@@ -103,10 +108,8 @@ export default class extends Vue {
       }
       await createComment(comment)
       this.getComment()
-    } else {
       UserModule.handleIslogin(true)
-    }
-    this.comment_conent = ''
+      this.comment_conent = ''
   }
   // 提交二级评论按钮
   private async handleReply (comment: IComment) {

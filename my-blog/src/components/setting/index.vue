@@ -5,10 +5,10 @@
       <div class="setting-list">
         <setting-item title="avatar">
           <div slot="avatar" class="box">
-            <el-avatar fit="cover" :size="72" shape="square" :src="filters.avatar"></el-avatar>
+            <el-avatar fit="cover" :size="62" shape="square" :src="imgUrl"></el-avatar>
             <div class="box-button">
-              <div class="box-toolitp">支持jpg、png格式大小</div>
-              <!-- <upload-avatar @getAvatarUrl="uploadImg"></upload-avatar></upload-avatar> -->
+              <div class="box-toolitp">支持jpg、png格式，大小且不超过2M</div>
+              <upload-avatar @upload='handleUpload'></upload-avatar>
             </div>
           </div>
         </setting-item>
@@ -24,17 +24,20 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { UserModule }  from '../../store/modules/user'
 import settingItem from './item/index.vue'
+import uploadAvatar from './uploadAvatar/index.vue'
 import { updateUserInfo } from '../../api/user'
 import { IUserInfo } from '../../api/types'
 
 @Component({
   components: {
-    settingItem
+    settingItem,
+    uploadAvatar
   },
 })
 
 export default class extends Vue {
   private filters!: IUserInfo
+  private imgUrl: string = ''
   get nickname() {
     return UserModule.nickname
   }
@@ -54,6 +57,7 @@ export default class extends Vue {
     this.getUser()
   }
   private getUser() {
+    this.imgUrl = this.avatar
     this.filters = {
       autograph: this.autograph,
       company: this.company,
@@ -61,6 +65,13 @@ export default class extends Vue {
       avatar: this.avatar,
       nickname: this.nickname
     }
+  }
+  private async handleUpload(event: string) {
+    this.imgUrl = event
+    this.filters.avatar = event
+    await updateUserInfo(this.filters)
+    await UserModule.GetUserInfo()
+    this.$message({ message: '头像上传成功', type: 'success' })
   }
   async confirm(event: any) {
     let updateInfo: IUserInfo = Object.assign(this.filters, event)

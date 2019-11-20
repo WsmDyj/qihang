@@ -25,7 +25,7 @@
           </el-popover>
         </div>
         <div class="nav-list" v-else>
-          <div class="nav-item submit">
+          <div class="nav-item submit" @click="login">
             <img src="https://b-gold-cdn.xitu.io/v3/static/img/submit-icon.53f4253.svg" class="icon">
             <span>写文章</span>
           </div>
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <login  />
+    <login />
   </div>
 </template>
 
