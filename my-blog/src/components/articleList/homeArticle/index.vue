@@ -9,6 +9,9 @@
             <article-action :article= article></article-action>
           </div>
         </div>
+        <div class="article-img" v-show="article.articleImg">
+          <el-avatar fit="contain" :size="62" shape="square" :src="article.articleImg"></el-avatar>
+        </div>
       </div>
     </div>
   </el-main>
@@ -60,6 +63,9 @@ export default class extends Vue {
     width: 620px;
     height: 90px;
     padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     &:hover {
       background: #fcfcfc;
     }

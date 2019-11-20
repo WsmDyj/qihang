@@ -12,6 +12,9 @@
           <div class="row userInfo-row">
             <article-title :isAvatar = userInfo.avatar :article= article></article-title>
           </div>
+          <div class="article-img" v-show="article.articleImg">
+            <el-image style="width: 608px; height: 212px" :src="article.articleImg" ></el-image>
+          </div>
           <div class="row abstract-row" @click="checkArticle(article)">
             <span class="title">{{ article.title }}</span>
             <span class="abstract">{{ article.content}}</span>

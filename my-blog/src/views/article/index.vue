@@ -30,14 +30,13 @@
     </div>
   </div>
 </template>
-
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import comment from '@/components/comment/index.vue'
 import catalog from '@/components/catalog/index.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
-import authorList from '../../components/card/rankingCard/authorList/index.vue'
+import authorList from '@/components/card/rankingCard/authorList/index.vue'
 import { detailArticle } from '../../api/blog'
 import { IUserInfo } from '../../api/types'
 import { getUserInfo } from '../../api/user'
@@ -51,10 +50,19 @@ import { formatTime } from '../../utils/formatDate'
     comment,
     catalog,
     achievementCard,
-    authorList
+    authorList,
   }
 })
 export default class  extends Vue {
+  private myBackToTopStyle = {
+    right: '50px',
+    bottom: '50px',
+    width: '40px',
+    height: '40px',
+    'border-radius': '4px',
+    'line-height': '45px', // Please keep consistent with height to make it center vertically
+    background: '#e7eaf1'
+  }
   private article: string = ''
   private userInfo: any = {}
   private checkAuthor (author: string) {

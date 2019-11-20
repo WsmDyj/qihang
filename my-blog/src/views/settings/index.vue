@@ -28,7 +28,7 @@ export default class extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  height: 100vh;
   .main {
     position: relative;
     width: 932px;

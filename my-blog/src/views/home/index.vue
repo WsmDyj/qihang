@@ -28,7 +28,7 @@ import { getArticles } from '../../api/blog'
   components: {
     Header,
     articleList,
-    aboutCard
+    aboutCard,
   },
 })
 
