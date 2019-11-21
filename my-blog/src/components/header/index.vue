@@ -36,12 +36,14 @@
       </div>
     </div>
     <login />
+    <Register />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Provide } from 'vue-property-decorator'
 import Login from '../login/index.vue'
+import Register from '../register/index.vue'
 import { UserModule } from '../../store/modules/user'
 import Dropdown from '@/components/menu/dropdown/index.vue'
 interface Iactions {
@@ -53,7 +55,8 @@ interface Iactions {
 @Component({
   components: {
     Login,
-    Dropdown
+    Dropdown,
+    Register
   },
 })
 

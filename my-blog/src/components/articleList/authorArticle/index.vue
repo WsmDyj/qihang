@@ -17,7 +17,7 @@
           </div>
           <div class="row abstract-row" @click="checkArticle(article)">
             <span class="title">{{ article.title }}</span>
-            <span class="abstract">{{ article.content}}</span>
+            <span class="abstract" :style="{maxHeight: article.articleImg ? '22px' : '120px'}">{{ article.content}}</span>
           </div>
           <div class="row action-row">
             <div class="action-list">
@@ -187,6 +187,7 @@ export default class extends Vue {
     width: 100%;
     background: #fff;
     padding: 30px;
+    max-height: 460px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -203,8 +204,8 @@ export default class extends Vue {
       align-items: flex-start;
       .title {
         width: 100%;
-        margin-bottom: 11px;
-        font-size: 28px;
+        margin: 11px 0;
+        font-size: 24px;
         color: #000;
         line-height: 1.3;
         font-weight: 600;
@@ -214,7 +215,6 @@ export default class extends Vue {
       }
       .abstract {
         width: 100%;
-        max-height: 120px;
         line-height: 1.6;
         letter-spacing: 0.28;
         color: #8b8b8b;

@@ -10,6 +10,13 @@ export const login = (data: {username: string, password: string}) =>
     data
 })
 
+export const register = (data: {username: string, password: string}) =>
+  request({
+    url: 'api/user/register',
+    method: 'post',
+    data
+})
+
 export const getUserInfo = (params?: author) =>
   request({
     url: 'api/user/getInfo',

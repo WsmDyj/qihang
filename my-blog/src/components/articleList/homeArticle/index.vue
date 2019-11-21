@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="article-img" v-show="article.articleImg">
-          <el-avatar fit="contain" :size="62" shape="square" :src="article.articleImg"></el-avatar>
+         <el-image style="width: 60px; height: 60px;border-radius: 2px;" :src="article.articleImg" fit="cover"></el-image>
         </div>
       </div>
     </div>

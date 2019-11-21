@@ -30,7 +30,8 @@ const defaultIUserInfo = {
   job: '',
   nickname: '',
   likes: 0,
-  comments: 0
+  comments: 0,
+  reviews: 0
 }
 @Component({
   name: 'author',
@@ -62,6 +63,7 @@ export default class extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   .main {
     position: relative;
     width: 932px;

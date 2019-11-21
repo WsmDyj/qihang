@@ -108,7 +108,6 @@ export default class extends Vue {
       }
       await createComment(comment)
       this.getComment()
-      UserModule.handleIslogin(true)
       this.comment_conent = ''
   }
   // 提交二级评论按钮

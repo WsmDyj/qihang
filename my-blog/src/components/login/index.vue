@@ -8,16 +8,33 @@
       </div>
       <i title="关闭" @click="closeLogin" class="close-btn iconfont">&#xe710;</i>
       <div class="panel">
-        <h1 class="title">登录</h1>
-        <el-form :rules="loginRules" ref="loginForm" :model="loginForm" class="login-form">
-          <el-form-item class="input-box" prop="username">
-            <el-input type="text" v-model="loginForm.username" placeholder="请输入用户名"></el-input>
-          </el-form-item>
-          <el-form-item class="input-box" prop="password">
-            <el-input type="password" placeholder="请输入密码" v-model="loginForm.password" @keyup.enter.native="handleLogin" show-password></el-input>
-          </el-form-item>
-        </el-form>
-        <el-button class="btn" @click.native.prevent="handleLogin" type="primary">登录</el-button>
+        <div class="panel-title">
+          <el-menu :default-active="activeIndex" class="sub-header" mode="horizontal" @select="handleSelect">
+            <el-menu-item index="1">登录</el-menu-item>
+            <el-menu-item index="2">注册</el-menu-item>
+          </el-menu>
+        </div>
+        <div v-if="activeIndex == '1'">
+          <el-form :rules="loginRules" ref="loginForm" :model="loginForm" class="login-form">
+            <el-form-item class="input-box" prop="username">
+              <el-input type="text" autocomplete="off" v-model="loginForm.username" placeholder="请输入用户名"></el-input>
+            </el-form-item>
+            <el-form-item class="input-box" prop="password">
+              <el-input type="password" autocomplete="off" placeholder="请输入密码" v-model="loginForm.password" @keyup.enter.native="handleLogin" show-password></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+        <div v-else>
+          <el-form :rules="loginRules" ref="loginForm" :model="registerForm" class="login-form">
+            <el-form-item class="input-box" prop="username">
+              <el-input v-model="registerForm.username" placeholder="请输入用户名" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item class="input-box" prop="password">
+              <el-input type="password" v-model="registerForm.password" autocomplete="off" placeholder="请输入密码"></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+        <el-button class="btn" @click.native.prevent="handleLogin" type="primary">{{activeIndex == '1' ? '登录':'注册'}}</el-button>
         <div class="prompt-box">
           没有账号？ 
           <span class="clickable">注册</span>
@@ -51,7 +68,12 @@ export default class extends Vue {
       callback()
     }
   }
+  private activeIndex: string = '1'
   private loginForm = {
+    username: '',
+    password: ''
+  }
+  private registerForm = {
     username: '',
     password: ''
   }
@@ -60,9 +82,14 @@ export default class extends Vue {
     username: [{ validator: this.validateUsername, trigger: 'blur'}],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
+
   // private visible: boolean = true
   get islogin() {
     return UserModule.islogin
+  }
+  // 登录/注册切换
+  private handleSelect(key: string) {
+    this.activeIndex = key === '2' ? '2' : '1'
   }
   private closeLogin() {
     UserModule.handleIslogin(false)
@@ -70,8 +97,13 @@ export default class extends Vue {
   private handleLogin() {
     (this.$refs.loginForm as ElForm).validate( async (valid: boolean) => {
       if (valid) {
-        const data = await UserModule.Login(this.loginForm)
-        await UserModule.GetUserInfo()
+        if (this.activeIndex == '1') {
+          const data = await UserModule.Login(this.loginForm)
+          await UserModule.GetUserInfo()
+        } else {
+          const data = await UserModule.Register(this.registerForm)
+          await UserModule.GetUserInfo()
+        }
       } else {
         return false
       }
@@ -100,7 +132,6 @@ export default class extends Vue {
     position: relative;
     padding: 24px;
     width: 318px;
-    max-width: 100%;
     font-size: 24px;
     background-color: #fff;
     border-radius: 2px;
@@ -123,7 +154,7 @@ export default class extends Vue {
       opacity: .4;
     }
     .panel {
-      .title {
+      .panel-title {
         font-size: 21px;
         margin: 0 0 2rem;
       }
