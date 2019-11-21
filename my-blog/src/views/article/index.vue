@@ -7,14 +7,17 @@
           <div class="userInfo">
             <el-avatar slot="reference" :size="48" :src='userInfo.avatar'></el-avatar>
             <div class="userInfo-desc">
-              <div class="username">{{article.author}}</div>
+              <div class="username" @click="checkAuthor(article.author)">{{article.author}}</div>
               <div class="create_time">
                 <span>{{article.createtime}} </span>
-                <span class="review">阅读 {{article.reviews}}</span>
+                <span class="review">阅读 {{article.reviews}} </span>
+                <span class="edit" v-show="nickname== article.author">
+                  <router-link :to="{path: '/markdown', query:{articleId: article.article_id}}">编辑</router-link>
+                </span>
               </div>
             </div>
           </div>
-          <div class="check" @click="checkAuthor(article.author)">查看作者主页</div>
+          <div class="check">关注</div>
         </div>
         <div class="article-img" v-show="article.articleImg">
           <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
@@ -40,6 +43,7 @@ import authorList from '@/components/card/rankingCard/authorList/index.vue'
 import { detailArticle } from '../../api/blog'
 import { IUserInfo } from '../../api/types'
 import { getUserInfo } from '../../api/user'
+import { UserModule } from '../../store/modules/user'
 import { createComment } from '../../api/comments'
 import { getreviewArticle } from '../../api/actions'
 import { formatTime } from '../../utils/formatDate'
@@ -54,17 +58,11 @@ import { formatTime } from '../../utils/formatDate'
   }
 })
 export default class  extends Vue {
-  private myBackToTopStyle = {
-    right: '50px',
-    bottom: '50px',
-    width: '40px',
-    height: '40px',
-    'border-radius': '4px',
-    'line-height': '45px', // Please keep consistent with height to make it center vertically
-    background: '#e7eaf1'
-  }
   private article: string = ''
   private userInfo: any = {}
+  get nickname() {
+    return UserModule.nickname
+  }
   private checkAuthor (author: string) {
     let result = {
       path: "/author",
@@ -111,12 +109,12 @@ export default class  extends Vue {
       margin: 0 auto;
       width: 698px;
       box-sizing: border-box;
-      cursor: pointer;
       background: #fff !important;
       .article-author {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
         .userInfo {
           display: flex;
           .userInfo-desc {
@@ -135,22 +133,33 @@ export default class  extends Vue {
               .review {
                 padding-left: 5px;
               }
+              .edit {
+                position: relative;
+                &::before {
+                  content: "·";
+                  color: #b2bac2;
+                  margin-right: 5px;
+                }
+              }
             }
           }
         }
         .check {
           margin: 0 0 0 auto;
-          padding: 2px 5px;
-          text-align: center;
-          line-height: 26px;
+          padding: 0;
+          width: 55px;
+          height: 26px;
           font-size: 13px;
           border: 1px solid #6cbd45;
           color: #6cbd45;
           background-color: #fff;
+          line-height: 26px;
+          text-align: center;
         }
       }
       .article-img {
-        margin: 30px 0 24px
+        margin-top: 24px;
+        text-align: center;
       }
       .article-title {
         font-size: 30px;

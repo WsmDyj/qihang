@@ -2,7 +2,6 @@
   <div class='header'>
     <div class="container">
       <div class="logo">
-        <img src="https://b-gold-cdn.xitu.io/v3/static/img/logo.a7995ad.svg" class="logo-img" alt="掘金">
       </div>
       <div class="navigation">
         <div class="nav-list">
@@ -110,8 +109,12 @@ export default class extends Vue {
     display: flex;
     align-items: center;
     .logo {
-      min-width: 98px;
+      width: 98px;
+      height: 60%;
+      background-image: url('../../assets/qd1.jpg');
+      background-size: 100% 100%;
       margin-right: 28px;
+      transform: scale(1.7);
     }
     .navigation {
       flex: 1 0 auto;

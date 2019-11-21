@@ -26,6 +26,14 @@ export const createArticle = (data: any) =>
     method: 'post',
     data
   })
+  
+export const updateArticle = (data: any) => {
+  request({
+    url: 'api/blog/update',
+    method: 'post',
+    data
+  })
+}
 export const delArticle = (data: {id: number}) => {
   request({
     url: 'api/blog/del',

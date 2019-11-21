@@ -31,7 +31,6 @@
         <el-avatar slot="reference" size="medium" :src= avatar></el-avatar>
       </div>
     </div>
-    
     <div class="markdown">
       <markdown-editor 
       ref="markdownEditor"
@@ -48,15 +47,15 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import MarkdownEditor from '@/components/markdownEditor/index.vue'
 import { UserModule } from '../../store/modules/user'
 import debounce from '../../utils/debounce'
-import { detailArticle, createArticle } from '../../api/blog'
+import { detailArticle, createArticle, updateArticle } from '../../api/blog'
 import GenNonDuplicateID from '../../utils/createId'
 import uploadAvatar from '../../components/setting/uploadAvatar/index.vue'
 
 interface article {
-  article_id: string
+  article_id: string | (string | null)[]
   title: string
   content: string
-  createtime: Date
+  createtime?: Date
   author?: string
   markdown: string
   articleImg?: string
@@ -74,6 +73,7 @@ export default class  extends Vue {
   private title: string = ''
   private html: string = ''
   private imgUrl: string = ''
+  private articleId!: string | (string | null)[]
   private height: number = document.documentElement.clientHeight - 68
   get avatar() {
     return UserModule.avatar
@@ -88,11 +88,12 @@ export default class  extends Vue {
     this.imgUrl = event
   }
   private async created() {
-    const articleId: string | (string | null)[] = this.$route.query.articleId
-    if (articleId) {
-      const { data } = await detailArticle({id: articleId})
+    this.articleId = this.$route.query.articleId
+    if (this.articleId) {
+      const { data } = await detailArticle({id: this.articleId})
       this.content = data.markdown
       this.title =  data.title
+      this.imgUrl = data.articleImg
     }
   }
   mounted() {
@@ -104,14 +105,18 @@ export default class  extends Vue {
   private async publish() {
     this.html = (this.$refs.markdownEditor as MarkdownEditor).getHtml()
     const newArticle: article = {
-      article_id: GenNonDuplicateID(),
+      article_id: this.articleId,
       title: this.title,
       content: this.html,
-      createtime: new Date,
       markdown: this.content,
       articleImg: this.imgUrl
     }
-    await createArticle(newArticle)
+    if(this.articleId) {
+      await updateArticle(newArticle)
+    } else {
+      Object.assign(newArticle,{ article_id: GenNonDuplicateID(),createtime: new Date,})
+      await createArticle(newArticle)
+    }
     this.$router.push({path: '/'})
   } 
 }
