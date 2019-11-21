@@ -11,7 +11,7 @@ const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/blog')
 
-router.get('/list',async function (ctx, next) {
+router.get('/list', async function (ctx, next) {
   let author = ctx.query.author || ''
   const keyword = ctx.query.keyword || ''
 
@@ -31,7 +31,7 @@ router.get('/list',async function (ctx, next) {
   ctx.body =  new SuccessModel(listData)
 })
 
-router.get('/detail',async (ctx, next) => {
+router.get('/detail', async (ctx, next) => {
   const data = await getDetail(ctx.query.id)
   ctx.body = new SuccessModel(data)
 })
@@ -44,7 +44,7 @@ router.post('/new', async (ctx, next) => {
 })
 
 router.post('/update', loginCheck, async (ctx, next) => {
-  const val = await updateBlog(ctx.request.query.id, ctx.request.body)
+  const val = await updateBlog(ctx.request.body)
   if (val) {
     ctx.body = new SuccessModel()
   } else {

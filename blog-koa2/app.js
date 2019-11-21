@@ -47,6 +47,7 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+
 app.use(check) // 校验token
 
 // session 配置

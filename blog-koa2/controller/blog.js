@@ -22,19 +22,23 @@ const newBlog = async (blogData = {}) => {
   const content = blogData.content
   const markdown = blogData.markdown
   const author = blogData.author
+  const articleImg = blogData.articleImg
   const article_id = blogData.article_id
   const createtime = Date.now()
-  const sql =  `insert into blogs (article_id, title, content, createtime, author, markdown) values ('${article_id}','${title}','${content}','${createtime}','${author}', '${markdown}'); `
+  const sql =  `insert into blogs (article_id, title, content, createtime, author, markdown, articleImg) values ('${article_id}','${title}','${content}','${createtime}','${author}', '${markdown}', '${articleImg}'); `
   const insertData = await exec(sql)
   return {
     id: insertData.insertId
   }
 }
-const updateBlog = async (id, blogData = {}) => {
+const updateBlog = async (blogData = {}) => {
   // id 更新博客 blogData 是一个博客对象， 包含title content
   const title = blogData.title
   const content = blogData.content
-  const sql = `update blogs set title='${title}', content='${content}' where article_id='${id}' `
+  const markdown = blogData.markdown
+  const articleImg = blogData.articleImg
+  const article_id = blogData.article_id
+  const sql = `update blogs set title='${title}', content='${content}',markdown='${markdown}',articleImg='${articleImg}' where article_id='${article_id}' `
   const updataData = await exec(sql)
   if (updataData.affectedRows > 0) {
     return true

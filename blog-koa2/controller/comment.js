@@ -24,10 +24,14 @@ const newComment = async (commentData = {}) => {
   const comment_likes = commentData.comment_likes
   const comment_time = Date.now()
   const comment_id = commentData.comment_id
+  const sqlArticle = `update blogs set comments = comments + 1 where article_id='${article_id}';`
   const sql =  `insert into comment (article_id, comment_conent, comment_author, comment_likes, comment_time, comment_id) values ('${article_id}','${comment_conent}','${comment_author}','${comment_likes}', '${comment_time}', '${comment_id}' ); `
   const insertData = await exec(sql)
-  return {
-    id: insertData.insertId
+  const updataData = await exec(sqlArticle)
+  if (updataData.affectedRows > 0 && insertData.affectedRows > 0) {
+    return true
+  } else {
+    return false
   }
 }
 const newReply = async (commentData = {}) => {
@@ -36,11 +40,16 @@ const newReply = async (commentData = {}) => {
   const reply_author = commentData.reply_author
   const comment_author = commentData.comment_author
   const reply_id = commentData.reply_id
+  const article_id = commentData.article_id
   const reply_time = Date.now()
-  const sql =  `insert into reply (comment_id, reply_conent, reply_author,comment_author, reply_time,reply_id) values ('${comment_id}','${reply_conent}','${reply_author}','${comment_author}','${reply_time}','${reply_id}'); `
+  const sql =  `insert into reply (article_id, comment_id, reply_conent, reply_author,comment_author, reply_time,reply_id) values ('${article_id}','${comment_id}','${reply_conent}','${reply_author}','${comment_author}','${reply_time}','${reply_id}'); `
+  const sqlArticle = `update blogs set comments = comments + 1 where article_id='${article_id}';`
   const insertData = await exec(sql)
-  return {
-    id: insertData.insertId
+  const updataData = await exec(sqlArticle)
+  if (updataData.affectedRows > 0 && insertData.affectedRows > 0) {
+    return true
+  } else {
+    return false
   }
 }
 

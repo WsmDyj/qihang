@@ -5,16 +5,17 @@ const {
   getComment
 } = require('../controller/comment')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
+const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/comment')
 
-router.post('/new', async(ctx, next) => {
+router.post('/new',loginCheck, async(ctx, next) => {
   const body = ctx.request.body
   body.comment_author = ctx.session.nickname
   const data = await newComment(body)
   ctx.body = new SuccessModel(data)
 })
-router.post('/newReply', async(ctx, next) => {
+router.post('/newReply', loginCheck, async(ctx, next) => {
   const body = ctx.request.body
   body.comment_author = ctx.session.nickname
   const data = await newReply(body)

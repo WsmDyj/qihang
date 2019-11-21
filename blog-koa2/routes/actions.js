@@ -2,21 +2,32 @@ const router = require('koa-router')()
 const {
   getLike,
   removeLike,
-  getLikelists
+  getLikelists,
+  getReviews
 } = require('../controller/actions')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
+const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/actions')
 
-router.post('/like', async function(ctx, next) {
+router.post('/like',loginCheck, async function(ctx, next) {
   const body = ctx.request.body
   body.author = ctx.session.nickname
   await getLike(body)
   ctx.body = new SuccessModel()
 })
 
-router.post('/removelike', async function(ctx, next) {
-  const val = await removeLike(ctx.request.body.article_id)
+router.post('/review', async function(ctx, next) {
+  const body = ctx.request.body
+  await getReviews(body)
+  ctx.body = new SuccessModel()
+})
+
+
+router.post('/removelike',loginCheck, async function(ctx, next) {
+  const body = ctx.request.body
+  body.author = ctx.session.nickname
+  const val = await removeLike(body)
   if (val) {
     ctx.body = new SuccessModel()
   } else {
@@ -25,7 +36,7 @@ router.post('/removelike', async function(ctx, next) {
 })
 
 router.get('/getLikelists', async function (ctx, next) {
-  const author = ctx.query.username || ctx.session.nickname
+  const author = ctx.query.author || ctx.session.nickname
   const data = await getLikelists(author)
   ctx.body =  new SuccessModel(data)
 })

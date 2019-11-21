@@ -7,14 +7,14 @@ let secret = 'WJiol#23123_'
  
 async function check(ctx, next) {
   let url = ctx.request.url;
-  if (url == '/api/user/login'|| url === '/api/blog/list') {
+  if (url == '/api/user/login'|| url === '/api/blog/list' || '/api/blog/detail') {
     await next();
   } else {
       // 规定token写在header 的 'autohrization' 
     let token = ctx.request.headers["authorization"]
     // 解码
     let payload = await verify(token,secret)
-    let timeout = 1000 * 60 * 60 * 2
+    let timeout = 24 * 60 * 60 * 1000
     let { time } = payload
     let data = new Date().getTime()
     console.log(token)
