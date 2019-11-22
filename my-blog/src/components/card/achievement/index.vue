@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :style="{position: author ? 'sticky' : ''}" class="card">
     <cardModule :title = title >
       <div class="card-body">
         <div style="padding-bottom: 10px;" v-if="author">
@@ -37,7 +37,7 @@ import { IUserInfo } from '../../../api/types'
 @Component({
   components: {
     cardModule,
-    authorList
+    authorList,
   }
 })
 export default class extends Vue {
@@ -48,7 +48,8 @@ export default class extends Vue {
 </script>
 <style lang="scss" scoped>
 .card {
-  top: 80px;
+  // position: sticky;
+  top: 90px;
   .card-item {
     display: flex;
     padding-bottom: 10px;

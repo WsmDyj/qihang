@@ -17,7 +17,7 @@
               </div>
             </div>
           </div>
-          <div :class="follows ? 'follow' : 'unfollow'" @click="follow(article.author)">{{follows ? '已关注' : '关注'}}</div>
+          <div v-show="nickname != article.author" :class="follows ? 'follow' : 'unfollow'" @click="follow(article.author)">{{follows ? '已关注' : '关注'}}</div>
         </div>
         <div class="article-img" v-show="article.articleImg">
           <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
@@ -85,7 +85,7 @@ export default class  extends Vue {
   }
   private async getfollowList() {
     const { data } = await getfollowList()
-    data.filter((item: any) => {
+    data[0].data.filter((item: any) => {
       if (item.follow_author == this.userInfo.nickname) {
         this.follows = true
       }
@@ -117,11 +117,11 @@ export default class  extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 60px;
   .main {
     position: relative;
+    flex: 1 1 0;
     width: 984px;
-    margin-top: 20px;
+    margin-top: 80px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;

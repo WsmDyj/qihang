@@ -51,3 +51,12 @@ export interface IReply {
   reply_time?: string
   showReply?: boolean
 }
+/*
+* 关注
+*/
+export interface IFollow {
+  title: string
+  data: []
+  count: number
+}
+

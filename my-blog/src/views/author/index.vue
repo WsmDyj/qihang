@@ -8,6 +8,7 @@
       </div>
       <div class="asside">
         <achievement-card :author= true title="个人成就" :userInfo = userInfo ></achievement-card>
+        <followCard />
       </div>
     </div>
   </div>
@@ -19,6 +20,7 @@ import Header from '@/components/header/index.vue'
 import authorCard from '@/components/authorCard/index.vue'
 import authorArticle from '@/components/articleList/authorArticle/index.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
+import followCard from '@/components/card/achievement/follow/index.vue'
 import { IArticleData, IUserInfo } from '../../api/types'
 import { getArticles } from '../../api/blog'
 import { getUserInfo } from '../../api/user'
@@ -39,7 +41,8 @@ const defaultIUserInfo = {
     Header,
     authorCard,
     authorArticle,
-    achievementCard
+    achievementCard,
+    followCard
   }
 })
 

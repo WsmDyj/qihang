@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 interface author {
-  username: string
+  username: string | (string | null)[]
 }
 
 export const getfollow = (data: author) =>
