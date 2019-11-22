@@ -1,7 +1,10 @@
 const router = require('koa-router')()
-const { login, register, getUserInfo, updateUser } = require('../controller/user')
+const { login, oauthLogin, register, getUserInfo, updateUser } = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
+const { OAUTH_GITHUB } = require('../conf/oauth')
 router.prefix('/api/user')
+const axios = require('axios')
+var https = require('https')
 
 const jwt = require('jsonwebtoken')
 
@@ -22,6 +25,44 @@ router.post('/login', async function (ctx, next) {
     return
   } 
   ctx.body = new ErrorModel({code: 102, message: '用户名或密码错误'})
+})
+
+router.get('/oauth', async function(ctx, next) {
+  const requestToken = ctx.request.query.code
+  const tokenResponse = await axios({
+    method: 'post',
+    url: 'https://github.com/login/oauth/access_token?' +
+      `client_id=${OAUTH_GITHUB.clientID}&` +
+      `client_secret=${OAUTH_GITHUB.clientSecret}&` +
+      `code=${requestToken}`,
+    headers: {
+      accept: 'application/json'
+    }
+  })
+  const accessToken = tokenResponse.data.access_token
+  const result = await axios({
+    method: 'get',
+    url: `https://api.github.com/user`,
+    headers: {
+      accept: 'application/json',
+      Authorization: `token ${accessToken}`
+    }
+  })
+  const userData = {
+    username: result.data.login,
+    avatar: result.data.avatar_url
+  }
+  const data = await oauthLogin(userData)
+  if (data) {
+    ctx.session.username = result.data.login
+    ctx.session.nickname = result.data.login
+
+    let secret = 'WJiol#23123_'
+
+    let payload = {username: result.data.login,time:new Date().getTime()}
+    let token = jwt.sign(payload, secret)
+    ctx.body = new SuccessModel({accessToken: token,message:'获取token成功'})
+  }
 })
 
 router.post('/register', async function (ctx, next) {

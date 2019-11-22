@@ -13,6 +13,24 @@ const login = async (username, password) => {
   return rows[0] || {}
 }
 
+const oauthLogin = async (userData = {}) => {
+  const username = userData.username
+  const nickname = userData.username
+  const avatar = userData.avatar
+  const userSql = `select * from users where username = '${username}' `
+  const rows = await exec(userSql)
+  if (rows.length > 0) {
+    return rows[0] || {}
+  } else {
+    password = genPassword(123)
+    const sql = `insert into users (username,password, nickname, avatar) values ('${username}', '${password}', '${nickname}', '${avatar}');`
+    const insertData = await exec(sql)
+    if (insertData.affectedRows > 0) {
+      return true
+    }
+  }
+}
+
 const register = async(username, password) => {
   const nickname = username
   const userSql = `select * from users where username = '${username}' `
@@ -38,7 +56,7 @@ const getUserInfo = async (username) => {
   const _reviews = await exec(reviewsSql)
   const _comments = await exec(commentsSql)
   const _likes = await exec(likesSql)
-  var s = 0 , sum = 0, t = 0;
+  var s = 0, sum = 0, t = 0;
   _reviews.forEach(item => {
     s += item.reviews
   })
@@ -55,7 +73,6 @@ const getUserInfo = async (username) => {
 }
 
 const updateUser = async (username,nickname, userData = {}) => {
-  console.log(userData.nickname)
   const sql = `update users set nickname='${userData.nickname}', avatar='${userData.avatar}', job='${userData.job}', autograph='${userData.autograph}', company='${userData.company}' where username= '${username}'; `
   const blogSql = `update blogs set author='${userData.nickname}' where author ='${nickname}';`
   const commentSql = `update comment set comment_author='${userData.nickname}' where comment_author ='${nickname}';`
@@ -73,6 +90,7 @@ const updateUser = async (username,nickname, userData = {}) => {
 }
 module.exports = {
   login,
+  oauthLogin,
   register,
   getUserInfo,
   updateUser
