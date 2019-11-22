@@ -3,7 +3,7 @@ import { Message, MessageBox } from 'element-ui'
 import { UserModule } from '../store/modules/user'
 
 const service = axios.create({
-  timeout: 5000,
+  // timeout: 5000,
   baseURL: 'http://localhost:8000',
   withCredentials: true,
 })
@@ -37,7 +37,7 @@ service.interceptors.response.use((response: AxiosResponse) => {
       })
     }
     Message({
-      message: res.message || 'Error',
+      message: res.data.message || 'Error',
       type: 'error',
       duration: 5 * 1000
     })

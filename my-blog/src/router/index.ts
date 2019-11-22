@@ -30,6 +30,16 @@ const routes = [
     component: () => import('../views/markdown/index.vue') 
   },
   { 
+    path: '/oauth',
+    name: 'oauth',
+    component: () => import('../views/oauth/index.vue') 
+  },
+  { 
+    path: '/redirect',
+    name: 'redirect',
+    component: () => import('../views/redirect/index.vue') 
+  },
+  { 
     path: '/token',
     name: 'token',
     component: () => import('../views/Home.vue') 

@@ -17,7 +17,7 @@
               </div>
             </div>
           </div>
-          <div class="check">关注</div>
+          <div :class="follows ? 'follow' : 'unfollow'" @click="follow(article.author)">{{follows ? '已关注' : '关注'}}</div>
         </div>
         <div class="article-img" v-show="article.articleImg">
           <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
@@ -43,6 +43,7 @@ import authorList from '@/components/card/rankingCard/authorList/index.vue'
 import { detailArticle } from '../../api/blog'
 import { IUserInfo } from '../../api/types'
 import { getUserInfo } from '../../api/user'
+import { getfollow, getunfollow, getfollowList } from '../../api/follow'
 import { UserModule } from '../../store/modules/user'
 import { createComment } from '../../api/comments'
 import { getreviewArticle } from '../../api/actions'
@@ -60,6 +61,7 @@ import { formatTime } from '../../utils/formatDate'
 export default class  extends Vue {
   private article: string = ''
   private userInfo: any = {}
+  private follows: boolean = false
   get nickname() {
     return UserModule.nickname
   }
@@ -70,6 +72,24 @@ export default class  extends Vue {
     }
     let routeUrl = this.$router.resolve(result)
     window.open(routeUrl .href, '_blank')
+  }
+
+  // 关注
+  private async follow(username: string) {
+    this.follows = !this.follows
+    if (this.follows) {
+      await getfollow({username: username})
+    } else {
+      await getunfollow({username: username})
+    }
+  }
+  private async getfollowList() {
+    const { data } = await getfollowList()
+    data.filter((item: any) => {
+      if (item.follow_author == this.userInfo.nickname) {
+        this.follows = true
+      }
+    })
   }
  
   private async created() {
@@ -87,6 +107,7 @@ export default class  extends Vue {
     this.article = data
     const _data = await getUserInfo({username: data.author})
     this.userInfo = _data.data
+    this.getfollowList()
   }
 }
 </script>
@@ -144,7 +165,7 @@ export default class  extends Vue {
             }
           }
         }
-        .check {
+        .unfollow {
           margin: 0 0 0 auto;
           padding: 0;
           width: 55px;
@@ -153,8 +174,22 @@ export default class  extends Vue {
           border: 1px solid #6cbd45;
           color: #6cbd45;
           background-color: #fff;
+          border-radius: 2px;
           line-height: 26px;
           text-align: center;
+        }
+        .follow {
+          margin: 0 0 0 auto;
+          padding: 0;
+          width: 55px;
+          height: 26px;
+          font-size: 13px;
+          text-align: center;
+          border-radius: 2px;
+          line-height: 26px;
+          border: 1px solid #6cbd45;
+          color: #fff;
+          background-color: #6cbd45;
         }
       }
       .article-img {

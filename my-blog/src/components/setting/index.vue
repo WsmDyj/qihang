@@ -28,6 +28,13 @@ import uploadAvatar from './uploadAvatar/index.vue'
 import { updateUserInfo } from '../../api/user'
 import { IUserInfo } from '../../api/types'
 
+const defaultIUserInfo = {
+  avatar: '',
+  autograph: '',
+  company: '',
+  job: '',
+  nickname: '',
+}
 @Component({
   components: {
     settingItem,
@@ -35,8 +42,9 @@ import { IUserInfo } from '../../api/types'
   },
 })
 
+
 export default class extends Vue {
-  private filters!: IUserInfo
+  private filters: IUserInfo = defaultIUserInfo
   private imgUrl: string = ''
   get nickname() {
     return UserModule.nickname

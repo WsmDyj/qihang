@@ -14,7 +14,16 @@ import BackToTop from '@/components/BackToTop/index.vue'
     BackToTop
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+   // @Provide() private isRouterAlive: boolean = true
+
+  // private reload() {
+  //   this.isRouterAlive = false
+  //   this.$nextTick((): void =>  {
+  //     this.isRouterAlive = true
+  //   }) 
+  // }
+}
 </script>
 
 <style>

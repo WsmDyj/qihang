@@ -18,8 +18,10 @@ import Header from '@/components/header/index.vue'
 import articleList from '@/components/articleList/homeArticle/index.vue'
 import aboutCard from '@/components/card/about/index.vue'
 import { IArticleData } from '../../api/types'
+import { Route } from 'vue-router'
 import formatDate from '../../utils/formatDate'
 import { ArticleModule } from '../../store/modules/article'
+import { UserModule } from '../../store/modules/user'
 import { getArticles } from '../../api/blog'
 
 
@@ -34,6 +36,10 @@ import { getArticles } from '../../api/blog'
 
 export default class extends Vue {
   private articles: IArticleData[] = []
+
+  get token() {
+    return UserModule.token
+  }
 
   private async created() {
     const { data } = await getArticles()

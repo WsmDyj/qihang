@@ -7,6 +7,7 @@
         <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/blindfold.58ce423.png" class="normal" alt=""> -->
       </div>
       <i title="关闭" @click="closeLogin" class="close-btn iconfont">&#xe710;</i>
+     
       <div class="panel">
         <div class="panel-title">
           <el-menu :default-active="activeIndex" class="sub-header" mode="horizontal" @select="handleSelect">
@@ -27,7 +28,7 @@
         <div v-else>
           <el-form :rules="loginRules" ref="loginForm" :model="registerForm" class="login-form">
             <el-form-item class="input-box" prop="username">
-              <el-input v-model="registerForm.username" placeholder="请输入用户名" autocomplete="off"></el-input>
+              <el-input clearable v-model="registerForm.username" placeholder="请输入用户名" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item class="input-box" prop="password">
               <el-input type="password" v-model="registerForm.password" autocomplete="off" placeholder="请输入密码"></el-input>
@@ -35,9 +36,18 @@
           </el-form>
         </div>
         <el-button class="btn" @click.native.prevent="handleLogin" type="primary">{{activeIndex == '1' ? '登录':'注册'}}</el-button>
-        <div class="prompt-box">
-          没有账号？ 
-          <span class="clickable">注册</span>
+        <div class="oauth-box">
+          <div class="oauth-title">第三方账号登录：</div>
+          <div class="oauth">
+            <div class="oauth-bg" @click="hadnleOauth">
+              <svg width="32.8" height="32.8" viewBox="0 0 21 18" class="icon github-icon"><path data-v-335a593e="" fill="#161614" fill-rule="nonzero" d="M1.857 9.203c0 3.624 2.456 6.698 5.862 7.782.429.076.585-.177.585-.395 0-.194-.007-.71-.012-1.395-2.384.496-2.887-1.1-2.887-1.1-.39-.947-.952-1.2-.952-1.2-.778-.508.06-.498.06-.498.86.058 1.312.846 1.312.846.765 1.253 2.007.89 2.495.68.078-.529.3-.89.544-1.095-1.903-.207-3.904-.911-3.904-4.054 0-.896.334-1.628.882-2.201-.088-.208-.383-1.042.084-2.171 0 0 .72-.22 2.357.84a8.557 8.557 0 0 1 2.146-.276 8.566 8.566 0 0 1 2.146.277c1.636-1.062 2.354-.841 2.354-.841.468 1.129.174 1.963.086 2.17.55.574.881 1.306.881 2.202 0 3.15-2.004 3.844-3.913 4.047.307.253.581.754.581 1.52 0 1.096-.01 1.98-.01 2.25 0 .219.154.474.589.394C16.546 15.898 19 12.825 19 9.203 19 4.673 15.162 1 10.428 1c-4.733 0-8.57 3.672-8.57 8.203z"></path></svg>
+            </div>
+          </div>
+        </div>
+        <div class="agreement-box">
+          注册登录即表示同意
+          <span class="agreement">用户协议</span>、
+          <span class="agreement">隐私政策 </span>
         </div>
       </div>
     </div>
@@ -45,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 import { UserModule } from '../../store/modules/user'
 import { Form as ElForm, Input } from 'element-ui'
 
@@ -68,7 +78,8 @@ export default class extends Vue {
       callback()
     }
   }
-  private activeIndex: string = '1'
+
+  @Prop({ default: '1' }) private activeIndex!: string
   private loginForm = {
     username: '',
     password: ''
@@ -82,8 +93,12 @@ export default class extends Vue {
     username: [{ validator: this.validateUsername, trigger: 'blur'}],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
+  // github登录
+  private async hadnleOauth() {
+    window.open("/oauth", "", "height=600, width=700")
+    UserModule.handleIslogin(false)
+  }
 
-  // private visible: boolean = true
   get islogin() {
     return UserModule.islogin
   }
@@ -91,9 +106,11 @@ export default class extends Vue {
   private handleSelect(key: string) {
     this.activeIndex = key === '2' ? '2' : '1'
   }
+  // 关闭弹窗按钮
   private closeLogin() {
     UserModule.handleIslogin(false)
   }
+  // 注册和登录
   private handleLogin() {
     (this.$refs.loginForm as ElForm).validate( async (valid: boolean) => {
       if (valid) {
@@ -102,16 +119,19 @@ export default class extends Vue {
           await UserModule.GetUserInfo()
         } else {
           const data = await UserModule.Register(this.registerForm)
-          await UserModule.GetUserInfo()
+          if (data.errno != -1) {
+            this.$notify({
+              title: '注册成功',
+              message: '欢迎来到起点',
+              type: 'success'
+            })
+            await UserModule.GetUserInfo()
+          }
         }
       } else {
         return false
       }
     })
-  }
-  private focus() {
-    console.log('hello')
-    this.imageURL = 'https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png'
   }
 }
 </script>
@@ -149,14 +169,20 @@ export default class extends Vue {
       }
     }
     .close-btn {
-      float: right;
+      position: absolute;
+      z-index: 999;
+      right: 20px;
       cursor: pointer;
-      opacity: .4;
+      opacity: .5;
+      &:hover {
+        color: #000;
+        opacity: 1;
+      }
     }
     .panel {
       .panel-title {
         font-size: 21px;
-        margin: 0 0 2rem;
+        margin: 0 0 24px;
       }
       .login-form {
         margin-bottom: 7px;
@@ -171,10 +197,31 @@ export default class extends Vue {
         cursor: pointer;
         margin-bottom: 18px;
       }
-      .prompt-box {
-        color: #8b9196;
+      .oauth-box {
+        color: #767676;
         font-size: 14px;
-        .clickable {
+        .oauth {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          margin-top: 15px;
+          .oauth-bg {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f4f8fb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+        }
+      }
+      .agreement-box {
+        color: #767676;
+        font-size: 14px;
+        margin-top: 15px;
+        .agreement {
           color: #007fff;
           cursor: pointer;
         }

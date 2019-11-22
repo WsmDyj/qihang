@@ -1,5 +1,5 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { login, register, getUserInfo } from '@/api/user'
+import { login,getoauth, register, getUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import store from '@/store'
 
@@ -73,6 +73,15 @@ class User extends VuexModule implements IUserState {
       return error
     }
   }
+  @Action
+  public async oauthLogin(code: string) {
+    const { data } = await getoauth({code})
+    setToken(data.accessToken)
+    this.SET_TOKEN(data.accessToken)
+    this.SET_Login(false)
+    return true
+  }
+
   @Action async Register(userInfo: { username: string, password: string}) {
     let { username, password } = userInfo
     username = username.trim()
@@ -81,6 +90,7 @@ class User extends VuexModule implements IUserState {
       setToken(data.accessToken)
       this.SET_TOKEN(data.accessToken)
       this.SET_Login(false)
+      return data
     } catch (error) {
       return error
     }

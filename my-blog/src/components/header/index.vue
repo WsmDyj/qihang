@@ -29,21 +29,19 @@
             <span>写文章</span>
           </div>
           <div class="nav-item auth">
-            <span @click="login" class="login">登录</span>
-            <span class="register">注册</span>
+            <span @click="login('1')" class="login">登录</span>
+            <span @click="login('2')" class="register">注册</span>
           </div>
         </div>
       </div>
     </div>
-    <login />
-    <Register />
+    <login :activeIndex = activeIndex />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Provide } from 'vue-property-decorator'
 import Login from '../login/index.vue'
-import Register from '../register/index.vue'
 import { UserModule } from '../../store/modules/user'
 import Dropdown from '@/components/menu/dropdown/index.vue'
 interface Iactions {
@@ -56,13 +54,13 @@ interface Iactions {
   components: {
     Login,
     Dropdown,
-    Register
   },
 })
 
 export default class extends Vue {
   // private visivle: boolean = false
   private curAction: number = 0
+  private activeIndex: string = '1'
   private actions: Iactions[] = [
     { id: 0, name: '首页', path: '/' },
     { id: 1, name: '沸点', path: '/' },
@@ -78,18 +76,10 @@ export default class extends Vue {
   get visivle(): boolean {
     return this.token ?  true :  false
   }
-  // @Provide() private isRouterAlive: boolean = true
-
-  // private reload() {
-  //   this.isRouterAlive = false
-  //   this.$nextTick((): void =>  {
-  //     this.isRouterAlive = true
-  //   }) 
-  // }
   private handleAction(action: Iactions): void {
-    console.log(action)
   }
-  private login() {
+  private login(action: string) {
+    this.activeIndex = action
     UserModule.handleIslogin(true)
   }
 }
