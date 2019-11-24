@@ -4,7 +4,7 @@ import { IUserState } from './modules/user'
 Vue.use(Vuex)
 
 export interface IRootState {
-  user: IUserState
+  userInfo: IUserState
 }
 
 export default new Vuex.Store<IRootState>({})

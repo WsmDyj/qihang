@@ -18,6 +18,10 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .card {
   width: 240px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  .clearfix {
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 </style>

@@ -12,12 +12,14 @@
                 <span>{{article.createtime}} </span>
                 <span class="review">阅读 {{article.reviews}} </span>
                 <span class="edit" v-show="nickname== article.author">
-                  <router-link :to="{path: '/markdown', query:{articleId: article.article_id}}">编辑</router-link>
+                  <router-link :to="{path: '/markdown', query:{articleId: article.article_id}}">
+                    <el-button type="text">编辑</el-button>
+                  </router-link>
                 </span>
               </div>
             </div>
           </div>
-          <div v-show="nickname != article.author" :class="follows ? 'follow' : 'unfollow'" @click="follow(article.author)">{{follows ? '已关注' : '关注'}}</div>
+          <author-follow size='mini' :author = article.author ></author-follow>
         </div>
         <div class="article-img" v-show="article.articleImg">
           <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
@@ -39,6 +41,7 @@ import Header from '@/components/header/index.vue'
 import comment from '@/components/comment/index.vue'
 import catalog from '@/components/catalog/index.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
+import authorFollow from '@/components/follow/index.vue'
 import authorList from '@/components/card/rankingCard/authorList/index.vue'
 import { detailArticle } from '../../api/blog'
 import { IUserInfo } from '../../api/types'
@@ -56,12 +59,12 @@ import { formatTime } from '../../utils/formatDate'
     catalog,
     achievementCard,
     authorList,
+    authorFollow
   }
 })
 export default class  extends Vue {
   private article: string = ''
   private userInfo: any = {}
-  private follows: boolean = false
   get nickname() {
     return UserModule.nickname
   }
@@ -74,24 +77,6 @@ export default class  extends Vue {
     window.open(routeUrl .href, '_blank')
   }
 
-  // 关注
-  private async follow(username: string) {
-    this.follows = !this.follows
-    if (this.follows) {
-      await getfollow({username: username})
-    } else {
-      await getunfollow({username: username})
-    }
-  }
-  private async getfollowList() {
-    const { data } = await getfollowList()
-    data[0].data.filter((item: any) => {
-      if (item.follow_author == this.userInfo.nickname) {
-        this.follows = true
-      }
-    })
-  }
- 
   private async created() {
     const articleId: string | (string | null)[] = this.$route.query.articleId
     await getreviewArticle({article_id: articleId })
@@ -107,7 +92,6 @@ export default class  extends Vue {
     this.article = data
     const _data = await getUserInfo({username: data.author})
     this.userInfo = _data.data
-    this.getfollowList()
   }
 }
 </script>
@@ -164,32 +148,6 @@ export default class  extends Vue {
               }
             }
           }
-        }
-        .unfollow {
-          margin: 0 0 0 auto;
-          padding: 0;
-          width: 55px;
-          height: 26px;
-          font-size: 13px;
-          border: 1px solid #6cbd45;
-          color: #6cbd45;
-          background-color: #fff;
-          border-radius: 2px;
-          line-height: 26px;
-          text-align: center;
-        }
-        .follow {
-          margin: 0 0 0 auto;
-          padding: 0;
-          width: 55px;
-          height: 26px;
-          font-size: 13px;
-          text-align: center;
-          border-radius: 2px;
-          line-height: 26px;
-          border: 1px solid #6cbd45;
-          color: #fff;
-          background-color: #6cbd45;
         }
       }
       .article-img {

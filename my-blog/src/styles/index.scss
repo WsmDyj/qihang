@@ -32,3 +32,12 @@ html {
   margin: 0;
   color: #909399;
 }
+.el-tabs__header {
+  margin: 0 0;
+  .el-tabs__nav-wrap {
+    padding: 0 30px;
+    &::after {
+      background-color: rgba(230,230,231,.5);
+    }
+  }
+}

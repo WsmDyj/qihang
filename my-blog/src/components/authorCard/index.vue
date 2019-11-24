@@ -24,19 +24,24 @@
         </div>
       </div>
     </div>
-    <div class="author-action" v-show="visible" @click="editInfo">
+    <div class="author-action" v-if="visible" @click="editInfo">
       <el-button type="primary" plain>编辑个人资料</el-button>
+    </div>
+    <div v-else>
+      <author-follow :customStyle= followStyle :author= userInfo.nickname ></author-follow>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { UserModule }  from '../../store/modules/user'
+import authorFollow from '../follow/index.vue'
 import { IUserInfo } from '../../api/types'
 import { getUserInfo } from '../../api/user'
 
 @Component({
   components: {
+    authorFollow
   },
 })
 
@@ -44,6 +49,13 @@ import { getUserInfo } from '../../api/user'
 export default class extends Vue {
   private visible: boolean = false
   @Prop() private userInfo!: IUserInfo
+  private followStyle = {
+    width: '108px',
+    height: '34px',
+    'font-size': '15px',
+    'border': '1px solid #6cbd45',
+    'line-height': '34px', // Please keep consistent with height to make it center vertically
+  }
   get nickname() {
     return UserModule.nickname
   }
