@@ -15,19 +15,22 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { UserModule } from '../../store/modules/user'
 import { getfollowList, getfollow, getunfollow } from '../../api/follow'
+import { IFollow } from '../../api/types'
 
 @Component
 export default class extends Vue {
   @Prop() private author!: string
   @Prop() private size!: string
   private follows: boolean = false
+  private lists: string[] = []
 
-  @Watch('author', {immediate: true})
-  private async watchAuthor(val: string) {
+  @Watch('author', {immediate:true, deep: true})
+  private async watchAuthor(old:string, val: string) {
     const { data } = await getfollowList()
     data[0].data.filter((item: any) => {
-      this.follows = item.author == val ? true : false
+      this.lists.push(item.author)
     })
+    this.follows = await this.lists.indexOf(old) != -1 ? true : false
   }
 
   get nickname() {
@@ -41,7 +44,13 @@ export default class extends Vue {
       await getunfollow({username: username})
     }
   }
- 
+
+  private async created() {
+    const { data } = await getfollowList()
+    data[0].data.filter((item: any) => {
+      this.lists.push(item.author)
+    })
+  }
 }
 </script>
 

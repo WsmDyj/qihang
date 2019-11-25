@@ -11,7 +11,9 @@
         </div>
         <div class="nav-list" v-if="visivle">
           <div class="nav-item">
-            <router-link to = '/markdown'><el-button size="mini" type="primary">写文章</el-button></router-link>
+            <router-link target="_blank" to = '/markdown'>
+              <el-button size="mini" type="primary">写文章</el-button>
+            </router-link>
           </div>
           <div class="nav-item notice">
             <el-badge :value="12" class="item" type="primary">
