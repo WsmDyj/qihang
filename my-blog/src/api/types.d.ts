@@ -23,6 +23,7 @@ export interface IUserInfo {
   job: string
   nickname: string
   username?: string
+  date?: string
 }
 /*
 * 评论信息

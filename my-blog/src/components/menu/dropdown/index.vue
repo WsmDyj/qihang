@@ -1,10 +1,10 @@
 <template>
   <div class="nav-menu">
     <div class="nav-menu-group">
-      <div class="nav-menu-item">
+      <router-link target="_blank" to="/markdown" class="nav-menu-item">
         <i class="el-icon-edit item-icon"></i>
         <span class="item-text">写文章</span>
-      </div>
+      </router-link>
       <div class="nav-menu-item">
         <i class="el-icon-s-goods item-icon"></i>
         <span class="item-text">草稿</span>
@@ -66,18 +66,18 @@ export default class extends Vue {
 .nav-menu {
   width: 154px;
   cursor: pointer;
-  // background-color: #fff;
-  // box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
-  // border: 1px solid rgba(177,180,185,.45);
   color: #71777c;
-  // border-radius: 4px;
   font-size: 16px;
   box-sizing: border-box;
   .nav-menu-group{
     padding: 14px 0;
+    box-sizing: border-box;
+    width: 100%;
     border-bottom: 1px solid rgba(0,0,0,.04);
     .nav-menu-item {
       display: inline-block;
+      width: 150px;
+      box-sizing: border-box;
       color: #71777c;
       padding: 6px 6px 6px 24px;
       &:hover {

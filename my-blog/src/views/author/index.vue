@@ -9,6 +9,10 @@
       <div class="asside">
         <achievement-card :author= true title="个人成就" :userInfo = userInfo ></achievement-card>
         <followCard @checkFollows='checkFollows' :follows = follows />
+        <div class="time">
+          <span class="time-title">加入于</span>
+          <span class="time-detail">{{userInfo.date}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -25,6 +29,7 @@ import { IArticleData, IUserInfo } from '../../api/types'
 import { getArticles } from '../../api/blog'
 import { getUserInfo } from '../../api/user'
 import { getfollowList } from '../../api/follow'
+import { formatTime } from '../../utils/formatDate'
 
 const defaultIUserInfo = {
   avatar: '',
@@ -59,6 +64,7 @@ export default class extends Vue {
   private async getInfo(params: any) {
     const { data } = await getUserInfo({username: params})
     Object.assign(this.userInfo, data)
+    this.userInfo.date = formatTime(data.date)
   }
   private async getFollow(params: any) {
     const { data } = await getfollowList({username: params})
@@ -86,6 +92,17 @@ export default class extends Vue {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+  }
+  .time {
+    @include flexcenter($jc:space-between);
+    position: sticky;
+    top: 400px;
+    padding: 15px 2px;
+    color: #000;
+    font-size: 15px;
+    border-top: 1px solid rgba(230,230,231,.5);
+    border-bottom: 1px solid rgba(230,230,231,.5);
+
   }
 }
 </style>
