@@ -3,10 +3,10 @@
     <el-button 
       v-show="nickname != author" 
       :size='size'
-      :type=" follows ? 'success' : '' "
+      :type=" show ? 'success' : '' "
       @click.stop="follow(author)"
     >
-      {{ follows ? '已关注' : '关注' }}
+      {{ show ? '已关注' : '关注' }}
   </el-button >
   </div>
 </template>
@@ -14,6 +14,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { UserModule } from '../../store/modules/user'
+import { followsModule } from '../../store/modules/follow'
 import { getfollowList, getfollow, getunfollow } from '../../api/follow'
 import { IFollow } from '../../api/types'
 
@@ -21,24 +22,26 @@ import { IFollow } from '../../api/types'
 export default class extends Vue {
   @Prop() private author!: string
   @Prop() private size!: string
-  private follows: boolean = false
+  private show: boolean = false
   private lists: string[] = []
 
   @Watch('author', {immediate:true, deep: true})
   private async watchAuthor(old:string, val: string) {
-    const { data } = await getfollowList()
-    data[0].data.filter((item: any) => {
+    this.follows.filter((item: any) => {
       this.lists.push(item.author)
     })
-    this.follows = await this.lists.indexOf(old) != -1 ? true : false
+    this.show = await this.lists.indexOf(old) != -1 ? true : false
   }
 
   get nickname() {
     return UserModule.nickname
   }
+  get follows() {
+    return followsModule.follows
+  }
   private async follow (username: string) {
-    this.follows = !this.follows
-    if (this.follows) {
+    this.show = !this.show
+    if (this.show) {
       await getfollow({username: username})
     } else {
       await getunfollow({username: username})
@@ -46,10 +49,10 @@ export default class extends Vue {
   }
 
   private async created() {
-    const { data } = await getfollowList()
-    data[0].data.filter((item: any) => {
-      this.lists.push(item.author)
-    })
+    // const { data } = await getfollowList()
+    // data[0].data.filter((item: any) => {
+    //   this.lists.push(item.author)
+    // })
   }
 }
 </script>

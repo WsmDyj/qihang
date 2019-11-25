@@ -30,6 +30,7 @@ import { getArticles } from '../../api/blog'
 import { getUserInfo } from '../../api/user'
 import { getfollowList } from '../../api/follow'
 import { formatTime } from '../../utils/formatDate'
+import { followsModule } from '../../store/modules/follow'
 
 const defaultIUserInfo = {
   avatar: '',
@@ -63,16 +64,17 @@ export default class extends Vue {
   }
   private async getInfo(params: any) {
     const { data } = await getUserInfo({username: params})
+    data.date = formatTime(data.date)
     Object.assign(this.userInfo, data)
-    this.userInfo.date = formatTime(data.date)
   }
   private async getFollow(params: any) {
     const { data } = await getfollowList({username: params})
     this.follows = data
   }
   private async created() {
+    await followsModule.getFollows()
     this.author = this.$route.query.author
-    this.getInfo(this.author)
+    await this.getInfo(this.author)
     this.getFollow(this.author)
 
   }

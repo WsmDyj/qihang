@@ -51,6 +51,7 @@ import { UserModule } from '../../store/modules/user'
 import { createComment } from '../../api/comments'
 import { getreviewArticle } from '../../api/actions'
 import { formatTime } from '../../utils/formatDate'
+import { followsModule } from '../../store/modules/follow'
 
 @Component({
   components: {
@@ -78,6 +79,7 @@ export default class  extends Vue {
   }
 
   private async created() {
+    await followsModule.getFollows()
     const articleId: string | (string | null)[] = this.$route.query.articleId
     await getreviewArticle({article_id: articleId })
     const { data } = await detailArticle({ id: articleId })
