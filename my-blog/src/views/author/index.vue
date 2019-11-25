@@ -4,11 +4,11 @@
     <div class="main">
       <div class="article">
         <author-card :userInfo = userInfo></author-card>
-        <author-article :userInfo = userInfo></author-article>
+        <author-article :userInfo = userInfo :follows = follows></author-article>
       </div>
       <div class="asside">
         <achievement-card :author= true title="个人成就" :userInfo = userInfo ></achievement-card>
-        <followCard />
+        <followCard :follows = follows />
       </div>
     </div>
   </div>
@@ -24,6 +24,7 @@ import followCard from '@/components/card/achievement/follow/index.vue'
 import { IArticleData, IUserInfo } from '../../api/types'
 import { getArticles } from '../../api/blog'
 import { getUserInfo } from '../../api/user'
+import { getfollowList } from '../../api/follow'
 
 const defaultIUserInfo = {
   avatar: '',
@@ -49,14 +50,21 @@ const defaultIUserInfo = {
 export default class extends Vue {
   private author: string | (string | null)[] = ''
   private userInfo: IUserInfo = defaultIUserInfo
+  private follows: [] = []
   
-  private async loading(params: any) {
+  private async getInfo(params: any) {
     const { data } = await getUserInfo({username: params})
     Object.assign(this.userInfo, data)
   }
+  private async getFollow(params: any) {
+    const { data } = await getfollowList({username: params})
+    this.follows = data
+  }
   private async created() {
     this.author = this.$route.query.author
-    this.loading(this.author)
+    this.getInfo(this.author)
+    this.getFollow(this.author)
+
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="follow-action">
-    <el-button  
+    <el-button 
       v-show="nickname != author" 
       :size='size'
       :type=" follows ? 'success' : '' "
@@ -25,7 +25,7 @@ export default class extends Vue {
   private async watchAuthor(val: string) {
     const { data } = await getfollowList()
     data[0].data.filter((item: any) => {
-      if (item.follow_author == val) {
+      if (item.author == val) {
         this.follows = true
       }
     })

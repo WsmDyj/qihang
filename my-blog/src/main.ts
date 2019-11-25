@@ -11,7 +11,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css';
 import '@/styles/index.scss'
 
-
 Vue.config.productionTip = false;
 Vue.use(Element)
 

@@ -9,38 +9,35 @@
       </el-tab-pane>
       <el-tab-pane name="3">
         <span slot="label">更多 <i class="el-icon-caret-bottom"></i></span>
-        <like-list :likeList = likeList />
+        <follow-list :follows = follows />
       </el-tab-pane>
-
     </el-tabs>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
-import articlesList from './components/articles.vue'
-import likeList from './components/likes.vue'
-import emptyBox from './components/emptyBox.vue'
-import { IUserInfo, IArticleData } from '../../../api/types'
+import { IUserInfo, IArticleData, IFollow } from '../../../api/types'
 import { delArticle, getArticles } from '../../../api/blog'
 import { getlikesList } from '../../../api/actions'
 import { ArticleModule } from '../../../store/modules/article'
 import { Message, MessageBox } from 'element-ui'
-
-interface routerQuery {
-  path: string
-  query: any
-}
+import articlesList from './components/articles.vue'
+import likeList from './components/likes.vue'
+import emptyBox from './components/emptyBox.vue'
+import followList from './components/follow.vue'
 
 @Component({
   name: 'authorArticle',
   components: {
     likeList,
-    articlesList
+    articlesList,
+    followList
   },
 })
 
 export default class extends Vue {
   @Prop() private userInfo!: IUserInfo
+  @Prop() private follows!: IFollow[]
   private activeIndex: string | (string | null)[] = '1'
   private articleList: IArticleData[] = []
   private likeList: IArticleData[] =[]
@@ -49,6 +46,7 @@ export default class extends Vue {
   get likeArticlId() {
     return ArticleModule.likeArticlId
   }
+  
   // 文章去除标签
   private fommentArticle(data: IArticleData[]) {
     data.forEach((item: IArticleData) => {
@@ -64,7 +62,7 @@ export default class extends Vue {
     this.fommentArticle(data)
     this.articleList = data
   }
-  // 点赞的
+  // 用户点赞的
   private async getLikeArticles() {
     const { data } = await getlikesList({author: this.$route.query.author})
     this.fommentArticle(data)
@@ -72,8 +70,7 @@ export default class extends Vue {
   }
   // 删除文章
   private actionArticle(event: {type: string, articleId: number}) {
-    console.log(event)
-     if (event.type === 'delete') {
+    if (event.type === 'delete') {
       MessageBox.confirm(
         '您确定删除这篇博客吗？删除之后可能无法找回了',
         '确定删除',

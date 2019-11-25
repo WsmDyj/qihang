@@ -17,6 +17,8 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "types": [
+      "node",
+      "jest",
       "webpack-env"
     ],
     "paths": {

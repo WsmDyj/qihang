@@ -1,6 +1,6 @@
 <template>
   <div class="follow">
-    <div class="follow-item" v-for="(list, index) in lists" :key="index">
+    <div class="follow-item" v-for="(list, index) in follows" :key="index">
       <div class="item-title">{{list.title}}</div>
       <div class="item-count">{{list.count}}</div>
     </div>
@@ -14,13 +14,8 @@ import { IFollow } from '../../../../api/types'
 
 @Component
 export default class extends Vue {
-  private lists: IFollow[] = []
+  @Prop() private follows!: IFollow[]
   
-  private async created() {
-    const author = this.$route.query.author
-    const { data } = await getfollowList({username: author})
-    this.lists = data
-  }
 }
 </script>
 

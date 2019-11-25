@@ -4,9 +4,6 @@ const webpack = require('webpack')
 const devServerPort = 8080 
 
 module.exports = {
-  publicPath: '/',
-  outputDir: 'dist',
-  assetsDir: 'static',
   productionSourceMap: false,
   devServer: {
     host: 'localhost', 
@@ -24,9 +21,16 @@ module.exports = {
       }
     }
   },
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `
+          @import "src/styles/_mixins.scss";
+        `
+      }
+    }
+  },
   configureWebpack: {
-    plugins: [
-
-    ]
+    plugins: []
   },
 }

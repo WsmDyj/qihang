@@ -1,18 +1,15 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div class="container">
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
-export default class HelloWorld extends Vue {
-  @Prop() private msg!: string;
+export default class extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 </style>
