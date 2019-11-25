@@ -4,7 +4,7 @@
       v-show="nickname != author" 
       :size='size'
       :type=" follows ? 'success' : '' "
-      @click="follow(author)"
+      @click.stop="follow(author)"
     >
       {{ follows ? '已关注' : '关注' }}
   </el-button >
@@ -15,26 +15,25 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { UserModule } from '../../store/modules/user'
 import { getfollowList, getfollow, getunfollow } from '../../api/follow'
+
 @Component
 export default class extends Vue {
   @Prop() private author!: string
-  private follows: boolean = false
   @Prop() private size!: string
+  private follows: boolean = false
 
-  @Watch('author')
+  @Watch('author', {immediate: true})
   private async watchAuthor(val: string) {
     const { data } = await getfollowList()
     data[0].data.filter((item: any) => {
-      if (item.author == val) {
-        this.follows = true
-      }
+      this.follows = item.author == val ? true : false
     })
   }
 
   get nickname() {
     return UserModule.nickname
   }
-  private async follow(username: string) {
+  private async follow (username: string) {
     this.follows = !this.follows
     if (this.follows) {
       await getfollow({username: username})

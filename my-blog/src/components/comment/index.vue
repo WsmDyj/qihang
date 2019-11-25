@@ -185,6 +185,9 @@ export default class extends Vue {
     flex-direction: column;
     justify-content: space-between;
     border-bottom: 1px solid #f1f1f1;
+    &:last-child {
+      border-bottom: none;
+    }
     .info-center {
       display: flex;
       flex-direction: column;

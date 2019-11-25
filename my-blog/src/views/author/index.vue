@@ -4,11 +4,11 @@
     <div class="main">
       <div class="article">
         <author-card :userInfo = userInfo></author-card>
-        <author-article :userInfo = userInfo :follows = follows></author-article>
+        <author-article :userInfo = userInfo :follows = follows :actions = actions ></author-article>
       </div>
       <div class="asside">
         <achievement-card :author= true title="个人成就" :userInfo = userInfo ></achievement-card>
-        <followCard :follows = follows />
+        <followCard @checkFollows='checkFollows' :follows = follows />
       </div>
     </div>
   </div>
@@ -51,7 +51,11 @@ export default class extends Vue {
   private author: string | (string | null)[] = ''
   private userInfo: IUserInfo = defaultIUserInfo
   private follows: [] = []
-  
+  private actions: object = {}
+
+  private checkFollows(event:object) {
+    this.actions = event
+  }
   private async getInfo(params: any) {
     const { data } = await getUserInfo({username: params})
     Object.assign(this.userInfo, data)

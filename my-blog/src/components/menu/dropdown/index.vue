@@ -11,11 +11,11 @@
       </div>
     </div>
     <div class="nav-menu-group">
-      <router-link class="nav-menu-item" tag="div" :to="{path: '/author', query:{activeIndex: '1', author: nickname}}">
+      <router-link class="nav-menu-item" target="_blank" :to="{path: '/author', query:{activeIndex: '1', author: nickname}}">
         <span class="el-icon-user-solid"></span>
         <span class="item-text">我的主页</span>
       </router-link>
-      <router-link tag="div" :to="{path: '/author', query:{activeIndex: '2', author: nickname}}" class="nav-menu-item">
+      <router-link target="_blank" :to="{path: '/author', query:{activeIndex: '2', author: nickname}}" class="nav-menu-item">
         <i class="iconfont item-icon">&#xe60c;</i>
         <span class="item-text">我赞过的</span>
       </router-link>
@@ -77,6 +77,8 @@ export default class extends Vue {
     padding: 14px 0;
     border-bottom: 1px solid rgba(0,0,0,.04);
     .nav-menu-item {
+      display: inline-block;
+      color: #71777c;
       padding: 6px 6px 6px 24px;
       &:hover {
         background: #ccc;

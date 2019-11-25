@@ -1,6 +1,6 @@
 <template>
   <div class="follow">
-    <div class="follow-item" v-for="(list, index) in follows" :key="index">
+    <div class="follow-item" @click="checkFollows(index)" v-for="(list, index) in follows" :key="index">
       <div class="item-title">{{list.title}}</div>
       <div class="item-count">{{list.count}}</div>
     </div>
@@ -8,14 +8,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { getfollowList } from '../../../../api/follow'
 import { IFollow } from '../../../../api/types'
 
 @Component
 export default class extends Vue {
   @Prop() private follows!: IFollow[]
-  
+
+  @Emit('checkFollows')
+  private checkFollows(index: number) {
+    const action = {
+      radio: index,
+      label: '3'
+    }
+    return action
+  }
 }
 </script>
 

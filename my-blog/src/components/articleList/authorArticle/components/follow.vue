@@ -34,9 +34,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import followAction from '../../../follow/index.vue'
 import { IFollow } from '../../../../api/types'
 import emptyBox from './emptyBox.vue'
-interface Iarray {
-  [key: number]: any
-}
+
 @Component({
   components: { 
     followAction,
@@ -45,11 +43,19 @@ interface Iarray {
 })
 export default class extends Vue {
   @Prop() private follows!: IFollow[]
+  @Prop() private actions!: object
   private lists: IFollow[] = []
   private radio: number = 0
+  
   @Watch('follows')
   private watchFollows(val: IFollow[]) {
     this.lists = val[this.radio].data
+  }
+
+  @Watch('actions') 
+  private actionsChange(val: {radio: number, label: string}) {
+    this.radio = val.radio
+    this.changeFollowType()
   }
 
   private changeFollowType() {

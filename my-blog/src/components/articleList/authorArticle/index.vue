@@ -9,7 +9,7 @@
       </el-tab-pane>
       <el-tab-pane name="3">
         <span slot="label">更多 <i class="el-icon-caret-bottom"></i></span>
-        <follow-list :follows = follows />
+        <follow-list :follows = follows :actions = actions />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -38,9 +38,15 @@ import followList from './components/follow.vue'
 export default class extends Vue {
   @Prop() private userInfo!: IUserInfo
   @Prop() private follows!: IFollow[]
+  @Prop() private actions!: object
   private activeIndex: string | (string | null)[] = '1'
+
   private articleList: IArticleData[] = []
   private likeList: IArticleData[] =[]
+  @Watch('actions') 
+  private actionsChange(val: {radio: number, label: string}) {
+    this.activeIndex = val.label
+  }
 
    // 自己点赞过的文章
   get likeArticlId() {

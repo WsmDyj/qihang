@@ -9,10 +9,13 @@
           <div>{{reply.comment_author}} 
            <span style="font-size:13px;color: #8a9aa9;">{{reply.job}}</span>
           </div>
-          <span style="color: #505050; font-size: 13px; margin-top:8px">
+          <div style="color: #505050; font-size: 13px;">
             回复 
-            <span>{{reply.reply_author}}</span>：
-            {{reply.reply_conent}}</span>
+            <router-link target="_blank" :to="{path: '/author', query:{author: reply.reply_author}}">
+              <el-button size='small' type="text">{{reply.reply_author}}</el-button>
+            </router-link>
+            ：
+            {{reply.reply_conent}}</div>
         </div>
         <div class="info-time">
           <span>{{reply.reply_time}}</span>
@@ -83,6 +86,10 @@ export default class extends Vue {
   .comment-content {
     margin-top: 10px;
     display: flex;
+    border-bottom: 1px solid #f1f1f1;
+    &:last-child {
+      border-bottom: none;
+    }
     .comment-author {
       padding: 0 10px;
     }
@@ -93,7 +100,6 @@ export default class extends Vue {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border-bottom: 1px solid #f1f1f1;
       .info-center {
         display: flex;
         flex-direction: column;
@@ -101,7 +107,7 @@ export default class extends Vue {
       }
       .info-time {
         color: #8a9aa9;
-        margin-top: 15px;
+        margin-top: 10px;
         cursor: default;
         font-size: 12px;
         display: flex;
