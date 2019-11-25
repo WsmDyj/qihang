@@ -24,9 +24,9 @@
         </div>
       </div>
     </div>
-    <div class="author-action" v-if="visible" @click="editInfo">
+    <router-link target="_blank" to="/settings " class="author-action" v-if="visible">
       <el-button type="primary" plain>编辑个人资料</el-button>
-    </div>
+    </router-link>
     <div v-else>
       <author-follow size='medium' :author= userInfo.nickname ></author-follow>
     </div>
@@ -52,9 +52,6 @@ export default class extends Vue {
     return UserModule.nickname
   }
 
-  private editInfo() {
-    this.$router.push({path: '/settings'})
-  }
   private created() {
     if (this.$route.query.author == this.nickname) {
       this.visible = true

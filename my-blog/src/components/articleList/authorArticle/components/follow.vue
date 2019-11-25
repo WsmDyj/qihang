@@ -10,18 +10,18 @@
       </div>
     </div>
     <div v-if="lists.length > 0">
-      <div class="follow" v-for="(item, index) in lists" :key="index">
-      <div class="userInfo">
-        <el-avatar :size="55" :src='item.avatar'></el-avatar>
-        <div class="info-box">
-          <div class="name">{{ item.author }}</div>
-          <div class="detail">{{ item.job }} @ {{ item.company }}</div>
+      <router-link target="_blank" :to="{path: '/author', query:{author: item.author}}" class="follow" v-for="(item, index) in lists" :key="index">
+        <div class="userInfo">
+          <el-avatar :size="55" :src='item.avatar'></el-avatar>
+          <div class="info-box">
+            <div class="name">{{ item.author }}</div>
+            <div class="detail">{{ item.job }} @ {{ item.company }}</div>
+          </div>
         </div>
-      </div>
-      <div class="follow-action">
-        <followAction size='small' :author = item.author />
-      </div>
-    </div>
+        <div class="follow-action">
+          <followAction size='small' :author = item.author />
+        </div>
+      </router-link>
     </div>
     <div v-else>
       <emptyBox />
