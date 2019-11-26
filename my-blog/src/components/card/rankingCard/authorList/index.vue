@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="author">
+    <router-link :to="{path: '/author', query:{author: userInfo.nickname}}" class="author">
       <div class="author-avatar">
         <el-avatar :size="45" :src= userInfo.avatar ></el-avatar>
       </div>
@@ -8,7 +8,7 @@
         <div class="author-usernam">{{userInfo.nickname}}</div>
         <div class="author-desc">{{userInfo.job}} @ {{userInfo.company}}</div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 <script lang="ts">

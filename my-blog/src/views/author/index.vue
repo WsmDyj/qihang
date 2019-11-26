@@ -97,14 +97,14 @@ export default class extends Vue {
   }
   .time {
     @include flexcenter($jc:space-between);
-    position: sticky;
-    top: 400px;
+    position: fixed;
+    width: 240px;
+    top: 390px;
     padding: 15px 2px;
     color: #000;
     font-size: 15px;
     border-top: 1px solid rgba(230,230,231,.5);
     border-bottom: 1px solid rgba(230,230,231,.5);
-
   }
 }
 </style>

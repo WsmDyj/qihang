@@ -2,6 +2,7 @@
   <div class="container">
     <Header />
     <div class="main">
+      <articleAction :article = details />
       <div class="article">
         <div class="article-author">
           <div class="userInfo">
@@ -44,7 +45,7 @@ import achievementCard from '@/components/card/achievement/index.vue'
 import authorFollow from '@/components/follow/index.vue'
 import authorList from '@/components/card/rankingCard/authorList/index.vue'
 import { detailArticle } from '../../api/blog'
-import { IUserInfo } from '../../api/types'
+import { IUserInfo, IArticleData } from '../../api/types'
 import { getUserInfo } from '../../api/user'
 import { getfollow, getunfollow } from '../../api/follow'
 import { UserModule } from '../../store/modules/user'
@@ -52,6 +53,7 @@ import { createComment } from '../../api/comments'
 import { getreviewArticle } from '../../api/actions'
 import { formatTime } from '../../utils/formatDate'
 import { followsModule } from '../../store/modules/follow'
+import articleAction from './components/action.vue'
 
 @Component({
   components: {
@@ -60,12 +62,24 @@ import { followsModule } from '../../store/modules/follow'
     catalog,
     achievementCard,
     authorList,
-    authorFollow
+    authorFollow,
+    articleAction
   }
 })
 export default class  extends Vue {
   private article: string = ''
-  private userInfo: any = {}
+  private userInfo: object = {}
+  private details: IArticleData = {
+    article_id: 0,
+    title: '',
+    content: '',
+    createtime: '',
+    author: '',
+    likeCount: 0,
+    comments: 0,
+    reviews: 0,
+    markdown: '',
+  }
   get nickname() {
     return UserModule.nickname
   }
@@ -83,6 +97,7 @@ export default class  extends Vue {
     const articleId: string | (string | null)[] = this.$route.query.articleId
     await getreviewArticle({article_id: articleId })
     const { data } = await detailArticle({ id: articleId })
+    this.details = data
     data.createtime = formatTime(data.createtime)
     const toc: string[] | null = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
     if (toc) {
@@ -104,19 +119,16 @@ export default class  extends Vue {
   flex-direction: column;
   align-items: center;
   .main {
-    position: relative;
-    flex: 1 1 0;
-    width: 984px;
-    margin-top: 80px;
     display: flex;
-    justify-content: space-between;
+    position: relative;
+    margin-top: 80px;
     margin-bottom: 20px;
     .article {
       padding: 30px 20px;
-      margin: 0 auto;
-      width: 698px;
+      margin-right: 20px;
+      width: 700px;
       box-sizing: border-box;
-      background: #fff !important;
+      background: #fff;
       .article-author {
         display: flex;
         justify-content: space-between;

@@ -29,13 +29,13 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .follow {
-  position: sticky;
+  position: fixed;
+  width: 240px;
   top: 300px;
   background-color: #fff;
   border-radius: 2px;
   display: flex;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-  margin-top: 12px;
   .follow-item {
     box-sizing: border-box;
     flex: 1 1 auto;

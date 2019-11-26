@@ -14,7 +14,7 @@
       </div>
       <div class="comment-info">
         <div class="info-center">
-          <div>{{comment.comment_author}}
+          <div class="info">{{comment.comment_author}}
             <span style="font-size:13px;color: #8a9aa9;">{{comment.userInfo.job}}</span>
           </div>
           <span style="color: #505050; font-size: 14px; margin-top:8px">{{comment.comment_conent}}</span>
@@ -175,35 +175,35 @@ export default class extends Vue {
   display: flex;
   margin: 20px 30px 20px 50px;
   .comment-author {
+    cursor: pointer;
     padding: 0 10px;
   }
   .comment-info {
+    @include flexcolumn();
     width: 100%;
     box-sizing: border-box;
     padding-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     border-bottom: 1px solid #f1f1f1;
     &:last-child {
       border-bottom: none;
     }
     .info-center {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      @include flexcolumn();
+      .info {
+        cursor: pointer;
+        &:hover {
+          color: #027fff;
+        }
+      }
     }
     .info-time {
+      @include flexcenter($jc:space-between);
       color: #8a9aa9;
       margin-top: 15px;
       cursor: default;
       font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       .action {
-        display: flex;
-        align-items: center;
+        @include flexcenter($jc: none);
         .action-title {
           padding: 0 10px;
         }

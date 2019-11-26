@@ -12,6 +12,11 @@
   justify-content: $jc;
   align-items: $ai;
 }
+@mixin flexcolumn($jc:space-between) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $jc;
+}
 
 
 // Base color
