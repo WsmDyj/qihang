@@ -2,7 +2,7 @@
   <div class="container">
     <Header />
     <div class="main">
-      <articleAction :article = details />
+      <articleAction :article='details' />
       <div class="article">
         <div class="article-author">
           <div class="userInfo">
@@ -25,19 +25,19 @@
         <div class="article-img" v-show="article.articleImg">
           <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
         </div>
-        <h1 class="article-title">{{article.title}}</h1>
-        <div ref="wrapper" id="wrapper" class="article-content" v-html="article.content"></div>
+        <div class="article-title">{{article.title}}</div>
+        <div class="article-content" v-html="article.content"></div>
         <comment />
       </div>
       <div class="asside">
         <achievement-card title= "关于作者" :userInfo= userInfo ></achievement-card>
-        <catalog :article = article.content />
+        <catalog :scrollY= scrollY  :catalog = catalog />
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import comment from '@/components/comment/index.vue'
 import catalog from '@/components/catalog/index.vue'
@@ -54,6 +54,8 @@ import { getreviewArticle } from '../../api/actions'
 import { formatTime } from '../../utils/formatDate'
 import { followsModule } from '../../store/modules/follow'
 import articleAction from './components/action.vue'
+import debounce from '../../utils/debounce'
+import toToc from '../../utils/catalog'
 
 @Component({
   components: {
@@ -80,6 +82,12 @@ export default class  extends Vue {
     reviews: 0,
     markdown: '',
   }
+  private catalog: string = ''
+  private lists!: any
+  private items!: NodeListOf<HTMLElement> 
+  private target!: NodeListOf<HTMLElement> 
+  private tocIndex: number = 0
+  private scrollY: number = 0
   get nickname() {
     return UserModule.nickname
   }
@@ -91,6 +99,28 @@ export default class  extends Vue {
     let routeUrl = this.$router.resolve(result)
     window.open(routeUrl .href, '_blank')
   }
+  @Watch('$route')
+  private routechange(val: any) {
+    const data = document.getElementsByClassName(`toc-link-${val.hash}`)[0] as Element
+    this.lists.forEach((list:any) => {
+      if (data == list) {
+        list.classList.add('active')
+        window.scrollTo(0, this.scrollY)
+      } else {
+        list.classList.remove('active')
+      }
+    })
+  }
+  @Watch('tocIndex')
+  private tocIndexChange(val: number) {
+    var top = 0 
+    if (val > 7) {
+      top = -25 * (val-7)
+    } else {
+      top = 0
+    }
+    this.target[0].style.marginTop = `${top}px`
+  }
 
   private async created() {
     await followsModule.getFollows()
@@ -99,16 +129,46 @@ export default class  extends Vue {
     const { data } = await detailArticle({ id: articleId })
     this.details = data
     data.createtime = formatTime(data.createtime)
-    const toc: string[] | null = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
-    if (toc) {
-      toc.forEach((item: string, index: number) => {
-        let _toc = `<div id='${index}'>${item} </div>`
-        data.content = data.content.replace(item, _toc)
-      })
-    }
+    const _toc: string[] = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
+    this.catalog = toToc(_toc)
+    console.log(this.catalog)
+    _toc.forEach((item: string, index: number) => {
+      let _toc:string = `<div name='toc-title' id='${index}'>${item} </div>`
+      data.content = data.content.replace(item, _toc)
+    })
+    
     this.article = data
     const _data = await getUserInfo({username: data.author})
     this.userInfo = _data.data
+  }
+  mounted() {
+    window.addEventListener('scroll',this.handleScroll,true)
+    this.lists = document.getElementsByName('link')
+    this.items = document.getElementsByName('toc-title')
+    this.target = document.getElementsByName('catalog-list')
+    
+  }
+  private handleScroll() {
+    this.scrollY = window.pageYOffset
+    let array: number[] = []
+    let item = this.items
+    for (let i = 0; i < item.length-1; i++) {
+      array.push(item[i].offsetTop)
+      let h1 = item[i].offsetTop
+      let h2 = item[i + 1].offsetTop
+      if (this.scrollY >= h1 && this.scrollY < h2) {
+        const data = document.getElementsByClassName(`toc-link-#${i}`)[0] as Element
+        this.lists.forEach((list:Element) => {
+          this.tocIndex = i
+          if (data == list ) {
+            list.classList.add('active')
+          } else {
+            list.classList.remove('active')
+          }
+        })
+      }
+    }
+    
   }
 }
 </script>
@@ -124,6 +184,7 @@ export default class  extends Vue {
     margin-top: 80px;
     margin-bottom: 20px;
     .article {
+      position: relative;
       padding: 30px 20px;
       margin-right: 20px;
       width: 700px;
@@ -172,6 +233,7 @@ export default class  extends Vue {
         font-size: 30px;
         font-weight: 700;
         line-height: 1.5;
+        margin-top: 10px;
       }
     }
   }

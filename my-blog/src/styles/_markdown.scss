@@ -28,7 +28,10 @@
     background-color: #f8f8f8;
   }
   h1,h2,h3,h4,h5,h6{
-    margin-top: 12px;
+    padding-top: 120px;
+    margin-top: -120px;
+    margin-bottom: 12px;
+    flex-wrap: 600;
     /* margin-bottom: 1em; */
   }
   h1, h2 {
@@ -68,6 +71,27 @@
     text-decoration: none;
     color: #0269c8;
     border-bottom: 1px solid #d1e9ff;
+  }
+  table {
+    display: inline-block!important;
+    max-width: 100%;
+    font-size: 12px;
+    border: 1px solid #f6f6f6;
+    thead {
+      background: #f6f6f6;
+      color: #000;
+      text-align: left;
+      tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        td, th {
+          padding: 12px 6px;
+          line-height: 24px;
+          text-align: left;
+        }
+    }
+    }
   }
 }
 
