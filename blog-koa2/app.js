@@ -14,6 +14,7 @@ const blog = require('./routes/blog')
 const user = require('./routes/user')
 const actions = require('./routes/actions')
 const comment = require('./routes/comment')
+const follow = require('./routes/follow')
 
 const check = require('./middleware/check')
 
@@ -56,6 +57,7 @@ app.use(session({
   saveUninitialized: true,
   'resave': false,
   name: 'sid',
+  rolling: true,
   // 配置cookie
   cookie: {
     path: '/', 
@@ -73,6 +75,7 @@ app.use(blog.routes(), blog.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
 app.use(actions.routes(), actions.allowedMethods())
 app.use(comment.routes(), comment.allowedMethods())
+app.use(follow.routes(), follow.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

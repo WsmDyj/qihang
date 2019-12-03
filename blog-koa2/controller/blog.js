@@ -1,4 +1,5 @@
 const { exec } = require('../db/mysql')
+const {getUserInfo} = require('./user')
 
 const getList = async (author, keyworld) => {
   let sql = `select * from blogs where 1=1 `
@@ -9,11 +10,17 @@ const getList = async (author, keyworld) => {
     sql += `and title like '%${keyworld}%' ` 
   }
   sql += `order by createtime desc;` 
-  return await exec(sql)
+  
+  const lists = await exec(sql)
+  return lists
 }
+
 const getDetail = async (id) => {
   const sqlArticle = `select * from blogs where article_id = '${id}' `
   const articles = await exec(sqlArticle)
+
+  const userInfo = await getUserInfo(articles[0].author)
+  articles[0].author = userInfo
   return articles[0]
 }
 const newBlog = async (blogData = {}) => {
@@ -25,7 +32,7 @@ const newBlog = async (blogData = {}) => {
   const articleImg = blogData.articleImg
   const article_id = blogData.article_id
   const createtime = Date.now()
-  const sql =  `insert into blogs (article_id, title, content, createtime, author, markdown, articleImg) values ('${article_id}','${title}','${content}','${createtime}','${author}', '${markdown}', '${articleImg}'); `
+  const sql = `insert into blogs (article_id, title, content, createtime, author, markdown, articleImg) values ('${article_id}','${title}','${content}','${createtime}','${author}', "${markdown}", '${articleImg}'); `
   const insertData = await exec(sql)
   return {
     id: insertData.insertId

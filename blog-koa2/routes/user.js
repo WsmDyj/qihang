@@ -4,7 +4,6 @@ const { SuccessModel, ErrorModel } = require('../model/resModel')
 const { OAUTH_GITHUB } = require('../conf/oauth')
 router.prefix('/api/user')
 const axios = require('axios')
-var https = require('https')
 
 const jwt = require('jsonwebtoken')
 
@@ -18,7 +17,7 @@ router.post('/login', async function (ctx, next) {
 
     let secret = 'WJiol#23123_'
     
-    let payload = {username:data.username,time:new Date().getTime()}
+    let payload = {username:data.username, time:new Date().getTime()}
     let token = jwt.sign(payload, secret)
 
     ctx.body = new SuccessModel({accessToken: token,message:'获取token成功'})
@@ -53,11 +52,17 @@ router.get('/oauth', async function(ctx, next) {
     avatar: result.data.avatar_url
   }
   const data = await oauthLogin(userData)
+  let secret = 'WJiol#23123_'
   if (data) {
+    ctx.session.username = data.username
+    ctx.session.nickname = data.nickname
+    
+    let payload = {username:data.username,time:new Date().getTime()}
+    let token = jwt.sign(payload, secret)
+    ctx.body = new SuccessModel({accessToken: token,message:'获取token成功'})
+  } else {
     ctx.session.username = result.data.login
     ctx.session.nickname = result.data.login
-
-    let secret = 'WJiol#23123_'
 
     let payload = {username: result.data.login,time:new Date().getTime()}
     let token = jwt.sign(payload, secret)
