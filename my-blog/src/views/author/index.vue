@@ -76,7 +76,6 @@ export default class extends Vue {
     this.author = this.$route.query.author
     await this.getInfo(this.author)
     this.getFollow(this.author)
-
   }
 }
 </script>

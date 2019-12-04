@@ -9,46 +9,34 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import toToc from '../../utils/catalog'
-import router from 'vue-router';
 
 @Component
 export default class extends Vue {
   @Prop() private catalog!: string
-  @Prop() private scrollY!: number
-  private fixed: boolean = false
-  private target!: NodeListOf<HTMLElement> 
-
-  @Watch('scrollY')
-  private changescrollY(val: number) {
-    this.fixed = val > 230 ? true : false
-  }
-  created () {
-    this.target = document.getElementsByName('catalog-list')
-  }
+  @Prop() private fixed!: boolean
 }
 </script>
 
 <style lang="scss">
 .sidebar-block {
-  text-align: left;
-  top: 100px;
+  top: 80px;
   width: 240px;
   bottom: 20px;
   .catalog-title {
     font-size: 15px;
     color: #000;
+    margin-bottom: 10px;
   }
   .catalog-body {
     position: relative;
     overflow: hidden;
-    margin: 6px 0;
     .catalog-list {
       font-weight: 600;
       padding-left: 10px;
       position: relative;
       font-size: 15px;
       &:first-child {
+        margin-top: 0;
         &::before {
           content: "";
           position: absolute;
@@ -64,17 +52,7 @@ export default class extends Vue {
         position: relative;
         padding-left: 16px;
         line-height: 20px;
-        &::before {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 0;
-          margin-top: -2px;
-          width: 6px;
-          height: 6px;
-          background-color: currentColor;
-          border-radius: 50%;
-        }
+        @include catalogRound(0, 6px);
       }
       .active {
         color: #007fff;
@@ -91,17 +69,7 @@ export default class extends Vue {
         padding-left: 36px;
         font-weight: 500;
         position: relative;
-        &::before {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 20px;
-          margin-top: -2px;
-          width: 4px;
-          height: 4px;
-          background-color: currentColor;
-          border-radius: 50%;
-        }
+        @include catalogRound(20px, 5px);
       }
       ul > ul > li > a {
         line-height: 20px;
@@ -109,24 +77,12 @@ export default class extends Vue {
         color: #333333;
         padding-left: 50px;
         font-weight: normal;
-        &::before {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 36px;
-          margin-top: -2px;
-          width: 3px;
-          height: 3px;
-          background-color: currentColor;
-          border-radius: 50%;
-        }
+        @include catalogRound(36px, 4px);
       }
       a {
+        @include nowrap;
         color: #000;
         display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         padding: 4px 0 4px 12px;
         &:hover {
           background-color: #ebedef;

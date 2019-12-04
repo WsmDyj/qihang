@@ -6,8 +6,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator'
 import BackToTop from '@/components/BackToTop/index.vue'
+import axios from 'axios'
 
 @Component({
   components: {
@@ -23,6 +24,7 @@ export default class App extends Vue {
   //     this.isRouterAlive = true
   //   }) 
   // }
+ 
 }
 </script>
 

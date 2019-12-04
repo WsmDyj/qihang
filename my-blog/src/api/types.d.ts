@@ -2,11 +2,12 @@
 * 文章
 */
 export interface IArticleData {
+  articleImg: string
   article_id: number
+  author: string
   title: string
   content: string
   createtime: string
-  author: string
   likeCount: number
   comments: number
   reviews: number
@@ -44,7 +45,7 @@ export interface IComment {
 export interface IReply {
   reply_id: string
   avatar?: string
-  comment_author?: string
+  nickname?: string
   job?: string
   comment_id?: string
   reply_author: string

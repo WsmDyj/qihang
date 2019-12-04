@@ -1,13 +1,13 @@
-export default function toToc(data: any[]) {
+export default function toToc(data: string[]) {
   let levelStack: string[] = []
   let result:string = ''
-  const addStartUL = () => { result += '<ul name="catalog-list" class="catalog-list">'; }
+  const addStartUL = () => { result += '<ul class="catalog-list">'; }
   const addEndUL = () => { result += '</ul>\n'; }
   const addLI = (index: number,itemText: string) => { result += '<li><a name="link" class="toc-link'+'-#'+ index + '" href="#' + index + '">' + itemText + "</a></li>\n"; }
   data.forEach(function (item: any, index: number) {
     let itemText: string = item.replace(/<[^>]+>/g, '')  // 匹配h标签的文字
     let itemLabel: string = item.match(/<\w+?>/)[0]  // 匹配h?标签<h?>
-    let levelIndex = levelStack.indexOf(itemLabel) // 判断数组里有无<h?>
+    let levelIndex: number = levelStack.indexOf(itemLabel) // 判断数组里有无<h?>
     // 没有找到相应<h?>标签，则将新增ul、li
     if (levelIndex === -1) {
       levelStack.unshift(itemLabel)

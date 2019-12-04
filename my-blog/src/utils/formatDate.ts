@@ -1,17 +1,23 @@
-export default function formatDate(timestamp: any) {
-  var arrTimestamp: any = (timestamp + '').split('');
+/**
+ * 格式化时间
+ * 
+ * @param {String} str
+ * @returns 格式化后的时间
+ */
+export default function formatDate(str: any) {
+  var arrTimestamp:any = (str + '').split('')
   for (var start = 0; start < 13; start++) {
     if (!arrTimestamp[start]) {
       arrTimestamp[start] = '0'
     }
   }
-  timestamp = arrTimestamp.join('') * 1
+  str = arrTimestamp.join('') * 1
   var minute = 1000 * 60
   var hour = minute * 60
   var day = hour * 24
   var month = day * 30
   var now = new Date().getTime()
-  var diffValue = now - timestamp
+  var diffValue = now - str
 
   // 如果本地时间反而小于变量时间
   if (diffValue < 0) {
@@ -36,7 +42,7 @@ export default function formatDate(timestamp: any) {
   if (monthC > 4) {
     // 超过1年，直接显示年月日
     return (function () {
-      var date = new Date(timestamp);
+      var date = new Date(str);
       return date.getFullYear() + '年' + zero(date.getMonth() + 1) + '月' + zero(date.getDate()) + '日';
     })()
   } else if (monthC >= 1) {
@@ -53,11 +59,11 @@ export default function formatDate(timestamp: any) {
   return '刚刚';
 }
 
+
 export function formatTime(timestamp: any) {
   let time = new Date(timestamp)
   let year = time.getFullYear()
   let month = time.getMonth() + 1 < 10 ? '0' + time.getMonth() + 1 : time.getMonth() + 1
   let date = time.getDate() < 10 ? '0' + time.getDate() : time.getDate()
-
   return year + '年' + month + '月' + date + ' '
 }

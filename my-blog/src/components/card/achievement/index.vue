@@ -13,7 +13,9 @@
           </div>
         </div>
         <div class="card-item" v-else>
-          <authorList :userInfo = userInfo />
+          <authorInfo :userInfo = userInfo>
+            <span slot="content" class="author-desc">{{userInfo.job}} @{{userInfo.company}}</span>
+          </authorInfo>
         </div>
         <div class="card-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" class="zan"><g data-v-b0eaf47e="" data-v-3670f9b4="" fill="none" fill-rule="evenodd" transform="translate(0 .57)"><ellipse data-v-b0eaf47e="" data-v-3670f9b4="" cx="12.5" cy="12.57" fill="#E1EFFF" rx="12.5" ry="12.57"></ellipse> <path data-v-b0eaf47e="" data-v-3670f9b4="" fill="#7BB9FF" d="M8.596 11.238V19H7.033C6.463 19 6 18.465 6 17.807v-5.282c0-.685.483-1.287 1.033-1.287h1.563zm4.275-4.156A1.284 1.284 0 0 1 14.156 6c.885.016 1.412.722 1.595 1.07.334.638.343 1.687.114 2.361-.207.61-.687 1.412-.687 1.412h3.596c.38 0 .733.178.969.488.239.317.318.728.21 1.102l-1.628 5.645a1.245 1.245 0 0 1-1.192.922h-7.068v-7.889c1.624-.336 2.623-2.866 2.806-4.029z"></path></g></svg>
@@ -30,14 +32,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import cardModule from '../cardModule/index.vue'
-import authorList from '../rankingCard/authorList/index.vue'
-import { UserModule } from '../../../store/modules/user'
 import { IUserInfo } from '../../../api/types'
-
+import authorInfo from '../../authorInfo/index.vue'
 @Component({
   components: {
     cardModule,
-    authorList,
+    authorInfo
   }
 })
 export default class extends Vue {
@@ -51,18 +51,16 @@ export default class extends Vue {
   // position: sticky;
   top: 90px;
   .card-item {
-    display: flex;
+    @include flexcenter($jc: none);
+    @include nowrap;
     padding-bottom: 10px;
-    align-items: center;
     &:last-child {
       padding-bottom: 0px;
     }
     .center {
       flex: 1 1 auto;
       margin-left: 10px;
-      color: #000;
       font-size: 15px;
-      font-weight: 400;
     }
   }
 }

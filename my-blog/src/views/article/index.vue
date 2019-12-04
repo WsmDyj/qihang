@@ -2,36 +2,40 @@
   <div class="container">
     <Header />
     <div class="main">
-      <articleAction :article='details' />
+      <div class="asside">
+        <articleAction :article= article />
+      </div>
       <div class="article">
         <div class="article-author">
-          <div class="userInfo">
-            <el-avatar slot="reference" :size="48" :src='userInfo.avatar'></el-avatar>
-            <div class="userInfo-desc">
-              <div class="username" @click="checkAuthor(article.author)">{{article.author}}</div>
-              <div class="create_time">
-                <span>{{article.createtime}} </span>
-                <span class="review">阅读 {{article.reviews}} </span>
-                <span class="edit" v-show="nickname== article.author">
-                  <router-link :to="{path: '/markdown', query:{articleId: article.article_id}}">
-                    <el-button type="text">编辑</el-button>
-                  </router-link>
-                </span>
+          <div class="author-box">
+            <author-info :userInfo= article.author>
+              <div slot="content">
+                <span class="article-time">{{article.createtime}} </span>
+                <span class="article-review">阅读 {{ article.reviews }} </span>
+                <router-link v-show="nickname== article.author.nickname" :to="{path: '/markdown', query:{articleId: article.article_id}}">
+                  <span class="article-edit">编辑</span>
+                </router-link>
               </div>
-            </div>
+            </author-info>
           </div>
-          <author-follow size='mini' :author = article.author ></author-follow>
+          <author-follow size='mini' :author = article.author.nickname ></author-follow>
         </div>
         <div class="article-img" v-show="article.articleImg">
           <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
         </div>
-        <div class="article-title">{{article.title}}</div>
-        <div class="article-content" v-html="article.content"></div>
-        <comment />
+        <div class="article-title">{{ article.title }}</div>
+        <div ref="article" v-highlight>
+          <div class="article-content" v-html="article.content"></div>
+        </div>
+        <div class="article-comment">
+          <comment />
+        </div>
       </div>
       <div class="asside">
-        <achievement-card title= "关于作者" :userInfo= userInfo ></achievement-card>
-        <catalog :scrollY= scrollY  :catalog = catalog />
+        <achievement-card title= "关于作者" :userInfo= article.author ></achievement-card>
+        <div ref="catalog">
+          <catalog :fixed= fixed  :catalog = catalog />
+        </div>  
       </div>
     </div>
   </div>
@@ -44,18 +48,34 @@ import catalog from '@/components/catalog/index.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
 import authorFollow from '@/components/follow/index.vue'
 import authorList from '@/components/card/rankingCard/authorList/index.vue'
-import { detailArticle } from '../../api/blog'
-import { IUserInfo, IArticleData } from '../../api/types'
-import { getUserInfo } from '../../api/user'
-import { getfollow, getunfollow } from '../../api/follow'
-import { UserModule } from '../../store/modules/user'
-import { createComment } from '../../api/comments'
-import { getreviewArticle } from '../../api/actions'
-import { formatTime } from '../../utils/formatDate'
-import { followsModule } from '../../store/modules/follow'
+import authorInfo from '@/components/authorInfo/index.vue'
 import articleAction from './components/action.vue'
+import { detailArticle } from '../../api/blog'
+import { getfollow } from '../../api/follow'
+import { getreviewArticle } from '../../api/actions'
+
+import { IUserInfo, IArticleData } from '../../api/types'
+
+import { UserModule } from '../../store/modules/user'
+import { followsModule } from '../../store/modules/follow'
+
+import { formatTime } from '../../utils/formatDate'
 import debounce from '../../utils/debounce'
 import toToc from '../../utils/catalog'
+
+
+const defaultArticle = {
+  articleImg: '',
+  article_id: 0,
+  author: '',
+  title: '',
+  content: '',
+  createtime: '',
+  likeCount: 0,
+  comments: 0,
+  reviews: 0,
+  markdown: '',
+}
 
 @Component({
   components: {
@@ -65,124 +85,101 @@ import toToc from '../../utils/catalog'
     achievementCard,
     authorList,
     authorFollow,
-    articleAction
+    articleAction,
+    authorInfo
   }
 })
 export default class  extends Vue {
-  private article: string = ''
-  private userInfo: object = {}
-  private details: IArticleData = {
-    article_id: 0,
-    title: '',
-    content: '',
-    createtime: '',
-    author: '',
-    likeCount: 0,
-    comments: 0,
-    reviews: 0,
-    markdown: '',
-  }
+  private article: IArticleData = defaultArticle
   private catalog: string = ''
-  private lists!: any
-  private items!: NodeListOf<HTMLElement> 
-  private target!: NodeListOf<HTMLElement> 
-  private tocIndex: number = 0
-  private scrollY: number = 0
+  private linkLists!: NodeListOf<HTMLElement> 
+  private target!: any[]
+  private fixed: boolean = false
+  private listHeight: number[] =[]
+
   get nickname() {
     return UserModule.nickname
   }
-  private checkAuthor (author: string) {
-    let result = {
-      path: "/author",
-      query: { author: author } 
-    }
-    let routeUrl = this.$router.resolve(result)
-    window.open(routeUrl .href, '_blank')
-  }
+
   @Watch('$route')
   private routechange(val: any) {
     const data = document.getElementsByClassName(`toc-link-${val.hash}`)[0] as Element
-    this.lists.forEach((list:any) => {
-      if (data == list) {
-        list.classList.add('active')
-        window.scrollTo(0, this.scrollY)
-      } else {
-        list.classList.remove('active')
-      }
+    this.linkLists.forEach((list:Element) => {
+      data == list ? list.classList.add('active') : list.classList.remove('active') 
     })
   }
-  @Watch('tocIndex')
-  private tocIndexChange(val: number) {
-    var top = 0 
-    if (val > 7) {
-      top = -25 * (val-7)
-    } else {
-      top = 0
+  private async changeArticle(articleId: any) {
+    const { data } = await detailArticle({ id: articleId })
+    data.createtime = formatTime(data.createtime)
+    document.title = data.title // 设置页面的title
+    const _toc: string[] = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
+    if (_toc) {
+      _toc.forEach((item: string, index: number) => {
+        let _toc:string = `<div class='toc-title' id='${index}'>${item} </div>`
+        data.content = data.content.replace(item, _toc)
+      })
     }
-    this.target[0].style.marginTop = `${top}px`
+    this.article = data
+    this.catalog = toToc(_toc)
   }
 
   private async created() {
-    await followsModule.getFollows()
     const articleId: string | (string | null)[] = this.$route.query.articleId
-    await getreviewArticle({article_id: articleId })
-    const { data } = await detailArticle({ id: articleId })
-    this.details = data
-    data.createtime = formatTime(data.createtime)
-    const _toc: string[] = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
-    this.catalog = toToc(_toc)
-    console.log(this.catalog)
-    _toc.forEach((item: string, index: number) => {
-      let _toc:string = `<div name='toc-title' id='${index}'>${item} </div>`
-      data.content = data.content.replace(item, _toc)
+    await followsModule.getFollows() // 用户关注人
+    await getreviewArticle({article_id: articleId }) // 增加文章统计数
+    this.$nextTick(async () => {
+      await this.changeArticle(articleId)
+      await this.getTitleHeight()
+      await this.getCataloglist()
     })
-    
-    this.article = data
-    const _data = await getUserInfo({username: data.author})
-    this.userInfo = _data.data
   }
+
   mounted() {
     window.addEventListener('scroll',this.handleScroll,true)
-    this.lists = document.getElementsByName('link')
-    this.items = document.getElementsByName('toc-title')
-    this.target = document.getElementsByName('catalog-list')
-    
   }
+
+// 获取每个文章标题的距顶部的高度
+  private async getTitleHeight() {
+    let titlelist = Array.prototype.slice.call((this.$refs.article as Element).getElementsByClassName('toc-title'))
+    titlelist.forEach((item,index) => {
+      this.listHeight.push(item.offsetTop)
+    })
+    this.listHeight.push(2 * (titlelist[titlelist.length-1].offsetTop))
+  }
+  // 获取目录的所有ul、a标签
+  private async getCataloglist() {
+    let catalogList = (this.$refs.catalog as Element).getElementsByClassName('catalog-list')
+    this.linkLists = document.getElementsByName('link')
+    this.target = Array.prototype.slice.call(catalogList)
+  }
+
   private handleScroll() {
-    this.scrollY = window.pageYOffset
-    let array: number[] = []
-    let item = this.items
-    for (let i = 0; i < item.length-1; i++) {
-      array.push(item[i].offsetTop)
-      let h1 = item[i].offsetTop
-      let h2 = item[i + 1].offsetTop
-      if (this.scrollY >= h1 && this.scrollY < h2) {
-        const data = document.getElementsByClassName(`toc-link-#${i}`)[0] as Element
-        this.lists.forEach((list:Element) => {
-          this.tocIndex = i
-          if (data == list ) {
-            list.classList.add('active')
-          } else {
-            list.classList.remove('active')
-          }
+    const scrollY = window.pageYOffset
+    this.fixed = scrollY > 230 ? true : false
+    for (let i = 0; i < this.listHeight.length-1; i++) {
+      let h1: number = this.listHeight[i]
+      let h2: number = this.listHeight[i + 1]
+      if (scrollY >= h1 && scrollY <= h2) {
+        const data: Element = document.getElementsByClassName(`toc-link-#${i}`)[0] as Element // 获取文章滚动到目录的目标元素
+        this.linkLists.forEach((list: Element) => {
+          let top: number = 0 
+          top = i > 7 ? -28 * (i-7) : 0
+          this.target[0].style.marginTop = `${top}px`
+          data == list ? list.classList.add('active') : list.classList.remove('active') // 其他移除active
         })
-      }
+      } 
     }
-    
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flexcolumn($jc:none, $ai:center);
   .main {
     display: flex;
     position: relative;
-    margin-top: 80px;
-    margin-bottom: 20px;
+    margin: 80px 0 20px 0;
     .article {
       position: relative;
       padding: 30px 20px;
@@ -191,37 +188,18 @@ export default class  extends Vue {
       box-sizing: border-box;
       background: #fff;
       .article-author {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        .userInfo {
-          display: flex;
-          .userInfo-desc {
-            padding: 0 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            .username {
-              font-size: 15px;
-              font-weight: 700;
-              color: #333;
-            }
-            .create_time {
-              font-size: 13px;
-              color: #909090;
-              .review {
-                padding-left: 5px;
-              }
-              .edit {
-                position: relative;
-                &::before {
-                  content: "·";
-                  color: #b2bac2;
-                  margin-right: 5px;
-                }
-              }
-            }
+        @include flexcenter($jc: space-between);
+        .article-time {
+          letter-spacing: 1px;
+          padding-right: 5px;
+        }
+        .article-edit {
+          @include textRound('#409EFF');
+          font-size: 13px;
+          color: $primary;
+          &:hover {
+            color: #409EFF;
+            text-decoration: underline;
           }
         }
       }
@@ -233,7 +211,7 @@ export default class  extends Vue {
         font-size: 30px;
         font-weight: 700;
         line-height: 1.5;
-        margin-top: 10px;
+        margin: 20px 0;
       }
     }
   }

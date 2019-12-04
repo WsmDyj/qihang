@@ -7,17 +7,52 @@
   }
 }
 
-@mixin flexcenter($jc:center, $ai:center) {
+/* 目录小圆点 */
+@mixin catalogRound($left, $size) {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: $left;
+    margin-top: -2px;
+    width: $size;
+    height: $size;
+    background-color: currentColor;
+    border-radius: 50%;
+  }
+}
+/* 文字左边小原点 */
+@mixin textRound($color) {
+  &::before {
+    content: "·";
+    color: $color;
+    padding:0 4px;
+  }
+}
+
+@mixin flexcenter($jc: center, $ai: center) {
   display: flex;
   justify-content: $jc;
   align-items: $ai;
 }
-@mixin flexcolumn($jc:space-between) {
+@mixin flexcolumn($jc:space-between, $ai: none) {
   display: flex;
   flex-direction: column;
   justify-content: $jc;
+  align-items: $ai;
+}
+/* 超出不换行 */
+@mixin nowrap() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
-// Base color
+
+$primary: #027fff;
+
 $border-bottom:rgba(230, 230, 231, 0.5);
+
+// authorHeader
+$fontcolor: #909090;

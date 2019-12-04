@@ -12,3 +12,9 @@ router.beforeEach(async(to: Route, from: Route, next: any) => {
   }
   next()
 })
+router.afterEach((to: Route) => {
+  // set page title
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+})

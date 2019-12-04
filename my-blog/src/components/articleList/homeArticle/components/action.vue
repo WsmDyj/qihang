@@ -4,7 +4,7 @@
       <i class="iconfont" :style="{color: active ? '#6cbd65' : '' }">&#xe60c;</i>
       <span class="count" :style="{color: active ? '#6cbd65' : '' }">{{ likes }}</span>
     </div>
-    <div class="clickable commentBtn">
+    <div @click.stop="handleComment" class="clickable commentBtn">
       <i class="el-icon-s-comment"></i>
       <span class="count">{{article.comments}}</span>
     </div>
@@ -12,9 +12,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
-import { IArticleData } from '../../api/types'
-import { getlikeArticle, removelike } from '../../api/actions'
-import { UserModule } from '../../store/modules/user'
+import { IArticleData } from '../../../../api/types'
+import { getlikeArticle, removelike } from '../../../../api/actions'
+import { UserModule } from '../../../../store/modules/user'
 interface routerQuery {
   path: string
   query: any
@@ -46,6 +46,7 @@ export default class extends Vue {
       this.active = false
     }
   }
+ 
   created() {
     this.active = this.article.islike || false
     this.likes = this.article.likeCount

@@ -1,5 +1,5 @@
 <template>
-  <div :id="id"></div>
+  <div class='markdown' :id="id"></div>
 </template>
 
 <script lang="ts">
@@ -117,3 +117,9 @@ export default class  extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.markdown {
+  background: #fff;
+}
+</style>
+

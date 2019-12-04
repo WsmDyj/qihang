@@ -1,7 +1,10 @@
 <template>
   <div class="action">
     <div @click="getLike" ref="likeContent" class="panel-btn like-btn with-badge" :badge='likes'></div>
-    <div class="panel-btn comment-btn with-badge" :badge='article.comments'></div>
+    <a href="#comment">
+      <div class="panel-btn comment-btn with-badge" :badge='article.comments'>
+    </div>
+    </a>
   </div>
 </template>
 

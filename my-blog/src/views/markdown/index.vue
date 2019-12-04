@@ -10,7 +10,7 @@
             </div>
             <div style="width: 240px;margin-top:20px; height: 96px;line-height:96px;text-align:center;font-size: 16px;color: rgba(51,51,51,.4);background-color: hsla(0,0%,87%,.6);border: none;cursor: pointer;" class="upload">
               <div v-if="imgUrl">
-                 <el-image style="width: 240px; height: 96px" :src="imgUrl"></el-image>
+                <el-image style="width: 240px; height: 96px" :src="imgUrl"></el-image>
               </div>
               <div v-else>
                 <upload-avatar @upload='handleUpload'></upload-avatar>
@@ -34,8 +34,9 @@
     <div class="markdown">
       <markdown-editor 
       ref="markdownEditor"
+      @input="getValue"
       :height = height
-      v-model="content"
+      v-model="markdown"
       />
     </div>
   </div>
@@ -51,7 +52,7 @@ import { detailArticle, createArticle, updateArticle } from '../../api/blog'
 import GenNonDuplicateID from '../../utils/createId'
 import uploadAvatar from '../../components/setting/uploadAvatar/index.vue'
 
-interface article {
+export interface article {
   article_id: string | (string | null)[]
   title: string
   content: string
@@ -69,14 +70,20 @@ interface article {
   }
 })
 export default class  extends Vue {
-  private content = ''
+  private markdown = ''
   private title: string = ''
+  private value:string = ''
   private html: string = ''
   private imgUrl: string = ''
   private articleId!: string | (string | null)[]
   private height: number = document.documentElement.clientHeight - 68
+
   get avatar() {
     return UserModule.avatar
+  }
+
+  private getValue(event: string) {
+    // 实时编写的值
   }
   
   @Watch('height', {immediate: true})
@@ -91,7 +98,7 @@ export default class  extends Vue {
     this.articleId = this.$route.query.articleId
     if (this.articleId) {
       const { data } = await detailArticle({id: this.articleId})
-      this.content = data.markdown
+      this.markdown = data.markdown
       this.title =  data.title
       this.imgUrl = data.articleImg
     }
@@ -102,13 +109,25 @@ export default class  extends Vue {
       this.height = document.documentElement.clientHeight - 66
     }, 400)
   }
+  html_decode(str:string) {
+    let s: string = ''
+    if (str.length === 0) return ''
+    s = str.replace(/</g, "<")
+    s = s.replace(/>/g, ">")
+    s = s.replace(/ /g, " ")
+    s = s.replace(/'/g, "'\'")
+    s = s.replace(/"/g, "'\'")
+    return s
+  }
   private async publish() {
     this.html = (this.$refs.markdownEditor as MarkdownEditor).getHtml()
+    const result = this.html_decode(this.markdown)
+    const _html = this.html_decode(this.html)
     const newArticle: article = {
       article_id: this.articleId,
       title: this.title,
-      content: this.html,
-      markdown: this.content,
+      content: _html,
+      markdown: result, // 反编译存入数据库
       articleImg: this.imgUrl
     }
     if(this.articleId) {
@@ -117,7 +136,7 @@ export default class  extends Vue {
       Object.assign(newArticle,{ article_id: GenNonDuplicateID(),createtime: new Date,})
       await createArticle(newArticle)
     }
-    this.$router.push({path: '/'})
+    // this.$router.push({path: '/'})
   } 
 }
 </script>

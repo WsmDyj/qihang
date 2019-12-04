@@ -1,78 +1,46 @@
 <template>
   <div class="reply">
-    <div class="comment-content" v-for="(reply, index) in replys" :key="index" >
-      <div class="comment-author">
-        <el-avatar size="medium" :src='reply.avatar'></el-avatar>
-      </div>
-      <div class="comment-info">
-        <div class="info-center">
-          <div>{{reply.comment_author}} 
-           <span style="font-size:13px;color: #8a9aa9;">{{reply.job}}</span>
-          </div>
-          <div style="color: #505050; font-size: 13px;">
-            回复 
-            <router-link target="_blank" :to="{path: '/author', query:{author: reply.reply_author}}">
-              <el-button size='small' type="text">{{reply.reply_author}}</el-button>
-            </router-link>
-            ：
-            {{reply.reply_conent}}</div>
+    <div class="reply-content" v-for="(reply, index) in replys" :key="index" >
+      <authorInfo type="reply" size="medium" :userInfo = reply>
+        <div slot="content" class="reply-box">
+          回复 
+          <router-link target="_blank" :to="{path: '/author', query:{author: reply.reply_author}}">
+            <span class="text">{{reply.reply_author}}</span>
+          </router-link>：
+          {{reply.reply_conent}}
         </div>
-        <div class="info-time">
-          <span>{{reply.reply_time}}</span>
-          <div class="comment-action action" @click="handleReply(reply, index)">
-            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-556cb17e="" fill="none" fill-rule="evenodd"><path data-v-556cb17e="" d="M0 0h20v20H0z"></path> <path data-v-556cb17e="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> 
-            <span class="action-title">回复</span>
-          </div>
-        </div>
-        <div class="info-input" v-show="reply.showReply">
-          <el-input v-model="reply_conent" :autofocus = reply.showReply :placeholder="replyPlaceholder"></el-input>
-          <el-button size="medium" style="float: right;margin-top: 10px;" :disabled = disabled @click="createReply(reply)" type="primary">评论</el-button>
-        </div>
+      </authorInfo>
+      <div class="reply-info">
+        <formBox type='reply' :data = reply  @submit='handleSubmit' />
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
-import formatDate from '../../../utils/formatDate'
 import { IReply, IComment } from '../../../api/types'
 import GenNonDuplicateID from '../../../utils/createId'
+import authorInfo from '../../authorInfo/index.vue'
+import formBox from '../formBox/index.vue'
 
-@Component
+@Component({
+  components: {
+    authorInfo,
+    formBox
+  }
+})
 export default class extends Vue {
   @Prop() private replys!: IReply[]
   @Prop() private comment_id!: string
-  private lists!: IReply[]
-  private replyPlaceholder: string = ''
-  private reply_conent: string =''
-  
-  get disabled() {
-    if (this.reply_conent === '') {
-      return true
-    } else {
-      return false
-    }
-  }
-  
-  private handleReply(reply: IReply) {
-    reply.showReply = true
-    this.replyPlaceholder = `回复${reply.comment_author}...`
-    this.replys.forEach(item => {
-      if(item.reply_id != reply.reply_id) {
-        item.showReply = false
-      }
-    })
-  }
-  @Emit('createReply')
-  private createReply(event: IComment) {
-   const reply: IReply = {
+
+  private handleSubmit(val: any) {
+    const reply: IReply = {
       comment_id: this.comment_id,
-      reply_conent: this.reply_conent,
+      reply_conent: val.value,
+      reply_author: val.reply_author,
       reply_id: GenNonDuplicateID(),
-      reply_author: event.comment_author,
     }
-    this.reply_conent = ''
-    return reply
+    this.$emit('createReply', reply)
   }
 }
 </script>
@@ -83,63 +51,29 @@ export default class extends Vue {
   padding: 12px 16px;
   background-color: #fafbfc;
   border-radius: 3px;
-  .comment-content {
+  .reply-content {
     margin-top: 10px;
-    display: flex;
     border-bottom: 1px solid #f1f1f1;
     &:last-child {
       border-bottom: none;
     }
-    .comment-author {
-      padding: 0 10px;
+    .reply-box {
+      color: #505050;
+      font-size: 12px;
+      margin-top: 8px;
+      .text {
+        color: #406599;
+        &:hover {
+          color: $primary;
+          text-decoration: underline;
+        }
+      }
     }
-    .comment-info {
-      width: 100%;
+    .reply-info {
+      @include flexcolumn();
       box-sizing: border-box;
       padding-bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .info-center {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .info-time {
-        color: #8a9aa9;
-        margin-top: 10px;
-        cursor: default;
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .action {
-          display: flex;
-          align-items: center;
-          .action-title {
-            padding: 0 10px;
-          }
-        }
-      }
-      .info-input {
-        padding: 12px 16px;
-        margin-top: 15px;
-        background-color: #fafbfc;
-        .action-box {
-          height: 33px;
-          width: 60px;
-          line-height: 33px;
-          margin-top: 10px;
-          font-size: 15px;
-          float: right;
-          font-weight: 600;
-          text-align: center;
-          color: #fff;
-          background-color: #027fff;
-          border-radius: 2px;
-          cursor: pointer;
-        }
-      }
+      padding-left: 46px;
     }
   }
 }
