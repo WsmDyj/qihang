@@ -30,7 +30,6 @@ import { getArticles } from '../../api/blog'
 import { getUserInfo } from '../../api/user'
 import { getfollowList } from '../../api/follow'
 import { formatTime } from '../../utils/formatDate'
-import { followsModule } from '../../store/modules/follow'
 
 const defaultIUserInfo = {
   avatar: '',
@@ -72,7 +71,6 @@ export default class extends Vue {
     this.follows = data
   }
   private async created() {
-    await followsModule.getFollows()
     this.author = this.$route.query.author
     await this.getInfo(this.author)
     this.getFollow(this.author)

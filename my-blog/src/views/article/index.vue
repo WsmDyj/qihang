@@ -57,7 +57,6 @@ import { getreviewArticle } from '../../api/actions'
 import { IUserInfo, IArticleData } from '../../api/types'
 
 import { UserModule } from '../../store/modules/user'
-import { followsModule } from '../../store/modules/follow'
 
 import { formatTime } from '../../utils/formatDate'
 import debounce from '../../utils/debounce'
@@ -125,7 +124,6 @@ export default class  extends Vue {
 
   private async created() {
     const articleId: string | (string | null)[] = this.$route.query.articleId
-    await followsModule.getFollows() // 用户关注人
     await getreviewArticle({article_id: articleId }) // 增加文章统计数
     this.$nextTick(async () => {
       await this.changeArticle(articleId)

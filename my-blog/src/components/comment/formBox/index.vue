@@ -8,11 +8,12 @@
       </div>
     </div>
     <div :class="type ? `form-box ${type} `: 'form-box' " v-show="showPopper">
-      <el-input type="text" :autofocus = autofocus v-model="value" @focus="handleFocus" placeholder="请输入评论..."></el-input>    
+      <el-input type="text" v-model="value" @focus="handleFocus" :placeholder="type == 'first' ? '请输入评论...': placeholder"></el-input>    
       <div v-show="firstVisible">
         <div class="submit" v-show="visible">
           <el-popover
             trigger="click"
+            placement="bottom"
             >
             <div class="emojis">
               <div class="category" v-for="(emoji, index) in emojis" :key="index">
@@ -39,10 +40,10 @@ import { UserModule }  from '../../../store/modules/user'
 @Component
 export default class extends Vue {
   @Prop() private type!: string
-  @Prop() private data!: object
+  @Prop() private data!: any
   private visible: boolean = false
   private firstVisible: boolean = true
-  @Prop({default: false}) autofocus!: boolean
+  private placeholder: string = ''
 
   private showPopper: boolean = false
   private value: string = ''
@@ -94,6 +95,7 @@ export default class extends Vue {
 
   private showBtn() {
     this.visible = true
+    this.placeholder = `回复${this.data.comment_author || this.data.nickname}...`
     document.addEventListener('click', this.hidePanel, false)
   }
   

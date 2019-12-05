@@ -23,7 +23,6 @@ import { ArticleModule } from '../../../store/modules/article'
 import { Message, MessageBox } from 'element-ui'
 import articlesList from './components/articles.vue'
 import likeList from './components/likes.vue'
-import emptyBox from './components/emptyBox.vue'
 import followList from './components/follow.vue'
 
 @Component({

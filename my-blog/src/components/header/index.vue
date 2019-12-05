@@ -9,9 +9,16 @@
             <router-link class="menu-item" tag="div" :to='{path: action.path}'>{{ action.name }}</router-link>
           </div>
         </div>
+        <div class="nav-list">
+          <el-input size="small" v-model="keyword" placeholder="请输入内容">
+          </el-input>
+          <router-link target="_blank" :to="{path: '/search', query:{keyword: keyword}}" class="search-icon">
+            <i class="el-icon-search"></i>
+          </router-link>
+        </div>
         <div class="nav-list" v-if="visivle">
           <div class="nav-item">
-            <router-link target="_blank" to = '/markdown'>
+            <router-link to = '/markdown'>
               <el-button size="mini" type="primary">写文章</el-button>
             </router-link>
           </div>
@@ -46,6 +53,7 @@ import { Component, Vue, Provide } from 'vue-property-decorator'
 import Login from '../login/index.vue'
 import { UserModule } from '../../store/modules/user'
 import Dropdown from '@/components/menu/dropdown/index.vue'
+import { getArticles } from '../../api/blog'
 interface Iactions {
   id: number
   name: string
@@ -60,7 +68,7 @@ interface Iactions {
 })
 
 export default class extends Vue {
-  // private visivle: boolean = false
+  private keyword: string = ''
   private curAction: number = 0
   private activeIndex: string = '1'
   private actions: Iactions[] = [
@@ -80,6 +88,7 @@ export default class extends Vue {
   }
   private handleAction(action: Iactions): void {
   }
+  
   private login(action: string) {
     this.activeIndex = action
     UserModule.handleIslogin(true)
@@ -120,8 +129,14 @@ export default class extends Vue {
         justify-content: flex-end;
         align-items: center;
         color: #007fff;
+        position: relative;
         font-size: 16px;
-         cursor: pointer;
+        cursor: pointer;
+        .search-icon {
+          position: absolute;
+          right: 10px;
+          color: #666;
+        }
         .nav-item {
           display: flex;
           align-items: center;

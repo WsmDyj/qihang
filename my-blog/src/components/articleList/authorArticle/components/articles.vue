@@ -43,7 +43,7 @@ import { IArticleData, IUserInfo  } from '../../../../api/types'
 import articleTitle from '../../../articleTitle/index.vue'
 import articleAction from '../../homeArticle/components/action.vue'
 import { UserModule } from '../../../../store/modules/user'
-import emptyBox from './emptyBox.vue'
+import emptyBox from '../../../emptyBox/index.vue'
 
 @Component({
   components: {

@@ -13,7 +13,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import likeList from '../../homeArticle/index.vue'
 import { IArticleData  } from '../../../../api/types'
-import emptyBox from './emptyBox.vue'
+import emptyBox from '../../../emptyBox/index.vue'
 @Component({
   components: {
     likeList,

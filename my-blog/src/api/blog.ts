@@ -6,9 +6,21 @@ interface articleId {
   id: string | (string | null)[]
 }
 
+interface search {
+  type?: string
+  keyword?: string | (string | null)[]
+}
+
+
 export const getArticles = (params?: author) =>
   request({
     url: 'api/blog/list',
+    method: 'get',
+    params
+  })
+  export const getSearch = (params?: search) =>
+  request({
+    url: 'api/blog/search',
     method: 'get',
     params
   })

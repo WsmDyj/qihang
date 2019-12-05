@@ -65,7 +65,6 @@ export default class extends Vue {
   box-sizing: border-box;
   width: 668px;
   height: 153px;
-  cursor: pointer;
   background: #fff;
   display: flex;
   align-items: center;

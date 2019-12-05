@@ -36,15 +36,18 @@ export default class extends Vue {
   get nickname() {
     return UserModule.nickname
   }
+  get token() {
+    return UserModule.token
+  }
   get follows() {
     return followsModule.follows
   }
   private async follow (username: string) {
-    this.show = !this.show
-    if (this.show) {
-      await getfollow({username: username})
+    if (this.token) {
+      this.show = !this.show
+      this.show ? await getfollow({username: username}) : await getunfollow({username: username})
     } else {
-      await getunfollow({username: username})
+      UserModule.handleIslogin(true)
     }
   }
 

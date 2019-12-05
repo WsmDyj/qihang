@@ -37,10 +37,6 @@ import { getArticles } from '../../api/blog'
 export default class extends Vue {
   private articles: IArticleData[] = []
 
-  get token() {
-    return UserModule.token
-  }
-
   private async created() {
     const { data } = await getArticles()
     this.articles = data

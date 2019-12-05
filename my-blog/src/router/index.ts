@@ -23,6 +23,12 @@ const routes = [
     meta: { title: '文章页-起点'}
   },
   { 
+    path: '/search',
+    name: 'search',
+    component: () => import('../views/search/index.vue'),
+    meta: { title: '搜索-起点'}
+  },
+  { 
     path: '/settings',
     name: 'settings',
     component: () => import('../views/settings/index.vue'),
@@ -31,7 +37,8 @@ const routes = [
   { 
     path: '/markdown',
     name: 'markdown',
-    component: () => import('../views/markdown/index.vue') 
+    component: () => import('../views/markdown/index.vue'),
+    meta: { title: '写文章'}
   },
   { 
     path: '/oauth',

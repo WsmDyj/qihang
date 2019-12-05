@@ -10,14 +10,7 @@
       </div>
     </div>
     <div v-if="lists.length > 0">
-      <div class="follow" v-for="(item, index) in lists" :key="index">
-        <author-info :userInfo='item'>
-          <div slot="content" class="detail">{{ item.job }} @{{ item.company }}</div>
-        </author-info>
-        <div class="follow-action">
-          <followAction size='small' :author = item.author />
-        </div>
-      </div>
+      <author-list :lists = lists></author-list>
     </div>
     <div v-else>
       <emptyBox />
@@ -27,16 +20,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import followAction from '../../../follow/index.vue'
+import authorList from '../../../authorList/index.vue'
 import { IFollow } from '../../../../api/types'
-import authorInfo from '../../../authorInfo/index.vue'
-import emptyBox from './emptyBox.vue'
+import emptyBox from '../../../emptyBox/index.vue'
 
 @Component({
   components: { 
-    followAction,
     emptyBox,
-    authorInfo
+    authorList
   }
 })
 export default class extends Vue {
@@ -92,15 +83,5 @@ export default class extends Vue {
     }
   }
 }
-.follow {
-  @include flexcenter($jc:space-between);
-  padding: 20px 30px;
-  border-bottom: 1px solid $border-bottom;
-  .detail {
-    font-size: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
+
 </style>
