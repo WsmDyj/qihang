@@ -4,7 +4,7 @@
       <i class="iconfont" :style="{color: active ? '#6cbd65' : '' }">&#xe60c;</i>
       <span class="count" :style="{color: active ? '#6cbd65' : '' }">{{ likes }}</span>
     </div>
-    <div @click.stop="handleComment" class="clickable commentBtn">
+    <div @click.stop="handleComment(article)" class="clickable commentBtn">
       <i class="el-icon-s-comment"></i>
       <span class="count">{{article.comments}}</span>
     </div>
@@ -25,16 +25,15 @@ export default class extends Vue {
   @Prop() private article!: IArticleData
   private active: boolean = false
   private likes: number = 0
+  
   get token() {
     return UserModule.token
   }
+
   private async getLike (article: IArticleData) {
-    if (this.token) {
-      this.handleLike(article)
-    } else {
-      UserModule.handleIslogin(true)
-    }
+    this.token ? this.handleLike(article) : UserModule.handleIslogin(true)
   }
+
   private async handleLike(article: IArticleData) {
     if (!this.active) {
       await getlikeArticle({article_id: article.article_id})
@@ -45,6 +44,10 @@ export default class extends Vue {
       this.likes = this.likes - 1
       this.active = false
     }
+  }
+
+  private handleComment(article: IArticleData) {
+    window.open(`/article?articleId=${article.article_id}`, '_blank')
   }
  
   created() {

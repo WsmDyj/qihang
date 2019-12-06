@@ -11,7 +11,7 @@
             <div v-else>抱歉！暂无搜索结果</div>
           </div>
           <div>
-            <el-radio-group @change="changeType" v-model="radio">
+            <el-radio-group v-model="radio">
               <el-radio class="type" :label="0">文章</el-radio>
               <el-radio class="type" :label="1">作者</el-radio>
             </el-radio-group>
@@ -68,15 +68,18 @@ export default class extends Vue {
   private lists: IFollow[] = []
   private count: number = 0
 
-  private changeType() {
-
+  keywordscolorful(str:string, key:any){
+    var reg = new RegExp("(" + key + ")", "g")
+    var newstr = str.replace(reg, "<font style='color: red;'>$1</font>")
+   
+    return newstr
   }
   private async created() {
     this.keyword = this.$route.query.keyword
     const { data } = await getSearch({keyword: this.keyword})
     this.articles = data.articles
     this.lists = data.users
-    this.getList()
+    await this.getList()
     this.count = data.articles.length + data.users.length
   }
   get likeArticlId() {
@@ -84,7 +87,7 @@ export default class extends Vue {
   }
   private async getList() {
     this.articles.forEach((item: IArticleData) => {
-      Object.assign(item, {islike: false})
+      Object.assign(item, { islike: false })
       if (this.likeArticlId.indexOf(item.article_id) != -1) {
         item.islike = true
       }

@@ -3,7 +3,8 @@
     <div class="item avatar" @click.stop="hanleClick" v-if="isAvatar">
       <el-avatar size="medium" :src= isAvatar></el-avatar>
     </div>
-    <div class="item post" :style="{color: article.likeCount > 20 ? 'red' : ''}" v-else>{{article.likeCount > 20 ? '热' :'专栏'}}</div>
+    <div class="item post" :style="{color: article.likeCount > 20 ? 'red' : ''}" v-else>
+      {{article.likeCount > 20 ? '热' : '专栏'}}</div>
     <div class="item author" @click.stop="hanleClick">{{ article.author }}</div>
     <div style="font-size:12px;font-weight: 600;">{{ articleTime }}</div>
   </div>
@@ -19,15 +20,12 @@ import formatDate from '../../utils/formatDate'
 export default class extends Vue {
   @Prop() private article!: IArticleData
   @Prop() private isAvatar!: string
-  private articleTime: string =''
+  private articleTime: string = ''
+
   private hanleClick() {
-    let result = {
-      path: "/author",
-      query: { author: this.article.author } 
-    }
-    let routeUrl = this.$router.resolve(result)
-    window.open(routeUrl .href, '_blank')
+    window.open(`/author?author=${this.article.author}`, '_blank')
   }
+  
   created() {
     this.articleTime = formatDate(this.article.createtime)
   }

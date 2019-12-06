@@ -6,7 +6,6 @@ body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-
 }
 a {
   text-decoration: none;
@@ -24,6 +23,7 @@ html {
   background-color: #f4f5f5;
   min-height: 100vh;
 }
+
 .el-popover {
   padding: 0;
 }
@@ -48,3 +48,19 @@ html {
     display: none;
   }
 }
+.search {
+  .el-input__inner {
+    padding-right: 30px;
+  }
+}
+.el-button--primary {
+  background-color: $primary;
+  font-size: 16px;
+  border: none;
+}
+
+.el-divider__text {
+  background-color: #f4f5f5;
+  color: $primary;
+}
+

@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 interface author {
-  author: string | (string | null)[]
+  author?: string | (string | null)[]
+  page?: number
 }
 interface articleId {
   id: string | (string | null)[]

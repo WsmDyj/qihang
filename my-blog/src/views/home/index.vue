@@ -4,6 +4,9 @@
     <div class="main">
       <div class="article">
         <article-list :articles = articles></article-list>
+        <div v-if="divider">
+          <el-divider>我也是有底线的</el-divider>
+        </div>
       </div>
       <div class="asside">
         <about-card></about-card>
@@ -36,6 +39,8 @@ import { getArticles } from '../../api/blog'
 
 export default class extends Vue {
   private articles: IArticleData[] = []
+  private page: number = 0
+  private divider:boolean = false
 
   private async created() {
     const { data } = await getArticles()
@@ -52,6 +57,29 @@ export default class extends Vue {
         item.islike = true
       }
     })
+  }
+  private async lazyLoading () { // 滚动到底部，再加载的处理事件
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+    let clientHeight = document.documentElement.clientHeight
+    let scrollHeight = document.documentElement.scrollHeight
+    if (scrollTop + clientHeight >= scrollHeight) { // 如果滚动到接近底部，自动加载下一页
+      const time = setTimeout(async ()=> {
+        this.page = this.page + 1
+        const { data } = await getArticles({page: this.page})
+        this.articles = this.articles.concat(data)
+        if (data.length < 10) {
+          this.divider = true
+          window.removeEventListener('scroll',this.lazyLoading)
+        }
+      }, 500)
+    }
+  }
+  public mounted() {
+    window.addEventListener('scroll', this.lazyLoading) // 滚动到底部，再加载的处理事件
+  }
+
+  public beforeDestroy() {
+     window.removeEventListener('scroll',this.lazyLoading)
   }
 }
 </script>

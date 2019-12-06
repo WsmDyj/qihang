@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import './permission'
 import * as Element from 'element-ui'
-
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 
