@@ -78,6 +78,16 @@ export default class extends Vue {
       callback()
     }
   }
+  stopMove (){
+    var mo=function(e: any){e.preventDefault();};
+    document.body.style.overflow='hidden';
+    document.addEventListener("touchmove",mo,false);//禁止页面滑动
+  }
+  removeStop() {
+    var mo=function(e: any){e.preventDefault();};
+    document.body.style.overflow='';//出现滚动条
+    document.removeEventListener("touchmove",mo,false);
+  }
 
   @Prop({ default: '1' }) private activeIndex!: string
   private loginForm = {
@@ -100,6 +110,7 @@ export default class extends Vue {
   }
 
   get islogin() {
+    UserModule.islogin ? this.stopMove() : this.removeStop()
     return UserModule.islogin
   }
   // 登录/注册切换

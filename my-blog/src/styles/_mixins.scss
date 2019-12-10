@@ -27,8 +27,16 @@
 }
 
 /* 文字左边小原点 */
-@mixin textRound($color) {
+@mixin textRound($color: #b2bac2) {
   &::before {
+    content: "·";
+    color: $color;
+    padding:0 4px;
+  }
+}
+/* 文字右边边小原点 */
+@mixin textRoundRight($color: #b2bac2) {
+  &::after {
     content: "·";
     color: $color;
     padding:0 4px;
@@ -37,11 +45,16 @@
 
 /* 文字分割线 */
 @mixin splitLine() {
-  &::after {
-    content: "|";
+  &:after {
+    content: "";
     position: absolute;
-    left: 100%;
-    color: hsla(0,0%,59.2%,.4);
+    width: 1px;
+    margin-top: -5px;
+    top: 50%;
+    right: 0px;
+    height: 12px;
+    background-color: #b2bac2;
+    opacity: .8;
   }
 }
 
@@ -69,7 +82,7 @@
 
 
 
-$primary: #027fff;
+$primary: #007fff;
 
 $border-bottom:rgba(230, 230, 231, 0.5);
 

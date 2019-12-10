@@ -14,7 +14,7 @@ a {
 html {
   height: 100%;
   text-rendering: optimizeLegibility;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
 }
 
 #app {
@@ -63,4 +63,84 @@ html {
   background-color: #f4f5f5;
   color: $primary;
 }
+// 导航标签tab样式修改
+.nav-list {
+  .el-tabs__nav-wrap {
+    background: #fff;
+    padding: 0;
+    &::after {
+      content: none;
+    }
+  }
+  .el-tabs__item {
+    padding: 0 15px;
+    color: $navcolor;
+    font-weight: normal;
+  }
+  .is-active {
+    color: $primary;
+  }
+}
 
+// 首页导航标签tab
+.home-option {
+  .el-tabs__nav-wrap {
+    padding: 0;
+    &::after {
+      background-color: rgba(230, 230, 231, 0.8);
+    }
+  }
+  .el-tabs__item {
+    padding: 0 10px;
+    font-weight: normal;
+  }
+}
+
+// 问答导航字体大小
+.questions-nav {
+  .el-radio__label {
+    font-size: 15px;
+    font-weight: normal;
+  }
+  .el-radio__input.is-checked+.el-radio__label {
+    color: $primary;
+  }
+  // 提问按钮
+  .el-divider__text, .el-link {
+    font-size: 15px;
+  }
+}
+// 提问输入框
+.ask-content {
+  .el-input--medium .el-input__inner {
+    height: 48px;
+    line-height: 49px;
+    font-size: 18px;
+  }
+  .el-button--medium {
+    padding: 9px 10px;
+    font-weight: normal;
+  }
+  .el-tag {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+}
+// 
+.tag-container {
+  .el-popover {
+    padding: 12px;
+  }
+}
+
+// 跑马灯
+.el-carousel__indicators--horizontal {
+  right: 0;
+  transform: translateX(75%);
+  bottom: 15px;
+  .el-carousel__button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+}

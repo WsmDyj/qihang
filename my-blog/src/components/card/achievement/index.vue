@@ -49,7 +49,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .card {
   // position: sticky;
-  top: 90px;
+  top: 80px;
   .card-item {
     @include flexcenter($jc: none);
     @include nowrap;

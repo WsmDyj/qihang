@@ -94,6 +94,9 @@ export default class extends Vue {
         font-size: 17px;
         font-weight: 600;
         color: #2e3135;
+        &:hover {
+          text-decoration: underline !important;
+        }
       }
     }
   }

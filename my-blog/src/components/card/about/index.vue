@@ -54,7 +54,7 @@ import cardModule from '../cardModule/index.vue'
 <style lang="scss" scoped>
 .about {
   position: sticky;
-  top: 90px;
+  top: 80px;
   .author-info {
     display: flex;
     flex-direction: column;

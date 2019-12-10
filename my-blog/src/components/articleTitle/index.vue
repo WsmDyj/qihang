@@ -5,7 +5,7 @@
     </div>
     <div class="item post" :style="{color: article.likeCount > 20 ? 'red' : ''}" v-else>
       {{article.likeCount > 20 ? '热' : '专栏'}}</div>
-    <div class="item author" @click.stop="hanleClick">{{ article.author }}</div>
+    <div class="item author" @click.stop="hanleClick">{{ article.author.nickname}}</div>
     <div style="font-size:12px;font-weight: 600;">{{ articleTime }}</div>
   </div>
 </template>
@@ -37,7 +37,6 @@ export default class extends Vue {
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: #909090;
   font-size: 14px;
   color: #b2bac2;
   .item {

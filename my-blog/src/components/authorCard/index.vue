@@ -67,7 +67,7 @@ export default class extends Vue {
   height: 153px;
   background: #fff;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   .author-info {
     margin: 0px 24px 0 28px;
     flex: 1 1 auto;

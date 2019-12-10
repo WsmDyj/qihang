@@ -69,17 +69,7 @@ export default class extends Vue {
     display: inline-block;;
     &:first-child {
       padding: 0 10px;
-      &:after {
-        content: "";
-        position: absolute;
-        width: 1px;
-        margin-top: -5px;
-        top: 50%;
-        right: 0px;
-        height: 12px;
-        background-color: #b2bac2;
-        opacity: .8;
-      }
+      @include splitLine()
     }
   }
 }

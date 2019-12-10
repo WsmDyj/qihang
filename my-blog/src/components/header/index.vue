@@ -1,5 +1,5 @@
 <template>
-  <div class='header'>
+  <div :class="visible ? 'header': 'visible header'">
     <div class="navigation">
       <div class="logo"></div>
       <div class="content">
@@ -46,12 +46,13 @@
        
       </div>
     </div>
+    
     <login :activeIndex = activeIndex />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Provide } from 'vue-property-decorator'
+import { Component, Vue, Provide, Prop } from 'vue-property-decorator'
 import Login from '../login/index.vue'
 import { UserModule } from '../../store/modules/user'
 import Dropdown from '@/components/menu/dropdown/index.vue'
@@ -71,15 +72,16 @@ interface Iactions {
 })
 
 export default class extends Vue {
+  @Prop({default: true}) private visible!: boolean
   private keyword: string | (string | null)[] = ''
   private inputIcon: boolean = false
   private curAction: number = 0
   private activeIndex: string = '1'
   private actions: Iactions[] = [
     { id: 0, name: '首页', path: '/' },
-    { id: 1, name: '归档', path: '/' },
-    { id: 2, name: '项目', path: '/' },
-    { id: 3, name: '历程' , path: '/'}]
+    { id: 1, name: '问答', path: '/questions' },
+    { id: 2, name: '视频', path: '/hot' },
+    { id: 3, name: '发现' , path: '/'}]
 
   get avatar() {
     return UserModule.avatar
@@ -101,6 +103,7 @@ export default class extends Vue {
   private created() {
     this.keyword = this.$route.query.keyword || ''
   }
+  
 }
 </script>
 
@@ -108,12 +111,15 @@ export default class extends Vue {
 .header {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  transition: all .2s;
   width: 100%;
   height: 60px;
   background: #fff;
   z-index: 99;
-  border-bottom: 1px solid #f1f1f1;
-  // box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  box-sizing: border-box;
+  border-bottom: 1px solid $border-bottom;
   .navigation {
     @include flexcenter($jc:space-between);
     margin: auto auto;
@@ -182,5 +188,8 @@ export default class extends Vue {
       }
     }
   }
+}
+.visible {
+  transform: translate3d(0,-100%,0);
 }
 </style>

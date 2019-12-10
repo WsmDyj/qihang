@@ -70,7 +70,7 @@ export interface article {
   }
 })
 export default class  extends Vue {
-  private markdown = ''
+  private markdown:string = ''
   private title: string = ''
   private value:string = ''
   private html: string = ''

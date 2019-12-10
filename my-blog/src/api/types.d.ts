@@ -1,4 +1,16 @@
 /*
+* 用户信息
+*/
+export interface IUserInfo {
+  avatar: string
+  autograph: string
+  company: string
+  job: string
+  nickname: string
+  username?: string
+  date?: string
+}
+/*
 * 文章
 */
 export interface IArticleData {
@@ -13,18 +25,7 @@ export interface IArticleData {
   reviews: number
   islike?: boolean
   markdown: string
-}
-/*
-* 用户信息
-*/
-export interface IUserInfo {
-  avatar: string
-  autograph: string
-  company: string
-  job: string
-  nickname: string
-  username?: string
-  date?: string
+  articleTag?: string[]
 }
 /*
 * 评论信息
@@ -61,4 +62,24 @@ export interface IFollow {
   data: []
   count: number
 }
+/*
+* 标签
+*/
+export interface Itag {
+  value: string
+  laber: string
+  disabled?: boolean
+}
+
+/*
+ * 问答 
+ */
+export interface IAskData {
+  title: string
+  tags: Itag[]
+  contnet: string
+  markdown: string
+  author: string
+  createtime?: Date
+} 
 
