@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import { IUserInfo } from './types'
+import { IRegister } from '../store/modules/user'
 interface author {
   username: string | (string | null)[]
 }
@@ -16,12 +17,19 @@ export const getoauth = (params: {code: string}) =>
     params
 })
 
-export const register = (data: {username: string, password: string}) =>
+export const register = (data: IRegister) =>
   request({
     url: 'api/user/register',
     method: 'post',
     data
 })
+export const sendSmsCodeToUser = (data: {username: string}) =>
+  request({
+    url: 'api/user/sendSmsCodeToUser',
+    method: 'post',
+    data
+})
+
 
 export const getUserInfo = (params?: author) =>
   request({

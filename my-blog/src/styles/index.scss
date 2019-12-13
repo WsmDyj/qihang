@@ -23,16 +23,10 @@ html {
   background-color: #f4f5f5;
   min-height: 100vh;
 }
-
 .el-popover {
   padding: 0;
 }
-.el-menu--horizontal>.el-menu-item {
-  height: 50px;
-  line-height: 50px;
-  margin: 0;
-  color: #909399;
-}
+
 .el-tabs__header {
   margin: 0 0;
   .el-tabs__nav-wrap {
@@ -58,6 +52,25 @@ html {
   font-size: 16px;
   border: none;
 }
+// 注册验证码
+.el-input-group__append, .el-input-group__prepend {
+  color: $primary;
+  background: #fff;
+  font-weight: 500;
+  width: 50px;
+  padding: 0 10px;
+  cursor: pointer;
+  .reset {
+    width: 70px;
+    text-align: center;
+    font-weight: normal;
+    .reset-time {
+      display: inline-block;
+      width: 16px;
+
+    }
+  }
+}
 
 .el-divider__text {
   background-color: #f4f5f5;
@@ -82,10 +95,13 @@ html {
   }
 }
 
-// 首页导航标签tab
-.home-option {
+// 首页文章导航标签tab
+.articles-nav {
+  margin-bottom: 20px;
   .el-tabs__nav-wrap {
     padding: 0;
+    height: 46px;
+    line-height: 46px;
     &::after {
       background-color: rgba(230, 230, 231, 0.8);
     }
@@ -93,6 +109,27 @@ html {
   .el-tabs__item {
     padding: 0 10px;
     font-weight: normal;
+  }
+  .is-active {
+    color: $primary;
+    font-weight: 500;
+  }
+}
+// 首页文章导航吸顶标签tab
+.articles-fixed {
+  left: 0;
+  right: 0;
+  .articles-nav {
+    transition: all .2s;
+    .el-tabs__nav-wrap {
+      background: #fff;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+      width: 100vw;
+      padding-left: calc((100vw - 932px) / 2);
+      &::after {
+        content: none;
+      }
+    }
   }
 }
 

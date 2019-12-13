@@ -1,5 +1,5 @@
 <template>
-  <div class="article">
+  <div class="author">
     <el-tabs v-model="activeIndex">
       <el-tab-pane :label="`专栏 (${articleList.length})`" name="1">
         <articlesList @action='actionArticle' :articleList = articleList :userInfo = userInfo />
@@ -105,7 +105,7 @@ export default class extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.article {
+.author {
   margin: 20px  auto 0 auto;
   width: 668px;
   cursor: pointer;

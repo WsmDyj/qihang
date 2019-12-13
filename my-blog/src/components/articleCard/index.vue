@@ -143,6 +143,9 @@ export default class extends Vue {
             vertical-align: middle;
             padding-left: 12px;
           }
+          &:hover {
+            color: $primary;
+          }
         }
         .iconfont {
           color: $primary;

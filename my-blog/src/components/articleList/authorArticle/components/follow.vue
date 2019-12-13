@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="follow">
     <div class="nav">
       <div class="nav-title">关注</div>
       <div class="nav-details">

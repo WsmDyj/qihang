@@ -80,28 +80,24 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+  @include flexcolumn($jc:center, $ai: center);
   .main {
-    position: relative;
     width: 932px;
-    margin-top: 90px;
-    display: flex;
-    justify-content: space-between;
+    margin-top: 80px;
     margin-bottom: 20px;
-  }
-  .time {
-    @include flexcenter($jc:space-between);
-    position: fixed;
-    width: 240px;
-    top: 390px;
-    padding: 15px 2px;
-    color: #000;
-    font-size: 15px;
-    border-top: 1px solid rgba(230,230,231,.5);
-    border-bottom: 1px solid rgba(230,230,231,.5);
+    position: relative;
+    @include flexcenter($jc:space-between, $ai: none);
+    .time {
+      @include flexcenter($jc:space-between);
+      position: fixed;
+      width: 240px;
+      top: 390px;
+      padding: 15px 2px;
+      color: #000;
+      font-size: 15px;
+      border-top: 1px solid rgba(230,230,231,.5);
+      border-bottom: 1px solid rgba(230,230,231,.5);
+    }
   }
 }
 </style>

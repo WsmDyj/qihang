@@ -13,6 +13,12 @@ export interface IUserState {
   nickname: string
   username: string
 }
+export interface IRegister {
+  username: string
+  nickname: string
+  code: string
+  password: string
+}
 
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule implements IUserState {
@@ -82,11 +88,9 @@ class User extends VuexModule implements IUserState {
     return true
   }
 
-  @Action async Register(userInfo: { username: string, password: string}) {
-    let { username, password } = userInfo
-    username = username.trim()
+  @Action async Register(userInfo: IRegister) {
     try {
-      const { data } = await register({ username, password })
+      const { data } = await register(userInfo)
       setToken(data.accessToken)
       this.SET_TOKEN(data.accessToken)
       this.SET_Login(false)

@@ -52,6 +52,7 @@ export default class extends Vue {
   width: 668px;
   background: #fff;
   border-radius: 4px;
+  margin-bottom: 10px;
   .carousel-content {
     width: 100%;
     height: 100%;

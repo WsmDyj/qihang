@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="about-desc">
-      <p class="website">起航网——让梦想从这里起航</p>
+      <p class="website">起航网——发现更好的自己</p>
       <p>一站式学习交流互动平台</p>
     </div>
   </div>

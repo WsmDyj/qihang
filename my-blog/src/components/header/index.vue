@@ -33,20 +33,19 @@
             </el-popover>
           </div>
           <div class="nav-list" v-else>
-            <div class="nav-item submit" @click="login">
+            <div class="nav-item submit" @click="submit('login')">
               <i class="el-icon-edit"></i>
               <span>写文章</span>
             </div>
             <div class="nav-item auth">
-              <span @click="login('1')" class="login">登录</span>
-              <span @click="login('2')" class="register">注册</span>
+              <span @click="submit('login')" class="login">登录</span>
+              <span @click="submit('register')" class="register">注册</span>
             </div>
           </div>
         </div>
        
       </div>
     </div>
-    
     <login :activeIndex = activeIndex />
   </div>
 </template>
@@ -76,12 +75,12 @@ export default class extends Vue {
   private keyword: string | (string | null)[] = ''
   private inputIcon: boolean = false
   private curAction: number = 0
-  private activeIndex: string = '1'
+  private activeIndex: string = 'login'
   private actions: Iactions[] = [
-    { id: 0, name: '首页', path: '/' },
+    { id: 0, name: '文章', path: '/' },
     { id: 1, name: '问答', path: '/questions' },
     { id: 2, name: '视频', path: '/hot' },
-    { id: 3, name: '发现' , path: '/'}]
+    { id: 3, name: '阅读' , path: '/'}]
 
   get avatar() {
     return UserModule.avatar
@@ -95,7 +94,7 @@ export default class extends Vue {
   private handleAction(action: Iactions): void {
   }
   
-  private login(action: string) {
+  private submit(action: string) {
     this.activeIndex = action
     UserModule.handleIslogin(true)
   }
