@@ -6,7 +6,7 @@
         <formBox :type = activeIndex @onSubmit="handleLogin" />
         <div class="oauth-box">
           <div class="oauth-title">第三方账号登录：</div>
-          <div class="oauth">
+          <div class="oauth-content">
             <div class="oauth-bg" @click="hadnleOauth">
               <svg width="32.8" height="32.8" viewBox="0 0 21 18" class="icon github-icon"><path data-v-335a593e="" fill="#161614" fill-rule="nonzero" d="M1.857 9.203c0 3.624 2.456 6.698 5.862 7.782.429.076.585-.177.585-.395 0-.194-.007-.71-.012-1.395-2.384.496-2.887-1.1-2.887-1.1-.39-.947-.952-1.2-.952-1.2-.778-.508.06-.498.06-.498.86.058 1.312.846 1.312.846.765 1.253 2.007.89 2.495.68.078-.529.3-.89.544-1.095-1.903-.207-3.904-.911-3.904-4.054 0-.896.334-1.628.882-2.201-.088-.208-.383-1.042.084-2.171 0 0 .72-.22 2.357.84a8.557 8.557 0 0 1 2.146-.276 8.566 8.566 0 0 1 2.146.277c1.636-1.062 2.354-.841 2.354-.841.468 1.129.174 1.963.086 2.17.55.574.881 1.306.881 2.202 0 3.15-2.004 3.844-3.913 4.047.307.253.581.754.581 1.52 0 1.096-.01 1.98-.01 2.25 0 .219.154.474.589.394C16.546 15.898 19 12.825 19 9.203 19 4.673 15.162 1 10.428 1c-4.733 0-8.57 3.672-8.57 8.203z"></path></svg>
             </div>
@@ -88,9 +88,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .login {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexcenter();
   position: fixed;
   top: 0;
   left: 0;
@@ -120,31 +118,27 @@ export default class extends Vue {
     }
     .panel {
       .oauth-box {
-        color: #767676;
+        color: $fontcolor;
         font-size: 14px;
-        .oauth {
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
+        .oauth-content {
+          @include flexcenter($jc: space-around);
           margin-top: 15px;
           .oauth-bg {
+            @include flexcenter();
             width: 45px;
             height: 45px;
             border-radius: 50%;
             background-color: #f4f8fb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
           }
         }
       }
       .agreement-box {
-        color: #767676;
+        color: $fontcolor;
         font-size: 14px;
         margin-top: 15px;
         .agreement {
-          color: #007fff;
+          color: $primary;
           cursor: pointer;
         }
       }
