@@ -41,6 +41,9 @@ html {
   .el-radio__input {
     display: none;
   }
+  .el-radio__label {
+    padding-left: 0;
+  }
 }
 .search {
   .el-input__inner {
@@ -179,5 +182,15 @@ html {
     width: 8px;
     height: 8px;
     border-radius: 50%;
+  }
+}
+// 发布多选框
+.type {
+  .el-input {
+    width: 240px;
+  }
+  .el-button {
+    color: $primary;
+    border: 1px solid $primary;
   }
 }

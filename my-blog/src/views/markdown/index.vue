@@ -19,15 +19,16 @@
           </div>
           <div slot="reference" class="toggle"><i class="el-icon-picture"></i></div>
         </el-popover>
-        <el-dropdown class="publish" >
-          <span class="el-dropdown-link" @click="publish">
-            <span>发布</span>
-            <i class="el-icon-caret-bottom"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">草稿</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <el-popover
+          width="290"
+          trigger="click"
+        >
+        <articleType @submit='publish' />
+        <span slot="reference" style="margin-right:30px;color: #007fff; font-size:16px;font-weight: 500;cursor: pointer;">
+          <span>发布</span>
+          <i class="el-icon-caret-bottom"></i>
+        </span>
+      </el-popover>
         <el-avatar slot="reference" size="medium" :src= avatar></el-avatar>
       </div>
     </div>
@@ -51,6 +52,8 @@ import debounce from '../../utils/debounce'
 import { detailArticle, createArticle, updateArticle } from '../../api/blog'
 import GenNonDuplicateID from '../../utils/createId'
 import uploadAvatar from '../../components/setting/uploadAvatar/index.vue'
+import articleType from './components/articleType.vue'
+import { html_decode } from '../../utils/formateArticle'
 
 export interface article {
   article_id: string | (string | null)[]
@@ -62,11 +65,13 @@ export interface article {
   articleImg?: string
 }
 
+
 @Component({
   name: 'Markdown',
   components: {
     MarkdownEditor,
-    uploadAvatar
+    uploadAvatar,
+    articleType
   }
 })
 export default class  extends Vue {
@@ -76,6 +81,10 @@ export default class  extends Vue {
   private html: string = ''
   private imgUrl: string = ''
   private articleId!: string | (string | null)[]
+  private types = {
+    type: '',
+    tags: []
+  }
   private height: number = document.documentElement.clientHeight - 68
 
   get avatar() {
@@ -101,6 +110,10 @@ export default class  extends Vue {
       this.markdown = data.markdown
       this.title =  data.title
       this.imgUrl = data.articleImg
+      this.types = {
+        type: data.articleType,
+        tags: data.articleTag
+      }
     }
   }
   mounted() {
@@ -109,34 +122,26 @@ export default class  extends Vue {
       this.height = document.documentElement.clientHeight - 66
     }, 400)
   }
-  html_decode(str:string) {
-    let s: string = ''
-    if (str.length === 0) return ''
-    s = str.replace(/</g, "<")
-    s = s.replace(/>/g, ">")
-    s = s.replace(/ /g, " ")
-    s = s.replace(/'/g, "'\'")
-    s = s.replace(/"/g, "'\'")
-    return s
-  }
-  private async publish() {
+ 
+  private async publish(types: {type:string, tags:string[]}) {
     this.html = (this.$refs.markdownEditor as MarkdownEditor).getHtml()
-    const result = this.html_decode(this.markdown)
-    const _html = this.html_decode(this.html)
-    const newArticle: article = {
+    const result = html_decode(this.markdown)
+    const _html = html_decode(this.html)
+    let newArticle: article = {
       article_id: this.articleId,
       title: this.title,
       content: _html,
       markdown: result, // 反编译存入数据库
       articleImg: this.imgUrl
     }
+    Object.assign(newArticle, types)
     if(this.articleId) {
       await updateArticle(newArticle)
     } else {
-      Object.assign(newArticle,{ article_id: GenNonDuplicateID(),createtime: new Date,})
+      Object.assign(newArticle,{ article_id: GenNonDuplicateID(),})
       await createArticle(newArticle)
     }
-    // this.$router.push({path: '/'})
+    this.$router.push({path: '/'})
   } 
 }
 </script>

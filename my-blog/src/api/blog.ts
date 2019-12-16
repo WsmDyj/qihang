@@ -19,7 +19,14 @@ export const getArticles = (params?: author) =>
     method: 'get',
     params
   })
-  export const getSearch = (params?: search) =>
+
+export const getArticleTags = () =>
+  request({
+    url: 'api/blog/tags',
+    method: 'get',
+  })
+
+export const getSearch = (params?: search) =>
   request({
     url: 'api/blog/search',
     method: 'get',
