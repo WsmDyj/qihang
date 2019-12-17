@@ -1,10 +1,10 @@
 <template>
   <div class="markdown">
     <div class="header">
-      <el-input v-model="title" class="title" placeholder="请输入文章标题..."></el-input>
-      <div class="author">
+      <el-input v-model="title" class="title-input" placeholder="请输入文章标题..."></el-input>
+      <div class="action">
         <el-popover width="290">
-          <div style="padding:24px;font-size: 18px;font-weight: 700; color: hsla(218,9%,51%,.8);" class="panel">
+          <div style="padding:24px;font-size: 18px;font-weight: 700; color: hsla(218,9%,51%,.8);">
             <div class="title">添加封面大图
               <span v-show="imgUrl" @click="imgUrl=''" style="float:right"><i class="el-icon-delete-solid"></i></span>
             </div>
@@ -19,25 +19,16 @@
           </div>
           <div slot="reference" class="toggle"><i class="el-icon-picture"></i></div>
         </el-popover>
-        <el-popover
-          width="290"
-          trigger="click"
-        >
         <articleType @submit='publish' />
-        <span slot="reference" style="margin-right:30px;color: #007fff; font-size:16px;font-weight: 500;cursor: pointer;">
-          <span>发布</span>
-          <i class="el-icon-caret-bottom"></i>
-        </span>
-      </el-popover>
-        <el-avatar slot="reference" size="medium" :src= avatar></el-avatar>
+        <el-avatar size="medium" :src= avatar></el-avatar>
       </div>
     </div>
     <div class="markdown">
       <markdown-editor 
-      ref="markdownEditor"
-      @input="getValue"
-      :height = height
-      v-model="markdown"
+        ref="markdownEditor"
+        @input="getValue"
+        :height = height
+        v-model="markdown"
       />
     </div>
   </div>
@@ -71,7 +62,7 @@ export interface article {
   components: {
     MarkdownEditor,
     uploadAvatar,
-    articleType
+    articleType,
   }
 })
 export default class  extends Vue {
@@ -81,10 +72,6 @@ export default class  extends Vue {
   private html: string = ''
   private imgUrl: string = ''
   private articleId!: string | (string | null)[]
-  private types = {
-    type: '',
-    tags: []
-  }
   private height: number = document.documentElement.clientHeight - 68
 
   get avatar() {
@@ -103,6 +90,7 @@ export default class  extends Vue {
   private handleUpload(event: string) {
     this.imgUrl = event
   }
+
   private async created() {
     this.articleId = this.$route.query.articleId
     if (this.articleId) {
@@ -110,17 +98,13 @@ export default class  extends Vue {
       this.markdown = data.markdown
       this.title =  data.title
       this.imgUrl = data.articleImg
-      this.types = {
-        type: data.articleType,
-        tags: data.articleTag
-      }
     }
   }
   mounted() {
     window.scrollTo(0, 0)
     window.onresize = debounce(() => {
       this.height = document.documentElement.clientHeight - 66
-    }, 400)
+    }, 400,)
   }
  
   private async publish(types: {type:string, tags:string[]}) {
@@ -138,7 +122,7 @@ export default class  extends Vue {
     if(this.articleId) {
       await updateArticle(newArticle)
     } else {
-      Object.assign(newArticle,{ article_id: GenNonDuplicateID(),})
+      Object.assign(newArticle,{ article_id: GenNonDuplicateID()})
       await createArticle(newArticle)
     }
     this.$router.push({path: '/'})
@@ -149,47 +133,23 @@ export default class  extends Vue {
 <style lang="scss">
 .markdown {
   .header {
-    width: 100%;
     background: #fff;
     height: 63px;
-    display: flex;
-    align-items: center;
-    .title {
-      width: 70%;
-      margin-left: 20px;
+    padding: 0 60px 0 20px;
+    @include flexcenter($jc: none);
+    .title-input {
+      flex: 1;
       font-size: 24px;
     }
-    .author {
-      width: 30%;
-      margin-right: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      .panel {
-        padding: 24px;
-      }
+    .action {
+      @include flexcenter($jc: space-around);
       .toggle {
         font-size: 28px;
         color: #ddd;
         margin-right: 25px;
         cursor: pointer;
       }
-      .publish {
-        margin-right: 10%;
-        white-space: nowrap;
-        color: #007fff;
-        cursor: pointer;
-        font-size: 16px;
-      }
-    }
-    .el-input__inner {
-      color: #000 !important;
-      font-weight: 700;
-      border: none;
-      outline: none;
     }
   }
-  
 }
-
 </style>

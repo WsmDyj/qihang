@@ -5,7 +5,7 @@
       <div class="content">
         <div class="nav-list">
           <div class="nav-menu" v-for="(action, index) in actions" :key="index">
-            <router-link class="menu-item" tag="div" :to='{path: action.path}'>{{ action.name }}</router-link>
+            <div @click="selectMenu(action)" :style="{color: index === currentMenu ? '#007fff' : ''}" class="menu-item">{{ action.name }}</div>
           </div>
         </div>
         <div class="nav-list">
@@ -43,7 +43,6 @@
             </div>
           </div>
         </div>
-       
       </div>
     </div>
     <login :activeIndex = activeIndex />
@@ -75,12 +74,13 @@ export default class extends Vue {
   private keyword: string | (string | null)[] = ''
   private inputIcon: boolean = false
   private curAction: number = 0
-  private activeIndex: string = 'login'
+  private activeIndex: string = ''
+  private currentMenu: number = 0
   private actions: Iactions[] = [
     { id: 0, name: '文章', path: '/' },
     { id: 1, name: '问答', path: '/questions' },
     { id: 2, name: '视频', path: '/hot' },
-    { id: 3, name: '阅读' , path: '/'}]
+    { id: 3, name: '分享', path: '/'}]
 
   get avatar() {
     return UserModule.avatar
@@ -91,7 +91,11 @@ export default class extends Vue {
   get visivle(): boolean {
     return this.token ?  true :  false
   }
-  private handleAction(action: Iactions): void {
+ 
+
+  private selectMenu(action: Iactions) {
+    this.currentMenu = action.id
+    this.$router.push(action.path)
   }
   
   private submit(action: string) {
@@ -157,7 +161,8 @@ export default class extends Vue {
         .menu-item {
           padding: 0 20px;
           color: $navcolor;
-          font-size: 17px;
+          font-size: 16px;
+          font-weight: 500;
           &:hover,&:focus,&:active {
             color: $primary;
           }

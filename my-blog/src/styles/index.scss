@@ -194,3 +194,13 @@ html {
     border: 1px solid $primary;
   }
 }
+
+// markdown
+.markdown {
+  .el-input__inner {
+    color: #000 !important;
+    font-weight: 700;
+    border: none;
+    outline: none;
+  }
+}

@@ -1,49 +1,62 @@
 <template>
-  <div class="type">
-    <div class="type-title">发布文章</div>
-    <div class="type-panel">
-      <div class="panel-title">分类</div>
-      <div class="panel-box">
-        <el-radio-group v-model="radio" @change="change" size="mini">
-          <el-radio v-for="(item, index) in articelType" :key="index" :label="item.label" border>{{item.value}}</el-radio>
-        </el-radio-group>
+  <el-popover
+    width="290"
+    trigger="click"
+  >
+    <div class="type">
+      <div class="type-title">发布文章</div>
+      <div class="type-panel">
+        <div class="panel-title">分类</div>
+        <div class="panel-box">
+          <el-radio-group v-model="radio" @change="change" size="mini">
+            <el-radio v-for="(item, index) in articelType" :key="index" :label="item.label" border>{{item.value}}</el-radio>
+          </el-radio-group>
+        </div>
+      </div>
+      <div class="type-panel">
+        <div class="panel-title">标签</div>
+        <el-select
+          v-model="types.tags"
+          :multiple-limit = 3
+          multiple
+          size="small"
+          placeholder="请选择文章标签">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="type-publish">
+        <el-button @click="sumbit" size="medium">确定并发布</el-button>
       </div>
     </div>
-    <div class="type-panel">
-      <div class="panel-title">标签</div>
-      <el-select
-        v-model="types.tags"
-        :multiple-limit = 3
-        multiple
-        size="small"
-        placeholder="请选择文章标签">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-    </div>
-    <div class="publish">
-      <el-button @click="sumbit" size="medium">确定并发布</el-button>
-    </div>
-  </div>
+    <span slot="reference" style="margin-right: 25px; color: #007fff; font-size: 16px; font-weight: 500; cursor: pointer;">
+      <span>发布</span>
+      <i class="el-icon-caret-bottom"></i>
+    </span>
+  </el-popover>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { getArticleTags } from '../../../api/blog'
-
 export interface Itag {
   label: string,
   value: string,
   options: object[]
 }
+
 export interface Itype {
   type: string,
   tags: string[]
 }
+
+@Component({
+  name: 'articleType'
+})
 
 export default class extends Vue {
   @Prop() private type !: Itype
@@ -54,11 +67,6 @@ export default class extends Vue {
     type: '前端',
     tags: []
   }
-
-  // @Watch('type', {immediate: true})
-  // private typeChange(old:Itag, val: Itag) {
-  //   console.log(old, val)
-  // }
   private change() {
     this.articelType.forEach((item: Itag) => {
       this.types.tags = []
@@ -68,7 +76,6 @@ export default class extends Vue {
       }
     })
   }
-
   private sumbit() {
     if (this.types.tags.length <= 0) {
       this.$message({ message: '请选择文章标签', type: 'error' })
@@ -76,13 +83,13 @@ export default class extends Vue {
       this.$emit('submit', this.types)
     }
   }
-
   private async created() {
     const { data } = await getArticleTags()
     this.options = data[0].options
     this.articelType = data
   }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -102,7 +109,7 @@ export default class extends Vue {
       margin-bottom: 10px;
     }
   }
-  .publish {
+  .type-publish {
     width: 240px;
     text-align: center;
   }
