@@ -83,3 +83,14 @@ export interface IAskData {
   createtime?: Date
 } 
 
+/*
+* 视频
+*/
+export interface IVideo {
+  id: number
+  title: string
+  describe: string
+  origin: string
+  location: string
+  imgUrl: string
+}

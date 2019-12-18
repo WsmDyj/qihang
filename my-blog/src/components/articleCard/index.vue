@@ -1,8 +1,5 @@
 <template>
   <div class="article" @click="checkArticle(article)">
-    <div class="article-img" v-show="article.articleImg">
-      <el-image fit="cover" style="border-radius: 3px;width: 192px; height: 158px" :src = article.articleImg ></el-image>
-    </div>
     <div class="article-content">
       <div class="article-title">{{article.title}}</div>
       <div class="article-desc">{{article.content}}</div>
@@ -40,6 +37,9 @@
           </span>
         </div>
       </div>
+    </div>
+     <div class="article-img" v-show="article.articleImg">
+      <el-image fit="cover" style="border-radius: 3px;width: 140px; height: 130px" :src = article.articleImg ></el-image>
     </div>
   </div>
 </template>
@@ -79,11 +79,11 @@ export default class extends Vue {
   }
   cursor: default;
   display: flex;
+  align-items: center;
   .article-img {
-    width: 193px;
-    height: 158px;
+    width: 140px;
+    height: 130px;
     border-radius: 3px;
-    margin-right: 20px;
     position: relative;
     &:hover:after{
       position:absolute;
@@ -98,16 +98,14 @@ export default class extends Vue {
     }
   }
   .article-content {
+    margin-right: 20px;
     height: 158px;
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     .article-title {
-      display:-webkit-box;
-      -webkit-box-orient:vertical;
-      -webkit-line-clamp:2;//控制行数
-      overflow:hidden;
+      @include twoLines();
       font-size: 20px;
       font-weight: 600;
       color: #2e3135;

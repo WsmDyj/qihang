@@ -51,7 +51,7 @@
     width: 1px;
     margin-top: -5px;
     top: 50%;
-    right: 0px;
+    right: 5px;
     height: 12px;
     background-color: #b2bac2;
     opacity: .8;
@@ -79,8 +79,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
+@mixin twoLines() {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;//控制行数
+  overflow: hidden;
+}
 
 $primary: #007fff;
 

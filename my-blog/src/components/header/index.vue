@@ -3,11 +3,7 @@
     <div class="navigation">
       <div class="logo"></div>
       <div class="content">
-        <div class="nav-list">
-          <div class="nav-menu" v-for="(action, index) in actions" :key="index">
-            <div @click="selectMenu(action)" :style="{color: index === currentMenu ? '#007fff' : ''}" class="menu-item">{{ action.name }}</div>
-          </div>
-        </div>
+        <Nav />
         <div class="nav-list">
           <div class="search">
             <el-input size="small" @focus="inputIcon=true" @blur="inputIcon=false" v-model="keyword" placeholder="搜索文章或用户">
@@ -55,6 +51,7 @@ import Login from '../login/index.vue'
 import { UserModule } from '../../store/modules/user'
 import Dropdown from '@/components/menu/dropdown/index.vue'
 import { getArticles } from '../../api/blog'
+import Nav from './components/nav.vue'
 
 interface Iactions {
   id: number
@@ -66,6 +63,7 @@ interface Iactions {
   components: {
     Login,
     Dropdown,
+    Nav
   },
 })
 

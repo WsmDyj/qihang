@@ -135,7 +135,7 @@ export default class extends Vue {
           width: 1px;
           margin-top: -5px;
           top: 50%;
-          right: -10px;
+          right: -5px;
           height: 12px;
           background-color: #b2bac2;
           opacity: .8;

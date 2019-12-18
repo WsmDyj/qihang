@@ -38,7 +38,13 @@ const routes = [
     path: '/hot',
     name: 'hot',
     component: () => import('../views/hot/index.vue'),
-    meta: { title: '热榜 - 起航'}
+    meta: { title: '视频 - 起航'}
+  },
+  { 
+    path: '/share',
+    name: 'share',
+    component: () => import('../views/share/index.vue'),
+    meta: { title: '分享 - 起航'}
   },
   { 
     path: '/search',

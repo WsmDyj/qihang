@@ -204,3 +204,13 @@ html {
     outline: none;
   }
 }
+
+// 视频按钮
+.share {
+  .el-button--primary {
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #4d91fd;
+    background-color: #4d91fd;
+  }
+}
