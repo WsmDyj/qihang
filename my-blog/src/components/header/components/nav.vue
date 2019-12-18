@@ -22,7 +22,7 @@ export default class extends Vue {
   private navs: Iactions[] = [
     { id: 0, name: '文章', path: '/' },
     { id: 1, name: '问答', path: '/questions' },
-    { id: 2, name: '视频', path: '/hot' },
+    { id: 2, name: '阅读', path: '/hot' },
     { id: 3, name: '分享', path: '/share'}]
 }
 </script>

@@ -19,6 +19,7 @@
           </el-radio-group>
           <el-link href="/ask" icon="el-icon-plus" target="_blank" type="primary">提问</el-link>
         </div>
+        
         <question/>
         
       </div>
