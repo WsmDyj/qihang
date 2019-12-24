@@ -1,12 +1,13 @@
 const { exec } = require('../db/mysql')
+const {getUserInfo} = require('./user')
 
 const getComment = async (article_id) => {
-  const sql = `SELECT article_id,comment_conent,comment_author, comment_likes, comment_time, comment_id FROM comment where comment.article_id = '${article_id}' order by comment_time desc;`
+  const sql = `SELECT article_id,comment_conent,comment_author, comment_likes, comment_time as time, comment_id FROM comment where comment.article_id = '${article_id}' order by comment_time desc;`
   const selectAuthorsql = `SELECT users.autograph, username, avatar, company, job, nickname from users, comment where users.nickname = comment.comment_author;`
   const author = await exec(selectAuthorsql)
   const comments = await exec(sql)
   for (var i = 0; i<comments.length;i++) {
-    const replys = await exec(`SELECT reply.reply_conent,reply_author,reply_time,comment_author,reply_id, users.avatar, users.job from reply, users where users.nickname = reply.comment_author and reply.comment_id = '${comments[i].comment_id}' order by reply_time desc;`)
+    const replys = await exec(`SELECT reply.reply_conent,reply_author,reply_time as time,comment_author as nickname,reply_id, users.avatar, users.job from reply, users where users.nickname = reply.comment_author and reply.comment_id = '${comments[i].comment_id}' order by reply_time desc;`)
     comments[i].replys = replys
     for (var j= 0; j<author.length;j++) {
       if (comments[i].comment_author == author[j].nickname) {

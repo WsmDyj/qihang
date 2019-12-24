@@ -32,8 +32,7 @@ const oauthLogin = async (userData = {}) => {
   }
 }
 
-const register = async(username, password) => {
-  const nickname = username
+const register = async(username, password, nickname) => {
   const date = Date.now()
   const userSql = `select * from users where username = '${username}' `
   const rows = await exec(userSql)
@@ -48,6 +47,7 @@ const register = async(username, password) => {
     }
   }
 }
+
 
 const getUserInfo = async (username) => {
   let sql = `select autograph, avatar, company, job, username, nickname, date from users where nickname = '${username}';`

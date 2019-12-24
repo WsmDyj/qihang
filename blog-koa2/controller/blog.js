@@ -1,18 +1,38 @@
 const { exec } = require('../db/mysql')
 const {getUserInfo} = require('./user')
+const { getFollowList } = require('./follow')
 
-const getList = async (author, keyworld) => {
+const getList = async (author, page) => {
+  const tagPage = Number(page) * 10
   let sql = `select * from blogs where 1=1 `
   if (author) {
     sql += `and author = '${author}' `
+    sql += `order by createtime desc ` 
+  } else {
+    sql += `order by createtime desc ` 
+    sql += `limit ${tagPage} , 10;`
   }
-  if (keyworld) {
-    sql += `and title like '%${keyworld}%' ` 
-  }
-  sql += `order by createtime desc;` 
-  
   const lists = await exec(sql)
+  for (let i =0;i<lists.length; i++) {
+    const userInfo = await getUserInfo(lists[i].author)
+    const follow = await getFollowList(lists[i].author)
+    lists[i].articleTag = lists[i].articleTag.split(',')
+    lists[i].author = userInfo
+    Object.assign(lists[i].author, {followInfo: follow})
+  }
   return lists
+}
+
+const getSearchlists = async (keyworld) => {
+  let articleSql = `select * from blogs where title like '%${keyworld}%';`
+  let userSql = `select * from users where nickname like '%${keyworld}%';`
+  const articlelists = await exec(articleSql)
+  const userlists = await exec(userSql)
+  let searchList = {
+    articles: articlelists,
+    users: userlists
+  }
+  return searchList
 }
 
 const getDetail = async (id) => {
@@ -20,6 +40,7 @@ const getDetail = async (id) => {
   const articles = await exec(sqlArticle)
 
   const userInfo = await getUserInfo(articles[0].author)
+  articles[0].articleTag = articles[0].articleTag.split(',')
   articles[0].author = userInfo
   return articles[0]
 }
@@ -32,7 +53,9 @@ const newBlog = async (blogData = {}) => {
   const articleImg = blogData.articleImg
   const article_id = blogData.article_id
   const createtime = Date.now()
-  const sql = `insert into blogs (article_id, title, content, createtime, author, markdown, articleImg) values ('${article_id}','${title}','${content}','${createtime}','${author}', "${markdown}", '${articleImg}'); `
+  const articleType = blogData.type
+  const articleTag = blogData.tags
+  const sql = `insert into blogs (article_id, title, content, createtime, author, markdown, articleImg, articleType, articleTag) values ('${article_id}','${title}','${content}','${createtime}','${author}', "${markdown}", '${articleImg}', '${articleType}', '${articleTag}'); `
   const insertData = await exec(sql)
   return {
     id: insertData.insertId
@@ -45,7 +68,10 @@ const updateBlog = async (blogData = {}) => {
   const markdown = blogData.markdown
   const articleImg = blogData.articleImg
   const article_id = blogData.article_id
-  const sql = `update blogs set title='${title}', content='${content}',markdown='${markdown}',articleImg='${articleImg}' where article_id='${article_id}' `
+  const articleType = blogData.type
+  console.log(blogData.tags)
+  const articleTag = blogData.tags
+  const sql = `update blogs set articleType='${articleType}', articleTag='${articleTag}', title='${title}', content='${content}',markdown='${markdown}', articleImg='${articleImg}' where article_id='${article_id}' `
   const updataData = await exec(sql)
   if (updataData.affectedRows > 0) {
     return true
@@ -65,5 +91,6 @@ module.exports = {
   getDetail,
   newBlog,
   updateBlog,
-  delBlog
+  delBlog,
+  getSearchlists
 }

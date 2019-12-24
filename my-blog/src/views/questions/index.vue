@@ -2,11 +2,21 @@
   <div class="container">
     <Header :visible= visible />
     <nav :class="visible ? 'navigation': 'top navigation'" >
-      <div class="nav-list">
-        <el-tabs v-model="activeIndex">
+      <div class="nav-content">
+        <el-tabs class="nav-list" v-model="activeIndex">
+          <el-tab-pane label="全部" name="0"></el-tab-pane>
           <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.laber">
           </el-tab-pane>
         </el-tabs>
+        <el-dropdown @command="handleCommand">
+          <span class="el-dropdown-link">
+            标签管理<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="0">前端</el-dropdown-item>
+            <el-dropdown-item command="1">后端</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </nav>
     <div class="main">
@@ -32,6 +42,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import question from '../../components/question/index.vue'
 import debounce from '../../utils/debounce'
+import { getArticleTags } from '../../api/blog'
 
 @Component({
   name:'home',
@@ -45,18 +56,18 @@ export default class extends Vue {
   private nav: number = 0
   private visible: boolean = true
   private activeIndex: string = '0'
-  private options: any[]= [
-    { value: '全部', laber: '0' },
-    { value: 'Vue.js', laber: '1' },
-    { value: 'React.js', laber: '2' },
-    { value: 'Node.js', laber: '3' },
-    { value: 'JavaScript.js', laber: '4' },
-    { value: 'Flutter.js', laber: '5' },
-    { value: 'Webpack.js', laber: '6' },
-    { value: 'TypeScript', laber: '7' },
-    { value: '性能优化', laber: '8' },
-    { value: '微信小程序', laber: '9' },
-  ]
+  private options: any[]= []
+  private tags: any[] = []
+
+  private async created() {
+    const { data } = await getArticleTags()
+    this.tags = data
+    this.handleCommand('0')
+  }
+  private handleCommand(command: string) {
+    this.options = this.tags[command].options
+  }
+
   private handleScroll() {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
     if (scrollTop > 136 * 2) {
@@ -92,7 +103,7 @@ export default class extends Vue {
     transition: all .2s;
     background: #fff;
     cursor: pointer;
-    .nav-list {
+    .nav-content {
       display: flex;
       justify-content: space-between;
       height: 100%;
@@ -100,6 +111,17 @@ export default class extends Vue {
       box-sizing: border-box;
       width: 960px;
       margin: 0 auto;
+      .nav-list {
+      }
+      .el-dropdown-link {
+        cursor: pointer;
+        color: $navcolor;
+        font-weight: 500;
+      }
+      .el-icon-arrow-down {
+        font-size: 12px;
+        font-weight: 500;
+      }
     }
   }
   .top {
@@ -122,8 +144,8 @@ export default class extends Vue {
         position: relative;
         display: inline-block;
         &:nth-child(-n +2) {
-          padding-right: 10px;
-          @include splitLine()
+          padding-right: 20px;
+          @include splitLine($right:10px)
         }
       }
       .nav-ask {

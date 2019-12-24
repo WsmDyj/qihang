@@ -55,6 +55,7 @@ html {
   font-size: 16px;
   border: none;
 }
+
 // 注册验证码
 .el-input-group__append, .el-input-group__prepend {
   color: $primary;
@@ -79,7 +80,7 @@ html {
   background-color: #f4f5f5;
   color: $primary;
 }
-// 导航标签tab样式修改
+// 问答导航标签tab样式修改
 .nav-list {
   .el-tabs__nav-wrap {
     background: #fff;
@@ -89,7 +90,7 @@ html {
     }
   }
   .el-tabs__item {
-    padding: 0 15px;
+    padding: 0 10px;
     color: $navcolor;
     font-weight: normal;
   }

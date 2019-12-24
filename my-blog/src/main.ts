@@ -6,10 +6,12 @@ import './permission'
 import * as Element from 'element-ui'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
+import './components/index'
 
 import 'element-ui/lib/theme-chalk/base.css' // fade style
 
 import 'element-ui/lib/theme-chalk/index.css'
+
 import 'normalize.css/normalize.css'
 import '@/styles/index.scss'
 

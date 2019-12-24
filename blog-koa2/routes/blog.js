@@ -4,7 +4,8 @@ const {
   getDetail,
   newBlog,
   updateBlog,
-  delBlog
+  delBlog,
+  getSearchlists
 } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
@@ -13,26 +14,63 @@ router.prefix('/api/blog')
 
 router.get('/list', async function (ctx, next) {
   let author = ctx.query.author || ''
-  const keyword = ctx.query.keyword || ''
+  const page = ctx.query.page || '0'
+  
+  const listData = await getList(author, page)
+  ctx.body =  new SuccessModel(listData)
+})
 
-  if (ctx.query.isadmin) {
-    console.log('is admin')
-    // 管理员界面
-    if (ctx.session.username == null) {
-      console.error('is admin, but no login')
-      // 未登录
-      ctx.body = (new ErrorModel('未登录'))
-      return
-    }
-    // 强制查询自己的博客
-    author = ctx.session.username
-  }
-  const listData = await getList(author, keyword)
+router.get('/search', async (ctx, next) => {
+  const keyword = ctx.query.keyword || ''
+  const listData = await getSearchlists(keyword)
   ctx.body =  new SuccessModel(listData)
 })
 
 router.get('/detail', async (ctx, next) => {
   const data = await getDetail(ctx.query.id)
+  ctx.body = new SuccessModel(data)
+})
+
+router.get('/tags', async (ctx, next) => {
+  const data = [
+    { 
+      label: '1', 
+      value: '前端', 
+      options: [
+        { value: 'Vue.js', laber: '1' },
+        { value: 'React.js', laber: '2' },
+        { value: 'Node.js', laber: '3' },
+        { value: 'CSS', laber: '4' },
+        { value: 'JavaScript.js', laber: '5' },
+        { value: 'Flutter.js', laber: '6' },
+        { value: 'Webpack.js', laber: '7' },
+        { value: 'TypeScript', laber: '8' },
+        { value: 'Http', laber: '9' },
+        { value: '性能优化', laber: '10' },
+        { value: '微信小程序', laber: '11' }]
+    },
+    {
+      label: '2',
+      value: '后端',
+      options: [
+        { value: 'Java', laber: '1' },
+        { value: 'Spring Boot', laber: '2' },
+        { value: 'Go', laber: '3' },
+        { value: 'Spring', laber: '4' },
+        { value: 'Redis', laber: '5' },
+        { value: 'Spring Cloud', laber: '6' },
+        { value: 'Mysql', laber: '7' },
+        { value: 'Linux', laber: '8' },
+        { value: 'Docker', laber: '9' }]
+    },
+    {
+      label: '3',
+      value: '分享',
+      options: [
+        { value: '读书笔记', laber: '0' },
+      ]
+    }
+  ]
   ctx.body = new SuccessModel(data)
 })
 

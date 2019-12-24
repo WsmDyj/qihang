@@ -40,6 +40,10 @@ export default class extends Vue {
     padding: 6px 0;
     min-height: 84px;
     color: #b9c0c8;
+    border-bottom: 1px solid $border-bottom;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 </style>

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
     "connect-redis": "^4.0.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -18,6 +19,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.17.1",
     "redis": "^2.8.0",
+    "superagent": "^5.1.1",
     "xss": "^1.0.6"
   },
   "devDependencies": {

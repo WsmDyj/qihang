@@ -44,14 +44,14 @@
 }
 
 /* 文字分割线 */
-@mixin splitLine() {
+@mixin splitLine($right: 5px) {
   &:after {
     content: "";
     position: absolute;
     width: 1px;
     margin-top: -5px;
     top: 50%;
-    right: 5px;
+    right: $right;
     height: 12px;
     background-color: #b2bac2;
     opacity: .8;

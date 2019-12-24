@@ -2,11 +2,14 @@ const router = require('koa-router')()
 const { login, oauthLogin, register, getUserInfo, updateUser } = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const { OAUTH_GITHUB } = require('../conf/oauth')
+var RPCClient = require('@alicloud/pop-core').RPCClient
+
 router.prefix('/api/user')
 const axios = require('axios')
 
 const jwt = require('jsonwebtoken')
 
+var CODE = ''
 router.post('/login', async function (ctx, next) {
   const { username, password } = ctx.request.body
   const data = await login(username, password)
@@ -24,6 +27,38 @@ router.post('/login', async function (ctx, next) {
     return
   } 
   ctx.body = new ErrorModel({code: 102, message: '用户名或密码错误'})
+})
+
+router.post('/sendSmsCodeToUser', async function (ctx, next) {
+  const { username } = ctx.request.body
+  CODE = Math.random().toString().slice(-6)
+  var client = new RPCClient({
+    accessKeyId: 'LTAI4FcGip5kqy1LB4ru2GYh',
+    accessKeySecret: 'BvmhpNobez41GIas1vA5z1QSbhTGIm',
+    endpoint: 'https://dysmsapi.aliyuncs.com',
+    apiVersion: '2017-05-25'
+  })
+  var params = {
+    "RegionId": "cn-hangzhou",
+    "PhoneNumbers": `${username}`,
+    "SignName": "起航网",
+    "TemplateCode": "SMS_180059442",
+    "TemplateParam": `{code: ${CODE}}`
+  }
+  var requestOption = {
+    method: 'POST'
+  }
+  var result = await client.request('SendSms', params, requestOption).then((res) => {
+      return res
+    }, (ex) => {
+      return ex
+    })
+  if ('Code' in result) {
+    ctx.body = new SuccessModel({message: '验证码发送成功'})
+  } else {
+    const limit = result.data.Message.split(':')[1]
+    ctx.body = limit >= 10 ? new ErrorModel({message: '同一手机号每天只能发送 10 条验证码'}) : new ErrorModel({message: '同一手机号每小时只能发送 5 条验证码'})
+  }
 })
 
 router.get('/oauth', async function(ctx, next) {
@@ -71,20 +106,25 @@ router.get('/oauth', async function(ctx, next) {
 })
 
 router.post('/register', async function (ctx, next) {
-  const { username, password } = ctx.request.body
-  const data = await register(username, password)
-  if(data) {
-    ctx.session.username = username
-    ctx.session.nickname = username
-    let secret = 'WJiol#23123_'
-
-    let payload = {username: username,time:new Date().getTime()}
-    let token = jwt.sign(payload, secret)
-
-    ctx.body = new SuccessModel({accessToken: token,message:'注册成功，欢迎来到起点！'})
+  const { username, password, code, nickname } = ctx.request.body
+  if (code != CODE) {
+    ctx.body = new ErrorModel({message: '验证码不正确，请重新输入！'})
     return
   } else {
-    ctx.body = new ErrorModel({message: '用户名重复了，请换个名称在试试！'})
+    const data = await register(username, password, nickname)
+    if(data) {
+      ctx.session.username = username
+      ctx.session.nickname = nickname
+      let secret = 'WJiol#23123_'
+
+      let payload = {username: username,time:new Date().getTime()}
+      let token = jwt.sign(payload, secret)
+
+      ctx.body = new SuccessModel({accessToken: token,message:'注册成功，欢迎来到起点！'})
+      return
+    } else {
+      ctx.body = new ErrorModel({message: '用户名重复了，请换个名称在试试！'})
+    }
   }
 })
 
