@@ -16,6 +16,7 @@ const actions = require('./routes/actions')
 const comment = require('./routes/comment')
 const follow = require('./routes/follow')
 const share = require('./routes/share')
+const question = require('./routes/question')
 
 const check = require('./middleware/check')
 
@@ -78,6 +79,7 @@ app.use(actions.routes(), actions.allowedMethods())
 app.use(comment.routes(), comment.allowedMethods())
 app.use(follow.routes(), follow.allowedMethods())
 app.use(share.routes(), share.allowedMethods())
+app.use(question.routes(), share.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

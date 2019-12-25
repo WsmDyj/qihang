@@ -37,35 +37,36 @@ router.get('/tags', async (ctx, next) => {
       label: '1', 
       value: '前端', 
       options: [
-        { value: 'Vue.js', laber: '1' },
-        { value: 'React.js', laber: '2' },
-        { value: 'Node.js', laber: '3' },
+        { value: 'Vue', laber: '1' },
+        { value: 'React', laber: '2' },
+        { value: 'JavaScript', laber: '3' },
         { value: 'CSS', laber: '4' },
-        { value: 'JavaScript.js', laber: '5' },
-        { value: 'Flutter.js', laber: '6' },
-        { value: 'Webpack.js', laber: '7' },
+        { value: 'Node', laber: '5' },
+        { value: 'Flutter', laber: '6' },
+        { value: 'Webpack', laber: '7' },
         { value: 'TypeScript', laber: '8' },
         { value: 'Http', laber: '9' },
-        { value: '性能优化', laber: '10' },
-        { value: '微信小程序', laber: '11' }]
+        { value: 'Docker', laber: '10' },
+        { value: '性能优化', laber: '11' },
+        { value: '微信小程序', laber: '12' }]
     },
+    // {
+    //   label: '2',
+    //   value: '后端',
+    //   options: [
+    //     { value: 'Java', laber: '1' },
+    //     { value: 'Spring Boot', laber: '2' },
+    //     { value: 'Go', laber: '3' },
+    //     { value: 'Spring', laber: '4' },
+    //     { value: 'Redis', laber: '5' },
+    //     { value: 'Spring Cloud', laber: '6' },
+    //     { value: 'Mysql', laber: '7' },
+    //     { value: 'Linux', laber: '8' },
+    //     { value: 'Docker', laber: '9' }]
+    // },
     {
       label: '2',
-      value: '后端',
-      options: [
-        { value: 'Java', laber: '1' },
-        { value: 'Spring Boot', laber: '2' },
-        { value: 'Go', laber: '3' },
-        { value: 'Spring', laber: '4' },
-        { value: 'Redis', laber: '5' },
-        { value: 'Spring Cloud', laber: '6' },
-        { value: 'Mysql', laber: '7' },
-        { value: 'Linux', laber: '8' },
-        { value: 'Docker', laber: '9' }]
-    },
-    {
-      label: '3',
-      value: '分享',
+      value: '阅读',
       options: [
         { value: '读书笔记', laber: '0' },
       ]

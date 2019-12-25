@@ -44,6 +44,7 @@ const getDetail = async (id) => {
   articles[0].author = userInfo
   return articles[0]
 }
+
 const newBlog = async (blogData = {}) => {
   // blogData 是一个博客对象， 包含title content author属性
   const title = blogData.title
@@ -69,7 +70,6 @@ const updateBlog = async (blogData = {}) => {
   const articleImg = blogData.articleImg
   const article_id = blogData.article_id
   const articleType = blogData.type
-  console.log(blogData.tags)
   const articleTag = blogData.tags
   const sql = `update blogs set articleType='${articleType}', articleTag='${articleTag}', title='${title}', content='${content}',markdown='${markdown}', articleImg='${articleImg}' where article_id='${article_id}' `
   const updataData = await exec(sql)

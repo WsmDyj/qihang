@@ -24,6 +24,36 @@ const getReviews = async (actionsdData = {}) => {
   }
 }
 
+const adoptComment = async (actionsdData = {}) => {
+  const comment_id = actionsdData.comment_id
+  const comment_status = actionsdData.comment_status
+  const sqlArticle = `update comment set comment_status = '${comment_status}' where comment_id='${comment_id}';`
+  const updataData = await exec(sqlArticle)
+
+  const article_id = actionsdData.askId
+  const sqlAsk = `select comment_status from comment where article_id = '${article_id}' `
+  const AskData = await exec(sqlAsk)
+
+  var result = AskData.some(item => {
+    if (item.comment_status == '1') {
+      return true
+    }
+  })
+  if (result) {
+    const sqlQuestion = `update questions set status = 2 where question_id='${article_id}';`
+    await exec(sqlQuestion)
+  } else{
+    const sqlQuestion = `update questions set status = 1 where question_id='${article_id}';`
+    await exec(sqlQuestion)
+  }
+
+  if (updataData.affectedRows > 0) {
+    return true
+  } else {
+    return false
+  }
+}
+
 const removeLike = async (actionsdData = {}) => {
   const author = actionsdData.author
   const article_id = actionsdData.article_id
@@ -37,6 +67,8 @@ const removeLike = async (actionsdData = {}) => {
   return false
 }
 
+
+
 const getLikelists = async (author) => {
   const sql = `SELECT blogs.article_id, author, title, content, createtime,likeCount, markdown, articleImg, comments, reviews FROM blogs, likes where likes.like_author = '${author}' and likes.article_id = blogs.article_id order by likes.id desc;`
   return await exec(sql)
@@ -46,5 +78,6 @@ module.exports = {
   getLike,
   removeLike,
   getLikelists,
-  getReviews
+  getReviews,
+  adoptComment
 }

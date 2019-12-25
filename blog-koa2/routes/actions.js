@@ -3,7 +3,8 @@ const {
   getLike,
   removeLike,
   getLikelists,
-  getReviews
+  getReviews,
+  adoptComment
 } = require('../controller/actions')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
@@ -20,6 +21,12 @@ router.post('/like',loginCheck, async function(ctx, next) {
 router.post('/review', async function(ctx, next) {
   const body = ctx.request.body
   await getReviews(body)
+  ctx.body = new SuccessModel()
+})
+
+router.post('/adopt', async function(ctx, next) {
+  const body = ctx.request.body
+  await adoptComment(body)
   ctx.body = new SuccessModel()
 })
 

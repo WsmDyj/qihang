@@ -2,7 +2,7 @@ const { exec } = require('../db/mysql')
 const {getUserInfo} = require('./user')
 
 const getComment = async (article_id) => {
-  const sql = `SELECT article_id,comment_conent,comment_author, comment_likes, comment_time as time, comment_id FROM comment where comment.article_id = '${article_id}' order by comment_time desc;`
+  const sql = `SELECT article_id,comment_conent,comment_author, comment_status, comment_time as time, comment_id FROM comment where comment.article_id = '${article_id}' order by comment_time desc;`
   const selectAuthorsql = `SELECT users.autograph, username, avatar, company, job, nickname from users, comment where users.nickname = comment.comment_author;`
   const author = await exec(selectAuthorsql)
   const comments = await exec(sql)
@@ -22,11 +22,11 @@ const newComment = async (commentData = {}) => {
   const article_id = commentData.article_id
   const comment_conent = commentData.comment_conent
   const comment_author = commentData.comment_author
-  const comment_likes = commentData.comment_likes
+  // const comment_likes = commentData.comment_likes
   const comment_time = Date.now()
   const comment_id = commentData.comment_id
   const sqlArticle = `update blogs set comments = comments + 1 where article_id='${article_id}';`
-  const sql =  `insert into comment (article_id, comment_conent, comment_author, comment_likes, comment_time, comment_id) values ('${article_id}','${comment_conent}','${comment_author}','${comment_likes}', '${comment_time}', '${comment_id}' ); `
+  const sql =  `insert into comment (article_id, comment_conent, comment_author, comment_time, comment_id) values ('${article_id}','${comment_conent}','${comment_author}', '${comment_time}', '${comment_id}' ); `
   const insertData = await exec(sql)
   const updataData = await exec(sqlArticle)
   if (updataData.affectedRows > 0 && insertData.affectedRows > 0) {
