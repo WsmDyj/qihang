@@ -24,6 +24,7 @@ import { getuserList } from '../../api/user'
 import Header from '@/components/header/index.vue'
 import authorInfo from '@/components/authorInfo/index.vue'
 import authorFollow from '@/components/follow/index.vue'
+import { IUserInfo } from '../../api/types'
 
 @Component({
   name:'home',
@@ -34,7 +35,7 @@ import authorFollow from '@/components/follow/index.vue'
   }
 })
 export default class extends Vue {
-  private users: any[] = []
+  private users: IUserInfo[] = []
   private async created() {
     const { data } = await getuserList()
     this.users = data

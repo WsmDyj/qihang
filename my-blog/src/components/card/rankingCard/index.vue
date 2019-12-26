@@ -17,6 +17,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import cardModule from '../cardModule/index.vue'
 import authorInfo from '../../authorInfo/index.vue'
 import { getuserList } from '../../../api/user'
+import { IUserInfo } from '../../../api/types'
 
 @Component({
   components: {
@@ -25,7 +26,7 @@ import { getuserList } from '../../../api/user'
   },
 })
 export default class extends Vue {
-  private users: any[] = []
+  private users: IUserInfo[] = []
   private async created() {
     const { data } = await getuserList({top: 3})
     this.users = data
