@@ -36,7 +36,7 @@
 <script lang="ts">
 import { Vue } from 'vue-property-decorator'
 import { MessageBox, Message } from 'element-ui'
-import { UserModule } from '../../../store/modules/user'
+import { UserModule } from '../../store/modules/user'
 export default class extends Vue {
   get nickname() {
     return UserModule.nickname

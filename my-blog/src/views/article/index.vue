@@ -49,7 +49,6 @@ import comment from '@/components/comment/index.vue'
 import catalog from './components/catalog.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
 import authorFollow from '@/components/follow/index.vue'
-import authorList from '@/components/card/rankingCard/authorList/index.vue'
 import authorInfo from '@/components/authorInfo/index.vue'
 import Sticky from '@/components/Sticky/index.vue'
 import articleAction from './components/action.vue'
@@ -85,7 +84,6 @@ const defaultArticle = {
     comment,
     catalog,
     achievementCard,
-    authorList,
     authorFollow,
     articleAction,
     authorInfo,

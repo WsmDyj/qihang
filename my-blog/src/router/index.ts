@@ -85,12 +85,7 @@ const routes = [
     path: '/redirect',
     name: 'redirect',
     component: () => import('../views/redirect/index.vue') 
-  },
-  { 
-    path: '/token',
-    name: 'token',
-    component: () => import('../views/Home.vue') 
-  },
+  }
 ];
 
 const router = new VueRouter({

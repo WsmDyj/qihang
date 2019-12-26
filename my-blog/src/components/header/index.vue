@@ -49,7 +49,7 @@
 import { Component, Vue, Provide, Prop } from 'vue-property-decorator'
 import Login from '../login/index.vue'
 import { UserModule } from '../../store/modules/user'
-import Dropdown from '@/components/menu/dropdown/index.vue'
+import Dropdown from '../dropdown/index.vue'
 import { getArticles } from '../../api/blog'
 import Nav from './components/nav.vue'
 

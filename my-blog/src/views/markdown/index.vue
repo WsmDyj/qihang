@@ -20,7 +20,10 @@
           <div slot="reference" class="toggle"><i class="el-icon-picture"></i></div>
         </el-popover>
         <articleType @submit='publish' />
-        <el-avatar size="medium" :src= avatar></el-avatar>
+        <el-popover trigger="click" width="150" class="nav-item auth">
+          <Dropdown />
+          <el-avatar slot="reference" size="medium" :src= avatar></el-avatar>
+        </el-popover>
       </div>
     </div>
     <div class="markdown">
@@ -38,12 +41,14 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import MarkdownEditor from '@/components/markdownEditor/index.vue'
+import Dropdown from '@/components/dropdown/index.vue'
 import { UserModule } from '../../store/modules/user'
 import debounce from '../../utils/debounce'
 import { detailArticle, createArticle, updateArticle } from '../../api/blog'
 import GenNonDuplicateID from '../../utils/createId'
 import uploadAvatar from '../../components/setting/uploadAvatar/index.vue'
 import articleType from './components/articleType.vue'
+
 import { html_decode } from '../../utils/formateArticle'
 
 export interface article {
@@ -63,6 +68,7 @@ export interface article {
     MarkdownEditor,
     uploadAvatar,
     articleType,
+    Dropdown
   }
 })
 export default class  extends Vue {
