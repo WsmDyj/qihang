@@ -29,10 +29,22 @@ const routes = [
     meta: { title: '问答 - 起航'}
   },
   { 
+    path: '/checkAsk',
+    name: 'checkAsk',
+    component: () => import('../views/checkAsk/index.vue'),
+    meta: { title: '问答 - 起航'}
+  },
+  { 
     path: '/ask',
     name: 'ask',
     component: () => import('../views/ask/index.vue'),
     meta: { title: '提问 - 起航'}
+  },
+  { 
+    path: '/users',
+    name: 'users',
+    component: () => import('../views/users/index.vue'),
+    meta: { title: '用户 - 起航'}
   },
   { 
     path: '/hot',

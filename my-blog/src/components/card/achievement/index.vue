@@ -14,7 +14,7 @@
         </div>
         <div class="card-item" v-else>
           <authorInfo :userInfo = userInfo>
-            <span slot="content" class="author-desc">{{userInfo.job}} @{{userInfo.company}}</span>
+            <div slot="content" class="author-desc">{{userInfo.job}} @{{userInfo.company}}</div>
           </authorInfo>
         </div>
         <div class="card-item">
@@ -50,17 +50,24 @@ export default class extends Vue {
 .card {
   // position: sticky;
   top: 80px;
-  .card-item {
-    @include flexcenter($jc: none);
-    @include nowrap;
-    padding-bottom: 10px;
-    &:last-child {
-      padding-bottom: 0px;
-    }
-    .center {
-      flex: 1 1 auto;
-      margin-left: 10px;
-      font-size: 15px;
+  .card-body {
+    padding: 12px 15px;
+    .card-item {
+      @include flexcenter($jc: none);
+      @include nowrap;
+      padding-bottom: 10px;
+      &:last-child {
+        padding-bottom: 0px;
+      }
+      .center {
+        flex: 1 1 auto;
+        margin-left: 10px;
+        font-size: 15px;
+      }
+      .author-desc {
+        width: 130px;
+        @include nowrap();
+      }
     }
   }
 }

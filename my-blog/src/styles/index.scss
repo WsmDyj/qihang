@@ -215,3 +215,25 @@ html {
     background-color: #4d91fd;
   }
 }
+
+// 问答评论
+.form {
+  .markdown {
+    .te-mode-switch-section {
+      display: none !important;
+    }
+  }
+}
+
+// 关注按钮
+.follow-action {
+  .el-button--success {
+    width: 80px;
+  }
+  .is-plain {
+    background: #fff;
+  }
+  .el-button--small {
+    font-size: 14px;
+  }
+}

@@ -10,6 +10,13 @@ export const login = (data: {username: string, password: string}) =>
     method: 'post',
     data
 })
+export const getuserList = (params?: {top: number}) =>
+  request({
+    url: 'api/user/getuserList',
+    method: 'get',
+    params
+})
+
 export const getoauth = (params: {code: string}) =>
   request({
     url: 'api/user/oauth',

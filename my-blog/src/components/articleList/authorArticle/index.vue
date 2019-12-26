@@ -11,6 +11,10 @@
         <span slot="label">更多 <i class="el-icon-caret-bottom"></i></span>
         <follow-list :follows = follows :actions = actions />
       </el-tab-pane>
+      <el-tab-pane name="4">
+        <span slot="label">问答 <i class="el-icon-caret-bottom"></i></span>
+        <askList/>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -24,13 +28,15 @@ import { Message, MessageBox } from 'element-ui'
 import articlesList from './components/articles.vue'
 import likeList from './components/likes.vue'
 import followList from './components/follow.vue'
+import askList from './components/ask.vue'
 
 @Component({
   name: 'authorArticle',
   components: {
     likeList,
     articlesList,
-    followList
+    followList,
+    askList
   },
 })
 

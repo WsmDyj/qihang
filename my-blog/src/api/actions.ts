@@ -5,6 +5,11 @@ interface articleId {
 interface author {
   author: string | (string | null)[]
 }
+interface adopt {
+  askId: string | (string | null)[]
+  comment_id: string
+  comment_status: number
+}
 
 export const getlikeArticle = (data: articleId) =>
   request({
@@ -12,6 +17,13 @@ export const getlikeArticle = (data: articleId) =>
     method: 'post',
     data
   })
+export const getAdoptComment = (data: adopt) =>
+  request({
+    url: 'api/actions/adopt',
+    method: 'post',
+    data
+  })
+
 export const getreviewArticle = (data: any) =>
   request({
     url: 'api/actions/review',

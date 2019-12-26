@@ -39,6 +39,7 @@ export interface IComment {
   comment_id: string
   userInfo?: IUserInfo
   showReply?: boolean
+  comment_status?: number
 }
 /*
 * 二级评论
@@ -69,18 +70,6 @@ export interface Itag {
   value: string
   laber: string
   disabled?: boolean
-}
-
-/*
- * 问答 
- */
-export interface IAskData {
-  title: string
-  tags: Itag[]
-  contnet: string
-  markdown: string
-  author: string
-  createtime?: Date
 } 
 
 /*
@@ -93,4 +82,26 @@ export interface IVideo {
   origin: string
   location: string
   imgUrl: string
+}
+
+/*
+ * 问答 
+ */
+export interface IAskData {
+  question_id: string
+  title: string
+  articleTag: Itag[]
+  content: string
+  markdown: string
+}
+/*
+* 问答
+*/
+export interface Iquestion extends IAskData {
+  author: any
+  createtime: string
+  likeCount: number
+  comments: number
+  reviews: number
+  status: number
 }

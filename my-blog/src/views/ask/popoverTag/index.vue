@@ -21,24 +21,19 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
 import { Itag } from '../../../api/types'
+import { getArticleTags } from '../../../api/blog'
 
 @Component
 export default class extends Vue {
-  private tagCount: number = 2
+  private tagCount: number = 3
   private selectTags: string[] = []
-  private tags: Itag[]= [
-    { value: 'Vue.js', laber: '0', disabled: false },
-    { value: 'React.js', laber: '1', disabled: false },
-    { value: 'Node.js', laber: '2', disabled: false },
-    { value: 'CSS', laber: '3', disabled: false },
-    { value: 'JavaScript.js', laber: '4', disabled: false },
-    { value: 'Flutter.js', laber: '5', disabled: false },
-    { value: 'Webpack.js', laber: '6', disabled: false },
-    { value: 'TypeScript', laber: '7', disabled: false },
-    { value: 'Http', laber: '8', disabled: false },
-    { value: '性能优化', laber: '9', disabled: false },
-    { value: '微信小程序', laber: '10', disabled: false },
-  ]
+  private tags: Itag[]= []
+
+  private async created() {
+    const { data } = await getArticleTags()
+    data[0].options.forEach((item: Itag) => Object.assign(item, {disabled: false }))
+    this.tags = data[0].options
+  }
 
   private closeTag(tag: string) {
     this.tagCount  = this.tagCount + 1

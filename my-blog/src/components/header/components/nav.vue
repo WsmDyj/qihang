@@ -3,7 +3,9 @@
     <li class="nav-item" v-for="(nav, index) in navs" :key="index">
       <router-link
         active-class="active"
-        :to="nav.path">{{ nav.name }}
+        :to="nav.path"
+      >
+        {{ nav.name }}
       </router-link>
     </li>
   </ul>

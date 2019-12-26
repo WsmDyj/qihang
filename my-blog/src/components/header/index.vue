@@ -168,7 +168,7 @@ export default class extends Vue {
         .submit {
           position: relative;
           padding: 0 5px;
-          @include splitLine();
+          @include splitLine(-2px);
         }
         .auth {
           position: relative;

@@ -1,28 +1,26 @@
 <template>
-  <div class="question" @click="checkArticle">
-    
+  <div class="question" @click="checkAsk">
     <div class="qa-summary">
       <div class="summary-author">
-        <span class="author-name">张三</span>
-        <span class="qa-time">12分钟前 提问</span>
+        <span class="author-name">{{ ask.author }}</span>
+        <span class="qa-time">{{ formatDate(ask.createtime) }} 提问</span>
       </div>
       <div class="summary-title">
-        <span class="title-conter">js如何将一个二维数组按照相同值进行筛选？</span>
-        <span class="title-type">vue</span>
-        <span class="title-type">JavaScript</span>
+        <span class="title-conter">{{ ask.title }}</span>
+        <span class="title-type" v-for="(tag, index) in ask.articleTag" :key="index">{{ tag }}</span>
       </div>
     </div>
     <div class="qa-rank">
       <div class="qa-votes">
-        <span class="qa-votes-count">10</span>
+        <span class="qa-votes-count">{{ ask.likeCount }}</span>
         <span class="qa-votes-item">收藏</span>
       </div>
-      <div class="qa-votes answers">
-        <span class="qa-votes-count">34</span>
-        <span class="qa-votes-item">回答</span>
+      <div :class="ask.status == 2 ? 'solve qa-votes' : 'not-solve qa-votes'">
+        <span class="qa-votes-count">{{ ask.comments }}</span>
+        <span class="qa-votes-item">{{ ask.status == 2 ? '解决': '回答'}}</span>
       </div>
       <div class="qa-votes">
-        <span class="qa-votes-count">235</span>
+        <span class="qa-votes-count">{{ ask.reviews }}</span>
         <span class="qa-votes-item">浏览</span>
       </div>
     </div>
@@ -30,14 +28,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
+import { Iquestion } from '../../../api/types'
 
 @Component({
 })
 
 export default class extends Vue {
-  private checkArticle() {
-    window.open(`/article?articleId=${''}`, '_blank')
+  @Prop() private ask!: Iquestion
+
+  private checkAsk() {
+    window.open(`/checkAsk?askId=${this.ask.question_id}`, '_blank')
   }
 }
 </script>
@@ -45,11 +46,14 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .question {
   background: #fff;
-  width: 620px;
-  height: 48px;
-  padding: 12px 24px;
+  width: 668px;
+  box-sizing: border-box;
+  padding: 12px 20px 6px 15px;
   display: flex;
   border-bottom: 1px solid rgba(178,186,194,.15);
+  &:hover {
+    background-color: #f7f9f9;
+  }
   .qa-rank {
     height: 100%;
     display: flex;
@@ -61,15 +65,18 @@ export default class extends Vue {
       padding: 5px 0;
       text-align: center;
     }
-    .answers {
+    .solve {
       background: $primary;
       color: #fff;
-      // color: red;
-      // background: rgba(2,127,255,0.08);
-      // color: $primary;
-      // border: 1px solid rgba(2,127,255,0.16);
       width: 45px;
       border-radius: 4px;
+    }
+    .not-solve {
+      width: 45px;
+      border-radius: 4px;
+      background: rgba(2,127,255,0.08);
+      color: $primary;
+      border: 1px solid rgba(2,127,255,0.16);
     }
     .qa-votes-item {
       display: block;
@@ -91,33 +98,31 @@ export default class extends Vue {
       }
     }
     .summary-title {
-      position: absolute;
-      bottom: 0;
       font-size: 17px;
       font-weight: 600;
+      margin: 10px 0;
       color: #2e3135;
       cursor: default;
+      @include twoLines();
       .title-conter {
-        display: inline-block;
-        vertical-align: middle;
-        max-width: 340px;
-        @include nowrap();
+        margin-right: 10px;
         &:hover {
-          color: $primary;
           text-decoration: underline;
         }
       }
       .title-type {
         display: inline-block;
-        vertical-align: middle;
-        padding: 4px 6px;
+        padding: 0px 6px;
+        box-sizing: border-box;
         color: $primary;
         background: rgba(2,127,255,0.08);
         font-weight: normal;
+        height: 22px;
+        line-height: 22px;
         font-size: 13px;
-        text-align: center;
         cursor: pointer;
-        margin-left: 10px;
+        text-align: center;
+        margin-right: 10px;
         &:hover {
           background: $primary;
           color: #fff;

@@ -33,9 +33,11 @@
       </div>
       <div class="asside">
         <achievement-card title= "关于作者" :userInfo= article.author ></achievement-card>
-        <div ref="catalog">
-          <catalog :fixed= fixed  :catalog = catalog />
-        </div>  
+        <sticky :z-index= 9 :sticky-top="80">
+          <div ref="catalog">
+            <catalog :catalog = catalog />
+          </div>
+        </sticky>
       </div>
     </div>
   </div>
@@ -49,6 +51,7 @@ import achievementCard from '@/components/card/achievement/index.vue'
 import authorFollow from '@/components/follow/index.vue'
 import authorList from '@/components/card/rankingCard/authorList/index.vue'
 import authorInfo from '@/components/authorInfo/index.vue'
+import Sticky from '@/components/Sticky/index.vue'
 import articleAction from './components/action.vue'
 import { detailArticle } from '../../api/blog'
 import { getfollow } from '../../api/follow'
@@ -85,7 +88,8 @@ const defaultArticle = {
     authorList,
     authorFollow,
     articleAction,
-    authorInfo
+    authorInfo,
+    Sticky
   }
 })
 export default class  extends Vue {
@@ -93,7 +97,6 @@ export default class  extends Vue {
   private catalog: string = ''
   private linkLists!: NodeListOf<HTMLElement> 
   private target!: any[]
-  private fixed: boolean = false
   private listHeight: number[] =[]
 
   get nickname() {
@@ -107,6 +110,7 @@ export default class  extends Vue {
       data == list ? list.classList.add('active') : list.classList.remove('active') 
     })
   }
+
   private async changeArticle(articleId: any) {
     const { data } = await detailArticle({ id: articleId })
     data.createtime = formatTime(data.createtime)
@@ -153,7 +157,6 @@ export default class  extends Vue {
 
   private handleScroll() {
     const scrollY = window.pageYOffset
-    this.fixed = scrollY > 230 ? true : false
     for (let i = 0; i < this.listHeight.length-1; i++) {
       let h1: number = this.listHeight[i]
       let h2: number = this.listHeight[i + 1]

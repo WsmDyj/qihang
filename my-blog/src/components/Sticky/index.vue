@@ -17,8 +17,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 })
 export default class extends Vue {
   @Prop({ default: 0 }) private stickyTop!: number
+  @Prop({ default: 0 }) private fixedTop!: number
   @Prop({ default: 1 }) private zIndex!: number
   @Prop({ default: '' }) private className!: string
+
 
   private active:boolean = false
   private position:string = ''
@@ -65,7 +67,7 @@ export default class extends Vue {
     const width = this.$el.getBoundingClientRect().width
     this.width = (width.toString() + 'px') || 'auto'
     const offsetTop = this.$el.getBoundingClientRect().top
-    this.$emit('scroll', offsetTop < 0? false : true)
+    this.$emit('scroll', offsetTop < this.fixedTop ? false : true)
     if (offsetTop < this.stickyTop) {
       this.sticky()
       return

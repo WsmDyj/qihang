@@ -30,6 +30,10 @@ import Header from '@/components/header/index.vue'
 import MarkdownEditor from '@/components/markdownEditor/index.vue'
 import popoverTag from './popoverTag/index.vue'
 import { IAskData, Itag } from '../../api/types'
+import GenNonDuplicateID from '../../utils/createId'
+import { createAsk } from '../../api/question'
+import { html_decode } from '../../utils/formateArticle'
+import { detailAsk, updateAsk } from '../../api/question'
 
 @Component({
   components: {
@@ -41,21 +45,41 @@ import { IAskData, Itag } from '../../api/types'
 
 export default class extends Vue {
   private filters: IAskData = {
+    question_id: GenNonDuplicateID(),
     title: '',
-    tags: [],
-    contnet: '',
+    articleTag: [],
+    content: '',
     markdown: '',
-    author: '',
   }
+  private askId!: string | (string | null)[]
   private selectTags(tags: Itag[]) {
-    this.filters.tags = tags
+    this.filters.articleTag = tags
   }
-  private submitAsk() {
-    this.filters.contnet = (this.$refs.markdownEditor as MarkdownEditor).getHtml()
-    if (this.filters.title !=='' && this.filters.markdown != '' && this.filters.tags.length >0) {
-      console.log(this.filters)
+
+  private async submitAsk() {
+    this.filters.markdown = html_decode(this.filters.markdown)
+    this.filters.title = html_decode(this.filters.title)
+    this.filters.content =  html_decode((this.$refs.markdownEditor as MarkdownEditor).getHtml())
+    if (this.filters.title !=='' && this.filters.markdown != '' && this.filters.articleTag.length >0) {
+      if (this.askId) {
+        await updateAsk(this.filters)
+      } else {
+        await createAsk(this.filters)
+      }
+      this.$router.push({path: '/questions'})
     } else {
-      this.$message.error('请确保 标题、标签、内容 不为空！');
+      this.$message.error('标题、标签、问题内容 不为空！')
+    }
+  }
+
+  private async created() {
+    this.askId = this.$route.query.askId
+    if (this.askId) {
+      const { data } = await detailAsk({ask_id: this.askId})
+      this.filters.markdown = data.markdown
+      this.filters.title =  data.title
+      this.filters.articleTag = data.articleTag
+      this.filters.question_id = data.question_id
     }
   }
 }

@@ -3,7 +3,8 @@
     <el-button 
       v-show="nickname != author" 
       :size='size'
-      :type=" show ? 'success' : '' "
+      type="success"
+      :plain=" show ? false : true "
       @click.stop="follow(author)"
     >
       {{ show ? '已关注' : '关注' }}
