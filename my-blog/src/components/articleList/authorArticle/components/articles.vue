@@ -7,7 +7,7 @@
             <article-title :isAvatar = userInfo.avatar :article= article></article-title>
           </div>
           <div class="article-img" v-show="article.articleImg">
-            <el-image fit="cover" style="width: 608px; height: 212px" :src="article.articleImg" ></el-image>
+            <el-image fit="cover" style="width: 640px; height: 212px" :src="article.articleImg" ></el-image>
           </div>
           <div class="abstract-row">
             <span class="title">{{ article.title }}</span>

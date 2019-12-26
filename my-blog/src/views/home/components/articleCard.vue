@@ -13,13 +13,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import authorCard from '../authorCard/popoveCard/index.vue'
-import articleAction from '../articleAction/index.vue'
-import { IArticleData } from '../../api/types'
+import articleAction from './articleAction.vue'
+import { IArticleData } from '../../../api/types'
 
 @Component({
   components: {
-    authorCard,
     articleAction
   }
 })
@@ -34,7 +32,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article {
-  width: 620px;
+  width: 652px;
   padding: 12px 24px;
   background: #fff;
   border-width: 0;

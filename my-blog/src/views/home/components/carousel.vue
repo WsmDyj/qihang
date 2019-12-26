@@ -1,9 +1,9 @@
 <template>
   <div class="carousel">
-    <el-carousel :interval = 4000 trigger="click" height="280px">
+    <el-carousel :interval = 4000 trigger="click" height="270px">
       <el-carousel-item v-for="(item, index) in lists" :key="index">
         <div class="carousel-content">
-          <el-image style="border-radius:4px;width: 668px; height: 300px" :src = item.img></el-image>
+          <el-image fit="contain" style="border-radius:4px;width: 700px; height: 270px" :src = item.img></el-image>
           <div class="carousel-panel">
             <div class="carousel-title">{{item.title}}</div>
             <div class="carousel-info">
@@ -48,8 +48,8 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .carousel {
-  height: 280px;
-  width: 668px;
+  height: 270px;
+  width: 700px;
   background: #fff;
   border-radius: 4px;
   margin-bottom: 10px;

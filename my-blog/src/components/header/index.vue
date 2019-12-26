@@ -125,7 +125,7 @@ export default class extends Vue {
     @include flexcenter($jc:space-between);
     margin: auto auto;
     height: 100%;
-    width: 960px;
+    width: 992px;
     .logo {
       width: 98px;
       height: 42px;

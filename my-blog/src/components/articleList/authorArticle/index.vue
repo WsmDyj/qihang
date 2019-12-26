@@ -113,7 +113,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .author {
   margin: 20px  auto 0 auto;
-  width: 668px;
+  width: 700px;
   cursor: pointer;
   background: #fff;
 }

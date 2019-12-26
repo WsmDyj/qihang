@@ -37,8 +37,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import authorCard from '../authorCard/popoveCard/index.vue'
-import { IArticleData } from '../../api/types'
+import authorCard from '../../../components/popoveCard/index.vue'
+import { IArticleData } from '../../../api/types'
 
 @Component({
   components: {

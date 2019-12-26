@@ -48,7 +48,7 @@ export default class extends Vue {
   flex-direction: column;
   align-items: center;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   .about-avatar {
     position: absolute;
     left: 50%;

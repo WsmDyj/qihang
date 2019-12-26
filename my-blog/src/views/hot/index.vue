@@ -45,12 +45,12 @@ export default class extends Vue {
   @include flexcolumn($jc:center, $ai: center);
   .main {
     @include flexcenter($jc:space-between, $ai: none);
-    width: 932px;
-    margin-top: 96px;
+    width: 964px;
+    margin-top: 86px;
     margin-bottom: 20px;
     .books-list {
       @include flexcolumn($jc:none, $ai: none);
-      width: 668px;
+      width: 700px;
       background: #fff;
       min-height: 190px;
       box-shadow: 0 1px 3px 0 rgba(4,5,13,.23);

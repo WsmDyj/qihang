@@ -34,9 +34,9 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
-import { UserModule }  from '../../store/modules/user'
-import authorFollow from '../follow/index.vue'
-import { IUserInfo } from '../../api/types'
+import { UserModule }  from '../../../store/modules/user'
+import authorFollow from '@/components/follow/index.vue'
+import { IUserInfo } from '../../../api/types'
 
 @Component({
   components: {
@@ -63,7 +63,7 @@ export default class extends Vue {
 .author {
   padding: 30px;
   box-sizing: border-box;
-  width: 668px;
+  width: 700px;
   height: 153px;
   background: #fff;
   display: flex;

@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import articleAction from '../../../components/articleAction/index.vue'
+import articleAction from '../../home/components/articleAction.vue'
 import { IArticleData } from '../../../api/types'
 
 @Component({

@@ -5,7 +5,7 @@
     </div>
     <div class="item post" :style="{color: article.likeCount > 20 ? 'red' : ''}" v-else>
       {{article.likeCount > 20 ? '热' : '专栏'}}</div>
-    <div class="item author" @click.stop="hanleClick">{{ article.author.nickname}}</div>
+    <div class="item author" @click.stop="hanleClick">{{ article.author.nickname || article.author}}</div>
     <div style="font-size:12px;font-weight: 600;">{{ articleTime }}</div>
   </div>
 </template>

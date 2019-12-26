@@ -21,7 +21,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
-import authorCard from '@/components/authorCard/index.vue'
+import authorCard from './components/authorCard.vue'
 import authorArticle from '@/components/articleList/authorArticle/index.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
 import followCard from '@/components/card/achievement/follow/index.vue'
@@ -82,7 +82,7 @@ export default class extends Vue {
 .container {
   @include flexcolumn($jc:center, $ai: center);
   .main {
-    width: 932px;
+    width: 964px;
     margin-top: 80px;
     margin-bottom: 20px;
     position: relative;

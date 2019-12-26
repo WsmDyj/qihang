@@ -136,7 +136,7 @@ export default class extends Vue {
       justify-content: space-between;
       height: 100%;
       box-sizing: border-box;
-      width: 932px;
+      width: 964px;
       margin: 0 auto;
       .el-dropdown-link {
         cursor: pointer;
@@ -153,13 +153,13 @@ export default class extends Vue {
     transform: translate3d(0,-60px,0);
   }
   .main {
-    width: 932px;
+    width: 964px;
     margin-top: 126px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
     .questions-container {
-      width: 668px;
+      width: 700px;
       .questions-nav {
         padding: 15px 20px 15px 15px;
         border-bottom: 1px solid hsla(0,0%,59.2%,.1);

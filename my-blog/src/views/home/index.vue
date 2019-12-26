@@ -17,8 +17,9 @@
         </div>
       </div>
       <div class="asside">
-        <about-card></about-card>
+        <!-- <about-card></about-card> -->
         <rankingCard />
+        <moreCard />
       </div>
     </div>
   </div>
@@ -28,10 +29,11 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import aboutCard from '@/components/card/aboutMe/index.vue'
-import carousel from '@/components/carousel/index.vue'
-import articleCard from '@/components/articleCard/index.vue'
 import rankingCard from '@/components/card/rankingCard/index.vue'
+import moreCard from '@/components/card/more/index.vue'
 import Sticky from '@/components/Sticky/index.vue'
+import carousel from './components/carousel.vue'
+import articleCard from './components/articleCard.vue'
 import { getArticles } from '../../api/blog'
 import { IArticleData, Itag } from '../../api/types'
 import { fommentArticle } from '../../utils/formateArticle'
@@ -56,6 +58,7 @@ export interface Ifilters {
     articleCard,
     aboutCard,
     rankingCard,
+    moreCard,
     Sticky,
     login
   }
@@ -110,7 +113,7 @@ export default class extends Vue {
 .container {
   @include flexcolumn($jc:center, $ai: center);
   .main {
-    width: 932px;
+    width: 964px;
     margin-top: 80px;
     margin-bottom: 20px;
     position: relative;

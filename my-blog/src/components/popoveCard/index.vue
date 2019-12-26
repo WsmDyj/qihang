@@ -15,9 +15,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import authorInfo from '../../authorInfo/index.vue'
-import follow from '../../follow/index.vue'
-import { IUserInfo } from '../../../api/types'
+import authorInfo from '../authorInfo/index.vue'
+import follow from '../follow/index.vue'
+import { IUserInfo } from '../../api/types'
 
 @Component({
   components: {

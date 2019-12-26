@@ -46,7 +46,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import comment from '@/components/comment/index.vue'
-import catalog from '@/components/catalog/index.vue'
+import catalog from './components/catalog.vue'
 import achievementCard from '@/components/card/achievement/index.vue'
 import authorFollow from '@/components/follow/index.vue'
 import authorList from '@/components/card/rankingCard/authorList/index.vue'

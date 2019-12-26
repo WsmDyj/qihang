@@ -46,7 +46,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .question {
   background: #fff;
-  width: 668px;
+  width: 700px;
   box-sizing: border-box;
   padding: 12px 20px 6px 15px;
   display: flex;
