@@ -2,8 +2,8 @@
   <div class="card">
     <cardModule title="🎖️作者榜">
       <div class="ranking" v-for="(user, index) in users" :key="index">
-        <authorInfo :size='40' :userInfo= user >
-          <div slot="content" class="author-desc">{{user.job}} @{{user.company}}</div>
+        <authorInfo type='comment' :size='40' :userInfo= user >
+          <div slot="content" class="author-desc">{{user.autograph}}</div>
         </authorInfo>
       </div>
       <div class="card-bottom">
@@ -35,8 +35,6 @@ export default class extends Vue {
 </script>
 <style lang="scss" scoped>
 .card {
-  position: sticky;
-  top: 90px;
   cursor: pointer;
   .ranking {
     padding: 12px 15px;
@@ -45,6 +43,9 @@ export default class extends Vue {
     }
     .author-desc {
       width: 130px;
+      font-size: 12px;
+      color: $fontcolor;
+      margin-top: -10px;
       @include nowrap();
     }
   }

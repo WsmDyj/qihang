@@ -28,6 +28,10 @@
         </div>
         <div v-else><emptyBox/></div>
       </div>
+       <div class="asside">
+        <!-- <askCard /> -->
+        <hotCard />
+       </div>
     </div>
   </div>
 </template>
@@ -35,6 +39,8 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
+import hotCard from '../../components/card/hot/index.vue'
+import askCard from '../../components/card/ask/index.vue'
 import questionItem from './components/item.vue'
 import debounce from '../../utils/debounce'
 import { getArticleTags } from '../../api/blog'
@@ -54,6 +60,8 @@ export interface Ifilters {
   components: {
     Header,
     questionItem,
+    hotCard,
+    askCard,
     Sticky,
     emptyBox
   },

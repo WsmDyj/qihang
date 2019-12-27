@@ -3,7 +3,7 @@
     <el-carousel :interval = 4000 trigger="click" height="270px">
       <el-carousel-item v-for="(item, index) in lists" :key="index">
         <div class="carousel-content">
-          <el-image fit="contain" style="border-radius:4px;width: 700px; height: 270px" :src = item.img></el-image>
+          <el-image fit="cover" style="border-radius:4px;width: 700px; height: 270px" :src = item.img></el-image>
           <div class="carousel-panel">
             <div class="carousel-title">{{item.title}}</div>
             <div class="carousel-info">
@@ -24,23 +24,25 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class extends Vue {
   private lists: any = [
+    // https://user-gold-cdn.xitu.io/2019/11/8/16e4a5f24fd1e188?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1
+    // https://user-gold-cdn.xitu.io/2019/10/20/16de9710a4baee9f?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1
     {
       title: 'Go语言实现微服务工具链(一) - 蓝绿部署',
       author: '张三',
       time: '3月前',
-      img: 'https://linmi.cc/wp-content/themes/Linmi/timthumb.php?src=https://linmi.cc/wp-content/uploads/2019/09/2019093006321992.png&h=400&w=800&zc=1&a=c&q=100&s=1'
+      img: 'https://user-gold-cdn.xitu.io/2019/11/16/16e72b3afb20ac3a?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1'
     },
     {
       title: '轻松理解webpack热更新原理',
       author: '李四',
       time: '1月前',
-      img: 'https://linmi.cc/wp-content/themes/Linmi/timthumb.php?src=https://linmi.cc/wp-content/uploads/2019/09/2019091421090960.png&h=400&w=800&zc=1&a=c&q=100&s=1'
+      img: 'https://user-gold-cdn.xitu.io/2019/12/25/16f38e58b90d02c9?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1'
     },
     {
       title: '样本组成了整体，特例装裱了样本',
       author: '王五',
       time: '5月前',
-      img: 'https://linmi.cc/wp-content/themes/Linmi/timthumb.php?src=https://linmi.cc/wp-content/uploads/2019/08/cropped-2019082619190723.png&h=400&w=800&zc=1&a=c&q=100&s=1'
+      img: 'https://user-gold-cdn.xitu.io/2019/12/13/16efe9ed70b90636?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1'
     }
   ]
 }

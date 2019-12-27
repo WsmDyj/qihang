@@ -1,4 +1,5 @@
 <template>
+  <transition name="el-fade-in">
   <div class="login" v-if='islogin'>
     <div class="auth-form">
       <i title="关闭" @click="closeLogin" class="close-btn iconfont">&#xe710;</i>
@@ -20,6 +21,7 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -94,7 +96,7 @@ export default class extends Vue {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,.3);
+  background-color: rgba(0,0,0,.4);
   z-index: 9;
   .auth-form {
     position: relative;

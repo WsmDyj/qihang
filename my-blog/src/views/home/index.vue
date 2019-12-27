@@ -18,8 +18,13 @@
       </div>
       <div class="asside">
         <!-- <about-card></about-card> -->
-        <rankingCard />
-        <moreCard />
+        <totalCard/>
+        <sticky :z-index= 8 :sticky-top="70">
+          <joinCard />
+          <rewardCard />
+          <rankingCard />
+          <moreCard />
+        </sticky>
       </div>
     </div>
   </div>
@@ -31,6 +36,9 @@ import Header from '@/components/header/index.vue'
 import aboutCard from '@/components/card/aboutMe/index.vue'
 import rankingCard from '@/components/card/rankingCard/index.vue'
 import moreCard from '@/components/card/more/index.vue'
+import joinCard from '@/components/card/join/index.vue'
+import totalCard from '@/components/card/total/index.vue'
+import rewardCard from '@/components/card/advert/reward.vue'
 import Sticky from '@/components/Sticky/index.vue'
 import carousel from './components/carousel.vue'
 import articleCard from './components/articleCard.vue'
@@ -38,6 +46,7 @@ import { getArticles } from '../../api/blog'
 import { IArticleData, Itag } from '../../api/types'
 import { fommentArticle } from '../../utils/formateArticle'
 import login from '../../components/login/index.vue'
+
 
 const NavTag = [
   { value: '首页推荐', laber: '0' },
@@ -58,7 +67,10 @@ export interface Ifilters {
     articleCard,
     aboutCard,
     rankingCard,
+    rewardCard,
     moreCard,
+    totalCard,
+    joinCard,
     Sticky,
     login
   }

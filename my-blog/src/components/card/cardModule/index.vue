@@ -23,7 +23,7 @@ export default class extends Vue {
   background: #fff;
   .clearfix {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     padding: 12px 15px;
     border-bottom: 1px solid $border-bottom;
   }

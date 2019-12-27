@@ -7,7 +7,13 @@
       <el-link>建议反馈</el-link>
     </div>
     <div class="item">
-      <el-link>当前呈现版本 1.0.0</el-link>
+      <el-link>
+        网站素材均来源于网络，如有侵权请联系作者
+        
+      </el-link>
+      <el-link>
+        📧 972774037@qq.com
+      </el-link>
     </div>
     <div class="item">
       <el-link href="http://www.miibeian.gov.cn/" target="_blank">京ICP备19058301号-2</el-link>
@@ -29,12 +35,10 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .more {
-  position: sticky;
-  top: 418px;
   width: 240px;
   color: #909090;
   .item {
-    padding: 1px 0;
+    padding: 2px 0;
   }
 }
 </style>

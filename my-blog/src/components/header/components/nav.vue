@@ -14,14 +14,14 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-interface Iactions {
+export interface Inav {
   id: number
   name: string
   path: string
 }
 @Component
 export default class extends Vue {
-  private navs: Iactions[] = [
+  private navs: Inav[] = [
     { id: 0, name: '文章', path: '/' },
     { id: 1, name: '问答', path: '/questions' },
     { id: 2, name: '阅读', path: '/hot' },

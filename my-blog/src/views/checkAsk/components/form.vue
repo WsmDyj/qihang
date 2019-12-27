@@ -40,7 +40,7 @@ export default class extends Vue {
   padding: 20px;
   background: #fff;
   .sumbit {
-    margin-top: 10px;
+    margin-top: 15px;
     float: right;
   }
   .markdown {

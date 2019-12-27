@@ -30,11 +30,11 @@
           </div>
         </div>
        
-        <div class="article-comment">
+        <div class="article-comment" v-show="comments.length > 0">
           <div class="comment-title">
             <span @click="show = !show">
               <i class="el-icon-guide"></i>
-              {{comments.length}}个回答
+              {{comments.length}} 个回答
               <i :class="show ? 'el-icon-caret-top' : 'el-icon-caret-bottom'"></i>
             </span>
           </div>
@@ -199,15 +199,19 @@ export default class extends Vue {
       }
       .article-comment {
         margin-top: 20px;
+        background: #fff;
+        padding: 20px;
         .comment-title {
           cursor: pointer;
-          color: $primary;
           font-size: 16px;
-          font-weight: 500;
+          font-weight: 600;
         }
         .comment-content {
-          background: #fff;
           margin-top: 10px;
+          border-bottom: 1px solid $border-bottom;
+          &:last-child {
+            border-bottom: none;
+          }
         }
       }
     }

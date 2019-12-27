@@ -20,7 +20,7 @@
           <div slot="reference" class="toggle"><i class="el-icon-picture"></i></div>
         </el-popover>
         <articleType @submit='publish' />
-        <el-popover trigger="click" width="150" class="nav-item auth">
+        <el-popover trigger="click" width="150">
           <Dropdown />
           <el-avatar slot="reference" size="medium" :src= avatar></el-avatar>
         </el-popover>
