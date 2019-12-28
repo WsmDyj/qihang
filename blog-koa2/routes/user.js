@@ -1,5 +1,12 @@
 const router = require('koa-router')()
-const { login, oauthLogin, register, getUserInfo, updateUser } = require('../controller/user')
+const { 
+  login,
+  oauthLogin,
+  register, 
+  getUserInfo, 
+  updateUser,
+  getList
+} = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const { OAUTH_GITHUB } = require('../conf/oauth')
 var RPCClient = require('@alicloud/pop-core').RPCClient
@@ -10,6 +17,13 @@ const axios = require('axios')
 const jwt = require('jsonwebtoken')
 
 var CODE = ''
+
+router.get('/getuserList', async function(ctx, next) {
+  const top = ctx.query.top
+  const data = await getList(top)
+  ctx.body =  new SuccessModel(data)
+})
+
 router.post('/login', async function (ctx, next) {
   const { username, password } = ctx.request.body
   const data = await login(username, password)

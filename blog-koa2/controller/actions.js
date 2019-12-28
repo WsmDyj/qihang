@@ -15,8 +15,14 @@ const getLike = async (actionsdData = {}) => {
 }
 const getReviews = async (actionsdData = {}) => {
   const article_id = actionsdData.article_id
-  const sqlArticle = `update blogs set reviews = reviews + 1 where article_id='${article_id}';`
-  const updataData = await exec(sqlArticle)
+  const type = actionsdData.type
+  let sql = ''
+  if (type == 'ask') {
+    sql = `update questions set reviews = reviews + 1 where question_id='${article_id}';`
+  } else {
+    sql = `update blogs set reviews = reviews + 1 where article_id='${article_id}';`
+  }
+  const updataData = await exec(sql)
   if (updataData.affectedRows > 0) {
     return true
   } else {

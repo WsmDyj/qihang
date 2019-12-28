@@ -48,9 +48,8 @@ const register = async(username, password, nickname) => {
   }
 }
 
-
 const getUserInfo = async (username) => {
-  let sql = `select autograph, avatar, company, job, username, nickname, date from users where nickname = '${username}';`
+  let sql = `select autograph, avatar, company, job, nickname, date from users where nickname = '${username}';`
   let reviewsSql = `select reviews from blogs where author = '${username}';`
   let commentsSql = `select comments from blogs where author = '${username}';`
   let likesSql = `select likeCount from blogs where author = '${username}';`
@@ -74,7 +73,7 @@ const getUserInfo = async (username) => {
   return rows[0] || {}
 }
 
-const updateUser = async (username,nickname, userData = {}) => {
+const updateUser = async (username, nickname, userData = {}) => {
   const sql = `update users set nickname='${userData.nickname}', avatar='${userData.avatar}', job='${userData.job}', autograph='${userData.autograph}', company='${userData.company}' where username= '${username}'; `
   const blogSql = `update blogs set author='${userData.nickname}' where author ='${nickname}';`
   const commentSql = `update comment set comment_author='${userData.nickname}' where comment_author ='${nickname}';`
@@ -96,10 +95,51 @@ const updateUser = async (username,nickname, userData = {}) => {
   } 
   return false
 }
+
+const getList = async (top) => {
+  let sql = `select autograph, avatar, company, job, nickname, date from users;`
+  const userList = await exec(sql)
+  for (var i=0;i< userList.length;i++) {
+    let reviewsSql = `select reviews,comments,likeCount from blogs where author = '${userList[i].nickname}';`
+    let commentsSql = `select comments from blogs where author = '${userList[i].nickname}';`
+    let likesSql = `select likeCount from blogs where author = '${userList[i].nickname}';`
+    const _reviews = await exec(reviewsSql)
+    const _comments = await exec(commentsSql)
+    const _likes = await exec(likesSql)
+    var s = 0, sum = 0, t = 0;
+    _reviews.forEach(item => {
+      s += item.reviews
+    })
+    _comments.forEach(item => {
+      sum += item.comments
+    })
+    _likes.forEach(item => {
+      t += item.likeCount
+    })
+    userList[i].reviews = s
+    userList[i].comments = sum
+    userList[i].likes = t
+  }
+  userList.sort(compare("likes"))
+  if (top) {
+    return userList.slice(0, top)
+  } else {
+    return userList
+  }
+}
+
+function compare(p){ //这是比较函数
+  return function(m,n){
+      var a = m[p];
+      var b = n[p];
+      return b - a; //升序
+  }
+}
 module.exports = {
   login,
   oauthLogin,
   register,
   getUserInfo,
-  updateUser
+  updateUser,
+  getList
 }
