@@ -36,7 +36,7 @@ export default class extends Vue {
     {title: '前端效能提升之不可忽略的插件',likeCount: '12',comments: '123'},
     {title: '前端效能提升之不可忽略的插件',likeCount: '12',comments: '123'},
     {title: '前端效能提升之不可忽略的插件',likeCount: '12',comments: '123'},
-     {title: '前端效能提升之不可忽略的插件',likeCount: '12',comments: '123'},
+    {title: '前端效能提升之不可忽略的插件',likeCount: '12',comments: '123'},
   ]
   
 }
@@ -48,6 +48,9 @@ export default class extends Vue {
     margin-top: 10px;
     .content-item {
       padding: 12px 15px;
+      &:hover {
+        background: $hoverBg;
+      }
       .content-title {
         font-size: 15px;
         font-weight: 400;

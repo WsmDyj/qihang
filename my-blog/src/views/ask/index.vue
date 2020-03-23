@@ -68,7 +68,7 @@ export default class extends Vue {
       }
       this.$router.push({path: '/questions'})
     } else {
-      this.$message.error('标题、标签、问题内容 不为空！')
+      this.$message.error('标题、标签、内容 不为空！')
     }
   }
 

@@ -71,7 +71,6 @@ export interface Itag {
   laber: string
   disabled?: boolean
 } 
-
 /*
 * 视频
 */
@@ -83,7 +82,6 @@ export interface IVideo {
   location: string
   imgUrl: string
 }
-
 /*
  * 问答 
  */

@@ -30,28 +30,7 @@ export default class extends Vue {
     cursor: pointer;
     width: 240px;
     height: 85px;
-    transition: all .2s linear;
-    position: relative;
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0px;
-      right: 0px;
-      top: 0;
-      bottom: 0;
-      z-index: -1;
-      border-radius: 2px;
-      overflow: hidden;
-      background-color: #fff;
-      transition: all .2s linear;
-      box-shadow: 1px 1px 1px rgba(0,0,0,.15);
-    }
-    &:hover {
-      transform: translateY(-3px);
-    }
-    &:hover::before {
-      box-shadow: 0px 7px 15px rgba(0,0,0,.1);
-    }
+    @include hoverState($top:-1px);
   }
 }
 </style>

@@ -5,11 +5,11 @@ const { getFollowList } = require('./follow')
 const getList = async (author, filters) => {
   const tagPage = Number(filters.page) * 15
   let sql = `select * from questions where 1=1 `
-  if (filters.status != 0) {
-    sql += `and status = '${filters.status}'`
-  }
   if (filters.articleTag != '全部') {
     sql += `and articleTag like '%${filters.articleTag}%'`
+  }
+  if (filters.status != 0) {
+    sql += `and status = '${filters.status}'`
   }
   sql += `order by createtime desc ` 
   // if (author) {

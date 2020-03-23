@@ -1,7 +1,6 @@
 <template>
   <div class="follow-action">
     <el-button 
-      v-show="nickname != author" 
       :size='size'
       type="success"
       :plain=" show ? false : true "

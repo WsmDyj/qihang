@@ -26,6 +26,27 @@ html {
 .el-popover {
   padding: 0;
 }
+// markdown 设置
+.markdown-article {
+  .tui-editor-defaultUI .CodeMirror-lines {
+    font-size: 16px;
+    background-color: #f8f9fa;
+  }
+  .tui-editor-defaultUI .CodeMirror-scroll {
+    background-color: #f8f9fa;
+  }
+  .tui-editor .te-preview-style-vertical .te-preview {
+    background: #fff;
+  }
+  .te-md-container .te-preview .tui-editor-contents {
+    font-size: 16px;
+  }
+  .tui-editor-defaultUI .te-mode-switch-section {
+    height: 35px!important;
+    background: #fff;
+  }
+}
+
 
 .el-tabs__header {
   margin: 0 0;
@@ -36,13 +57,27 @@ html {
     }
   }
 }
-.el-radio {
-  margin: 0;
-  .el-radio__input {
-    display: none;
+// 问答页刷选
+.questions-nav{
+  .el-radio {
+    margin: 0;
+    .el-radio__input {
+      display: none;
+    }
+    .el-radio__label {
+      padding-left: 0;
+    }
   }
-  .el-radio__label {
-    padding-left: 0;
+}
+.search-group, .panel-box {
+  .el-radio {
+    margin: 0;
+    .el-radio__input {
+      display: none;
+    }
+    .el-radio__label {
+      padding-left: 10px;
+    }
   }
 }
 .search {
@@ -50,10 +85,13 @@ html {
     padding-right: 30px;
   }
 }
-.el-button--primary {
-  background-color: $primary;
-  font-size: 16px;
-  border: none;
+// 头部按钮样式
+.header-button {
+  .el-button--primary {
+    background-color: $primary;
+    font-size: 16px;
+    border: none;
+  }
 }
 
 // 注册验证码
@@ -96,6 +134,30 @@ html {
   }
   .is-active {
     color: $primary;
+    font-weight: 500;
+  }
+}
+
+// 分享导航标签tab样式修改
+.nav-list-share {
+  .el-tabs__nav-wrap {
+    background: #fff;
+    padding: 0;
+    &::after {
+      content: none;
+    }
+  }
+  .el-tabs__item {
+    padding: 0 15px;
+    color: $navcolor;
+  }
+  .is-active {
+    color: $primary;
+  }
+}
+.share-content {
+  .el-tabs__header {
+    display: none;
   }
 }
 
@@ -137,7 +199,7 @@ html {
   }
 }
 
-// 问答导航字体大小
+// 问答刷选字体大小
 .questions-nav {
   .el-radio__label {
     font-size: 15px;
@@ -244,4 +306,10 @@ html {
     font-size: 12px;
     color: #909090;
   }
+}
+
+// 底部好文
+.el-divider__text {
+  color: $fontcolor;
+  font-size: 12px;
 }

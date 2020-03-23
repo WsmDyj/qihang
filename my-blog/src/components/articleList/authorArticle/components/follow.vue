@@ -2,7 +2,7 @@
   <div class="follow">
     <div class="nav">
       <div class="nav-title">关注</div>
-      <div class="nav-details">
+      <div class="nav-details panel-box">
         <el-radio-group @change="changeFollowType" v-model="radio">
           <el-radio class="details" :label="0">关注了</el-radio>
           <el-radio class="details" :label="1">关注者</el-radio>
@@ -69,7 +69,7 @@ export default class extends Vue {
     display: inline-block;;
     &:first-child {
       padding: 0 10px;
-      @include splitLine()
+      @include splitLine($right:0px)
     }
   }
 }

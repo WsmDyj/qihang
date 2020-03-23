@@ -12,7 +12,6 @@
           </authorInfo>
           <author-follow size='small' :author = user.nickname ></author-follow>
         </div>
-        <div class="skeleton-row"></div>
       </div>
     </div>
   </div>
@@ -74,24 +73,6 @@ export default class extends Vue {
         }
       }
     }
-    .skeleton-row {
-      width: 80%;
-      height: 14px;
-      background: linear-gradient(90deg,#fff,#edeff1,#fff);
-      background-size: 480px 480px;
-      margin: 20px;
-      animation: skeleton-stripes .6s linear infinite;
-    }
   }
-}
-@keyframes skeleton-stripes{
-  0% {
-    background-position-x: 0;
-  }
-  100% {
-    background-position-x: 534px;
-    background-image: linear-gradient(90deg, rgb(255, 255, 255), rgb(237, 239, 241), rgb(255, 255, 255));
-  }
-  
 }
 </style>

@@ -10,10 +10,11 @@
             </div>
             <div v-else>抱歉！暂无搜索结果</div>
           </div>
-          <div>
+          <div class="search-group">
             <el-radio-group v-model="radio">
               <el-radio class="type" :label="0">文章</el-radio>
               <el-radio class="type" :label="1">作者</el-radio>
+              <el-radio class="type" :label="2">问答</el-radio>
             </el-radio-group>
           </div>
         </div>
@@ -129,16 +130,8 @@ export default class extends Vue {
       }
       .type {
         padding-left: 10px;
-        &:nth-child(-n+1):after {
-          content: "";
-          position: absolute;
-          width: 1px;
-          margin-top: -5px;
-          top: 50%;
-          right: -5px;
-          height: 12px;
-          background-color: #b2bac2;
-          opacity: .8;
+        &:nth-child(-n+2) {
+          @include splitLine($right: -10px) ;
         }
       }
     }

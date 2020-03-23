@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-slogan">
       <div class="card-title">阅读模块是什么？</div>
-      <div class="card-desc">读书笔记 记录书本中的知识</div>
+      <div class="card-desc">读书笔记、面试交流、生活随笔</div>
     </div>
     <div class="card-share">
       <div class="card-title">加入好友群 一起分享交流</div>
@@ -26,7 +26,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .card {
   position: sticky;
-  top: 96px;
+  top: 80px;
   width: 240px;
   height: 260px;
   box-sizing: border-box;

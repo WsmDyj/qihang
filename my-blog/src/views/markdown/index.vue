@@ -26,7 +26,7 @@
         </el-popover>
       </div>
     </div>
-    <div class="markdown">
+    <div class="markdown-article">
       <markdown-editor 
         ref="markdownEditor"
         @input="getValue"
@@ -41,7 +41,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import MarkdownEditor from '@/components/markdownEditor/index.vue'
-import Dropdown from '@/components/dropdown/index.vue'
+import Dropdown from '@/components/header/components/dropdown.vue'
 import { UserModule } from '../../store/modules/user'
 import debounce from '../../utils/debounce'
 import { detailArticle, createArticle, updateArticle } from '../../api/blog'

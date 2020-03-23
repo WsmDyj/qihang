@@ -8,7 +8,7 @@
       </div>
     </div>
     <div :class="type ? `form-box ${type} `: 'form-box' " v-show="showPopper">
-      <el-input type="text" v-model="value" @focus="handleFocus" :placeholder="type == 'first' ? '请输入评论...': placeholder"></el-input>    
+      <el-input @keypress.enter.native='submit' type="text" v-model="value" @focus="handleFocus" :placeholder="type == 'first' ? '请输入评论...': placeholder"></el-input>    
       <div v-show="firstVisible">
         <div class="submit" v-show="visible">
           <el-popover
@@ -25,7 +25,10 @@
               <span class="emoji-text">表情</span>
             </div>
           </el-popover>
-          <el-button :size="type == 'reply' ? 'mini' : 'small'" @click="submit" :disabled = disabled type="primary">评论</el-button>
+          <div>
+            <span style="margin-right:10px;color:##c2c2c2;" class="tooptip">Ctrl or ⌘ + Enter</span>
+            <el-button :size="type == 'reply' ? 'mini' : 'small'" @click="submit" :disabled = disabled type="primary">评论</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -172,6 +175,7 @@ export default class extends Vue {
         vertical-align: middle;
       }
     }
+    
   }
 }
 .reply {
@@ -212,5 +216,4 @@ export default class extends Vue {
     }
   }
 }
-
 </style>

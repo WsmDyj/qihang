@@ -38,28 +38,11 @@ export default class extends Vue {
   height: 270px;
   background: #fff;
   border-radius: 2px;
-  transition: all .2s linear;
-  position: relative;
-  margin: 0 5px 20px 5px;
-  &:before {
-    content: "";
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    border-radius: 2px;
-    overflow: hidden;
-    background-color: #fff;
-    transition: all .2s linear;
-    box-shadow: 1px 1px 1px rgba(0,0,0,.15);
-  }
-  &:hover {
-    transform: translateY(-3px);
-  }
-  &:hover:before {
-    box-shadow: 0px 7px 15px rgba(0,0,0,.1);
+  @include hoverState();
+  margin: 0 10px 20px 2px;
+  box-sizing: border-box;
+  &:nth-child(4n) {
+    margin-right: 0px;
   }
   .share-content {
     padding: 20px 12px 15px;

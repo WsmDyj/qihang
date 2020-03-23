@@ -41,7 +41,7 @@
           <el-collapse-transition>
             <div v-show="show">
               <div class="comment-content" v-for="(comment, index) in comments" :key="index">
-                <comment :show=visible :comment= comment @submit='getComment' />
+                <comment :show = visible :comment = comment @submit='getComment' />
               </div>
             </div>
           </el-collapse-transition>
@@ -200,6 +200,7 @@ export default class extends Vue {
       .article-comment {
         margin-top: 20px;
         background: #fff;
+        color: $primary;
         padding: 20px;
         .comment-title {
           cursor: pointer;

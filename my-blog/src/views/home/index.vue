@@ -12,6 +12,7 @@
             </el-tabs>
           </div>
         </sticky>
+        <articleLoading :loading="articles.length < 1 ? true : false"/>
         <div class="article-list" v-for="(article, index) in articles" :key="index">
           <articleCard :article= article />
         </div>
@@ -46,6 +47,7 @@ import { getArticles } from '../../api/blog'
 import { IArticleData, Itag } from '../../api/types'
 import { fommentArticle } from '../../utils/formateArticle'
 import login from '../../components/login/index.vue'
+import articleLoading from '../../components/loading/articleLoading.vue'
 
 
 const NavTag = [
@@ -72,7 +74,8 @@ export interface Ifilters {
     totalCard,
     joinCard,
     Sticky,
-    login
+    login,
+    articleLoading
   }
 })
 

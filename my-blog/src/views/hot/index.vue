@@ -3,11 +3,14 @@
     <Header />
     <div class="main">
       <div class="books-list">
+        <articleLoading :loading="articles.length < 1 ? true : false"/>
         <div class="books-item" v-for="(article, index) in articles" :key="index">
           <reader :article= article />
         </div>
       </div>
-      <card />
+      <div class="asside">
+        <card />
+      </div>
     </div>
   </div>
 </template>
@@ -20,12 +23,14 @@ import { getArticles } from '../../api/blog'
 import { IArticleData, Itag } from '../../api/types'
 import { fommentArticle } from '../../utils/formateArticle'
 import card from './components/card.vue'
+import articleLoading from '../../components/loading/articleLoading.vue'
 
 @Component({
   components: {
     Header,
     reader,
-    card
+    card,
+    articleLoading
   }
 })
 export default class extends Vue {
@@ -34,7 +39,6 @@ export default class extends Vue {
   private async created() {
     const { data } = await getArticles()
     this.articles = fommentArticle(data)
-    console.log(data)
   }
  
 }
@@ -44,17 +48,21 @@ export default class extends Vue {
 .container {
   @include flexcolumn($jc:center, $ai: center);
   .main {
-    @include flexcenter($jc:space-between, $ai: none);
     width: 964px;
-    margin-top: 86px;
-    margin-bottom: 20px;
+    margin-top: 80px;
+    margin-bottom: 30px;
+    position: relative;
+    @include flexcenter($jc:space-between, $ai: none);
     .books-list {
-      @include flexcolumn($jc:none, $ai: none);
+      align-self: flex-start;
       width: 700px;
       background: #fff;
-      min-height: 190px;
       box-shadow: 0 1px 3px 0 rgba(4,5,13,.23);
       .books-item {
+        border-bottom: 1px solid #e6e8e8;
+        &:last-child {
+          border-bottom: none;
+        }
         &:hover {
           background: #f7f9f9;
         }

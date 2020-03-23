@@ -11,6 +11,31 @@
   }
 }
 
+@mixin hoverState($top:-3px) {
+  transition: all .2s linear;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: 2px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: all .2s linear;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.15);
+  }
+  &:hover {
+    transform: translateY($top);
+  }
+  &:hover::before {
+    box-shadow: 0px 7px 15px rgba(0,0,0,.1);
+  }
+}
+
 /* 目录小圆点 */
 @mixin catalogRound($left, $size) {
   &::before {
@@ -80,10 +105,10 @@
   text-overflow: ellipsis;
 }
 /* 超出两行不换行 */
-@mixin twoLines() {
+@mixin twoLines($clamp: 2) {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;//控制行数
+  -webkit-line-clamp: $clamp;//控制行数
   overflow: hidden;
 }
 

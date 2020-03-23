@@ -119,7 +119,7 @@ export default class  extends Vue {
 </script>
 <style lang="scss" scoped>
 .markdown {
-  background: #fff;
+  background-color: #ffffff;
 }
 </style>
 

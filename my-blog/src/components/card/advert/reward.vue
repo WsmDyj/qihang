@@ -7,7 +7,6 @@
       <el-dialog
         :visible.sync="dialogVisible"
         width="640px"
-        top="30vh"
         center>
         <el-row class="reward-content" :gutter="20">
           <el-col :span="9">

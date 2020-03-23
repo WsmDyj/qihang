@@ -1,7 +1,7 @@
 <template>
   <transition name="el-fade-in-linear">
     <div class="join" @click="submit('register')" v-show="show">
-      <el-image fit="cover" style="border-radius:4px;width: 240px" :src="require('@/assets/home/join.jpg')"></el-image>
+      <el-image fit="cover" style="border-radius:4px;width: 240px;height:90px" :src="require('@/assets/home/join.jpg')"></el-image>
     </div>
   </transition>
 </template>

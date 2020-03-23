@@ -5,7 +5,7 @@
       <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png" class="normal" alt=""> -->
       <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/blindfold.58ce423.png" class="normal" alt=""> -->
     </div>
-    <div class="form-title">{{ type === 'login' ? '登录' : '注册' }}</div>
+    <div class="form-title">{{ type == 'login' ? '登录' : '注册' }}</div>
     <el-form :rules="rules" autocomplete="on" ref="Form" :model="formData" class="form-content">
       <el-form-item v-if="type === 'register'" prop="nickname">
         <el-input type="text" :autocomplete="type === 'login' ? 'on' : 'new-password'" v-model="formData.nickname" placeholder="请输入用户名"></el-input>
@@ -25,7 +25,7 @@
       <el-form-item prop="password">
         <el-input type="password" :autocomplete="type === 'login' ? 'on' : 'new-password'" placeholder="请输入密码(不少于3位)" v-model="formData.password" @keyup.enter.native="handleLogin" show-password></el-input>
       </el-form-item>
-      <el-button class="sumbit-btn" @click.native.prevent="handleLogin" type="primary">{{ type === '1' ? '登录' : '立即注册' }}</el-button>
+      <el-button class="sumbit-btn" @click.native.prevent="handleLogin" :loading="show" :type="show ? 'info' : 'primary'">{{ type === 'login' ? '登录' : '立即注册' }}</el-button>
     </el-form>
   </div>
 </template>
@@ -52,6 +52,7 @@ export default class extends Vue {
     return reg.test(this.formData.username) ? true : false
   }
   private visible:boolean = true
+  private show:boolean = false // 点击登录后
   private time: number = 30
   private formData = { username: '', password: '', nickname: '', code: '' }
   private rules = {
@@ -65,6 +66,7 @@ export default class extends Vue {
   private handleLogin() {
     (this.$refs.Form as ElForm).validate(async (valid: boolean) => {
       if (valid) {
+        this.show = true
         this.$emit('onSubmit', this.formData)
       } else {
         return false

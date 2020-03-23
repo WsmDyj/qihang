@@ -3,7 +3,7 @@
     <Header :visible= visible />
     <sticky @scroll="handleScroll" style="width:100%" :fixed-top= -236 :z-index= 9 :sticky-top="60">
       <nav :class="visible ? 'navigation': 'top navigation'" >
-        <div class="nav-content">
+        <div class="question-content">
           <el-tabs @tab-click="filterAsk" class="nav-list" v-model="activeIndex">
             <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.laber">
             </el-tab-pane>
@@ -12,6 +12,7 @@
       </nav>
     </sticky>
     <div class="main">
+      
       <div class="questions-container">
         <div class="questions-nav">
           <el-radio-group @change="filterAsk" v-model="filters.status">
@@ -21,6 +22,7 @@
           </el-radio-group>
           <el-link href="/ask" icon="el-icon-plus" target="_blank" type="primary">提问</el-link>
         </div>
+        <askLoading :loading='loading' />
         <div v-if="asks.length > 0">
           <div class="questions-content" v-for="(ask, index) in asks" :key="index">
             <question-item :ask = ask />
@@ -48,6 +50,7 @@ import { Itag, Iquestion } from '../../api/types'
 import { getAskList } from '../../api/question'
 import Sticky from '@/components/Sticky/index.vue'
 import emptyBox from '@/components/emptyBox/index.vue'
+import askLoading from '../../components/loading/askLoading.vue'
 
 export interface Ifilters {
   articleTag: string
@@ -63,7 +66,8 @@ export interface Ifilters {
     hotCard,
     askCard,
     Sticky,
-    emptyBox
+    emptyBox,
+    askLoading
   },
 })
 
@@ -72,6 +76,7 @@ export default class extends Vue {
   private activeIndex: string = '0'
   private options: Itag[]= []
   private asks: Iquestion[] = []
+  private loading: boolean = false
   private filters: Ifilters = { articleTag: '全部', page: 0, status: 0 }
 
   private filterAsk() {
@@ -82,15 +87,15 @@ export default class extends Vue {
   }
 
   private async created() {
+    this.getAsklists()
     const { data } = await getArticleTags()
     data[0].options.unshift({ laber: '0', value: '全部' })
     this.options = data[0].options
-    this.getAsklists()
   }
 
   private async getAsklists() {
     const { data } = await getAskList(this.filters)
-    this.asks = data
+    this.asks = data 
   }
   
   private handleScroll(event: boolean) {
@@ -139,7 +144,7 @@ export default class extends Vue {
     transition: all .2s;
     background: #fff;
     cursor: pointer;
-    .nav-content {
+    .question-content {
       display: flex;
       justify-content: space-between;
       height: 100%;

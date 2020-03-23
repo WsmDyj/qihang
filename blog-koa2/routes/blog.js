@@ -69,6 +69,8 @@ router.get('/tags', async (ctx, next) => {
       value: '阅读',
       options: [
         { value: '读书笔记', laber: '0' },
+        { value: '面试交流', laber: '1' },
+        { value: '生活随笔', laber: '2' },
       ]
     }
   ]
