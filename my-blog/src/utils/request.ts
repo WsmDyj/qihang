@@ -4,9 +4,9 @@ import { UserModule } from '../store/modules/user'
 
 const service = axios.create({
   // timeout: 5000,
-  baseURL: 'http://localhost:8000',
+  baseURL: "http://qihang.pro",
   withCredentials: true,
-})
+});
 
 service.interceptors.request.use((config: AxiosRequestConfig) => {
   if (UserModule.token) {
