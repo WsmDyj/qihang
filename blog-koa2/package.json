@@ -35,6 +35,7 @@
     "xss": "^1.0.6"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "pkg": "^4.4.8"
   }
 }
