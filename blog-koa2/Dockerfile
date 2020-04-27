@@ -10,4 +10,4 @@ RUN npm i
 COPY . /usr/src/nodejs/
 
 EXPOSE 8000
-CMD npm start
+CMD npm run dev

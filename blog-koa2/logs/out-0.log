@@ -1,0 +1,6 @@
+2020-04-27 17:41:21:   <-- GET /api/blog/list
+2020-04-27 17:41:21: GET /api/blog/list - 115ms
+2020-04-27 17:41:21:   --> GET /api/blog/list 200 123ms 32b
+2020-04-27 17:41:22:   <-- GET /favicon.ico
+2020-04-27 17:41:22: GET /favicon.ico - 1ms
+2020-04-27 17:41:22:   --> GET /favicon.ico 404 2ms -
