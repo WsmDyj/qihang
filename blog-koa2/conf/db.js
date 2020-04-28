@@ -29,7 +29,8 @@ if (env === 'production') {
     user: 'root',
     password: '123456',
     port: '3306',
-    database: 'myBlog'
+    database: 'myBlog',
+    charset: 'UTF8MB4_GENERAL_CI'
   }
 
   // redis
