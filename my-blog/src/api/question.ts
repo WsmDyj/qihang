@@ -2,6 +2,7 @@ import request from '@/utils/request'
 
 interface author {
   author?: string | (string | null)[]
+  articleTag?: string
   page?: number
 }
 
@@ -15,12 +16,32 @@ request({
   params
 })
 
+export const getAskListHot = () =>
+  request({
+    url: "api/question/hot",
+    method: "get"
+  });
+
+export const getAnswerList = (params: author) =>
+  request({
+      url: "api/question/answerList",
+      method: "get",
+      params,
+  });
+
 export const detailAsk = (params: any) => 
   request({
     url:'api/question/detail',
     method: 'get',
     params
   })
+
+export const deleteAsk = (params: any) =>
+  request({
+    url: "api/question/delete",
+    method: "get",
+    params,
+  });
 
 export const createAsk = (data: any) => 
   request({

@@ -2,7 +2,7 @@
   <div>
     <div
       :class="isSticky ? className : '' "
-      :style="{top: (isSticky ? stickyTop +'px' : ''), zIndex: zIndex, position: position, width: width,}"
+      :style="{top: (isSticky ? stickyTop +'px' : ''), zIndex: zIndex, position: position}"
     >
       <slot></slot>
     </div>
@@ -25,7 +25,7 @@ export default class extends Vue {
   private active:boolean = false
   private position:string = ''
   private isSticky:boolean = false
-  private width:string = 'auto'
+  // private width:string = 'auto'
   private height:string = 'auto'
 
   mounted() {
@@ -49,7 +49,7 @@ export default class extends Vue {
     }
     this.position = 'fixed'
     this.active = true
-    this.width = this.width + 'px'
+    // this.width = this.width + 'px'
     this.isSticky = true
   }
 
@@ -58,14 +58,14 @@ export default class extends Vue {
       return
     }
     this.position = ''
-    this.width = 'auto'
+    // this.width = 'auto'
     this.active = false
     this.isSticky = false
   }
 
   private handleScroll() {
     const width = this.$el.getBoundingClientRect().width
-    this.width = (width.toString() + 'px') || 'auto'
+    // this.width = (width.toString() + 'px') || 'auto'
     const offsetTop = this.$el.getBoundingClientRect().top
     this.$emit('scroll', offsetTop < this.fixedTop ? false : true)
     if (offsetTop < this.stickyTop) {
@@ -77,7 +77,7 @@ export default class extends Vue {
 
   private handleResize() {
     if (this.isSticky) {
-      this.width = this.$el.getBoundingClientRect().width.toString() + 'px'
+      // this.width = this.$el.getBoundingClientRect().width.toString() + 'px'
     }
   }
 }

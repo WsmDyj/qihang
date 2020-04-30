@@ -4,6 +4,9 @@
       <div class="summary-author">
         <span class="author-name">{{ ask.author }}</span>
         <span class="qa-time">{{ formatDate(ask.createtime) }} 提问</span>
+        <span class="qa-delete" v-if="origin==='author' && visible" @click.stop="deleteAsk(ask)">
+          <i class="el-icon-delete"></i>
+        </span>
       </div>
       <div class="summary-title">
         <span class="title-conter">{{ ask.title }}</span>
@@ -11,10 +14,6 @@
       </div>
     </div>
     <div class="qa-rank">
-      <div class="qa-votes">
-        <span class="qa-votes-count">{{ ask.likeCount }}</span>
-        <span class="qa-votes-item">收藏</span>
-      </div>
       <div :class="ask.status == 2 ? 'solve qa-votes' : 'not-solve qa-votes'">
         <span class="qa-votes-count">{{ ask.comments }}</span>
         <span class="qa-votes-item">{{ ask.status == 2 ? '解决': '回答'}}</span>
@@ -28,15 +27,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
+import { Component, Vue, Watch, Prop, Emit } from 'vue-property-decorator'
 import { Iquestion } from '../../../api/types'
+import { UserModule } from '../../../store/modules/user'
 
 @Component({
 })
 
 export default class extends Vue {
   @Prop() private ask!: Iquestion
+  @Prop() private origin!: string
+  get nickname() {
+    return UserModule.nickname
+  }
 
+  get visible() {
+    return this.nickname == this.ask.author ? true : false
+  }
+
+  @Emit('delete')
+  private async deleteAsk(item: Iquestion) {
+    return item.question_id
+  }
   private checkAsk() {
     window.open(`/checkAsk?askId=${this.ask.question_id}`, '_blank')
   }
@@ -48,18 +60,23 @@ export default class extends Vue {
   background: #fff;
   width: 700px;
   box-sizing: border-box;
-  padding: 12px 20px 6px 15px;
+  padding: 12px 20px 6px 20px;
   display: flex;
+  align-items: center;
   border-bottom: 1px solid rgba(178,186,194,.15);
   &:hover {
     background-color: #f7f9f9;
+  }
+  .qa-delete {
+    padding-left: 10px;
+    color: #F56C6C;
   }
   .qa-rank {
     height: 100%;
     display: flex;
     justify-content: space-between;
     color: #757575;
-    width: 175px;
+    width: 140px;
     .qa-votes {
       cursor: default;
       padding: 5px 0;

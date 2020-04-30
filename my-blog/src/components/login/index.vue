@@ -50,7 +50,6 @@ export default class extends Vue {
     document.removeEventListener("touchmove",mo,false);
   }
 
-  @Prop() private activeIndex!: string
   
   // github登录
   private async hadnleOauth() {
@@ -61,6 +60,10 @@ export default class extends Vue {
   get islogin() {
     UserModule.islogin ? this.stopMove() : this.removeStop()
     return UserModule.islogin
+  }
+
+  get activeIndex() {
+    return UserModule.loggedType
   }
   
   // 关闭弹窗按钮
@@ -97,7 +100,7 @@ export default class extends Vue {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,.4);
-  z-index: 9;
+  z-index: 99;
   .auth-form {
     position: relative;
     padding:0 24px 20px 24px;

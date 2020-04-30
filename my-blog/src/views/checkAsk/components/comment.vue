@@ -6,7 +6,7 @@
       <div @click="Adopt" class="comment-action" v-show="show">
         <el-button size='mini' :plain= visible true type="warning">{{!visible == 1 ? '已采纳': '采纳'}}</el-button>
       </div>
-      <i v-show="!visible" class="iconfont">&#xe618;</i>
+      <!-- <i v-show="!visible" class="iconfont">&#xe618;</i> -->
     </div>
     <div ref="article" v-highlight>
       <div class="article-content" v-html="comment.comment_conent"></div>
@@ -85,9 +85,7 @@ export default class extends Vue {
   .comment-header {
     display: flex;
     align-items: center;
-    .comment-action {
-      margin-left: 20px;
-    }
+    justify-content: space-between;
     .iconfont {
       position: absolute;
       top: -3px;

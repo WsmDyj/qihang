@@ -2,13 +2,15 @@
   <div class="author">
     <el-tabs v-model="activeIndex">
       <el-tab-pane :label="`专栏 (${articleList.length})`" name="1">
+        <emptyBox v-if="articleList.length <= 0" :tootip= tip />
         <articlesList @action='actionArticle' :articleList = articleList :userInfo = userInfo />
       </el-tab-pane>
       <el-tab-pane :label="`赞过的 (${likeList.length})`" name="2">
+        <emptyBox v-if="likeList.length <= 0" :tootip= tip />
         <like-list :likeList = likeList />
       </el-tab-pane>
       <el-tab-pane name="3">
-        <span slot="label">更多 <i class="el-icon-caret-bottom"></i></span>
+        <span slot="label">关注 <i class="el-icon-caret-bottom"></i></span>
         <follow-list :follows = follows :actions = actions />
       </el-tab-pane>
       <el-tab-pane name="4">
@@ -29,6 +31,7 @@ import articlesList from './components/articles.vue'
 import likeList from './components/likes.vue'
 import followList from './components/follow.vue'
 import askList from './components/ask.vue'
+import emptyBox from '../../emptyBox/index.vue'
 
 @Component({
   name: 'authorArticle',
@@ -36,6 +39,7 @@ import askList from './components/ask.vue'
     likeList,
     articlesList,
     followList,
+    emptyBox,
     askList
   },
 })
@@ -44,8 +48,8 @@ export default class extends Vue {
   @Prop() private userInfo!: IUserInfo
   @Prop() private follows!: IFollow[]
   @Prop() private actions!: object
+  private tip: string = '数据加载中，请稍等...'
   private activeIndex: string | (string | null)[] = '1'
-
   private articleList: IArticleData[] = []
   private likeList: IArticleData[] =[]
   @Watch('actions') 
@@ -57,7 +61,12 @@ export default class extends Vue {
   get likeArticlId() {
     return ArticleModule.likeArticlId
   }
-  
+  // get tip () {
+  //   if (this.articleList.length <= 0) {
+  //     return '这里空空如也'
+  //   }
+  // }
+
   // 文章去除标签
   private fommentArticle(data: IArticleData[]) {
     data.forEach((item: IArticleData) => {
@@ -67,9 +76,13 @@ export default class extends Vue {
       }
     })
   }
+  
   // 用户写的文章
   private async getList() {
-    const { data } = await getArticles({author: this.$route.query.author})
+    const { data } = await getArticles({author: this.$route.query.author, page: -1})
+    if (data.length <= 0) {
+      this.tip =  '这里空空如也'
+    }
     this.fommentArticle(data)
     this.articleList = data
   }
@@ -112,7 +125,7 @@ export default class extends Vue {
 </script>
 <style lang="scss" scoped>
 .author {
-  margin: 20px  auto 0 auto;
+  margin: 20px auto 0 auto;
   width: 700px;
   cursor: pointer;
   background: #fff;

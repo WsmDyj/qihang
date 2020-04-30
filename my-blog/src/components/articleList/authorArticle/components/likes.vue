@@ -1,11 +1,6 @@
 <template>
   <div class="likes">
-    <div v-if="likeList.length > 0">
-      <like-list :articles = likeList />
-    </div>
-    <div v-else>
-      <emptyBox />
-    </div>
+    <like-list :articles = likeList />
   </div>
 </template>
 

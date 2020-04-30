@@ -1,8 +1,11 @@
 const router = require('koa-router')()
 const {
   getList,
+  getDelete,
+  getListHot,
   newQuestion,
   getDetail,
+  getAnswerList,
   updateQuestion
 } = require('../controller/question')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
@@ -10,17 +13,31 @@ const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/question')
 
+router.get('/answerList', async function (ctx, next) {
+  let author = ctx.query.author || ''
+  const listData = await getAnswerList(author)
+  ctx.body =  new SuccessModel(listData)
+})
+
 router.get('/list', async function (ctx, next) {
   let author = ctx.query.author || ''
-  
   let filters = ctx.query
-  
   const listData = await getList(author, filters)
-  ctx.body =  new SuccessModel(listData)
+  ctx.body = new SuccessModel(listData)
+})
+
+router.get('/hot', async function (ctx, next) {
+  const listData = await getListHot()
+  ctx.body = new SuccessModel(listData)
 })
 
 router.get('/detail', async (ctx, next) => {
   const data = await getDetail(ctx.query.ask_id)
+  ctx.body = new SuccessModel(data)
+})
+
+router.get('/delete', async (ctx, next) => {
+  const data = await getDelete(ctx.query.ask_id)
   ctx.body = new SuccessModel(data)
 })
 

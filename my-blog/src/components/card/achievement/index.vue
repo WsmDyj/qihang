@@ -14,7 +14,7 @@
         </div>
         <div class="card-item" v-else>
           <authorInfo :userInfo = userInfo>
-            <div slot="content" class="author-desc">{{userInfo.job}} @{{userInfo.company}}</div>
+            <div slot="content" class="author-desc">{{userInfo.job}} @{{userInfo.company || '公司'}}</div>
           </authorInfo>
         </div>
         <div class="card-item">

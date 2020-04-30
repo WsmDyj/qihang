@@ -13,7 +13,7 @@
       <author-list :lists = lists></author-list>
     </div>
     <div v-else>
-      <emptyBox />
+      <emptyBox tootip='这里空空如也' />
     </div>
   </div>
 </template>

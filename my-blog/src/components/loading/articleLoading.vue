@@ -1,13 +1,12 @@
 <template>
  <!-- <transition name="el-fade-in-linear"> -->
     <div v-show="loading" class="loading">
-      <div class="loading-title"></div>
-      <div class="skeleton-row"></div>
-      <div class="skeleton-row animation-delay"></div>
       <div class="loading-bottom">
         <span class="author-avatar"></span>
         <span class="author-name"></span>
       </div>
+      <div class="skeleton-row"></div>
+      <div class="skeleton-row animation-delay"></div>
       <!-- <div class="loading-img"></div> -->
     </div>
  <!-- </transition> -->
@@ -24,11 +23,12 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .loading {
+  width: 700px;
+  margin: 20px 20px;
+  box-sizing: border-box;
   background: #fff;
   border-width: 0;
-  border-radius: 3px;
   padding: 20px 24px;
-  box-shadow: 0 0 20px -5px rgba(158,158,158,.22);
   position: relative;
   .loading-title {
     background-color: #eaeaea;
@@ -37,7 +37,7 @@ export default class extends Vue {
     margin-bottom: 20px;
   }
   .loading-bottom {
-    padding-top: 10px;
+    padding-bottom: 10px;
     .author-avatar {
       display: inline-block;
       vertical-align: middle;
@@ -78,13 +78,13 @@ export default class extends Vue {
 }
 @keyframes loading{
   0% {
-    width: 50%;
+    width: 20%;
   }
   50% {
-    width: 70%;
+    width: 30%;
   }
   100% {
-    width: 50%;
+    width: 20%;
   }
 }
 </style>

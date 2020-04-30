@@ -2,16 +2,21 @@ const { exec } = require('../db/mysql')
 const {getUserInfo} = require('./user')
 const { getFollowList } = require('./follow')
 
-const getList = async (author, page) => {
+const getList = async (author, page, articleTag) => {
   const tagPage = Number(page) * 10
   let sql = `select * from blogs where 1=1 `
   if (author) {
     sql += `and author = '${author}' `
-    sql += `order by createtime desc ` 
-  } else {
-    sql += `order by createtime desc ` 
-    sql += `limit ${tagPage} , 10;`
   }
+  if (articleTag !== '全部') {
+    sql += `and articleTag like '%${articleTag}%' `
+  }
+  sql += `order by createtime desc`
+  
+  if (tagPage >= 0) {
+    sql += ` limit ${tagPage} , 10;`
+  }
+  
   const lists = await exec(sql)
   for (let i =0;i<lists.length; i++) {
     const userInfo = await getUserInfo(lists[i].author)

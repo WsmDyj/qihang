@@ -14,9 +14,10 @@ router.prefix('/api/blog')
 
 router.get('/list', async function (ctx, next) {
   let author = ctx.query.author || ''
-  const page = ctx.query.page || '0'
+  let page = ctx.query.page || '0'
+  let articleTag = ctx.query.articleTag || '全部'
   
-  const listData = await getList(author, page)
+  const listData = await getList(author, page, articleTag)
   ctx.body =  new SuccessModel(listData)
 })
 

@@ -20,19 +20,19 @@
             <el-radio class="details" :label="1">未回答</el-radio>
             <el-radio class="details" :label="2">已解决</el-radio>
           </el-radio-group>
-          <el-link href="/ask" icon="el-icon-plus" target="_blank" type="primary">提问</el-link>
+          <el-link href="/ask" icon="el-icon-plus" type="primary">提问</el-link>
         </div>
-        <askLoading :loading='loading' />
-        <div v-if="asks.length > 0">
-          <div class="questions-content" v-for="(ask, index) in asks" :key="index">
-            <question-item :ask = ask />
-          </div>
+        <div class="questions-content" v-for="(ask, index) in asks" :key="index">
+          <question-item :ask = ask />
         </div>
-        <div v-else><emptyBox/></div>
+        <div v-if="loading" element-loading-spinner="el-icon-loading" v-loading="loading" class="article-bottom__loading"></div>
+        <div v-if="asks.length <= 0">
+          <emptyBox tootip='这里空空如也' />
+        </div>
       </div>
        <div class="asside">
         <!-- <askCard /> -->
-        <hotCard />
+        <hotCard :hotList= hotList />
        </div>
     </div>
   </div>
@@ -47,10 +47,9 @@ import questionItem from './components/item.vue'
 import debounce from '../../utils/debounce'
 import { getArticleTags } from '../../api/blog'
 import { Itag, Iquestion } from '../../api/types'
-import { getAskList } from '../../api/question'
+import { getAskList, getAskListHot } from '../../api/question'
 import Sticky from '@/components/Sticky/index.vue'
 import emptyBox from '@/components/emptyBox/index.vue'
-import askLoading from '../../components/loading/askLoading.vue'
 
 export interface Ifilters {
   articleTag: string
@@ -67,13 +66,13 @@ export interface Ifilters {
     askCard,
     Sticky,
     emptyBox,
-    askLoading
   },
 })
 
 export default class extends Vue {
   private visible: boolean = true
   private activeIndex: string = '0'
+  private hotList: Iquestion[] = []
   private options: Itag[]= []
   private asks: Iquestion[] = []
   private loading: boolean = false
@@ -87,10 +86,13 @@ export default class extends Vue {
   }
 
   private async created() {
-    this.getAsklists()
+    await this.getAsklists()
+    let hotList = await getAskListHot()
+    this.hotList = hotList.data
     const { data } = await getArticleTags()
     data[0].options.unshift({ laber: '0', value: '全部' })
     this.options = data[0].options
+    
   }
 
   private async getAsklists() {
@@ -111,7 +113,7 @@ export default class extends Vue {
       const { data } = await getAskList(this.filters)
       this.asks = this.asks.concat(data)
       if (data.length < 15) {
-         window.removeEventListener('scroll', this.lazyLoading) 
+        window.removeEventListener('scroll', this.lazyLoading) 
       }
     }
   }

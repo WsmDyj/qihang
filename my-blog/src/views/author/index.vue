@@ -95,8 +95,8 @@ export default class extends Vue {
       padding: 15px 2px;
       color: #000;
       font-size: 15px;
-      border-top: 1px solid rgba(230,230,231,.5);
-      border-bottom: 1px solid rgba(230,230,231,.5);
+      border-bottom: 1px solid rgba(178,186,194,.15);
+      border-top: 1px solid rgba(178,186,194,.15);
     }
   }
 }

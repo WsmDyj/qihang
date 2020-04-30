@@ -20,12 +20,17 @@
           </div>
           <author-follow size='mini' :author = article.author.nickname ></author-follow>
         </div>
-        <div class="article-img" v-show="article.articleImg">
-          <el-image style="width: 652px; height: 367px" :src="article.articleImg" ></el-image>
+        <div class="article-img" v-if="article.articleImg">
+          <el-image fit="cover" style="width: 652px; height: 367px" :src="article.articleImg"></el-image>
         </div>
         <div class="article-title">{{ article.title }}</div>
         <div ref="article" v-highlight>
           <div class="article-content" v-html="article.content"></div>
+          <div v-if='article.content === ""'>
+            <div class="article-placement"></div>
+            <div class="article-placement__comment"></div>
+             <div class="article-placement__domin"></div>
+          </div>
         </div>
         <div class="article-comment">
           <comment />
@@ -33,7 +38,7 @@
       </div>
       <div class="asside">
         <achievement-card title= "关于作者" :userInfo= article.author ></achievement-card>
-        <sticky :z-index= 9 :sticky-top="80">
+        <sticky :z-index= 9 :sticky-top="80" v-if='article.content !== ""'>
           <div ref="catalog">
             <catalog :catalog = catalog />
           </div>
@@ -55,11 +60,8 @@ import articleAction from './components/action.vue'
 import { detailArticle } from '../../api/blog'
 import { getfollow } from '../../api/follow'
 import { getreviewArticle } from '../../api/actions'
-
 import { IUserInfo, IArticleData } from '../../api/types'
-
 import { UserModule } from '../../store/modules/user'
-
 import { formatTime } from '../../utils/formatDate'
 import debounce from '../../utils/debounce'
 import toToc from '../../utils/catalog'
@@ -186,15 +188,33 @@ export default class  extends Vue {
       width: 700px;
       box-sizing: border-box;
       background: #fff;
-      .article-author {
+      &-placement {
+        height: 367px;
+        background-color: #f4f5f5;
+        &__comment {
+          margin-top: 30px;
+          height: 30px;
+          width: 40%;
+          background-color: #f4f5f5;
+        }
+        &__domin {
+          margin: 20px 0;
+          height: 20px;
+          width: 50%;
+          background-color: #f4f5f5;
+        }
+      }
+      &-author {
         @include flexcenter($jc: space-between);
         .article-time {
           letter-spacing: 1px;
           padding-right: 5px;
         }
+        .article-review {
+          @include textRoundRight('#409EFF');
+        }
         .article-edit {
-          @include textRound('#409EFF');
-          font-size: 13px;
+          padding-left: 4px;
           color: $primary;
           &:hover {
             color: #409EFF;
@@ -202,11 +222,13 @@ export default class  extends Vue {
           }
         }
       }
-      .article-img {
+      &-img {
         margin-top: 24px;
         text-align: center;
+        width: 652px;
+        height: 367px;
       }
-      .article-title {
+      &-title {
         font-size: 30px;
         font-weight: 700;
         line-height: 1.5;

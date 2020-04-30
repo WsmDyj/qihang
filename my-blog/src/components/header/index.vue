@@ -1,7 +1,10 @@
 <template>
-  <div :class="visible ? 'header' : 'visible header'">
+  <div :class="visible ? 'header visible' : 'header'">
     <div class="navigation">
-      <div class="logo"></div>
+      <router-link to='/'>
+        <el-image fit='fill' class="logo" :src="require('../../assets/login/qihang.jpg')"></el-image>
+      </router-link>
+      
       <div class="content">
         <Nav />
         <div class="nav-list">
@@ -56,13 +59,11 @@
         </div>
       </div>
     </div>
-    <login :activeIndex="activeIndex" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Provide, Prop } from "vue-property-decorator";
-import Login from "../login/index.vue";
 import { UserModule } from "../../store/modules/user";
 import Dropdown from "./components/dropdown.vue";
 import { getArticles } from "../../api/blog";
@@ -76,7 +77,6 @@ interface Iactions {
 
 @Component({
   components: {
-    Login,
     Dropdown,
     Nav
   }
@@ -85,7 +85,6 @@ export default class extends Vue {
   @Prop({ default: true }) private visible!: boolean;
   private keyword: string | (string | null)[] = "";
   private inputIcon: boolean = false;
-  private activeIndex: string = "";
 
   get avatar() {
     return UserModule.avatar;
@@ -96,8 +95,8 @@ export default class extends Vue {
   }
 
   private submit(action: string) {
-    this.activeIndex = action;
     UserModule.handleIslogin(true);
+    UserModule.handleLoggedType(action);
   }
 
   private created() {
@@ -113,10 +112,11 @@ export default class extends Vue {
   left: 0;
   right: 0;
   transition: all 0.2s;
+  transform: translate3d(0, -100%, 0);
   width: 100%;
   height: 60px;
   background: #fff;
-  z-index: 99;
+  z-index: 9;
   box-sizing: border-box;
   border-bottom: 1px solid $border-bottom;
   .navigation {
@@ -127,8 +127,7 @@ export default class extends Vue {
     .logo {
       width: 98px;
       height: 42px;
-      background-image: url("../../assets/login/qihang.jpg");
-      background-size: 100% 100%;
+      background: #fff;
     }
     .content {
       @include flexcenter($jc: space-between);
@@ -191,6 +190,6 @@ export default class extends Vue {
   }
 }
 .visible {
-  transform: translate3d(0, -100%, 0);
+  transform: translateZ(0);
 }
 </style>

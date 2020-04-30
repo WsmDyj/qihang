@@ -9,7 +9,7 @@
             <article-action :article= article></article-action>
           </div>
         </div>
-        <div class="article-img" v-show="article.articleImg">
+        <div class="article-img" v-if="article.articleImg">
          <el-image style="width: 60px; height: 60px;border-radius: 2px;" :src="article.articleImg" fit="cover"></el-image>
         </div>
       </div>
@@ -53,19 +53,23 @@ export default class extends Vue {
     margin: 0;
     padding: 0;
   }
-  .content-box {
-    background: #fff;
+  .entry-box {
+    width: 700px;
     border-bottom: 1px solid rgba(178,186,194,.15);
-    width: 620px;
-    height: 90px;
+  }
+  .content-box {
+    width: 100%;
+    height: 100%;
+    height: 114px;
+    box-sizing: border-box;
     padding: 14px 24px;
+    background: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    &:hover {
-      background: #fcfcfc;
-    }
-    // &:visited {color: #00FF00}
+    // &:hover {
+    //   background-color: hsla(0,0%,84.7%,.1);
+    // }
     .info-box {
       height: 100%;
       display: flex;

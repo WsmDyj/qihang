@@ -137,7 +137,8 @@ export default class extends Vue {
     const comment: any = {
       article_id: this.$route.query.askId,
       comment_conent: event,
-      comment_id: GenNonDuplicateID()
+      comment_id: GenNonDuplicateID(),
+      type: 'question'
     }
     await createComment(comment)
     this.getComment()
@@ -166,10 +167,12 @@ export default class extends Vue {
             letter-spacing: 1px;
             padding-right: 5px;
           }
+          .article-review {
+            @include textRoundRight('#409EFF');
+          }
           .article-edit {
-            @include textRound('#409EFF');
-            font-size: 13px;
             color: $primary;
+            padding-left: 4px;
             &:hover {
               color: #409EFF;
               text-decoration: underline;

@@ -4,7 +4,10 @@ const { getFollowList } = require('./follow')
 
 const getList = async (author, filters) => {
   const tagPage = Number(filters.page) * 15
-  let sql = `select * from questions where 1=1 `
+  let sql = `select * from myBlog.questions where 1=1 `
+  if (author) {
+    sql += `and author = '${author}' `
+  }
   if (filters.articleTag != '全部') {
     sql += `and articleTag like '%${filters.articleTag}%'`
   }
@@ -19,8 +22,9 @@ const getList = async (author, filters) => {
   //   sql += `order by createtime desc ` 
   //   sql += `limit ${tagPage} , 20;`
   // }
-  sql += `limit ${tagPage}, 15;`
-  
+  if (tagPage >= 0) {
+    sql += `limit ${tagPage}, 15;`
+  }
   const lists = await exec(sql)
   for (let i =0;i <lists.length; i++) {
     // const userInfo = await getUserInfo(lists[i].author)
@@ -29,6 +33,18 @@ const getList = async (author, filters) => {
     // lists[i].author = userInfo
     // Object.assign(lists[i].author, {followInfo: follow})
   }
+  return lists
+}
+
+const getListHot = async () => {
+  let sql = `select question_id, title, likeCount, comments from myBlog.questions order by comments desc limit 0, 5;`
+  const lists = await exec(sql)
+  return lists
+}
+
+const getAnswerList = async (author) => {
+  let sql = `select questions.author, question_id, title, content, markdown, createtime, comments, reviews, status from myBlog.questions inner join myBlog.comment on  comment.comment_author = '${author}' and questions.question_id = comment.article_id;`
+  const lists = await exec(sql)
   return lists
 }
 
@@ -41,6 +57,16 @@ const getDetail = async (id) => {
   question[0].author = userInfo
   return question[0]
 }
+
+const getDelete = async (id) => {
+  const sql = `delete from questions where question_id='${id}';`
+  const delData = await exec(sql)
+  if (delData.affectedRows > 0) {
+    return true
+  }
+  return false
+}
+
 
 const newQuestion = async (blogData = {}) => {
   // blogData 是一个博客对象， 包含title content author属性
@@ -74,7 +100,10 @@ const updateQuestion = async (blogData = {}) => {
 
 module.exports = {
   getList,
+  getListHot,
+  getDelete,
   newQuestion,
   getDetail,
+  getAnswerList,
   updateQuestion
 }

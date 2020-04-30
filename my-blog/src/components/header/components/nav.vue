@@ -19,10 +19,10 @@ export interface Inav {
 @Component
 export default class extends Vue {
   private navs: Inav[] = [
-    { id: 0, name: "文章", path: "/" },
-    { id: 1, name: "问答", path: "/questions" },
+    { id: 0, name: "首页", path: "/" },
+    { id: 1, name: "等你来答", path: "/questions" },
     // { id: 2, name: '阅读', path: '/hot' },
-    { id: 3, name: "分享", path: "/share" }
+    { id: 3, name: "发现", path: "/share" }
   ];
 }
 </script>

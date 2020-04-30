@@ -1,38 +1,33 @@
 <template>
   <div class="articles">
-    <div v-if="articleList.length > 0">
-      <div class="entry-list" v-for="(article, index) in articleList" :key="index">
-        <router-link target="_blank" :to="{ path: '/article', query:{ articleId: article.article_id }}">
-          <div class="userInfo-row">
-            <article-title :isAvatar = userInfo.avatar :article= article></article-title>
-          </div>
-          <div class="article-img" v-show="article.articleImg">
-            <el-image fit="cover" style="width: 640px; height: 212px" :src="article.articleImg" ></el-image>
-          </div>
-          <div class="abstract-row">
-            <span class="title">{{ article.title }}</span>
-            <span class="abstract" :style="{maxHeight: article.articleImg ? '22px' : '120px'}">{{ article.content}}</span>
-          </div>
-        </router-link>
-        <div class="action-row">
-          <div class="action-list">
-            <article-action :article= article></article-action>
-          </div>
-          <div class="action-box">
-            <span class="read-action">阅读 {{article.reviews}}</span>
-            <el-dropdown placement="top" v-show="visible" trigger="click" @click.native="handleClick(article)" @command="handleCommand">
-              <span class="el-icon-more"></span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command='edit'>编辑</el-dropdown-item>
-                <el-dropdown-item command='delete'>删除</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </div>
+    <div class="entry-list" v-for="(article, index) in articleList" :key="index">
+      <router-link target="_blank" :to="{ path: '/article', query:{ articleId: article.article_id }}">
+        <div class="userInfo-row">
+          <article-title :isAvatar = userInfo.avatar :article= article></article-title>
+        </div>
+        <div class="article-img" v-show="article.articleImg">
+          <el-image fit="cover" style="width: 640px; height: 212px" :src="article.articleImg" ></el-image>
+        </div>
+        <div class="abstract-row">
+          <span class="title">{{ article.title }}</span>
+          <span class="abstract" :style="{maxHeight: article.articleImg ? '22px' : '120px'}">{{ article.content}}</span>
+        </div>
+      </router-link>
+      <div class="action-row">
+        <div class="action-list">
+          <article-action :article= article></article-action>
+        </div>
+        <div class="action-box">
+          <span class="read-action">阅读 {{article.reviews}}</span>
+          <el-dropdown placement="top" v-show="visible" trigger="click" @click.native="handleClick(article)" @command="handleCommand">
+            <span class="el-icon-more"></span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command='edit'>编辑</el-dropdown-item>
+              <el-dropdown-item command='delete'>删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
-    </div>
-    <div v-else>
-      <emptyBox />
     </div>
   </div>
 </template>
@@ -56,6 +51,7 @@ export default class extends Vue {
   @Prop() private articleList!: IArticleData[]
   @Prop() private userInfo!: IUserInfo
   private visible: boolean = false
+  private loading: boolean = false
   private articleId: number = 0
 
   get nickname() {

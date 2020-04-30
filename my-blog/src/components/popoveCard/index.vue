@@ -1,7 +1,7 @@
 <template>
   <div class="popove">
     <authorInfo :userInfo = userInfo>
-      <span slot="content" class="author-desc">{{userInfo.job}} @{{userInfo.company}}</span>
+      <span slot="content" class="author-desc">{{userInfo.job}} @{{userInfo.company || '公司'}}</span>
     </authorInfo>
     <div class="popove-action">
       <div class="follows" v-for="(item, index) in userInfo.followInfo" :key="index">

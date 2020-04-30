@@ -15,6 +15,7 @@ router.post('/new',loginCheck, async(ctx, next) => {
   const data = await newComment(body)
   ctx.body = new SuccessModel(data)
 })
+
 router.post('/newReply', loginCheck, async(ctx, next) => {
   const body = ctx.request.body
   body.comment_author = ctx.session.nickname

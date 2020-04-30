@@ -2,7 +2,7 @@
   <div id="comment" class="comment">
     <div class="comment-title">评论</div>
     <div class="comment-form">
-      <el-avatar size="medium" :src= avatar></el-avatar>
+      <el-avatar fit='fill' size="medium" :src= avatar></el-avatar>
       <div class="comment-input">
         <formBox type='first' @submit='createComment' />
       </div>

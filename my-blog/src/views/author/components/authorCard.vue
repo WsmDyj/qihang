@@ -92,7 +92,7 @@ export default class extends Vue {
         display: flex;
         align-items: center;
         .icon {
-          margin-right: 5px;
+          margin:0 5px 3px 0;
         }
       }
       .addInfo {

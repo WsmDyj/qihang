@@ -6,7 +6,7 @@
         <div class="info-box" v-for="(user, index) in users" :key="index">
           <authorInfo :userInfo= user >
             <div slot="content" class="author-desc">
-             <div class="info-desc">{{user.job}} @{{user.company}}</div>
+             <div class="info-desc">{{user.job}} @{{user.company || '公司'}}</div>
               <div class="info-detail">获得 {{ user.likes }} 赞 · {{ user.reviews }} 阅读</div>
             </div>
           </authorInfo>

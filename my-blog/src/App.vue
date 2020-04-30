@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <router-view />
-    <el-tooltip placement="top" content="返回顶部"><back-to-top/></el-tooltip>
+    <el-tooltip placement="top" content="返回顶部">
+      <back-to-top />
+    </el-tooltip>
     <LiveMessage />
+    <login />
   </div>
 </template>
 
@@ -10,11 +13,13 @@
 import { Component, Vue } from 'vue-property-decorator'
 import BackToTop from '@/components/BackToTop/index.vue'
 import LiveMessage from '@/components/message/index.vue'
+import login from '@/components/login/index.vue'
 
 @Component({
   components: {
     BackToTop,
-    LiveMessage
+    LiveMessage,
+    login
   },
 })
 export default class App extends Vue {

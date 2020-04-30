@@ -18,7 +18,7 @@
         />
       </g>
     </svg>
-    <div class="empty-text">这里什么都没有</div>
+    <div class="empty-text">{{tootip}}</div>
   </div>
 </template>
 
@@ -27,6 +27,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class extends Vue {
+  @Prop() private tootip!: string
 }
 </script>
 

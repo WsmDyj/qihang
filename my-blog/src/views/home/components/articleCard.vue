@@ -37,13 +37,13 @@ export default class extends Vue {
   background: #fff;
   border-width: 0;
   border-radius: 3px;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   box-shadow: 0 0 20px -5px rgba(158,158,158,.22);
   transition: all .2s linear;
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  }
+  // &:hover {
+  //   transform: translateY(-2px);
+  //   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  // }
   cursor: default;
   display: flex;
   align-items: center;
@@ -86,6 +86,7 @@ export default class extends Vue {
       -webkit-box-orient:vertical;
       -webkit-line-clamp:2;//控制行数
       overflow:hidden;
+      color: #5e646d;
     }
   }
 }

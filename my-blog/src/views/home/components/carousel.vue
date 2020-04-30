@@ -2,8 +2,8 @@
   <div class="carousel">
     <el-carousel :interval = 4000 trigger="click" height="270px">
       <el-carousel-item v-for="(item, index) in lists" :key="index">
-        <div class="carousel-content">
-          <el-image fit="cover" style="border-radius:4px;width: 700px; height: 270px" :src = item.img></el-image>
+        <div class="carousel-content" @click="checkArticle(item)">
+          <el-image fit="contain" style="border-radius:4px;width: 700px; height: 270px" :src = item.img></el-image>
           <div class="carousel-panel">
             <div class="carousel-title">{{item.title}}</div>
             <div class="carousel-info">
@@ -20,31 +20,36 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { IArticleData } from '../../../api/types'
 
 @Component
 export default class extends Vue {
   private lists: any = [
-    // https://user-gold-cdn.xitu.io/2019/11/8/16e4a5f24fd1e188?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1
-    // https://user-gold-cdn.xitu.io/2019/10/20/16de9710a4baee9f?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1
     {
-      title: 'Go语言实现微服务工具链(一) - 蓝绿部署',
-      author: '张三',
-      time: '3月前',
-      img: 'https://user-gold-cdn.xitu.io/2019/11/16/16e72b3afb20ac3a?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1'
+      title: '一点感悟：当走完所有大厂的实习面试后',
+      author: '等风来',
+      time: '上周',
+      article_id: '18u4gt2bddvk00',
+      img: 'https://img11.360buyimg.com/imagetools/jfs/t1/116052/22/3948/28555/5eaa9c4cEf2248e4b/7c31d8a4fa41ec30.png'
     },
     {
-      title: '轻松理解webpack热更新原理',
-      author: '李四',
+      title: '国庆七天乐，Node来敲门',
+      author: '等风来',
       time: '1月前',
-      img: 'https://user-gold-cdn.xitu.io/2019/12/25/16f38e58b90d02c9?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1'
+      article_id: '4bneh4byxho000',
+      img: 'https://img12.360buyimg.com/imagetools/jfs/t1/116636/25/3917/51487/5eaa9c61E71f105e1/969fe82f034f650d.png'
     },
     {
-      title: '样本组成了整体，特例装裱了样本',
-      author: '王五',
-      time: '5月前',
-      img: 'https://user-gold-cdn.xitu.io/2019/12/13/16efe9ed70b90636?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1'
+      title: '给你的网站添加第三方登录以及短信验证功能',
+      author: '等风来',
+      time: '1月前',
+      article_id: '1otgby3dsc5c00',
+      img: 'https://img11.360buyimg.com/imagetools/jfs/t1/116375/32/3931/166684/5eaa9c6eEde6cb991/a562315f39e599ce.png'
     }
   ]
+  private checkArticle(article: IArticleData) {
+    window.open(`/article?articleId=${article.article_id}`, '_blank')
+  }
 }
 </script>
 

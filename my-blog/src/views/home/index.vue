@@ -12,9 +12,21 @@
             </el-tabs>
           </div>
         </sticky>
-        <articleLoading :loading="articles.length < 1 ? true : false"/>
-        <div class="article-list" v-for="(article, index) in articles" :key="index">
-          <articleCard :article= article />
+        <div class="article-wrapper">
+          <div class="article-content">
+            <div class="article-list" v-for="(article, index) in articles" :key="index">
+              <articleCard :article= article />
+            </div>
+          </div>
+          <div v-if="isEmpty" class="article-empty">
+            <el-image fit='contain' class="article-empty" :src="require('../../assets/home/empty.png')"></el-image>
+          </div>
+          <div v-if="loading" element-loading-spinner="el-icon-loading" v-loading="loading" class="article-bottom__loading"></div>
+          <div v-if="noMore" class="article-bottom">
+            <div class="article-bottom__noMore">
+              <el-divider>没有更多内容</el-divider>
+            </div>
+          </div>
         </div>
       </div>
       <div class="asside">
@@ -41,24 +53,18 @@ import joinCard from '@/components/card/join/index.vue'
 import totalCard from '@/components/card/total/index.vue'
 import rewardCard from '@/components/card/advert/reward.vue'
 import Sticky from '@/components/Sticky/index.vue'
+import emptyBox from '@/components/emptyBox/index.vue'
 import carousel from './components/carousel.vue'
+import login from '@/components/login/index.vue'
 import articleCard from './components/articleCard.vue'
-import { getArticles } from '../../api/blog'
+import { getArticles,getArticleTags } from '../../api/blog'
 import { IArticleData, Itag } from '../../api/types'
 import { fommentArticle } from '../../utils/formateArticle'
-import login from '../../components/login/index.vue'
-import articleLoading from '../../components/loading/articleLoading.vue'
-
-
-const NavTag = [
-  { value: '首页推荐', laber: '0' },
-  { value: '最新发布', laber: '1' },
-  { value: '上升最快', laber: '2' },
-]
 
 export interface Ifilters {
   page: number
   activeIndex: string
+  articleTag: string
 }
 
 @Component({
@@ -74,44 +80,90 @@ export interface Ifilters {
     totalCard,
     joinCard,
     Sticky,
-    login,
-    articleLoading
+    emptyBox,
   }
 })
 
 export default class extends Vue {
   private articles: IArticleData[] = []
-  private filters: Ifilters = { page: 0, activeIndex: '0' }
+  private filters: Ifilters = { page: 0, activeIndex: '0', articleTag: '' }
   private visible: boolean = true
-  private actions: Itag[] = NavTag
+  private loading: boolean = false
+  private noMore: boolean = false
+  private isEmpty: boolean = false
+  private disabled: boolean = false
+  private actions: Itag[] = [
+    { laber: '0', value: '全部' },
+    { value: 'Vue', laber: '1' },
+    { value: 'React', laber: '2' },
+    { value: 'JavaScript', laber: '3' },
+    { value: 'CSS', laber: '4' },
+    { value: 'Node', laber: '5' },
+    { value: 'Flutter', laber: '6' },
+    { value: 'Webpack', laber: '7' },
+    { value: 'TypeScript', laber: '8' },
+    { value: 'Http', laber: '9' },
+    { value: 'Docker', laber: '10' },
+    { value: '性能优化', laber: '11' },
+    { value: '微信小程序', laber: '12' }
+  ]
 
   private handleScroll(event: boolean) {
     this.visible = event
   }
 
   private async selectNav(tab: Itag) {
-    document.documentElement.scrollTop = 0
+    this.articles = []
+    this.loading = true
+    this.noMore = false
+    this.isEmpty = false
+    this.filters.page = 0
+    this.filters.articleTag = this.actions.filter(item => item.laber === this.filters.activeIndex)[0].value
+    const { data } = await getArticles(this.filters)
+    if (data.length > 0) {
+      this.loading = false
+      this.articles = fommentArticle(data)
+    } else {
+      this.isEmpty = true
+    }
+    if (data.length < 10) {
+      this.noMore = true
+      this.loading = false
+      window.removeEventListener('scroll',this.lazyLoading)
+    } else {
+      window.addEventListener('scroll', this.lazyLoading) 
+    }
   }
 
   private async lazyLoading () { // 滚动到底部，再加载的处理事件
+    this.loading = true
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
     let clientHeight = document.documentElement.clientHeight
     let scrollHeight = document.documentElement.scrollHeight 
     if (scrollTop + clientHeight >= scrollHeight) { // 如果滚动到接近底部，自动加载下一页
-      const time = setTimeout(async ()=> {
-        this.filters.page = this.filters.page + 1
-        const { data } = await getArticles(this.filters)
+      this.filters.page = this.filters.page + 1
+      const { data } = await getArticles(this.filters)
+      if (data.length >0) {
+        this.loading = false
         this.articles = this.articles.concat(fommentArticle(data))
-        if (data.length < 10) {
-          window.removeEventListener('scroll',this.lazyLoading)
-        }
-      }, 500)
+      } else {
+        this.isEmpty = true
+      }
+      if (data.length < 10) {
+        this.noMore = true
+        this.loading = false
+        window.removeEventListener('scroll',this.lazyLoading)
+      }
     }
   }
 
   private async created() {
-    const { data } = await getArticles()
-    this.articles = fommentArticle(data)
+    this.loading = true
+    const { data } = await getArticles(this.filters)
+    if (data) {
+      this.loading = false
+      this.articles = fommentArticle(data)
+    }
   }
 
   public mounted() {
@@ -135,7 +187,24 @@ export default class extends Vue {
     @include flexcenter($jc:space-between, $ai: none);
   }
 }
+.articles-nav {
+  width: 700px;
+  overflow-y: hidden;
+  overflow-x:scroll;
+}
+.article-empty {
+  padding-top: 30px;
+  width: 700px;
+  height: 300px;
+}
+
 .nav-top {
+  width: 100vw;
+  background: #ffffff;
   transform: translate3d(0,-60px,0);
+  transition: transform .2s;
+}
+.el-loading-mask {
+  background-color: transparent;
 }
 </style>
