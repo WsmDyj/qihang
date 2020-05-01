@@ -49,28 +49,18 @@ const register = async(username, password, nickname) => {
 }
 
 const getUserInfo = async (username) => {
-  let sql = `select autograph, avatar, company, job, nickname, date from users where nickname = '${username}';`
-  let reviewsSql = `select reviews from blogs where author = '${username}';`
-  let commentsSql = `select comments from blogs where author = '${username}';`
-  let likesSql = `select likeCount from blogs where author = '${username}';`
+  let sql = `select comments, reviews, likeCount from blogs where author = '${username}';`
+  let userSql = `select avatar,autograph, date, company, job, nickname from users where nickname = '${username}';`
   const rows = await exec(sql)
-  const _reviews = await exec(reviewsSql)
-  const _comments = await exec(commentsSql)
-  const _likes = await exec(likesSql)
-  var s = 0, sum = 0, t = 0;
-  _reviews.forEach(item => {
+  let s = 0, sum = 0, t = 0;
+  rows.forEach(item => {
     s += item.reviews
-  })
-  _comments.forEach(item => {
     sum += item.comments
-  })
-  _likes.forEach(item => {
     t += item.likeCount
   })
-  rows[0].reviews = s
-  rows[0].comments = sum
-  rows[0].likes = t
-  return rows[0] || {}
+  const userInfo = await exec(userSql)
+  Object.assign(userInfo[0], { reviews: s, comments: sum, likes: t})
+  return userInfo[0]
 }
 
 const updateUser = async (username, nickname, userData = {}) => {

@@ -25,7 +25,6 @@ router.get('/getuserList', async function(ctx, next) {
 })
 
 router.post('/login', async function (ctx, next) {
-  console.log(ctx.request.body)
   const { username, password } = ctx.request.body
   const data = await login(username, password)
   if (data.username) {

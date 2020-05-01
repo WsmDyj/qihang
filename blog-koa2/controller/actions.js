@@ -77,7 +77,7 @@ const removeLike = async (actionsdData = {}) => {
 
 const getLikelists = async (author) => {
   const sql = `SELECT blogs.article_id, author, title, content, createtime,likeCount, markdown, articleImg, comments, reviews FROM blogs, likes where likes.like_author = '${author}' and likes.article_id = blogs.article_id order by likes.id desc;`
-  return await exec(sql)
+  return exec(sql)
 }
 
 module.exports = {
