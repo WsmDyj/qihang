@@ -121,7 +121,7 @@ export default class extends Vue {
       color: $fontcolor;
       width: 620px;
       cursor: pointer;
-      border-bottom: 1px solid $border-bottom;
+      border-bottom: 1px solid $border-color;
       .search-count {
         font-style: normal;
         color: #e8001c;

@@ -60,7 +60,7 @@ export default class extends Vue {
     height: 42px;
     line-height: 42px;
     text-align: center;
-    border-top: 1px solid $border-bottom;
+    border-top: 1px solid $border-color;
     .link {
       color: $primary;
     }

@@ -212,7 +212,7 @@ export default class extends Vue {
         }
         .comment-content {
           margin-top: 10px;
-          border-bottom: 1px solid $border-bottom;
+          border-bottom: 1px solid $border-color;
           &:last-child {
             border-bottom: none;
           }

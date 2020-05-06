@@ -105,7 +105,7 @@ export default class extends Vue {
             margin-bottom: 5px;
             justify-content: space-between;
             padding-right: 60px;
-            border-bottom: 1px solid $border-bottom;
+            border-bottom: 1px solid $border-color;
             &:last-child {
               border-bottom: none;
             }

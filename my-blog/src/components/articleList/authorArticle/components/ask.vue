@@ -78,7 +78,7 @@ export default class extends Vue {
 .nav {
   @include flexcenter($jc:space-between);
   padding: 20px 20px 20px 30px;
-  border-bottom: 1px solid $border-bottom;
+  border-bottom: 1px solid $border-color;
   color: #72777B;
   .nav-title {
     font-size: 16px;

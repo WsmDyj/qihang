@@ -56,7 +56,7 @@ export default class extends Vue {
       background: #fff;
       .info-box {
         padding: 20px 50px 20px 30px;
-        border-bottom: 1px solid $border-bottom;
+        border-bottom: 1px solid $border-color;
         display: flex;
         align-items: center;
         justify-content: space-between;

@@ -4,7 +4,7 @@ import { UserModule } from '../store/modules/user'
 
 const service = axios.create({
   // timeout: 5000,
-  baseURL: "http://qihang.pro",
+  baseURL: "/api",
   withCredentials: true,
 });
 

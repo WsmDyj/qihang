@@ -8,14 +8,14 @@
           <authorCard :userInfo = article.author />
           <div slot="reference">
             <span class="author-avatar">
-              <el-avatar size="small" :src="article.author.avatar"></el-avatar>
+              <el-avatar size="small" :src="article.avatar"></el-avatar>
             </span>
-            <span class="author-name">{{article.author.nickname}}</span>
+            <span class="author-name">{{article.author}}</span>
           </div>
         </el-popover>
       </div>
       <i class="iconfont">&#xe794;</i>
-      <span class="article-tag" v-for="(tag, index) in article.articleTag" :key="index">{{tag}}</span>
+      <span class="article-tag">{{article.articleTag}}</span>
     </div>
     <div class="article-action">
       <span class="action-item">

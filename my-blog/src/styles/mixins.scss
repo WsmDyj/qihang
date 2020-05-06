@@ -1,6 +1,14 @@
 /* 
   Mixins
 */
+$font-sizes: 14, 16, 18;
+
+@each $font-size in $font-sizes {
+  .fs-#{$font-size} {
+    font-size: #{$font-size / 14}rem;
+  }
+}
+
 
 /* 清除浮动 */
 @mixin clearfix {
@@ -111,15 +119,5 @@
   -webkit-line-clamp: $clamp;//控制行数
   overflow: hidden;
 }
-
-
-$primary: #007fff;
-
-$border-bottom:rgba(230, 230, 231, 0.5);
-
-$fontcolor: #909090;
-$navcolor: #71777c;
-$hoverBg: hsla(0,0%,84.7%,.1);
-
 
 

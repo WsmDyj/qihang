@@ -13,6 +13,7 @@ a {
 
 html {
   height: 100%;
+  font-size: 1rem /* 14/14 */;
   text-rendering: optimizeLegibility;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
@@ -23,6 +24,7 @@ html {
   background-color: #f4f5f5;
   min-height: 100vh;
 }
+
 .el-popover {
   padding: 0;
 }

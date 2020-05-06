@@ -2,7 +2,7 @@
   <div class="article" @click="checkArticle(article)">
     <div class="article-content">
       <div class="article-title">{{article.title}}</div>
-      <div class="article-desc">{{article.content}}</div>
+      <div class="article-desc">{{article.ellipsis}}</div>
       <articleAction :article= article />
     </div>
      <div class="article-img" v-show="article.articleImg">

@@ -1,9 +1,7 @@
 <template>
   <ul class="nav-content">
-    <li class="nav-item" v-for="(nav, index) in navs" :key="index">
-      <router-link active-class="active" :to="nav.path">
-        {{ nav.name }}
-      </router-link>
+    <li class="nav-item fs-18" v-for="(nav, index) in navs" :key="index">
+      <router-link active-class="active" :to="nav.path">{{ nav.name }}</router-link>
     </li>
   </ul>
 </template>
@@ -16,6 +14,7 @@ export interface Inav {
   name: string;
   path: string;
 }
+
 @Component
 export default class extends Vue {
   private navs: Inav[] = [
@@ -36,12 +35,11 @@ a {
   color: $navcolor;
   text-decoration: none;
   display: block;
-  font-size: 16px;
   font-weight: 500;
-  padding-right: 30px;
 }
 .nav-content {
-  @include flexcenter($jc: flex-end);
+  @include flexcenter($jc: space-between);
+  width: 14.285714rem /* 200/14 */;
   .nav-item {
     .router-link-exact-active {
       color: $primary;

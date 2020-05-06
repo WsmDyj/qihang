@@ -1,14 +1,14 @@
 <template>
   <div class="nav-menu">
     <div class="nav-menu-group">
-      <router-link target="_blank" to="/markdown" class="nav-menu-item">
+      <router-link to="/markdown" class="nav-menu-item">
         <i class="el-icon-edit item-icon"></i>
         <span class="item-text">写文章</span>
       </router-link>
-      <div class="nav-menu-item">
+      <!-- <div class="nav-menu-item">
         <i class="el-icon-s-goods item-icon"></i>
         <span class="item-text">草稿</span>
-      </div>
+      </div> -->
     </div>
     <div class="nav-menu-group">
       <router-link class="nav-menu-item" target="_blank" :to="{path: '/author', query:{activeIndex: '1', author: nickname}}">
@@ -70,7 +70,7 @@ export default class extends Vue {
   font-size: 16px;
   box-sizing: border-box;
   .nav-menu-group{
-    padding: 14px 0;
+    padding: 4px 0;
     box-sizing: border-box;
     width: 100%;
     border-bottom: 1px solid rgba(0,0,0,.04);

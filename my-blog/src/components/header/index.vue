@@ -1,11 +1,11 @@
 <template>
-  <div :class="visible ? 'header visible' : 'header'">
-    <div class="navigation">
+  <div class="navbar qh-hairline--bottom" :class="{visible: visible}">
+    <div class="navbar-container">
       <router-link to='/'>
-        <el-image fit='fill' class="logo" :src="require('../../assets/login/qihang.jpg')"></el-image>
+        <el-image fit='fill' class="qh-logo" :src="require('../../assets/login/qihang.jpg')" />
       </router-link>
       
-      <div class="content">
+      <div class="navbar-content">
         <Nav />
         <div class="nav-list">
           <div class="search">
@@ -63,11 +63,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Provide, Prop } from "vue-property-decorator";
-import { UserModule } from "../../store/modules/user";
-import Dropdown from "./components/dropdown.vue";
-import { getArticles } from "../../api/blog";
-import Nav from "./components/nav.vue";
+import { Component, Vue, Provide, Prop } from "vue-property-decorator"
+import { UserModule } from "../../store/modules/user"
+import Dropdown from "./components/dropdown.vue"
+import { getArticles } from "../../api/blog"
+import Nav from "./components/nav.vue"
 
 interface Iactions {
   id: number;
@@ -106,83 +106,77 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.header {
+.navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   transition: all 0.2s;
   transform: translate3d(0, -100%, 0);
-  width: 100%;
+  z-index: 9;
   height: 60px;
   background: #fff;
-  z-index: 9;
-  box-sizing: border-box;
-  border-bottom: 1px solid $border-bottom;
-  .navigation {
+  cursor: pointer;
+
+  &-container {
     @include flexcenter($jc: space-between);
     margin: auto auto;
     height: 100%;
-    width: 992px;
-    .logo {
-      width: 98px;
-      height: 42px;
-      background: #fff;
-    }
-    .content {
-      @include flexcenter($jc: space-between);
-      flex: 1;
-      font-size: 16px;
-      cursor: pointer;
-      .nav-list {
-        @include flexcenter($jc: flex-end);
-        color: $primary;
-        .search {
-          position: relative;
-          margin-right: 30px;
-          width: 150px;
-          .search-icon {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 10px;
-            font-size: 14px;
-          }
+    width: 70.857143rem /* 992/14 */;
+  }
+
+  &-content {
+    @include flexcenter($jc: space-between);
+    flex: 1;
+    
+    .nav-list {
+      @include flexcenter($jc: flex-end);
+      color: $primary;
+      .search {
+        position: relative;
+        margin-right: 2.142857rem; /* 30/14 */
+        width: 150px;
+        .search-icon {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 10px;
+          font-size: 14px;
         }
-        .nav-item {
-          @include flexcenter($jc: none);
+      }
+      .nav-item {
+        @include flexcenter($jc: none);
+      }
+      .menu-item {
+        padding: 0 20px;
+        color: $navcolor;
+        font-size: 16px;
+        font-weight: 500;
+        &:hover,
+        &:focus,
+        &:active {
+          color: $primary;
         }
-        .menu-item {
-          padding: 0 20px;
+      }
+      .submit {
+        position: relative;
+        padding: 0 5px;
+        @include splitLine(-2px);
+      }
+      .auth {
+        position: relative;
+        padding: 0 10px;
+        .register {
+          @include textRound($primary);
+        }
+      }
+      .notice {
+        padding: 0 20px;
+        .notice-icon {
+          font-size: 24px;
           color: $navcolor;
-          font-size: 16px;
-          font-weight: 500;
-          &:hover,
-          &:focus,
-          &:active {
+          &:hover {
             color: $primary;
-          }
-        }
-        .submit {
-          position: relative;
-          padding: 0 5px;
-          @include splitLine(-2px);
-        }
-        .auth {
-          position: relative;
-          padding: 0 10px;
-          .register {
-            @include textRound($primary);
-          }
-        }
-        .notice {
-          padding: 0 20px;
-          .notice-icon {
-            font-size: 24px;
-            color: $navcolor;
-            &:hover {
-              color: $primary;
-            }
           }
         }
       }
@@ -191,5 +185,9 @@ export default class extends Vue {
 }
 .visible {
   transform: translateZ(0);
+}
+ .qh-logo {
+  width: 98px;
+  height: 42px;
 }
 </style>

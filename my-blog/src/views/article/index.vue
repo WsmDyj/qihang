@@ -114,6 +114,10 @@ export default class  extends Vue {
   private async changeArticle(articleId: any) {
     const { data } = await detailArticle({ id: articleId })
     data.createtime = formatTime(data.createtime)
+    data.author = {
+      nickname: data.author,
+      avatar: data.avatar
+    }
     document.title = data.title // 设置页面的title
     const _toc: string[] = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
     if (_toc) {

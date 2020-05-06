@@ -57,6 +57,7 @@ export interface article {
   content: string
   createtime?: Date
   author?: string
+  ellipsis: string
   markdown: string
   articleImg?: string
 }
@@ -117,9 +118,11 @@ export default class  extends Vue {
     this.html = (this.$refs.markdownEditor as MarkdownEditor).getHtml()
     const result = html_decode(this.markdown)
     const _html = html_decode(this.html)
+    
     let newArticle: article = {
       article_id: this.articleId,
       title: this.title,
+      ellipsis: _html.replace(/<[^>]+>/g, '').substring(0,100),
       content: _html,
       markdown: result, // 反编译存入数据库
       articleImg: this.imgUrl
