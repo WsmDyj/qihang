@@ -10,7 +10,7 @@
         </div>
         <div class="abstract-row">
           <span class="title">{{ article.title }}</span>
-          <span class="abstract" :style="{maxHeight: article.articleImg ? '22px' : '120px'}">{{ article.content}}</span>
+          <span class="abstract" :style="{maxHeight: article.articleImg ? '22px' : '120px'}">{{ article.ellipsis}}</span>
         </div>
       </router-link>
       <div class="action-row">

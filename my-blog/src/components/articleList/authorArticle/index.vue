@@ -67,15 +67,6 @@ export default class extends Vue {
   //   }
   // }
 
-  // 文章去除标签
-  private fommentArticle(data: IArticleData[]) {
-    data.forEach((item: IArticleData) => {
-      item.content = item.content.replace(/<[^>]+>/g, '')
-      if (this.likeArticlId.indexOf(item.article_id) != -1) {
-        item.islike = true
-      }
-    })
-  }
   
   // 用户写的文章
   private async getList() {
@@ -83,13 +74,11 @@ export default class extends Vue {
     if (data.length <= 0) {
       this.tip =  '这里空空如也'
     }
-    this.fommentArticle(data)
     this.articleList = data
   }
   // 用户点赞的
   private async getLikeArticles() {
     const { data } = await getlikesList({author: this.$route.query.author})
-    this.fommentArticle(data)
     this.likeList = data
   }
   // 删除文章

@@ -30,7 +30,6 @@
         </div>
       </div>
       <div class="asside">
-        <!-- <about-card></about-card> -->
         <totalCard/>
         <sticky :z-index= 8 :sticky-top="70">
           <joinCard />
@@ -46,16 +45,13 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
-import aboutCard from '@/components/card/aboutMe/index.vue'
 import rankingCard from '@/components/card/rankingCard/index.vue'
 import moreCard from '@/components/card/more/index.vue'
 import joinCard from '@/components/card/join/index.vue'
-import totalCard from '@/components/card/total/index.vue'
 import rewardCard from '@/components/card/advert/reward.vue'
 import Sticky from '@/components/Sticky/index.vue'
-import emptyBox from '@/components/emptyBox/index.vue'
 import carousel from './components/carousel.vue'
-import login from '@/components/login/index.vue'
+import totalCard from './components/information.vue'
 import articleCard from './components/articleCard.vue'
 import { getArticles,getArticleTags } from '../../api/blog'
 import { IArticleData, Itag } from '../../api/types'
@@ -73,14 +69,12 @@ export interface Ifilters {
     Header,
     carousel,
     articleCard,
-    aboutCard,
     rankingCard,
     rewardCard,
     moreCard,
     totalCard,
     joinCard,
     Sticky,
-    emptyBox,
   }
 })
 

@@ -7,51 +7,45 @@
       
       <div class="navbar-content">
         <Nav />
-        <div class="nav-list">
-          <div class="search">
+        <div class="navbar-wrapper">
+          <div class="navbar-wrapper__search">
             <el-input
               size="small"
               @focus="inputIcon = true"
               @blur="inputIcon = false"
               v-model="keyword"
               placeholder="搜索文章或用户"
-            >
-            </el-input>
+            />
             <router-link
-              target="_blank"
-              :style="{ color: inputIcon ? '#007fff' : '#71777c' }"
+              :style="{ color: inputIcon ? '#007fff' : '#DCDFE6' }"
               :to="{ path: '/search', query: { keyword: keyword } }"
-              class="search-icon"
+              class="search-icon fs-14"
             >
-              <i class="el-icon-search"></i>
+              <i class="el-icon-search" />
             </router-link>
           </div>
-          <div class="nav-list" v-if="visivle">
-            <div class="nav-item header-button">
+
+          <div class="navbar-wrapper__action" v-if="visivle">
+            <div class="navbar-wrapper__action--item header-button">
               <router-link to="/markdown">
                 <el-button size="mini" type="primary">写文章</el-button>
               </router-link>
             </div>
-            <div class="nav-item notice">
-              <el-badge class="item" type="primary">
+            <div class="notice">
+              <el-badge type="primary">
                 <i class="iconfont notice-icon">&#xe61e;</i>
               </el-badge>
             </div>
-            <el-popover trigger="click" width="150" class="nav-item auth">
+            <el-popover trigger="hover" width="150">
               <Dropdown />
-              <el-avatar
-                slot="reference"
-                size="medium"
-                :src="avatar"
-              ></el-avatar>
+              <el-avatar slot="reference" size="medium" :src="avatar"/>
             </el-popover>
           </div>
-          <div class="nav-list" v-else>
-            <div class="nav-item submit" @click="submit('login')">
-              <i class="el-icon-edit"></i>
-              <span>写文章</span>
+          <div class="navbar-wrapper__action fs-16" v-else>
+            <div class="navbar-wrapper__action--item" @click="submit('login')">
+              <i class="el-icon-edit" />写文章
             </div>
-            <div class="nav-item auth">
+            <div class="navbar-wrapper__action--item">
               <span @click="submit('login')" class="login">登录</span>
               <span @click="submit('register')" class="register">注册</span>
             </div>
@@ -66,7 +60,6 @@
 import { Component, Vue, Provide, Prop } from "vue-property-decorator"
 import { UserModule } from "../../store/modules/user"
 import Dropdown from "./components/dropdown.vue"
-import { getArticles } from "../../api/blog"
 import Nav from "./components/nav.vue"
 
 interface Iactions {
@@ -112,11 +105,12 @@ export default class extends Vue {
   left: 0;
   right: 0;
   transition: all 0.2s;
+  box-sizing: border-box;
   transform: translate3d(0, -100%, 0);
   z-index: 9;
+  width: 100%;
   height: 60px;
   background: #fff;
-  cursor: pointer;
 
   &-container {
     @include flexcenter($jc: space-between);
@@ -125,54 +119,38 @@ export default class extends Vue {
     width: 70.857143rem /* 992/14 */;
   }
 
-  &-content {
-    @include flexcenter($jc: space-between);
-    flex: 1;
-    
-    .nav-list {
+  &-wrapper {
+    @include flexcenter($jc: flex-end);
+    &__search {
+      position: relative;
+      display: inline-block;
+      width: 12.857143rem /* 180/14 */;
+      .search-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+      }
+    }
+
+    &__action {
       @include flexcenter($jc: flex-end);
       color: $primary;
-      .search {
+      &--item {
         position: relative;
-        margin-right: 2.142857rem; /* 30/14 */
-        width: 150px;
-        .search-icon {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          right: 10px;
-          font-size: 14px;
+        display: inline-block;
+        width: 7.142857rem /* 100/14 */;
+        text-align: end;
+        .el-icon-edit {
+          padding-right: 4px;
         }
-      }
-      .nav-item {
-        @include flexcenter($jc: none);
-      }
-      .menu-item {
-        padding: 0 20px;
-        color: $navcolor;
-        font-size: 16px;
-        font-weight: 500;
-        &:hover,
-        &:focus,
-        &:active {
-          color: $primary;
-        }
-      }
-      .submit {
-        position: relative;
-        padding: 0 5px;
-        @include splitLine(-2px);
-      }
-      .auth {
-        position: relative;
-        padding: 0 10px;
         .register {
           @include textRound($primary);
         }
       }
       .notice {
         padding: 0 20px;
-        .notice-icon {
+        &-icon {
           font-size: 24px;
           color: $navcolor;
           &:hover {
@@ -182,11 +160,17 @@ export default class extends Vue {
       }
     }
   }
+
+  &-content {
+    @include flexcenter($jc: space-between);
+    flex: 1;
+  }
 }
+
 .visible {
   transform: translateZ(0);
 }
- .qh-logo {
+.qh-logo {
   width: 98px;
   height: 42px;
 }

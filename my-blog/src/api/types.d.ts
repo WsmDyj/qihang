@@ -1,4 +1,13 @@
 /*
+* 一些非模块化自定义的接口参数
+*/
+export interface Inav {
+  id: number;
+  name: string;
+  path: string;
+}
+
+/*
 * 用户信息
 */
 export interface IUserInfo {
