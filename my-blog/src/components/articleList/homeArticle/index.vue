@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import articleTitle from '../../articleTitle/index.vue'
+import articleTitle from './components/articleTitle.vue'
 import articleAction from './components/action.vue'
 import { IArticleData } from '../../../api/types'
 

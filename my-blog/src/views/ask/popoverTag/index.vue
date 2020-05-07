@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
+import { TAG_LIST, Qtag } from '../../../global'
 import { Itag } from '../../../api/types'
 import { getArticleTags } from '../../../api/blog'
 
@@ -27,12 +28,14 @@ import { getArticleTags } from '../../../api/blog'
 export default class extends Vue {
   private tagCount: number = 3
   private selectTags: string[] = []
-  private tags: Itag[]= []
+  private tags: Qtag[] = []
 
   private async created() {
-    const { data } = await getArticleTags()
-    data[0].options.forEach((item: Itag) => Object.assign(item, {disabled: false }))
-    this.tags = data[0].options
+    let data:Qtag[] = TAG_LIST.filter(item => item.laber !== '0')
+    data.forEach((item: Qtag) => {
+      Object.assign(item, {disabled: false })
+      this.tags.push(item)
+    })
   }
 
   private closeTag(tag: string) {

@@ -4,6 +4,7 @@ interface author {
   author?: string | (string | null)[]
   articleTag?: string
   page?: number
+  status?: number
 }
 
 // interface askId {

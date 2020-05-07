@@ -1,18 +1,11 @@
 <template>
   <div class="article-info">
     <div class="article-author">
-      <div class="author-info">
-        <el-popover
-          :open-delay= 300
-          trigger="hover">
-          <authorCard :userInfo = article.author />
-          <div slot="reference">
-            <span class="author-avatar">
-              <el-avatar size="small" :src="article.avatar"></el-avatar>
-            </span>
-            <span class="author-name">{{article.author}}</span>
-          </div>
-        </el-popover>
+      <div class="author-info" @click.stop="handleClick(article.author)">
+        <span class="author-avatar">
+          <el-avatar size="small" :src="article.avatar"></el-avatar>
+        </span>
+        <span class="author-name">{{article.author}}</span>
       </div>
       <i class="iconfont">&#xe794;</i>
       <span class="article-tag">{{article.articleTag}}</span>
@@ -37,17 +30,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import authorCard from '@/components/popoveCard/index.vue'
 import { IArticleData } from '../../../api/types'
 
 @Component({
   components: {
-    authorCard
   }
 })
 
 export default class extends Vue {
   @Prop() private article!: IArticleData
+
+  private handleClick(author: string) {
+    window.open(`/author?author=${author}`, '_blank')
+  }
 }
 </script>
 

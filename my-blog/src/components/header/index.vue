@@ -135,6 +135,7 @@ export default class extends Vue {
 
     &__action {
       @include flexcenter($jc: flex-end);
+      cursor: pointer;
       color: $primary;
       &--item {
         position: relative;
@@ -173,5 +174,6 @@ export default class extends Vue {
 .qh-logo {
   width: 98px;
   height: 42px;
+  margin-right: 2.142857rem /* 30/14 */;
 }
 </style>

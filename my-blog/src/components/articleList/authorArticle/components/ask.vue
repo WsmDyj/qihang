@@ -65,7 +65,7 @@ export default class extends Vue {
     })
   }
   private async getList () {
-    const { data } = await getAskList({author: this.$route.query.author, articleTag: '全部'})
+    const { data } = await getAskList({author: this.$route.query.author, articleTag: '全部', status: 0})
     this.asks = data
   }
   private async created() {

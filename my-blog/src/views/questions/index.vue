@@ -12,28 +12,30 @@
       </nav>
     </sticky>
     <div class="main">
-      
       <div class="questions-container">
         <div class="questions-nav">
           <el-radio-group @change="filterAsk" v-model="filters.status">
             <el-radio class="details" :label="0">全部</el-radio>
-            <el-radio class="details" :label="1">未回答</el-radio>
+            <el-radio class="details" :label="1">已回答</el-radio>
             <el-radio class="details" :label="2">已解决</el-radio>
           </el-radio-group>
           <el-link href="/ask" icon="el-icon-plus" type="primary">提问</el-link>
         </div>
-        <div class="questions-content" v-for="(ask, index) in asks" :key="index">
-          <question-item :ask = ask />
-        </div>
-        <div v-if="loading" element-loading-spinner="el-icon-loading" v-loading="loading" class="article-bottom__loading"></div>
-        <div v-if="asks.length <= 0">
-          <emptyBox tootip='这里空空如也' />
+        <div class="questions-content">
+          <div v-if="isEmpty" class="questions-empty">
+            <van-empty description="这里空空如也" />
+          </div>
+          <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
+            <div v-for="(ask, index) in asks" :key="index">
+              <question-item :ask = ask />
+            </div>
+          </van-list>
         </div>
       </div>
-       <div class="asside">
-        <!-- <askCard /> -->
+      <div class="asside">
+        <!-- <totalCard /> -->
         <hotCard :hotList= hotList />
-       </div>
+      </div>
     </div>
   </div>
 </template>
@@ -42,14 +44,12 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import hotCard from '../../components/card/hot/index.vue'
-import askCard from '../../components/card/ask/index.vue'
+import totalCard from './components/total.vue'
 import questionItem from './components/item.vue'
-import debounce from '../../utils/debounce'
-import { getArticleTags } from '../../api/blog'
-import { Itag, Iquestion } from '../../api/types'
+import { Iquestion } from '../../api/types'
 import { getAskList, getAskListHot } from '../../api/question'
 import Sticky from '@/components/Sticky/index.vue'
-import emptyBox from '@/components/emptyBox/index.vue'
+import { TAG_LIST, Qtag } from '../../global'
 
 export interface Ifilters {
   articleTag: string
@@ -63,9 +63,8 @@ export interface Ifilters {
     Header,
     questionItem,
     hotCard,
-    askCard,
+    totalCard,
     Sticky,
-    emptyBox,
   },
 })
 
@@ -73,58 +72,54 @@ export default class extends Vue {
   private visible: boolean = true
   private activeIndex: string = '0'
   private hotList: Iquestion[] = []
-  private options: Itag[]= []
+  private options: Qtag[] = TAG_LIST
   private asks: Iquestion[] = []
+
   private loading: boolean = false
+  private noMore: boolean = false
+  private isEmpty: boolean = false
+
   private filters: Ifilters = { articleTag: '全部', page: 0, status: 0 }
 
   private filterAsk() {
     this.filters.page = 0
+    this.asks = []
+    this.noMore = false
+    this.isEmpty = false
     this.filters.articleTag = this.options.filter(item => item.laber == this.activeIndex)[0].value
-    document.documentElement.scrollTop = 0
-    this.getAsklists()
+    this.fetchData()
+  }
+
+  private onLoad() {
+    this.filters.page = this.filters.page + 1
+    this.fetchData()
+  }
+
+  private async fetchData() {
+    this.loading = true
+    const { data } = await getAskList(this.filters)
+    if (data.length > 0) {
+      this.loading = false
+      this.asks = this.asks.concat(data)
+    } else {
+      this.isEmpty = true
+    }
+    if (data.length < 10) {
+      this.noMore = true
+      this.loading = false
+    }
   }
 
   private async created() {
-    await this.getAsklists()
+    this.fetchData()
     let hotList = await getAskListHot()
     this.hotList = hotList.data
-    const { data } = await getArticleTags()
-    data[0].options.unshift({ laber: '0', value: '全部' })
-    this.options = data[0].options
-    
-  }
-
-  private async getAsklists() {
-    const { data } = await getAskList(this.filters)
-    this.asks = data 
   }
   
   private handleScroll(event: boolean) {
     this.visible = event
   }
 
-  private async lazyLoading () { // 滚动到底部，再加载的处理事件
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-    let clientHeight = document.documentElement.clientHeight
-    let scrollHeight = document.documentElement.scrollHeight 
-    if (scrollTop + clientHeight >= scrollHeight) { // 如果滚动到接近底部，自动加载下一页
-      this.filters.page = this.filters.page + 1
-      const { data } = await getAskList(this.filters)
-      this.asks = this.asks.concat(data)
-      if (data.length < 15) {
-        window.removeEventListener('scroll', this.lazyLoading) 
-      }
-    }
-  }
-
-  public mounted() {
-    window.addEventListener('scroll', this.lazyLoading) 
-  }
-
-  public beforeDestroy() {
-    window.removeEventListener('scroll', this.lazyLoading) 
-  }
 }
 </script>
 
@@ -199,5 +194,8 @@ export default class extends Vue {
     }
     
   }
+}
+.questions-empty {
+  background: #fff;
 }
 </style>

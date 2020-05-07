@@ -10,7 +10,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
-import Setting from '@/components/setting/index.vue'
+import Setting from './components/index.vue'
 
 @Component({
   name:'settings',

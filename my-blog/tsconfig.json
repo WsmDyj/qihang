@@ -24,6 +24,15 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "vant/lib/list": [
+        "node_modules/vant/types/list"
+      ],
+      "vant/lib/loading": [
+        "src/components/vant/loading"
+      ],
+      "vant/lib/empty": [
+        "src/components/vant/empty"
       ]
     },
     "lib": [

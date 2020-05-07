@@ -5,6 +5,7 @@ import store from './store'
 import './permission'
 import "normalize.css/normalize.css";
 import './utils/rem'
+import "vant/lib/index.css";
 
 import formatDate from "./utils/formatDate";
 
@@ -20,8 +21,26 @@ import './components/index'
 import '@/styles/index.scss'
 
 
+/**
+ * vant 引入的全局注册的公共组件
+ * van-list、van-loading...
+ */
+import list from "vant/lib/list"
+import loading from "vant/lib/loading"
+import empty from "vant/lib/empty"
+const VantComps: any = {
+  list,
+  loading,
+  empty,
+}
+
+
+Object.keys(VantComps).map((key) => { 
+  Vue.component(`van-${key}`, VantComps[key]) 
+})
+
 Vue.config.productionTip = false;
-Vue.use(Element)
+Vue.use(Element);
 
 /**
  * 注册全局指令

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="follow" v-for="(item, index) in lists" :key="index">
       <author-info :userInfo='item'>
-        <div slot="content" class="detail">{{ item.job }} @{{ item.company }}</div>
+        <div slot="content" class="detail">{{ item.job }} @{{ item.company || '公司' }}</div>
       </author-info>
       <div class="follow-action">
         <followAction size='small' :author = item.nickname />

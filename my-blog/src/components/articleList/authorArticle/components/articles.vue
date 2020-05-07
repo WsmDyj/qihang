@@ -35,7 +35,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { IArticleData, IUserInfo  } from '../../../../api/types'
-import articleTitle from '../../../articleTitle/index.vue'
+import articleTitle from '../../homeArticle/components/articleTitle.vue'
 import articleAction from '../../homeArticle/components/action.vue'
 import { UserModule } from '../../../../store/modules/user'
 import emptyBox from '../../../emptyBox/index.vue'

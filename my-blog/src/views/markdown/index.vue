@@ -46,7 +46,7 @@ import { UserModule } from '../../store/modules/user'
 import debounce from '../../utils/debounce'
 import { detailArticle, createArticle, updateArticle } from '../../api/blog'
 import GenNonDuplicateID from '../../utils/createId'
-import uploadAvatar from '../../components/setting/uploadAvatar/index.vue'
+import uploadAvatar from '../settings/components/uploadAvatar/index.vue'
 import articleType from './components/articleType.vue'
 
 import { html_decode } from '../../utils/formateArticle'

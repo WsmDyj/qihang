@@ -12,7 +12,7 @@
         <div class="ask-tags">
           <popoverTag @select = selectTags />
         </div>
-        <div class="markdown">
+        <div class="markdown-article">
           <markdown-editor 
           ref="markdownEditor"
           :height = 486

@@ -32,18 +32,14 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article {
-  width: 652px;
-  padding: 12px 24px;
+  width: 46.571429rem;
+  padding: .857143rem 1.714286rem;
   background: #fff;
   border-width: 0;
   border-radius: 3px;
-  margin-bottom: 12px;
+  margin-bottom: .857143rem;
   box-shadow: 0 0 20px -5px rgba(158,158,158,.22);
-  transition: all .2s linear;
-  // &:hover {
-  //   transform: translateY(-2px);
-  //   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  // }
+ 
   cursor: default;
   display: flex;
   align-items: center;
