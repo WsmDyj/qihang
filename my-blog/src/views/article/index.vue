@@ -2,10 +2,8 @@
   <div class="container">
     <Header />
     <div class="main">
-      <div class="asside">
-        <articleAction :article= article />
-      </div>
-      <div class="article">
+      <articleAction :article= article />
+      <div class="article section">
         <div class="article-author">
           <div class="author-box">
             <author-info :userInfo= article.author>
@@ -21,7 +19,7 @@
           <author-follow size='mini' :author = article.author.nickname ></author-follow>
         </div>
         <div class="article-img" v-if="article.articleImg">
-          <el-image fit="cover" style="width: 652px; height: 367px" :src="article.articleImg"></el-image>
+          <el-image fit="cover" class="article-img" :src="article.articleImg"></el-image>
         </div>
         <div class="article-title">{{ article.title }}</div>
         <div ref="article" v-highlight>
@@ -76,7 +74,7 @@ const defaultArticle = {
   createtime: '',
   likeCount: 0,
   comments: 0,
-  reviews: 0,
+  reviews: null,
   markdown: '',
 }
 
@@ -179,65 +177,55 @@ export default class  extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  @include flexcolumn($jc:none, $ai:center);
-  .main {
-    display: flex;
-    position: relative;
-    margin: 80px 0 20px 0;
-    .article {
+.article {
+  position: relative;
+  background: #fff;
+  padding: 2.142857rem /* 30/14 */ 1.428571rem /* 20/14 */;
+  &-placement {
+    height: 367px;
+    background-color: #f4f5f5;
+    &__comment {
+      margin-top: 30px;
+      height: 30px;
+      width: 40%;
+      background-color: #f4f5f5;
+    }
+    &__domin {
+      margin: 20px 0;
+      height: 20px;
+      width: 50%;
+      background-color: #f4f5f5;
+    }
+  }
+  &-author {
+    @include flexcenter($jc: space-between);
+    font-size: 1rem /* 14/14 */;
+    .article-time {
+      letter-spacing: 1px;
+      padding-right: 5px;
+    }
+    .article-edit {
+      color: $primary;
       position: relative;
-      padding: 30px 20px;
-      margin-right: 20px;
-      width: 700px;
-      box-sizing: border-box;
-      background: #fff;
-      &-placement {
-        height: 367px;
-        background-color: #f4f5f5;
-        &__comment {
-          margin-top: 30px;
-          height: 30px;
-          width: 40%;
-          background-color: #f4f5f5;
-        }
-        &__domin {
-          margin: 20px 0;
-          height: 20px;
-          width: 50%;
-          background-color: #f4f5f5;
-        }
+      @include textRound($color:'#409EFF');
+      @media only screen and (max-width: 750px) { 
+        display: none
       }
-      &-author {
-        @include flexcenter($jc: space-between);
-        .article-time {
-          letter-spacing: 1px;
-          padding-right: 5px;
-        }
-        .article-review {
-          @include textRoundRight('#409EFF');
-        }
-        .article-edit {
-          padding-left: 4px;
-          color: $primary;
-          &:hover {
-            color: #409EFF;
-            text-decoration: underline;
-          }
-        }
-      }
-      &-img {
-        margin-top: 24px;
-        text-align: center;
-        width: 652px;
-        height: 367px;
-      }
-      &-title {
-        font-size: 30px;
-        font-weight: 700;
-        line-height: 1.5;
-        margin: 20px 0;
-      }
+    }
+  }
+  &-img {
+    text-align: center;
+    width: 46.571429rem /* 652/14 */;
+    height: 26.214286rem /* 367/14 */;
+    margin: auto auto;
+  }
+  &-title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 1.428571rem /* 20/14 */ 0;
+    @media only screen and (max-width: 750px) { 
+      font-size: 20px
     }
   }
 }

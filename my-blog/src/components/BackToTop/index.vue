@@ -71,8 +71,8 @@ export default class extends Vue {
   display: inline-block;
   text-align: center;
   background-color: #fff;
-  right: 50px;
-  bottom: 110px;
+  right: 3.571429rem /* 50/14 */;
+  bottom: 7.857143rem /* 110/14 */;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -82,6 +82,9 @@ export default class extends Vue {
   cursor: pointer;
   &:hover {
     background: rgba(0,0,0,.12)
+  }
+  @media only screen and (max-width: 750px) { 
+    display: none
   }
 }
 

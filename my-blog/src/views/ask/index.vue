@@ -93,7 +93,7 @@ export default class extends Vue {
   align-items: center;
   justify-content: center;
   .main {
-    width: 932px;
+    width: 994px;
     margin-top: 90px;
     display: flex;
     justify-content: space-between;

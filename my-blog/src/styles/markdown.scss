@@ -1,17 +1,20 @@
 .article-content {
   font-size: 15px;
-  word-break: break-word;
-  line-height: 1.75;
   color: #333;
+  line-height: 1.75;
+  word-break: break-word;
   font-weight: 400;
   font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   text-rendering: optimizeLegibility;
+  @media only screen and (max-width: 750px) { 
+     font-size: 13px /* 15/14 */;
+  }
     /*对 markdown 样式的补充*/
   pre {
     display: block;
     font-size: 12px;
     line-height: 1.42857143;
-    color: #333;
+    color: #222;
     font-size: 14px;
     padding: 18px 15px 12px;
     background: #f8f8f8;
@@ -62,9 +65,8 @@
     display: flex;
   }
   img {
-    margin-top: 2em;
     margin: 0 auto;
-    max-width: 900px;
+    max-width: 52.142857rem /* 730/14 */;
     zoom: 60%;
   }
   a {
@@ -90,8 +92,28 @@
           line-height: 24px;
           text-align: left;
         }
+      }
     }
-    }
+  }
+}
+// markdown 设置
+.markdown-article {
+  .tui-editor-defaultUI .CodeMirror-lines {
+    font-size: 17px;
+    background-color: #f8f9fa;
+  }
+  .tui-editor-defaultUI .CodeMirror-scroll {
+    background-color: #f8f9fa;
+  }
+  .tui-editor .te-preview-style-vertical .te-preview {
+    background: #fff;
+  }
+  .te-md-container .te-preview .tui-editor-contents {
+    font-size: 17px;
+  }
+  .tui-editor-defaultUI .te-mode-switch-section {
+    height: 35px!important;
+    background: #fff;
   }
 }
 

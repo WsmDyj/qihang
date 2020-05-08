@@ -1,3 +1,33 @@
+// 页面统一样式
+.container {
+  @include flexcolumn($jc:center, $ai: center);
+  .main {
+    width: 994px;
+    margin: auto auto;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    position: relative;
+    @include flexcenter($jc:space-between, $ai: none);
+    @media only screen and (max-width: 1024px) { 
+      width: 100%;
+      margin-top: 70px;
+    }
+    .section, article {
+      width: 730px;
+      box-sizing: border-box;
+      @media only screen and (max-width: 1024px) { 
+        width: 100%;
+      }
+    }
+    .asside {
+      width: 17.142857rem /* 240/14 */;
+      @media only screen and (max-width: 1024px) { 
+        display: none
+      }
+    }
+  }
+}
+
 .qh-hairline--bottom {
   border-bottom: 1px solid $border-color;
 }

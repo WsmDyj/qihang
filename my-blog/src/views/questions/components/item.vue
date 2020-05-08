@@ -3,14 +3,16 @@
     <div class="qa-summary">
       <div class="summary-author">
         <span class="author-name">{{ ask.author }}</span>
-        <span class="qa-time">{{ formatDate(ask.createtime) }} 提问</span>
+        <span class="qa-time">{{ formatDate(ask.createtime) }}
+          <span class="title-type" v-for="(tag, index) in ask.articleTag" :key="index">{{ tag }}</span>
+        </span>
         <span class="qa-delete" v-if="origin==='author' && visible" @click.stop="deleteAsk(ask)">
           <i class="el-icon-delete"></i>
         </span>
       </div>
       <div class="summary-title">
         <span class="title-conter">{{ ask.title }}</span>
-        <span class="title-type" v-for="(tag, index) in ask.articleTag" :key="index">{{ tag }}</span>
+        
       </div>
     </div>
     <div class="qa-rank">
@@ -58,7 +60,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .question {
   background: #fff;
-  width: 700px;
+  width: 100%;
   box-sizing: border-box;
   padding: 12px 20px 6px 20px;
   display: flex;
@@ -77,6 +79,9 @@ export default class extends Vue {
     justify-content: space-between;
     color: #757575;
     width: 140px;
+    @media only screen and (max-width: 750px) { 
+      width: 120px;
+    }
     .qa-votes {
       cursor: default;
       padding: 5px 0;
@@ -106,12 +111,21 @@ export default class extends Vue {
     position: relative;
     margin-right: 10px;
     .summary-author {
-      font-size: 13px;
+      font-size: 1rem;
       color: #b2bac2;
       cursor: default;
       position: relative;
       .qa-time {
         @include textRound();
+        .title-type {
+          display: inline-block;
+          @include textRound();
+          margin-top: .428571rem /* 6/14 */;
+          box-sizing: border-box;
+          font-weight: normal;
+          font-size: 1rem;
+          text-align: center;
+        }
       }
     }
     .summary-title {
@@ -121,28 +135,13 @@ export default class extends Vue {
       color: #2e3135;
       cursor: default;
       @include twoLines();
+      @media only screen and (max-width: 750px) { 
+        font-size: 15px;
+      }
       .title-conter {
         margin-right: 10px;
         &:hover {
           text-decoration: underline;
-        }
-      }
-      .title-type {
-        display: inline-block;
-        padding: 0px 6px;
-        box-sizing: border-box;
-        color: $primary;
-        background: rgba(2,127,255,0.08);
-        font-weight: normal;
-        height: 22px;
-        line-height: 22px;
-        font-size: 13px;
-        cursor: pointer;
-        text-align: center;
-        margin-right: 10px;
-        &:hover {
-          background: $primary;
-          color: #fff;
         }
       }
     }

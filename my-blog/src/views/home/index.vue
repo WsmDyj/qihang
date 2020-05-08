@@ -2,10 +2,10 @@
   <div class="container">
     <Header :visible= visible />
     <div class="main">
-      <div class="articles">
+      <div class="section">
         <carousel />
         <sticky @scroll="handleScroll" :z-index= 9 className='articles-fixed' :sticky-top="60">
-          <div :class="visible ? 'articles-nav': 'nav-top articles-nav'">
+          <div class="articles-nav" :class="{ navTop: !visible }">
             <el-tabs @tab-click="selectNav" v-model="filters.activeIndex">
               <el-tab-pane v-for="(item, index) in actions" :key="index" :label="item.value" :name="item.laber">
               </el-tab-pane>
@@ -125,28 +125,27 @@ export default class extends Vue {
 </script>
 
 <style lang="scss">
-.container {
-  @include flexcolumn($jc:center, $ai: center);
-  .main {
-    width: 68.857143rem /* 964/14 */;
-    margin-top: 80px;
-    margin-bottom: 20px;
-    position: relative;
-    @include flexcenter($jc:space-between, $ai: none);
-  }
+.article-skeleton {
+  width: 46.571429rem;
+  padding: .857143rem 1.714286rem;
+  background: #fff;
+  border-width: 0;
+  border-radius: 3px;
+  margin-bottom: .857143rem;
+  box-shadow: 0 0 20px -5px rgba(158,158,158,.22);
 }
 .articles-nav {
-  width: 700px;
+  width: 100%;
   overflow-y: hidden;
   overflow-x:scroll;
 }
 .article-empty {
   padding-top: 30px;
-  width: 700px;
+  width: 100%;
   height: 200px;
 }
 
-.nav-top {
+.navTop {
   width: 100vw;
   background: #ffffff;
   transform: translate3d(0,-60px,0);

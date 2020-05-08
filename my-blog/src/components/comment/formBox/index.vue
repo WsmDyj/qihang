@@ -26,7 +26,7 @@
             </div>
           </el-popover>
           <div>
-            <span style="margin-right:10px;color:##c2c2c2;" class="tooptip">Ctrl or ⌘ + Enter</span>
+            <!-- <span class="tooptip">Ctrl or ⌘ + Enter</span> -->
             <el-button :size="type == 'reply' ? 'mini' : 'small'" @click="submit" :disabled = disabled type="primary">评论</el-button>
           </div>
         </div>
@@ -131,9 +131,10 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .comment-box {
   @include flexcenter($jc:space-between);
+  width: 100%;
   color: #8a9aa9;
-  margin-top: 12px;
-  font-size: 12px;
+  margin-top: .857143rem /* 12/14 */;
+  font-size: .857143rem /* 12/14 */;
   cursor: pointer;
   .comment-time {
     color: #8a9aa9;
@@ -142,20 +143,21 @@ export default class extends Vue {
   .comment-action {
     @include flexcenter($jc: none);
     .action-title {
-      padding: 0 5px;
+      padding: 0 .357143rem /* 5/14 */;
     }
   }
 }
 .form-box {
-  padding: 12px 16px;
-  margin-top: 15px;
+  padding: .857143rem /* 12/14 */ 1.142857rem /* 16/14 */;
+  margin-top: 1.071429rem /* 15/14 */;
   background-color: #fafbfc;
   position: relative;
+  width: 100%;
   border-radius: 3px;
   .submit {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: .714286rem /* 10/14 */;
     .emoji {
       color: $primary;
       cursor: pointer;
@@ -169,14 +171,18 @@ export default class extends Vue {
         background-image: url('../../../assets/svg/emoji.svg');
       }
       .emoji-text {
-        font-size: 13px;
-        padding-left: 5px;
+        font-size: 1rem;
+        padding-left: .357143rem /* 5/14 */;
         display: inline-block;
         vertical-align: middle;
       }
     }
     
   }
+}
+.tooptip {
+  font-size: 1rem;
+  margin-right: .714286rem /* 10/14 */
 }
 .reply {
   background: #fff;
@@ -185,6 +191,7 @@ export default class extends Vue {
 .first {
   padding: 0;
   margin-top: 0;
+  width: 100%;
 }
 .emojis {
   max-width: 280px;
@@ -202,7 +209,7 @@ export default class extends Vue {
     align-items: center;
     justify-content: flex-start;
     .item {
-      font-size: 22px;
+      font-size: 1.571429rem /* 22/14 */;
       padding: 2px 3px;
       cursor: pointer;
       &:hover {

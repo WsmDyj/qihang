@@ -51,7 +51,6 @@ export default class extends Vue {
     {value: "内推招聘", laber: "2"}
   ]
   
-  
   private handleScroll(event: boolean) {
     this.visible = event
   }
@@ -61,36 +60,34 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  @include flexcolumn($jc:center, $ai: center);
-  .navigation {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 46px;
-    z-index: 9;
-    line-height: 46px;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-    transition: all .2s;
-    background: #fff;
-    cursor: pointer;
-    .navigation-content {
-      display: flex;
-      justify-content: space-between;
-      height: 100%;
-      box-sizing: border-box;
-      width: 964px;
-      margin: 0 auto;
+.navigation {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  height: 46px;
+  z-index: 9;
+  line-height: 46px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  transition: all .2s;
+  background: #fff;
+  cursor: pointer;
+  .navigation-content {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    box-sizing: border-box;
+    width: 994px;
+    margin: 0 auto;
+    @media only screen and (max-width: 750px) { 
+      width: 100%;
+      margin: 0 10px;
     }
   }
-  .top {
-    transform: translate3d(0,-60px,0);
-  }
-  .main {
-    width: 968px;
-    margin-top: 126px;
-    margin-bottom: 20px;
-    position: relative;
-  }
+}
+.top {
+  transform: translate3d(0,-60px,0);
+}
+.main {
+  margin-top: 126px !important;
 }
 </style>

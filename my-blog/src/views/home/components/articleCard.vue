@@ -5,8 +5,8 @@
       <div class="article-desc">{{article.ellipsis}}</div>
       <articleAction :article= article />
     </div>
-     <div class="article-img" v-show="article.articleImg">
-      <el-image fit="cover" style="border-radius: 3px;width: 140px; height: 130px" :src = article.articleImg ></el-image>
+    <div class="article-img" v-show="article.articleImg">
+      <el-image fit="cover" class="article-img" :src = article.articleImg ></el-image>
     </div>
   </div>
 </template>
@@ -32,20 +32,19 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article {
-  width: 46.571429rem;
-  padding: .857143rem 1.714286rem;
+  width: 100%;
+  padding: 1.428571rem /* 20/14 */;
   background: #fff;
+  box-sizing: border-box;
   border-width: 0;
-  border-radius: 3px;
   margin-bottom: .857143rem;
   box-shadow: 0 0 20px -5px rgba(158,158,158,.22);
- 
   cursor: default;
   display: flex;
   align-items: center;
   .article-img {
-    width: 140px;
-    height: 130px;
+    width: 10rem /* 140/14 */;
+    height: 10rem /* 140/14 */;
     border-radius: 3px;
     position: relative;
     &:hover:after{
@@ -61,27 +60,28 @@ export default class extends Vue {
     }
   }
   .article-content {
-    margin-right: 20px;
-    height: 158px;
+    margin-right: 1.428571rem /* 20/14 */;
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     .article-title {
       @include twoLines();
-      font-size: 20px;
-      font-weight: 600;
+      font-weight: bold;
+      font-size: 1.428571rem /* 20/14 */;
       color: #2e3135;
+      @media only screen and (max-width: 750px) { 
+        font-size: 15px
+      }
       &:hover {
         color: $primary;
         text-decoration: underline !important;
       }
     }
     .article-desc {
-      display:-webkit-box;
-      -webkit-box-orient:vertical;
-      -webkit-line-clamp:2;//控制行数
-      overflow:hidden;
+      margin: .714286rem /* 10/14 */ 0;
+      line-height: 1.8;
+      @include twoLines($clamp: 2);
       color: #5e646d;
     }
   }

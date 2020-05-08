@@ -80,7 +80,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .comment {
-  padding: 20px;
+  padding: 1.428571rem /* 20/14 */;
   position: relative;
   .comment-header {
     display: flex;
@@ -92,7 +92,7 @@ export default class extends Vue {
       right: 0;
       color: $primary;
       font-size: 50px;
-      }
+    }
   }
 }
 </style>

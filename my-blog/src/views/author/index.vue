@@ -82,7 +82,7 @@ export default class extends Vue {
 .container {
   @include flexcolumn($jc:center, $ai: center);
   .main {
-    width: 964px;
+    width: 994px;
     margin-top: 80px;
     margin-bottom: 20px;
     position: relative;

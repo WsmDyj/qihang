@@ -19,7 +19,7 @@
             <el-radio class="details" :label="1">已回答</el-radio>
             <el-radio class="details" :label="2">已解决</el-radio>
           </el-radio-group>
-          <el-link href="/ask" icon="el-icon-plus" type="primary">提问</el-link>
+          <el-link href="/ask" class="questions-ask" icon="el-icon-plus" type="primary">提问</el-link>
         </div>
         <div class="questions-content">
           <div v-if="isEmpty" class="questions-empty">
@@ -124,75 +124,68 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  .navigation {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 46px;
-    z-index: 9;
-    line-height: 46px;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-    transition: all .2s;
-    background: #fff;
-    cursor: pointer;
-    .question-content {
-      display: flex;
-      justify-content: space-between;
-      height: 100%;
-      box-sizing: border-box;
-      width: 964px;
-      margin: 0 auto;
-      .el-dropdown-link {
-        cursor: pointer;
-        color: $navcolor;
-        font-weight: 500;
-      }
-      .el-icon-arrow-down {
-        font-size: 12px;
-        font-weight: 500;
-      }
-    }
-  }
-  .top {
-    transform: translate3d(0,-60px,0);
-  }
-  .main {
-    width: 964px;
-    margin-top: 126px;
+.navigation {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  height: 46px;
+  z-index: 9;
+  line-height: 46px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  transition: all .2s;
+  background: #fff;
+  cursor: pointer;
+  .question-content {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    .questions-container {
-      width: 700px;
-      .questions-nav {
-        padding: 15px 20px 15px 15px;
-        border-bottom: 1px solid hsla(0,0%,59.2%,.1);
-        background: #fff;
-        display: flex;
-        justify-content: space-between;
-        .details {
-          position: relative;
-          display: inline-block;
-          &:nth-child(-n +2) {
-            padding-right: 20px;
-            @include splitLine($right:10px)
-          }
+    height: 100%;
+    box-sizing: border-box;
+    width: 994px;
+    margin: 0 auto;
+    .el-dropdown-link {
+      cursor: pointer;
+      color: $navcolor;
+      font-weight: 500;
+    }
+    .el-icon-arrow-down {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
+.top {
+  transform: translate3d(0,-60px,0);
+}
+.main {
+  margin-top: 126px !important;
+  .questions-container {
+    width: 730px;
+    .questions-nav {
+      padding: 15px 20px 15px 15px;
+      border-bottom: 1px solid hsla(0,0%,59.2%,.1);
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      .questions-ask {
+        @media only screen and (max-width: 750px) { 
+          display: none
         }
-        .nav-ask {
-          color: $primary;
-          &:hover {
-            text-decoration: underline;
-          }
+      }
+      .details {
+        position: relative;
+        display: inline-block;
+        &:nth-child(-n +2) {
+          padding-right: 20px;
+          @include splitLine($right:10px)
+        }
+      }
+      .nav-ask {
+        color: $primary;
+        &:hover {
+          text-decoration: underline;
         }
       }
     }
-    
   }
 }
 .questions-empty {

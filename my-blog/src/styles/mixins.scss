@@ -1,7 +1,7 @@
 /* 
   Mixins
 */
-$font-sizes: 14, 16, 18;
+$font-sizes: 14, 15, 16, 18, 20, 22;
 
 @each $font-size in $font-sizes {
   .fs-#{$font-size} {
@@ -64,7 +64,7 @@ $font-sizes: 14, 16, 18;
   &::before {
     content: "·";
     color: $color;
-    padding:0 4px;
+    padding: 0 5px;
   }
 }
 /* 文字右边边小原点 */

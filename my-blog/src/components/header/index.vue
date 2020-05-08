@@ -1,12 +1,17 @@
 <template>
   <div class="navbar qh-hairline--bottom" :class="{visible: visible}">
     <div class="navbar-container">
-      <router-link to='/'>
+      
+      <div class="qh-logo">
+        <!-- <router-link to='/'>
         <el-image fit='fill' class="qh-logo" :src="require('../../assets/login/qihang.jpg')" />
-      </router-link>
+      </router-link> -->
+      </div>
       
       <div class="navbar-content">
-        <Nav />
+        <div>
+          <Nav />
+        </div>
         <div class="navbar-wrapper">
           <div class="navbar-wrapper__search">
             <el-input
@@ -14,7 +19,7 @@
               @focus="inputIcon = true"
               @blur="inputIcon = false"
               v-model="keyword"
-              placeholder="搜索文章或用户"
+              placeholder="搜索起航"
             />
             <router-link
               :style="{ color: inputIcon ? '#007fff' : '#DCDFE6' }"
@@ -26,9 +31,9 @@
           </div>
 
           <div class="navbar-wrapper__action" v-if="visivle">
-            <div class="navbar-wrapper__action--item header-button">
+            <div class="screen-button">
               <router-link to="/markdown">
-                <el-button size="mini" type="primary">写文章</el-button>
+                <div class="header-button">写文章</div>
               </router-link>
             </div>
             <div class="notice">
@@ -116,7 +121,16 @@ export default class extends Vue {
     @include flexcenter($jc: space-between);
     margin: auto auto;
     height: 100%;
-    width: 70.857143rem /* 992/14 */;
+    width:  71rem /* 994/14 */;
+    @media only screen and (max-width: 1024px) { 
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 10px;
+    }
+  }
+  &-content {
+    @include flexcenter($jc: space-between);
+    flex: 1;
   }
 
   &-wrapper {
@@ -124,12 +138,15 @@ export default class extends Vue {
     &__search {
       position: relative;
       display: inline-block;
-      width: 12.857143rem /* 180/14 */;
+      width: 180px;
       .search-icon {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         right: 10px;
+      }
+      @media only screen and (max-width: 750px) { 
+        width: 120px;
       }
     }
 
@@ -150,7 +167,7 @@ export default class extends Vue {
         }
       }
       .notice {
-        padding: 0 20px;
+        padding: 0 2.142857rem /* 30/14 */;
         &-icon {
           font-size: 24px;
           color: $navcolor;
@@ -161,10 +178,20 @@ export default class extends Vue {
       }
     }
   }
-
-  &-content {
-    @include flexcenter($jc: space-between);
-    flex: 1;
+}
+.header-button {
+  width: 80px;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  font-size: 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: $primary;
+  margin-left: 2.142857rem /* 30/14 */;
+  @media only screen and (max-width: 750px) { 
+    display: none
   }
 }
 
@@ -175,5 +202,12 @@ export default class extends Vue {
   width: 98px;
   height: 42px;
   margin-right: 2.142857rem /* 30/14 */;
+  background-image: url('../../assets/login/qihang.jpg');
+  background-size: 100% 100%;
+  @media only screen and (max-width: 750px) { 
+    width: 45px;
+    height: 42px;
+    background-image: url('../../assets/login/logo.png');
+  }
 }
 </style>

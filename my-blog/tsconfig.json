@@ -28,6 +28,12 @@
       "vant/lib/list": [
         "node_modules/vant/types/list"
       ],
+      "vant/lib/tabs": [
+        "node_modules/vant/types/tabs"
+      ],
+      "vant/lib/tab": [
+        "src/components/vant/tab"
+      ],
       "vant/lib/loading": [
         "src/components/vant/loading"
       ],

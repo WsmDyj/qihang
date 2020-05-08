@@ -28,7 +28,7 @@ const newComment = async (commentData = {}) => {
   const comment_id = commentData.comment_id
   let sqlArticle = `update blogs set blogs.comments = blogs.comments + 1 where article_id='${article_id}';`
   if (comment_Type === 'question') {
-    sqlArticle = `update questions set questions.comments = questions.comments + 1 where question_id='${article_id}';`
+    sqlArticle = `update questions set questions.comments = questions.comments + 1, status = 1 where question_id='${article_id}';`
   }
   const sql =  `insert into comment (article_id, comment_conent, comment_author, comment_time, comment_id) values ('${article_id}','${comment_conent}','${comment_author}', '${comment_time}', '${comment_id}' ); `
   const insertData = await exec(sql)

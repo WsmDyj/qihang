@@ -47,20 +47,20 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .reply {
-  margin-top: 20px;
-  padding: 12px 16px;
+  margin-top: 1.428571rem /* 20/14 */;
+  padding: .857143rem /* 12/14 */ 1.142857rem /* 16/14 */;
   background-color: #fafbfc;
   border-radius: 3px;
   .reply-content {
-    margin-top: 10px;
+    margin-top: .714286rem /* 10/14 */;
     border-bottom: 1px solid #f1f1f1;
     &:last-child {
       border-bottom: none;
     }
     .reply-box {
       color: #505050;
-      font-size: 12px;
-      margin-top: 8px;
+      font-size: .857143rem /* 12/14 */;
+      margin-top: .571429rem /* 8/14 */;
       .text {
         color: #406599;
         &:hover {
@@ -72,8 +72,8 @@ export default class extends Vue {
     .reply-info {
       @include flexcolumn();
       box-sizing: border-box;
-      padding-bottom: 10px;
-      padding-left: 46px;
+      padding-bottom: .714286rem /* 10/14 */;
+      padding-left: 3.285714rem /* 46/14 */;
     }
   }
 }

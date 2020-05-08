@@ -26,7 +26,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .about {
-  width: 240px;
+  width: 17.142857rem /* 240/14 */;
   border-radius: 3px;
   background: #fff;
   margin-bottom: 20px;

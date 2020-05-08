@@ -7,8 +7,10 @@
         </span>
         <span class="author-name">{{article.author}}</span>
       </div>
-      <i class="iconfont">&#xe794;</i>
-      <span class="article-tag">{{article.articleTag}}</span>
+      <div class="tags">
+        <i class="iconfont">&#xe794;</i>
+        <span class="article-tag">{{article.articleTag}}</span>
+      </div>
     </div>
     <div class="article-action">
       <span class="action-item">
@@ -52,47 +54,55 @@ export default class extends Vue {
   justify-content: space-between;
   align-items: center;
   .article-author {
-    font-size: 13px;
+    vertical-align: middle;
+    font-size: 1rem /* 13/14 */;
+    flex: 1;
+    width: 5.714286rem /* 80/14 */;
     display: flex;
     align-items: center;
+    align-items: center;
     .author-info {
-      padding-right: 10px;
+      padding-right: .714286rem /* 10/14 */;
       cursor: pointer;
       .author-avatar {
         display: inline-block;
         vertical-align: middle;
         padding-top: 5px;
+        @media only screen and (max-width: 1024px) { 
+          transform: scale(.8);
+        }
       }
       .author-name {
         display: inline-block;
         vertical-align: middle;
-        padding-left: 12px;
+        padding-left: .857143rem /* 12/14 */;
       }
       &:hover {
         color: $primary;
       }
     }
-    .iconfont {
-      color: $primary;
-      padding: 2px 5px 0 5px;
-    }
-    .article-tag {
-      color: $primary;
-      @include textRoundRight($color: $primary);
-      &:last-child::after {
-        content: none;
+    .tags {
+      flex: 1;
+      vertical-align: middle;
+      @include nowrap();
+      .iconfont {
+        color: $primary;
+        padding: 0 5px;
+      }
+      .article-tag {
+        font-size: 1rem /* 14/14 */;
+        color: $primary;
       }
     }
   }
   .article-action {
-    font-size: 14px;
+    font-size: 1rem /* 14/14 */;
     color: $fontcolor;
     display: flex;
-    width: 160px;
     justify-content: space-between;
     .action-item {
+      padding: 0 .714286rem /* 10/14 */;
       .iconfont {
-        font-size: 14px;
         padding:0 2px;
       }
       .count {

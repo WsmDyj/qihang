@@ -2,7 +2,7 @@
   <div id="comment" class="comment">
     <div class="comment-title">评论</div>
     <div class="comment-form">
-      <el-avatar fit='fill' size="medium" :src= avatar></el-avatar>
+      <el-avatar fit="cover" size="medium" :src= avatar></el-avatar>
       <div class="comment-input">
         <formBox type='first' @submit='createComment' />
       </div>
@@ -99,36 +99,36 @@ export default class extends Vue {
   font-size: 16px;
   font-weight: 400;
   text-align: center;
-  padding: 22px 0 5px;
+  padding: 1.571429rem /* 22/14 */ 0 5px;
 }
 .comment-form {
   display: flex;
   position: relative;
-  margin-top: 20px;
-  padding: 12px 16px;
+  margin-top: 1.428571rem /* 20/14 */;
+  padding: .857143rem /* 12/14 */ 1.142857rem /* 16/14 */;
   background-color: #fafbfc;
   border-radius: 3px;
   .comment-input {
     width: 100%;
-    margin-left: 20px;
+    margin-left: 1.071429rem /* 15/14 */;
   }
 }
 .comment-content {
-  margin: 20px 30px 20px 50px;
+  margin: 1.428571rem /* 20/14 */ 2.142857rem /* 30/14 */ 1.428571rem /* 20/14 */ 3.571429rem /* 50/14 */;
   border-bottom: 1px solid #f1f1f1;
   &:last-child {
     border-bottom: none;
   }
   .comment-text {
     color: #505050;
-    font-size: 14px; 
-    margin-top: 8px;
+    font-size: 1rem /* 14/14 */;
+    margin-top: .571429rem /* 8/14 */;
   }
   .comment-info {
     @include flexcolumn();
     box-sizing: border-box;
-    padding-bottom: 15px;
-    padding-left: 46px;
+    padding-bottom: 1.071429rem /* 15/14 */;
+    padding-left: 3.285714rem /* 46/14 */;
   }
 }
 </style>

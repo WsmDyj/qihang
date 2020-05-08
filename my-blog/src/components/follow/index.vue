@@ -62,7 +62,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .follow-action {
-  font-size: 13px;
+  font-size: 1rem;
   text-align: center;
   padding: 0;
 }

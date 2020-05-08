@@ -24,7 +24,7 @@ export const NAV_LIST: Qlist[]  = [
 ]
 
 export const TAG_LIST: Qtag[] = [
-  { laber: "0", value: "全部" },
+  { value: "全部", laber: "0" },
   { value: "Vue", laber: "1" },
   { value: "React", laber: "2" },
   { value: "JavaScript", laber: "3" },
@@ -36,5 +36,5 @@ export const TAG_LIST: Qtag[] = [
   { value: "Http", laber: "9" },
   { value: "Docker", laber: "10" },
   { value: "性能优化", laber: "11" },
-  { value: "微信小程序", laber: "12" },
+  { value: "小程序", laber: "12" },
 ]

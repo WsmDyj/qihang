@@ -1,10 +1,11 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import { UserModule } from '../store/modules/user'
 
+const BASE_URL = process.env.NODE_ENV === "development" ? "/api" : "http://qihang.pro"
 const service = axios.create({
   // timeout: 5000,
-  baseURL: "http://qihang.pro",
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 

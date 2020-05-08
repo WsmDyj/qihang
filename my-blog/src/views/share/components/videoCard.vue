@@ -1,7 +1,7 @@
 <template>
   <div @click="handleClick(list)" class="share">
     <div class="share-img">
-      <el-image fit="cover" style=" border-radius: 2px;width: 230px; height: 120px" :src='list.imgUrl' ></el-image>
+      <el-image fit="cover" class="share-img" :src='list.imgUrl' ></el-image>
     </div>
     <div class="share-content">
       <div class="share-title">{{ list.title }}</div>
@@ -37,13 +37,18 @@ export default class extends Vue {
   width: 230px;
   height: 270px;
   background: #fff;
-  border-radius: 2px;
   @include hoverState();
-  margin: 0 10px 20px 2px;
+  margin-bottom: 20px;
   box-sizing: border-box;
-  &:nth-child(4n) {
-    margin-right: 0px;
+  @media only screen and (max-width: 750px) { 
+    width: 170px;
+    height: 240px;
   }
+  .share-img {
+    width: 100%;
+    height: 120px;
+  }
+  
   .share-content {
     padding: 20px 12px 15px;
     height: 150px;
@@ -51,9 +56,12 @@ export default class extends Vue {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    @media only screen and (max-width: 750px) { 
+      height: 120px;
+    }
     .share-title {
       @include nowrap();
-      font-size: 16px;
+      font-size: 1.142857rem /* 16/14 */;
       color: #07111b;
       font-weight: 700;
       cursor: pointer;
@@ -61,6 +69,7 @@ export default class extends Vue {
     .share-desc {
       color: #333;
       font-size: 12px;
+      line-height: 1.3;
       cursor: default;
       @include twoLines();
     }
@@ -76,16 +85,24 @@ export default class extends Vue {
       }
       .share-check {
         color: #fff;
-        width: 100px;
+        width: 80px;
         height: 25px;
-        font-size: 12px;
-        border-radius: 30px;
-        background-color: #4d91fd;
         line-height: 25px;
+        font-size: .857143rem /* 12/14 */;
+        border-radius: 2.142857rem /* 30/14 */;
+        background-color: #4d91fd;
         color: #fff;
         text-align: center;
+        @media only screen and (max-width: 750px) { 
+          width: 70px;
+          height: 20px;
+          line-height: 20px;
+        }
       }
     }
   }
+}
+.main {
+  margin-top: 116px !important;
 }
 </style>

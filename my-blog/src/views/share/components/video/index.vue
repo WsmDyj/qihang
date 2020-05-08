@@ -36,10 +36,14 @@ export default class extends Vue {
 .videos {
   position: relative;
   .share-video {
-    width: 968px;
+    width: 100%;
     .video-conent {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
+      @media only screen and (max-width: 750px) { 
+        margin: 0 10px;
+      }
     }
   }
 }

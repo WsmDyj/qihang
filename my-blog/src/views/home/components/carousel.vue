@@ -1,21 +1,19 @@
 <template>
-  <div class="carousel">
-    <el-carousel :interval = 4000 trigger="click" height="270px">
-      <el-carousel-item v-for="(item, index) in lists" :key="index">
-        <div class="carousel-content" @click="checkArticle(item)">
-          <el-image fit="contain" style="border-radius:4px;width: 700px; height: 270px" :src = item.img></el-image>
-          <div class="carousel-panel">
-            <div class="carousel-title">{{item.title}}</div>
-            <div class="carousel-info">
-              <span class="carousel-name">{{item.author}}</span>
-              <span class="split-line">—</span>
-              <span class="carousel-time">{{item.time}}</span>
-            </div>
+  <el-carousel class="carousel" :interval = 4000  trigger="click" height="100%">
+    <el-carousel-item v-for="(item, index) in lists" :key="index">
+      <div class="carousel-content" @click="checkArticle(item)">
+        <el-image fit="contain" class="carousel-img" :src = item.img></el-image>
+        <div class="carousel-panel">
+          <div class="carousel-title">{{item.title}}</div>
+          <div class="carousel-info">
+            <span class="carousel-name">{{item.author}}</span>
+            <span class="split-line">—</span>
+            <span class="carousel-time">{{item.time}}</span>
           </div>
         </div>
-      </el-carousel-item>
-    </el-carousel>
-  </div>
+      </div>
+    </el-carousel-item>
+  </el-carousel>
 </template>
 
 <script lang="ts">
@@ -55,22 +53,21 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .carousel {
-  height: 270px;
-  width: 700px;
+  height: 19.285714rem /* 270/14 */;
+  width: 100%;
   background: #fff;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  border-radius: 2px;
   .carousel-content {
     width: 100%;
     height: 100%;
     position: relative;
     cursor: default;
     .carousel-panel {
-      height: 124px;
+      height: 8.857143rem /* 124/14 */;
       position: absolute;
       padding: 24px;
       box-sizing: border-box;
-      border-radius: 4px;
+      border-radius: 2px;
       z-index: 99;
       bottom: 0;
       width: 100%;
@@ -82,12 +79,16 @@ export default class extends Vue {
       .carousel-title {
         font-size: 26px;
         font-weight: 600;
+        padding-bottom: 1rem;
+        @media only screen and (max-width: 750px) { 
+          font-size: 16px
+        }
       }
       .carousel-info {
         color: rgba(255,255,255,.5);
         .carousel-name {
           color: #fff;
-          font-size: 14px;
+          font-size: 1rem;
           font-weight: 500;
           vertical-align: middle;
         }
@@ -95,11 +96,16 @@ export default class extends Vue {
           padding: 0 10px;
         }
         .carousel-time {
-          font-size: 14px;
+          font-size: 1rem;
           vertical-align: middle;
         }
       }
     }
   }
+}
+.carousel-img {
+  border-radius: 4px;
+  width: 100%;
+  height: 19.285714rem /* 270/14 */;
 }
 </style>

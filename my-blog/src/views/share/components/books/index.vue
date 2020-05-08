@@ -10,7 +10,7 @@
       <div class="book-introduction">{{book.introduction}}</div>
       <div class="book-rate">
         <span class="rate-label">推荐指数</span>
-        <el-rate v-model=book.rate disabled text-color="#ff9900" score-template="{value}" />
+        <el-rate v-model= book.rate disabled text-color="#ff9900" score-template="{value}" />
       </div>
       <div :style="{'background': book.readUrl ? '#5dcaad':'#c8c9cc'}" @click="checkBook(book.readUrl)" class="share-check">{{book.readUrl ? '免费试读' : '暂无资源'}}</div>
     </div>
@@ -55,18 +55,19 @@ export default class extends Vue {
 .books {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .book {
   display: flex;
   padding: 20px 15px;
-  width: 466px;
+  width: 476px;
   background: #fff;
   border-radius: 2px;
   @include hoverState();
-  margin: 0 28px 25px 0px;
+  margin-bottom: 1.785714rem /* 25/14 */;
   box-sizing: border-box;
-  &:nth-child(2n) {
-    margin-right: 0px;
+  @media only screen and (max-width: 750px) { 
+    width: 100%;
   }
   .book-img {
     width: 100px;
@@ -91,7 +92,7 @@ export default class extends Vue {
     }
     .book-rate {
       display: flex;
-      font-size: 13px;
+      font-size: 1rem;
       align-items: center;
       .rate-label {
         padding-right: 10px;

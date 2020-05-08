@@ -21,7 +21,6 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .information {
   width: 100%;
-  margin-bottom: 10px;
   &-image {
     display: inline-block;
     border-radius: 3px;

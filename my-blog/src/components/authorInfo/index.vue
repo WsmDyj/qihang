@@ -35,39 +35,37 @@ export default class extends Vue {
   }
   .author-info {
     @include flexcolumn($jc: space-around);
-    margin-left: 12px;
+    margin-left: .857143rem /* 12/14 */;
     .author-name {
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 1.071429rem /* 15/14 */;
+      font-weight: bold;
       color: #333;
       cursor: pointer;
       &--comment {
-        font-size: 13px;
+        font-size: .928571rem /* 13/14 */;
         color: #333;
-        font-weight: 400;
         .author-job {
           color: #8a9aa9;
-          font-size: 12px;
-          margin-left: 4px;
+          font-size: .857143rem /* 12/14 */;
+          margin-left: .285714rem /* 4/14 */;
         }
       }
       &--reply {
-        font-size: 13px;
+        font-size: .928571rem /* 13/14 */;
         color: #333;
-        font-weight: 400;
         .author-job {
           color: #8a9aa9;
-          font-size: 12px;
-          margin-left: 4px;
+          font-size: .857143rem /* 12/14 */;
+          margin-left: .285714rem /* 4/14 */;
         }
       }
     }
     .author-content {
       width: 100%;
-      font-style: 13px;
+      font-size: .928571rem /* 13/14 */;
       color: $fontcolor;
       &--comment {
-        margin-top: 10px;
+        margin-top: .714286rem /* 10/14 */;
         color: #505050;
       }
       &--reply {

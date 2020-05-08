@@ -55,11 +55,10 @@ export default class extends Vue {
 .live-message {
   position: fixed;
   display: inline-block;
-  background-color: #fff;
   text-align: center;
   line-height: 40px;
-  right: 50px;
-  bottom: 50px;
+  right: 3.571429rem /* 50/14 */;
+  bottom: 3.571429rem /* 50/14 */;
   width: 40px;
   height: 40px;
   color: #909090;
@@ -75,6 +74,9 @@ export default class extends Vue {
     font-size: 16px;
     color: #007fff;
     font-weight: 500;
+  }
+  @media only screen and (max-width: 750px) { 
+    display: none
   }
 }
 </style>

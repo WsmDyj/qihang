@@ -63,7 +63,7 @@ export default class extends Vue {
 .author {
   padding: 30px;
   box-sizing: border-box;
-  width: 700px;
+  width: 730px;
   height: 153px;
   background: #fff;
   display: flex;

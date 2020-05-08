@@ -37,7 +37,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .form {
   height: 320px;
-  padding: 20px;
+  padding: 1.428571rem /* 20/14 */;
   background: #fff;
   .sumbit {
     margin-top: 15px;
@@ -48,6 +48,5 @@ export default class extends Vue {
       display: none !important;
     }
   }
-  
 }
 </style>

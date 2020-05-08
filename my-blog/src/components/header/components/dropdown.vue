@@ -70,7 +70,7 @@ export default class extends Vue {
   font-size: 16px;
   box-sizing: border-box;
   .nav-menu-group{
-    padding: 4px 0;
+    padding: 10px 0;
     box-sizing: border-box;
     width: 100%;
     border-bottom: 1px solid rgba(0,0,0,.04);
@@ -81,7 +81,7 @@ export default class extends Vue {
       color: #71777c;
       padding: 6px 6px 6px 24px;
       &:hover {
-        background: #ccc;
+        background: $hover-color;
       }
       .item-icon {
         color: #71777c;

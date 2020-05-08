@@ -2,10 +2,7 @@
   <div class="container">
     <Header />
     <div class="main">
-      <div class="asside">
-        <!-- <articleAction :article= ask /> -->
-      </div>
-      <div class="article">
+      <div class="article section">
         <div class="article-container">
           <div class="article-author">
             <div class="author-box">
@@ -47,7 +44,7 @@
           </el-collapse-transition>
         </div>
 
-        <div class="article-comment">
+        <div class="article-comment screen-comment">
           <div class="comment-title">
             <i class="el-icon-edit"></i>
             撰写答案 
@@ -148,76 +145,61 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  @include flexcolumn($jc:none, $ai:center);
-  .main {
-    display: flex;
-    position: relative;
-    margin: 80px 0 20px 0;
-    .article {
-      position: relative;
-      margin-right: 20px;
-      width: 700px;
-      .article-container {
-        background: #fff;
-        padding: 30px 20px 10px 20px;
-        .article-author {
-          @include flexcenter($jc: space-between);
-          .article-time {
-            letter-spacing: 1px;
-            padding-right: 5px;
-          }
-          .article-review {
-            @include textRoundRight('#409EFF');
-          }
-          .article-edit {
-            color: $primary;
-            padding-left: 4px;
-            &:hover {
-              color: #409EFF;
-              text-decoration: underline;
-            }
-          }
-        }
-        .article-title {
-          font-size: 30px;
-          font-weight: 700;
-          line-height: 1.5;
-          margin: 20px 0 5px 0;
-        }
-        .ask-tag {
-          margin-bottom: 20px;
-          .iconfont {
-            color: $primary;
-            padding: 2px 5px 0 5px;
-          }
-          .article-tag {
-            color: $primary;
-            @include textRoundRight($color: $primary);
-            &:last-child::after {
-              content: none;
-            }
-          }
-        }
+.article-container {
+  background: #fff;
+  padding: 1.428571rem /* 20/14 */;
+  .article-author {
+    @include flexcenter($jc: space-between);
+    .article-time {
+      letter-spacing: 1px;
+      padding-right: 5px;
+    }
+    .article-edit {
+      color: $primary;
+      @include textRound($color:'#409EFF');
+      @media only screen and (max-width: 750px) { 
+        display: none
       }
-      .article-comment {
-        margin-top: 20px;
-        background: #fff;
-        color: $primary;
-        padding: 20px;
-        .comment-title {
-          cursor: pointer;
-          font-size: 16px;
-          font-weight: 600;
-        }
-        .comment-content {
-          margin-top: 10px;
-          border-bottom: 1px solid $border-color;
-          &:last-child {
-            border-bottom: none;
-          }
-        }
+    }
+  }
+  .article-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 1.428571rem /* 20/14 */ 0 5px 0;
+    @media only screen and (max-width: 750px) { 
+      font-size: 20px
+    }
+  }
+  .ask-tag {
+    margin-bottom: 1.428571rem /* 20/14 */;
+    .iconfont {
+      color: $primary;
+      padding: 2px 5px 0 5px;
+    }
+    .article-tag {
+      color: $primary;
+      @include textRoundRight($color: $primary);
+      &:last-child::after {
+        content: none;
       }
+    }
+  }
+}
+.article-comment {
+  background: #fff;
+  margin-top: 1.428571rem /* 20/14 */;
+  color: $primary;
+  padding: 1.428571rem /* 20/14 */;
+  .comment-title {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .comment-content {
+    margin-top: 10px;
+    border-bottom: 1px solid $border-color;
+    &:last-child {
+      border-bottom: none;
     }
   }
 }
