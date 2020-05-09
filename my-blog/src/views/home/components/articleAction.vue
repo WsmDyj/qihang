@@ -68,7 +68,7 @@ export default class extends Vue {
         display: inline-block;
         vertical-align: middle;
         padding-top: 5px;
-        @media only screen and (max-width: 1024px) { 
+        @media only screen and (max-width: 768px) { 
           transform: scale(.8);
         }
       }

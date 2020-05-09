@@ -41,7 +41,7 @@ export default class extends Vue {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      @media only screen and (max-width: 750px) { 
+      @media only screen and (max-width: 768px) { 
         margin: 0 10px;
       }
     }

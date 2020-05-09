@@ -2,8 +2,10 @@
   <div class="container">
     <Header />
     <div class="main">
-      <articleLoading :loading='list.length > 0 ? false : true'  />
-      <like-list :articles = list />
+      <div class="section">
+        <articleLoading :loading='list.length > 0 ? false : true'  />
+        <like-list :articles = list />
+      </div>
     </div>
   </div>
 </template>
@@ -32,15 +34,3 @@ export default class extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.container {
-  @include flexcolumn($jc:center, $ai: center);
-  .main {
-    width: 932px;
-    margin-top: 60px;
-    margin-bottom: 20px;
-    position: relative;
-  }
-}
-</style>

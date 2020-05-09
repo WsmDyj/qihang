@@ -66,7 +66,7 @@ export default class extends Vue {
   @include hoverState();
   margin-bottom: 1.785714rem /* 25/14 */;
   box-sizing: border-box;
-  @media only screen and (max-width: 750px) { 
+  @media only screen and (max-width: 768px) { 
     width: 100%;
   }
   .book-img {

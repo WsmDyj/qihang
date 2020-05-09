@@ -46,13 +46,13 @@
               <el-avatar slot="reference" size="medium" :src="avatar"/>
             </el-popover>
           </div>
-          <div class="navbar-wrapper__action fs-16" v-else>
-            <div class="navbar-wrapper__action--item" @click="submit('login')">
+          <div class="navbar-wrapper__action" v-else>
+            <div class="navbar-wrapper__action--item header-button" @click="submit('login')">
               <i class="el-icon-edit" />写文章
             </div>
             <div class="navbar-wrapper__action--item">
-              <span @click="submit('login')" class="login">登录</span>
-              <span @click="submit('register')" class="register">注册</span>
+              <span @click="submit('login')" class="login btn">登录</span>
+              <span @click="submit('register')" class="register btn">注册</span>
             </div>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default class extends Vue {
         transform: translateY(-50%);
         right: 10px;
       }
-      @media only screen and (max-width: 750px) { 
+      @media only screen and (max-width: 768px) { 
         width: 120px;
       }
     }
@@ -157,7 +157,7 @@ export default class extends Vue {
       &--item {
         position: relative;
         display: inline-block;
-        width: 7.142857rem /* 100/14 */;
+        width: 100px;
         text-align: end;
         .el-icon-edit {
           padding-right: 4px;
@@ -178,6 +178,9 @@ export default class extends Vue {
       }
     }
   }
+}
+.btn {
+  font-size: 16px;
 }
 .header-button {
   width: 80px;

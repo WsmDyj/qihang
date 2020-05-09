@@ -2,7 +2,7 @@
   <div class="container">
     <div class="follow" v-for="(item, index) in lists" :key="index">
       <author-info :userInfo='item'>
-        <div slot="content" class="detail">{{ item.job }} @{{ item.company || '公司' }}</div>
+        <div slot="content" class="detail">{{ item.job }} @{{ item.company || '添加公司' }}</div>
       </author-info>
       <div class="follow-action">
         <followAction size='small' :author = item.nickname />
@@ -38,7 +38,7 @@ export default class extends Vue {
     justify-content: space-between;
     width: 100%;
     padding: 6px 0;
-    min-height: 84px;
+    min-height: 6rem /* 84/14 */;
     color: #b9c0c8;
     border-bottom: 1px solid $border-color;
     &:last-child {

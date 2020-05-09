@@ -1,5 +1,5 @@
 <template>
-  <div class="setting">
+  <div class="section">
     <div class="setting-profile">
       <h1>个人资料</h1>
       <div class="setting-list">
@@ -88,13 +88,12 @@ export default class extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.setting {
-  width: 620px;
+.section {
   box-sizing: border-box;
   background: #ffffff;
   border-radius: 2px;
   font-size: 16px;
-  padding: 32px 48px 48px;
+  padding: 2.285714rem /* 32/14 */ 2.142857rem /* 30/14 */ 2.142857rem /* 30/14 */ ;
   h1 {
     color: #333;
     margin: 16px 0;

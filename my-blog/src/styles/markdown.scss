@@ -7,7 +7,15 @@
   font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   text-rendering: optimizeLegibility;
   @media only screen and (max-width: 750px) { 
-     font-size: 13px /* 15/14 */;
+    font-size: 13px /* 15/14 */;
+  }
+  ul {
+    padding-left: 28px;
+    list-style: inherit;
+    li {
+      margin-bottom: 0;
+      list-style: inherit;
+    }
   }
     /*对 markdown 样式的补充*/
   pre {
@@ -99,7 +107,8 @@
 // markdown 设置
 .markdown-article {
   .tui-editor-defaultUI .CodeMirror-lines {
-    font-size: 17px;
+    font-size: 1.214286rem /* 17/14 */;
+    color: #333;
     background-color: #f8f9fa;
   }
   .tui-editor-defaultUI .CodeMirror-scroll {
@@ -109,7 +118,7 @@
     background: #fff;
   }
   .te-md-container .te-preview .tui-editor-contents {
-    font-size: 17px;
+    font-size: 1.214286rem /* 17/14 */;
   }
   .tui-editor-defaultUI .te-mode-switch-section {
     height: 35px!important;

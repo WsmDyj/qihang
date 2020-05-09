@@ -6,7 +6,7 @@
           <article-title :isAvatar = userInfo.avatar :article= article></article-title>
         </div>
         <div class="article-img" v-show="article.articleImg">
-          <el-image fit="cover" style="width: 640px; height: 212px" :src="article.articleImg" ></el-image>
+          <el-image fit="cover" class="article-img" :src="article.articleImg" ></el-image>
         </div>
         <div class="abstract-row">
           <span class="title">{{ article.title }}</span>
@@ -83,7 +83,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .entry-list {
   background: #fff;
-  padding: 30px;
+  padding: 2.142857rem /* 30/14 */;
   max-height: 460px;
   box-sizing: border-box;
   display: flex;
@@ -91,6 +91,10 @@ export default class extends Vue {
   border-bottom: 1px solid rgba(230,230,231,.5);
   &:hover {
     background: #fcfcfc;
+  }
+  .article-img {
+    width: 45.714286rem /* 640/14 */;
+    height: 15.142857rem /* 212/14 */;
   }
   .userInfo-row {
     padding: 0 0 8px 0;
@@ -109,6 +113,9 @@ export default class extends Vue {
       word-break: break-word;
       word-wrap: break-word;
       letter-spacing: 0.56px;
+      @media only screen and (max-width: 750px) { 
+         font-size: 17px;
+      }
     }
     .abstract {
       width: 100%;
@@ -120,6 +127,9 @@ export default class extends Vue {
       -webkit-line-clamp: 4;
       overflow: hidden;
       font-size: 17px;
+      @media only screen and (max-width: 750px) { 
+         font-size: 15px;
+      }
     }
   }
   .action-row {

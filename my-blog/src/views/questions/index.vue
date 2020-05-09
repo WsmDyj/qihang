@@ -11,8 +11,8 @@
         </div>
       </nav>
     </sticky>
-    <div class="main">
-      <div class="questions-container">
+    <div class="main mg-top">
+      <div class="section">
         <div class="questions-nav">
           <el-radio-group @change="filterAsk" v-model="filters.status">
             <el-radio class="details" :label="0">全部</el-radio>
@@ -156,34 +156,31 @@ export default class extends Vue {
 .top {
   transform: translate3d(0,-60px,0);
 }
-.main {
+.mg-top {
   margin-top: 126px !important;
-  .questions-container {
-    width: 730px;
-    .questions-nav {
-      padding: 15px 20px 15px 15px;
-      border-bottom: 1px solid hsla(0,0%,59.2%,.1);
-      background: #fff;
-      display: flex;
-      justify-content: space-between;
-      .questions-ask {
-        @media only screen and (max-width: 750px) { 
-          display: none
-        }
+  .questions-nav {
+    padding: 15px 20px 15px 15px;
+    border-bottom: 1px solid hsla(0,0%,59.2%,.1);
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    .questions-ask {
+      @media only screen and (max-width: 750px) { 
+        display: none
       }
-      .details {
-        position: relative;
-        display: inline-block;
-        &:nth-child(-n +2) {
-          padding-right: 20px;
-          @include splitLine($right:10px)
-        }
+    }
+    .details {
+      position: relative;
+      display: inline-block;
+      &:nth-child(-n +2) {
+        padding-right: 20px;
+        @include splitLine($right:10px)
       }
-      .nav-ask {
-        color: $primary;
-        &:hover {
-          text-decoration: underline;
-        }
+    }
+    .nav-ask {
+      color: $primary;
+      &:hover {
+        text-decoration: underline;
       }
     }
   }

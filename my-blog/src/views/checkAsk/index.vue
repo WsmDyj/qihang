@@ -36,7 +36,7 @@
             </span>
           </div>
           <el-collapse-transition>
-            <div v-show="show">
+            <div v-show="!show">
               <div class="comment-content" v-for="(comment, index) in comments" :key="index">
                 <comment :show = visible :comment = comment @submit='getComment' />
               </div>

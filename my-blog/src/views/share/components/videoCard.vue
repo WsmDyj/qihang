@@ -102,7 +102,4 @@ export default class extends Vue {
     }
   }
 }
-.main {
-  margin-top: 116px !important;
-}
 </style>

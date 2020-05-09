@@ -1,6 +1,6 @@
 <template>
-  <el-main class="article">
-    <div @click="checkArticle(article)" class="entry-box" v-for="(article, index) in articles" :key="index">
+  <div class="article">
+    <div @click="checkArticle(article)" class="enty-box" v-for="(article, index) in articles" :key="index">
       <div class="content-box">
         <div class="info-box">
           <article-title :article= article ></article-title>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-  </el-main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -48,13 +48,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article {
-  cursor: pointer;
-  .el-main {
-    margin: 0;
-    padding: 0;
-  }
-  .entry-box {
-    width: 700px;
+  .enty-box {
     border-bottom: 1px solid rgba(178,186,194,.15);
   }
   .content-box {
@@ -98,6 +92,9 @@ export default class extends Vue {
         font-size: 17px;
         font-weight: 600;
         color: #2e3135;
+        @media only screen and (max-width: 750px) { 
+          font-size: 15px;
+        }
         &:hover {
           text-decoration: underline !important;
         }

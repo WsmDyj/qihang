@@ -4,15 +4,14 @@
       <div class="summary-author">
         <span class="author-name">{{ ask.author }}</span>
         <span class="qa-time">{{ formatDate(ask.createtime) }}
-          <span class="title-type" v-for="(tag, index) in ask.articleTag" :key="index">{{ tag }}</span>
         </span>
+         <span class="title-type" v-for="(tag, index) in ask.articleTag" :key="index">{{ tag }}</span>
         <span class="qa-delete" v-if="origin==='author' && visible" @click.stop="deleteAsk(ask)">
           <i class="el-icon-delete"></i>
         </span>
       </div>
       <div class="summary-title">
         <span class="title-conter">{{ ask.title }}</span>
-        
       </div>
     </div>
     <div class="qa-rank">
@@ -111,20 +110,24 @@ export default class extends Vue {
     position: relative;
     margin-right: 10px;
     .summary-author {
-      font-size: 1rem;
+      font-size: .928571rem /* 13/14 */;
       color: #b2bac2;
       cursor: default;
       position: relative;
       .qa-time {
         @include textRound();
-        .title-type {
-          display: inline-block;
-          @include textRound();
-          margin-top: .428571rem /* 6/14 */;
-          box-sizing: border-box;
-          font-weight: normal;
-          font-size: 1rem;
-          text-align: center;
+        @include textRoundRight();
+      }
+      .title-type {
+        display: inline-block;
+        box-sizing: border-box;
+        position: relative;
+        font-size: .928571rem /* 13/14 */;
+        text-align: center;
+        &:nth-child(even)::before {
+          content: "/";
+          color: #b2bac2;
+          padding: 0 2px;
         }
       }
     }

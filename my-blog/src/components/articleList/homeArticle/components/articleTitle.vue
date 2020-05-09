@@ -4,7 +4,8 @@
       <el-avatar size="medium" :src= isAvatar></el-avatar>
     </div>
     <div class="item author" @click.stop="hanleClick">{{ article.author.nickname || article.author}}</div>
-    <div style="font-size:12px;font-weight: 600;">{{ articleTime }}</div>
+    <div class="item">{{ articleTime }}</div>
+    <div class="item articleTag">{{article.articleTag}}</div>
   </div>
 </template>
 
@@ -35,16 +36,10 @@ export default class extends Vue {
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 14px;
   color: #b2bac2;
   .item {
     position: relative;
-    font-size: 14px;
-    &::after {
-      content: "·";
-      color: #b2bac2;
-      margin: 0px 2px;
-    }
+    font-size: .928571rem /* 13/14 */;
   }
   .avatar {
     padding-right: 10px;
@@ -57,11 +52,14 @@ export default class extends Vue {
     color: #b71ed7;
   }
   .author {
-    font-size:12px;
-    font-weight: 600;
+    font-size: .928571rem /* 13/14 */;
+    @include textRoundRight();
     &:hover {
       color: #007fff;
     }
+  }
+  .articleTag {
+    @include textRound();
   }
 }
 </style>

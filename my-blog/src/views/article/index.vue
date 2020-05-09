@@ -10,13 +10,15 @@
               <div slot="content">
                 <span class="article-time">{{article.createtime}} </span>
                 <span class="article-review">阅读 {{ article.reviews }} </span>
-                <router-link v-show="nickname== article.author.nickname" :to="{path: '/markdown', query:{articleId: article.article_id}}">
+                <router-link v-if="nickname== article.author.nickname" :to="{path: '/markdown', query:{articleId: article.article_id}}">
                   <span class="article-edit">编辑</span>
                 </router-link>
               </div>
             </author-info>
           </div>
-          <author-follow size='mini' :author = article.author.nickname ></author-follow>
+          <div v-show="nickname != article.author.nickname">
+            <author-follow size='mini' :author = article.author.nickname ></author-follow>
+          </div>
         </div>
         <div class="article-img" v-if="article.articleImg">
           <el-image fit="cover" class="article-img" :src="article.articleImg"></el-image>
@@ -56,12 +58,11 @@ import authorInfo from '@/components/authorInfo/index.vue'
 import Sticky from '@/components/Sticky/index.vue'
 import articleAction from './components/action.vue'
 import { detailArticle } from '../../api/blog'
-import { getfollow } from '../../api/follow'
 import { getreviewArticle } from '../../api/actions'
 import { IUserInfo, IArticleData } from '../../api/types'
+import { getUserInfo } from '../../api/user'
 import { UserModule } from '../../store/modules/user'
 import { formatTime } from '../../utils/formatDate'
-import debounce from '../../utils/debounce'
 import toToc from '../../utils/catalog'
 
 
@@ -74,7 +75,7 @@ const defaultArticle = {
   createtime: '',
   likeCount: 0,
   comments: 0,
-  reviews: null,
+  reviews: 0,
   markdown: '',
 }
 
@@ -111,11 +112,9 @@ export default class  extends Vue {
 
   private async changeArticle(articleId: any) {
     const { data } = await detailArticle({ id: articleId })
+    const userInfo =  await getUserInfo({username: data.author})
     data.createtime = formatTime(data.createtime)
-    data.author = {
-      nickname: data.author,
-      avatar: data.avatar
-    }
+    data.author = userInfo.data
     document.title = data.title // 设置页面的title
     const _toc: string[] = data.content.match(/<[hH][1-6]>.*?<\/[hH][1-6]>/g)
     if (_toc) {
@@ -208,9 +207,9 @@ export default class  extends Vue {
       color: $primary;
       position: relative;
       @include textRound($color:'#409EFF');
-      @media only screen and (max-width: 750px) { 
-        display: none
-      }
+      // @media only screen and (max-width: 750px) { 
+      //   display: none
+      // }
     }
   }
   &-img {

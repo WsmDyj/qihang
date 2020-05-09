@@ -37,6 +37,7 @@ export default class extends Vue {
   background: #fff;
   box-sizing: border-box;
   border-width: 0;
+  border-radius: 2px;
   margin-bottom: .857143rem;
   box-shadow: 0 0 20px -5px rgba(158,158,158,.22);
   cursor: default;
@@ -65,12 +66,13 @@ export default class extends Vue {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
     .article-title {
       @include twoLines();
       font-weight: bold;
       font-size: 1.428571rem /* 20/14 */;
       color: #2e3135;
-      @media only screen and (max-width: 750px) { 
+      @media only screen and (max-width: 768px) { 
         font-size: 15px
       }
       &:hover {

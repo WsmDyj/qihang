@@ -4,14 +4,14 @@
     <sticky @scroll="handleScroll" style="width:100%" :fixed-top= -236 :z-index= 9 :sticky-top="60">
       <nav :class="visible ? 'navigation': 'top navigation'" >
         <div class="navigation-content">
-          <el-tabs @tab-click="filterAsk" class="nav-list-share" v-model="activeIndex">
+          <el-tabs @tab-click="filterAsk" class="nav-list" v-model="activeIndex">
             <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.laber">
             </el-tab-pane>
           </el-tabs>
         </div>
       </nav>
     </sticky>
-    <div class="main">
+    <div class="main mg-top">
       <div class="share-content">
         <div v-show="activeIndex == 0">
           <videoPane />
@@ -78,7 +78,7 @@ export default class extends Vue {
     box-sizing: border-box;
     width: 994px;
     margin: 0 auto;
-    @media only screen and (max-width: 750px) { 
+    @media only screen and (max-width: 768px) { 
       width: 100%;
       margin: 0 10px;
     }
@@ -87,7 +87,7 @@ export default class extends Vue {
 .top {
   transform: translate3d(0,-60px,0);
 }
-.main {
+.mg-top {
   margin-top: 126px !important;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="container">
     <Header />
     <div class="main">
-      <div class="article">
+      <div class="section">
         <author-card :userInfo = userInfo></author-card>
         <author-article :userInfo = userInfo :follows = follows :actions = actions ></author-article>
       </div>
@@ -79,25 +79,15 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  @include flexcolumn($jc:center, $ai: center);
-  .main {
-    width: 994px;
-    margin-top: 80px;
-    margin-bottom: 20px;
-    position: relative;
-    @include flexcenter($jc:space-between, $ai: none);
-    .time {
-      @include flexcenter($jc:space-between);
-      position: fixed;
-      width: 240px;
-      top: 390px;
-      padding: 15px 2px;
-      color: #000;
-      font-size: 15px;
-      border-bottom: 1px solid rgba(178,186,194,.15);
-      border-top: 1px solid rgba(178,186,194,.15);
-    }
-  }
+.time {
+  @include flexcenter($jc:space-between);
+  position: fixed;
+  width: 240px;
+  top: 390px;
+  padding: 15px 2px;
+  color: #000;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(178,186,194,.15);
+  border-top: 1px solid rgba(178,186,194,.15);
 }
 </style>

@@ -144,7 +144,6 @@ export default class extends Vue {
   width: 100%;
   height: 200px;
 }
-
 .navTop {
   width: 100vw;
   background: #ffffff;

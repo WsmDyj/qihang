@@ -2,11 +2,11 @@
   <div class="container">
     <Header />
     <div class="main">
-      <div class="info-content">
+      <div class="section">
         <div class="info-box" v-for="(user, index) in users" :key="index">
           <authorInfo :userInfo= user >
             <div slot="content" class="author-desc">
-             <div class="info-desc">{{user.job}} @{{user.company || '公司'}}</div>
+             <div class="info-desc">{{user.job}} @{{user.company || '添加公司'}}</div>
               <div class="info-detail">获得 {{ user.likes }} 赞 · {{ user.reviews }} 阅读</div>
             </div>
           </authorInfo>
@@ -43,35 +43,22 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  @include flexcolumn($jc:center, $ai: center);
-  .main {
-    width: 932px;
-    margin-top: 80px;
-    margin-bottom: 20px;
-    position: relative;
-    @include flexcenter($jc:space-between, $ai: none);
-    .info-content {
-      width: 668px;
-      background: #fff;
-      .info-box {
-        padding: 20px 50px 20px 30px;
-        border-bottom: 1px solid $border-color;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .info-desc {
-          font-weight: 400;
-          color: #b9c0c8;
-          font-size: 12px;
-          padding: 5px 0;
-        }
-        .info-detail {
-          color: #777d81;
-          font-size: 12px;
-          
-        }
-      }
+.section {
+  background: #fff;
+  .info-box {
+    padding: 1.428571rem /* 20/14 */ 3.571429rem /* 50/14 */ 1.428571rem /* 20/14 */ 2.142857rem /* 30/14 */;
+    border-bottom: 1px solid $border-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .info-desc {
+      color: #b9c0c8;
+      font-size: 12px;
+      padding: 5px 0;
+    }
+    .info-detail {
+      color: #777d81;
+      font-size: 12px;
     }
   }
 }

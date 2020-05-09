@@ -6,7 +6,7 @@
     <div class="author-info">
       <router-link target="_blank" :to="{path: '/author', query:{author: userInfo.nickname}}" :class="type ? `author-name--${type}` : 'author-name'">
         {{ userInfo.nickname }}
-        <span class="author-job" v-show="type">@{{userInfo.company || '公司'}}</span>
+        <span class="author-job" v-show="type">@{{userInfo.company || '添加公司'}}</span>
       </router-link>
       <div :class="type ? `author-content--${type}` : 'author-content'">
         <slot name="content"></slot>

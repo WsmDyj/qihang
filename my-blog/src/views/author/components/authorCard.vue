@@ -27,7 +27,7 @@
     <router-link target="_blank" to="/settings " class="author-action" v-if="visible">
       <el-button type="primary" plain>编辑个人资料</el-button>
     </router-link>
-    <div v-else>
+    <div class="author-action" v-else>
       <author-follow size='medium' :author= userInfo.nickname ></author-follow>
     </div>
   </div>
@@ -62,8 +62,8 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .author {
   padding: 30px;
+  width: 100%;
   box-sizing: border-box;
-  width: 730px;
   height: 153px;
   background: #fff;
   display: flex;
@@ -98,6 +98,11 @@ export default class extends Vue {
       .addInfo {
         color: #4a68ad;
       }
+    }
+  }
+  .author-action {
+    @media only screen and (max-width: 750px) { 
+      display: none;
     }
   }
 }

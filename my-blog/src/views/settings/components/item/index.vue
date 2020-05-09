@@ -77,6 +77,9 @@ export default class extends Vue {
   .title {
     color: #333;
     width: 120px;
+    @media only screen and (max-width: 750px) { 
+      width: 80px;
+    }
   }
   .action-box {
     flex: 1;
@@ -94,7 +97,7 @@ export default class extends Vue {
     .action-button {
       cursor: pointer;
       color: #007fff;
-      font-size: 14px;
+      font-size: 1rem;
       .confirm {
         font-weight: 600;
       }
@@ -109,10 +112,10 @@ export default class extends Vue {
     display: flex;
     margin-left: 12px;
     .box-button {
-      margin-left: 30px;
+      margin-left: 2.142857rem /* 30/14 */;
       .box-toolitp {
         margin-bottom: 18px;
-        font-size: 12%;
+        font-size: 1rem;
         color: #909090;
         font-weight: 600;
       }

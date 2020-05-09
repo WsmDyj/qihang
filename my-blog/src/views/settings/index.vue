@@ -22,19 +22,3 @@ import Setting from './components/index.vue'
 export default class extends Vue {
 }
 </script>
-
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .main {
-    position: relative;
-    width: 932px;
-    margin-top: 90px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-}
-</style>
