@@ -30,6 +30,9 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.router-link-exact-active {
+  color: $primary;
+}
 .navbar-menu {
   @include flexcenter($jc: space-between);
   height: 100%;

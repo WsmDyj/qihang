@@ -100,7 +100,7 @@ export default class extends Vue {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,.4);
-  z-index: 99;
+  z-index: 999;
   .auth-form {
     position: relative;
     padding:0 24px 20px 24px;

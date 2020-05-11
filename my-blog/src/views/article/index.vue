@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <Header />
+    
     <div class="main mg-top-80">
       <articleAction :article= article />
-      <div class="article section">
+        <skeleton  v-if="loading"/>
+      <div class="article section" v-else>
         <div class="article-header">
           <div class="article-header__info">
             <author-info :userInfo= article.author>
@@ -16,21 +18,16 @@
               </div>
             </author-info>
           </div>
-          <div class="article-header__follow" v-if="nickname !== article.author.nickname">
+          <div class="article-header__follow" v-show="nickname !== article.author.nickname">
             <author-follow size='mini' :author = article.author.nickname ></author-follow>
           </div>
         </div>
-        <div class="article-img mobile-none" v-if="article.articleImg">
+        <div class="article-img" v-if="article.articleImg">
           <el-image fit="cover" class="article-img" :src="article.articleImg"></el-image>
         </div>
         <div class="article-main">{{ article.title }}</div>
         <div ref="article" v-highlight>
           <div class="article-content" v-html="article.content"></div>
-          <div v-if='article.content === ""'>
-            <div class="article-placement"></div>
-            <div class="article-placement__comment"></div>
-            <div class="article-placement__domin"></div>
-          </div>
         </div>
         <div class="article-comment">
           <comment />
@@ -38,7 +35,7 @@
       </div>
       <div class="asside">
         <achievement-card title= "关于作者" :userInfo= article.author ></achievement-card>
-        <sticky :z-index= 9 :sticky-top="80" v-if='article.content !== ""'>
+        <sticky @scroll="handleScroll" :z-index= 9 :sticky-top="80" v-if='article.content !== ""'>
           <div ref="catalog">
             <catalog :catalog = catalog />
           </div>
@@ -57,6 +54,7 @@ import authorFollow from '@/components/follow/index.vue'
 import authorInfo from '@/components/authorInfo/index.vue'
 import Sticky from '@/components/Sticky/index.vue'
 import articleAction from './components/action.vue'
+import skeleton from './components/skeleton.vue'
 import { detailArticle } from '../../api/blog'
 import { getreviewArticle } from '../../api/actions'
 import { IUserInfo, IArticleData } from '../../api/types'
@@ -64,8 +62,6 @@ import { getUserInfo } from '../../api/user'
 import { UserModule } from '../../store/modules/user'
 import { formatTime } from '../../utils/formatDate'
 import toToc from '../../utils/catalog'
-
-
 const defaultArticle = {
   articleImg: '',
   article_id: 0,
@@ -88,12 +84,14 @@ const defaultArticle = {
     authorFollow,
     articleAction,
     authorInfo,
-    Sticky
+    Sticky,
+    skeleton
   }
 })
 export default class  extends Vue {
   private article: IArticleData = defaultArticle
   private catalog: string = ''
+  private loading: Boolean = true
   private linkLists!: NodeListOf<HTMLElement> 
   private target!: any[]
   private listHeight: number[] =[]
@@ -113,6 +111,7 @@ export default class  extends Vue {
   private async changeArticle(articleId: any) {
     const { data } = await detailArticle({ id: articleId })
     const userInfo =  await getUserInfo({username: data.author})
+    await (() => {this.loading = false})()
     data.createtime = formatTime(data.createtime)
     data.author = userInfo.data
     document.title = data.title // 设置页面的title
@@ -130,8 +129,8 @@ export default class  extends Vue {
   private async created() {
     const articleId: string | (string | null)[] = this.$route.query.articleId
     await getreviewArticle({article_id: articleId }) // 增加文章统计数
-    this.$nextTick(async () => {
-      await this.changeArticle(articleId)
+    await this.changeArticle(articleId)
+    await this.$nextTick(async () => {
       await this.getTitleHeight()
       await this.getCataloglist()
     })
@@ -200,9 +199,12 @@ export default class  extends Vue {
 
   &-img {
     text-align: center;
-    width: 90%;
+    width: 95%;
     height: 367px;
     margin: 0 auto;
+    @media only screen and (max-width: 750px) { 
+      height: 180px;
+    }
   }
 
   &-main {
@@ -212,23 +214,6 @@ export default class  extends Vue {
     margin: .67em 0;
     @media only screen and (max-width: 750px) { 
       font-size: 20px
-    }
-  }
-
-  &-placement {
-    height: 367px;
-    background-color: #f4f5f5;
-    &__comment {
-      margin-top: 30px;
-      height: 30px;
-      width: 40%;
-      background-color: #f4f5f5;
-    }
-    &__domin {
-      margin: 20px 0;
-      height: 20px;
-      width: 50%;
-      background-color: #f4f5f5;
     }
   }
 }

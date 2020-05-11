@@ -8,7 +8,7 @@
           <article-action :article= article />
         </div>
       </div>
-      <div class="entry-img" v-if="article.articleImg">
+      <div class="entry-img mobile-none" v-if="article.articleImg">
         <el-image class="entry-img" :src="article.articleImg" fit="cover" />
       </div>
     </router-link>

@@ -91,9 +91,6 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.router-link-exact-active {
-  color: $primary;
-}
 .navbar {
   position: fixed;
   top: 0;
