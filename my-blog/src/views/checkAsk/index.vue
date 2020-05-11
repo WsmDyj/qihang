@@ -2,8 +2,7 @@
   <div class="container">
     <Header />
     <div class="main mg-top-80">
-      <skeleton v-if="loading"/>
-      <div class="article section" v-else>
+      <div class="article section">
         <div class="article-container">
           <div class="article-header">
             <div class="article-header__info">
@@ -74,7 +73,6 @@ import { Iquestion, IComment } from '../../api/types'
 import comment from './components/comment.vue'
 import commentForm from './components/form.vue'
 import GenNonDuplicateID from '../../utils/createId'
-import skeleton from '../article/components/skeleton.vue'
 import { createComment, getComment, createReply } from '../../api/comments'
 import articleAction from '../article/components/action.vue'
 import { getreviewArticle } from '../../api/actions'
@@ -101,7 +99,6 @@ const defaultAsk = {
     comment,
     commentForm,
     articleAction,
-    skeleton
   }
 })
 export default class extends Vue {
@@ -121,7 +118,6 @@ export default class extends Vue {
   private async created() {
     const askId: string | (string | null)[] = this.$route.query.askId
     const { data } = await detailAsk({ask_id: askId})
-    await (() => this.loading = false)()
     data.createtime = formatTime(data.createtime)
     this.ask = data
     this.getComment()

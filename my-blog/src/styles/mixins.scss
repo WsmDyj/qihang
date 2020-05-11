@@ -2,7 +2,7 @@
   Mixins
 */
 $font-sizes: 14, 15, 16, 18, 20, 22;
-$margin-top: 20, 80, 126;
+$margin-top: 20, 30, 40, 80, 126;
 
 @each $font-size in $font-sizes {
   .fs-#{$font-size} {

@@ -8,11 +8,11 @@
         <div class="skeleton-header__row"></div>
       </div>
     </div>
-    <div class="skeleton-main"></div>
-    <div class="skeleton-row"></div>
+    <div class="skeleton-main mg-top-20"></div>
+    <div class="skeleton-row mg-top-30"></div>
     <div class="skeleton-row__center"></div>
-    <div class="skeleton-comment">评论</div>
-    <div class="skeleton-footer">
+    <div class="skeleton-comment mg-top-40">评论</div>
+    <div class="skeleton-footer mg-top-40">
       <div class="skeleton-footer__avatar"></div>
       <div class="skeleton-footer__row"></div>
     </div>
@@ -65,10 +65,11 @@ export default class extends Vue {
   &-main {
     height: 40rem;
     background: #eee;
-    margin-top: 2rem;
+    @media only screen and (max-width: 767px) {
+      height: 20rem;
+    }
   }
   &-row {
-    margin-top: 4rem;
     width: 50%;
     height: 3rem;
     background: #eee;
@@ -80,15 +81,17 @@ export default class extends Vue {
     }
   }
   &-comment {
-    margin-top: 4rem;
     text-align: center;
     color: #8a9aa9;
     font-size: 17px;
   }
   &-footer {
-    margin-top: 4rem;
     display: flex;
     height: 3rem;
+    margin-bottom: 2rem;
+    @media only screen and (max-width: 767px) {
+      height: 15rem;
+    }
     &__avatar {
       width: 40px;
       height: 40px;
