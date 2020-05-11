@@ -1,44 +1,33 @@
 <template>
-  <div class="navbar qh-hairline--bottom" :class="{visible: visible}">
+  <div class="navbar" :class="{visible: visible}">
     <div class="navbar-container">
-      
-      <div class="qh-logo">
-        <!-- <router-link to='/'>
-        <el-image fit='fill' class="qh-logo" :src="require('../../assets/login/qihang.jpg')" />
-      </router-link> -->
+      <div class="logo">
+        <el-image class="logo-pc" :src="require('../../assets/img/logo-pc.jpg')" fit="fill" />
+        <el-image class="logo-mobile" :src="require('../../assets/img/logo-mobile.jpg')" fit="fill" />
       </div>
       
       <div class="navbar-content">
-        <div>
-          <Nav />
+        <div class="navbar-list">
+          <nav-list />
         </div>
         <div class="navbar-wrapper">
-          <div class="navbar-wrapper__search">
-            <el-input
-              size="small"
-              @focus="inputIcon = true"
-              @blur="inputIcon = false"
-              v-model="keyword"
-              placeholder="搜索起航"
-            />
-            <router-link
-              :style="{ color: inputIcon ? '#007fff' : '#DCDFE6' }"
-              :to="{ path: '/search', query: { keyword: keyword } }"
-              class="search-icon fs-14"
-            >
+          <div class="navbar-wrapper__search navbar-item">
+            <el-input size="small" @focus="inputIcon = true" @blur="inputIcon = false"  v-model="keyword" placeholder="搜索起航" />
+            <router-link :style="{ color: inputIcon ? '#007fff' : '#DCDFE6' }" :to="{ path: '/search', query: { keyword: keyword } }" class="search-icon fs-16">
               <i class="el-icon-search" />
             </router-link>
           </div>
 
-          <div class="navbar-wrapper__action" v-if="visivle">
-            <div class="screen-button">
-              <router-link to="/markdown">
-                <div class="header-button">写文章</div>
-              </router-link>
+          <div class="navbar-wrapper" v-if="visivle">
+            <div class="navbar-item navbar-item__button">
+              <span>写文章</span>
+              <!-- <div to="/markdown">
+                写文章
+              </router-link> -->
             </div>
-            <div class="notice">
+            <div class="navbar-item">
               <el-badge type="primary">
-                <i class="iconfont notice-icon">&#xe61e;</i>
+                <i class="iconfont navbar-item__notice">&#xe61e;</i>
               </el-badge>
             </div>
             <el-popover trigger="hover" width="150">
@@ -46,14 +35,12 @@
               <el-avatar slot="reference" size="medium" :src="avatar"/>
             </el-popover>
           </div>
-          <div class="navbar-wrapper__action" v-else>
-            <div class="navbar-wrapper__action--item header-button" @click="submit('login')">
-              <i class="el-icon-edit" />写文章
+          <div class="navbar-wrapper" v-else>
+            <div class="navbar-item navbar-item__button" @click="submit('login')">
+              <span>写文章</span>
             </div>
-            <div class="navbar-wrapper__action--item">
-              <span @click="submit('login')" class="login btn">登录</span>
-              <span @click="submit('register')" class="register btn">注册</span>
-            </div>
+            <div @click="submit('login')" class="navbar-item__login">登录</div>
+            <div @click="submit('register')" class="navbar-item__register">注册</div>
           </div>
         </div>
       </div>
@@ -65,7 +52,7 @@
 import { Component, Vue, Provide, Prop } from "vue-property-decorator"
 import { UserModule } from "../../store/modules/user"
 import Dropdown from "./components/dropdown.vue"
-import Nav from "./components/nav.vue"
+import navList from "./components/navList.vue"
 
 interface Iactions {
   id: number;
@@ -76,7 +63,7 @@ interface Iactions {
 @Component({
   components: {
     Dropdown,
-    Nav
+    navList
   }
 })
 export default class extends Vue {
@@ -104,6 +91,9 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.router-link-exact-active {
+  color: $primary;
+}
 .navbar {
   position: fixed;
   top: 0;
@@ -114,20 +104,20 @@ export default class extends Vue {
   transform: translate3d(0, -100%, 0);
   z-index: 9;
   width: 100%;
-  height: 60px;
+  height: 5rem;
   background: #fff;
-
+  border-bottom: 1px solid $border-article-color;
   &-container {
     @include flexcenter($jc: space-between);
-    margin: auto auto;
+    margin: 0 auto;
     height: 100%;
-    width:  71rem /* 994/14 */;
-    @media only screen and (max-width: 1024px) { 
-      box-sizing: border-box;
-      width: 100%;
-      padding: 0 10px;
+    width: 100%;
+    max-width: 994px;
+    @media only screen and (max-width: 769px) {
+      width: 96%;
     }
   }
+
   &-content {
     @include flexcenter($jc: space-between);
     flex: 1;
@@ -135,10 +125,12 @@ export default class extends Vue {
 
   &-wrapper {
     @include flexcenter($jc: flex-end);
+    cursor: pointer;
     &__search {
       position: relative;
       display: inline-block;
-      width: 180px;
+      width: 15rem /* 180/12 */;
+      box-sizing: border-box;
       .search-icon {
         position: absolute;
         top: 50%;
@@ -146,71 +138,49 @@ export default class extends Vue {
         right: 10px;
       }
       @media only screen and (max-width: 768px) { 
-        width: 120px;
+        width: 10rem /* 120/12 */;
       }
     }
+  }
 
-    &__action {
-      @include flexcenter($jc: flex-end);
-      cursor: pointer;
+  .navbar-item {
+    margin-right: 2.4rem;
+    @media only screen and (max-width: 767px) { 
+      margin-right: 2rem;
+    }
+    &__button {
+      width: 80px;
+      height: 30px;
+      color: #fff;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 4px;
+      font-size: 1.167rem;
+      font-weight: bold;
+      background-color: $primary;
+      @media only screen and (max-width: 750px) { 
+        display: none
+      }
+    }
+    &__notice {
+      font-size: 2rem /* 24/12 */;
+      color: $navcolor;
+      &:hover {
+        color: $primary;
+      }
+    }
+    &__login {
+      font-size: 1.33rem;
       color: $primary;
-      &--item {
-        position: relative;
-        display: inline-block;
-        width: 100px;
-        text-align: end;
-        .el-icon-edit {
-          padding-right: 4px;
-        }
-        .register {
-          @include textRound($primary);
-        }
-      }
-      .notice {
-        padding: 0 2.142857rem /* 30/14 */;
-        &-icon {
-          font-size: 24px;
-          color: $navcolor;
-          &:hover {
-            color: $primary;
-          }
-        }
-      }
+    }
+    &__register {
+      font-size: 1.33rem;
+      color: $primary;
+      @include textRound($color: $primary);
     }
   }
 }
-.btn {
-  font-size: 16px;
-}
-.header-button {
-  width: 80px;
-  height: 30px;
-  color: #fff;
-  text-align: center;
-  line-height: 30px;
-  font-size: 1rem;
-  border-radius: 4px;
-  font-weight: bold;
-  background-color: $primary;
-  margin-left: 2.142857rem /* 30/14 */;
-  @media only screen and (max-width: 750px) { 
-    display: none
-  }
-}
-
 .visible {
   transform: translateZ(0);
-}
-.qh-logo {
-  width: 98px;
-  height: 42px;
-  margin-right: 2.142857rem /* 30/14 */;
-  background-image: url('../../assets/login/qihang.jpg');
-  background-size: 100% 100%;
-  @media only screen and (max-width: 750px) { 
-    width: 45px;
-    height: 42px;
-    background-image: url('../../assets/login/logo.png');
-  }
 }
 </style>

@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <Header :visible= visible />
-    <sticky @scroll="handleScroll" style="width:100%" :fixed-top= -236 :z-index= 9 :sticky-top="60">
-      <nav :class="visible ? 'navigation': 'top navigation'" >
+    <sticky @scroll="handleScroll" :fixed-top= -236 :z-index= 9 :sticky-top="60">
+      <div class="navigation" :class="{'navigation-fixed': !visible}" >
         <div class="navigation-content">
           <el-tabs @tab-click="filterAsk" class="nav-list" v-model="activeIndex">
-            <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.laber">
+            <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.label">
             </el-tab-pane>
           </el-tabs>
         </div>
-      </nav>
+      </div>
     </sticky>
-    <div class="main mg-top">
+    <div class="main mg-top-126">
       <div class="share-content">
         <div v-show="activeIndex == 0">
           <videoPane />
@@ -31,6 +31,8 @@ import { IVideo, Itag} from '../../api/types'
 import Sticky from '@/components/Sticky/index.vue'
 import videoPane from './components/video/index.vue'
 import bookPane from './components/books/index.vue'
+import { TAG_SHARE, Qtag } from '../../global'
+
 @Component({
   name: 'share',
   components: {
@@ -44,12 +46,7 @@ import bookPane from './components/books/index.vue'
 export default class extends Vue {
   private activeIndex: string = '0'
   private visible: boolean = true
-
-  private options: Itag[]= [
-    {value: "视频推荐", laber: "0"},
-    {value: "必读书单", laber: "1"},
-    {value: "内推招聘", laber: "2"}
-  ]
+  private options: Qtag[]= TAG_SHARE
   
   private handleScroll(event: boolean) {
     this.visible = event
@@ -60,34 +57,5 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.navigation {
-  position: fixed;
-  top: 60px;
-  width: 100%;
-  height: 46px;
-  z-index: 9;
-  line-height: 46px;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-  transition: all .2s;
-  background: #fff;
-  cursor: pointer;
-  .navigation-content {
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-    box-sizing: border-box;
-    width: 994px;
-    margin: 0 auto;
-    @media only screen and (max-width: 768px) { 
-      width: 100%;
-      margin: 0 10px;
-    }
-  }
-}
-.top {
-  transform: translate3d(0,-60px,0);
-}
-.mg-top {
-  margin-top: 126px !important;
-}
+
 </style>

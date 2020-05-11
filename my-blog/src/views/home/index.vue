@@ -1,23 +1,26 @@
 <template>
   <div class="container">
     <Header :visible= visible />
-    <div class="main">
+    <sticky @scroll="handleScroll" :fixed-top= -306 :z-index= 9 :sticky-top="60">
+      <div class="navigation" :class="{'navigation-fixed': !visible}" >
+        <div class="navigation-content">
+          <el-tabs @tab-click="selectNav" v-model="filters.activeIndex">
+            <el-tab-pane v-for="(item, index) in actions" :key="index" :label="item.value" :name="item.label"/>
+          </el-tabs>
+        </div>
+      </div>
+    </sticky>
+    <div class="main mg-top-126">
       <div class="section">
-        <carousel />
-        <sticky @scroll="handleScroll" :z-index= 9 className='articles-fixed' :sticky-top="60">
-          <div class="articles-nav" :class="{ navTop: !visible }">
-            <el-tabs @tab-click="selectNav" v-model="filters.activeIndex">
-              <el-tab-pane v-for="(item, index) in actions" :key="index" :label="item.value" :name="item.laber">
-              </el-tab-pane>
-            </el-tabs>
-          </div>
-        </sticky>
-        <div class="article-wrapper">
-          <div v-if="isEmpty" class="article-empty">
+        <div class="section-carousel">
+          <carousel />
+        </div>
+        <div class="section-wrapper mg-top-20">
+          <div v-if="isEmpty">
             <van-empty description="这里空空如也" />
           </div>
           <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
-            <div class="article-list" v-for="(article, index) in articles" :key="index">
+            <div class="section-list" v-for="(article, index) in articles" :key="index">
               <articleCard :article= article />
             </div>
           </van-list>
@@ -99,7 +102,7 @@ export default class extends Vue {
     this.noMore = false
     this.isEmpty = false
     this.filters.page = 0
-    this.filters.articleTag = this.actions.filter(item => item.laber === this.filters.activeIndex)[0].value
+    this.filters.articleTag = this.actions.filter(item => item.label === this.filters.activeIndex)[0].value
     this.fetchData()
   }
 
@@ -124,30 +127,3 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss">
-.article-skeleton {
-  width: 46.571429rem;
-  padding: .857143rem 1.714286rem;
-  background: #fff;
-  border-width: 0;
-  border-radius: 3px;
-  margin-bottom: .857143rem;
-  box-shadow: 0 0 20px -5px rgba(158,158,158,.22);
-}
-.articles-nav {
-  width: 100%;
-  overflow-y: hidden;
-  overflow-x:scroll;
-}
-.article-empty {
-  padding-top: 30px;
-  width: 100%;
-  height: 200px;
-}
-.navTop {
-  width: 100vw;
-  background: #ffffff;
-  transform: translate3d(0,-60px,0);
-  transition: transform .2s;
-}
-</style>

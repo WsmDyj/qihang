@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <Header />
-    <div class="main">
+    <div class="main mg-top-80">
       <articleAction :article= article />
       <div class="article section">
-        <div class="article-author">
-          <div class="author-box">
+        <div class="article-header">
+          <div class="article-header__info">
             <author-info :userInfo= article.author>
               <div slot="content">
                 <span class="article-time">{{article.createtime}} </span>
@@ -16,20 +16,20 @@
               </div>
             </author-info>
           </div>
-          <div v-show="nickname != article.author.nickname">
+          <div class="article-header__follow" v-if="nickname !== article.author.nickname">
             <author-follow size='mini' :author = article.author.nickname ></author-follow>
           </div>
         </div>
-        <div class="article-img" v-if="article.articleImg">
+        <div class="article-img mobile-none" v-if="article.articleImg">
           <el-image fit="cover" class="article-img" :src="article.articleImg"></el-image>
         </div>
-        <div class="article-title">{{ article.title }}</div>
+        <div class="article-main">{{ article.title }}</div>
         <div ref="article" v-highlight>
           <div class="article-content" v-html="article.content"></div>
           <div v-if='article.content === ""'>
             <div class="article-placement"></div>
             <div class="article-placement__comment"></div>
-             <div class="article-placement__domin"></div>
+            <div class="article-placement__domin"></div>
           </div>
         </div>
         <div class="article-comment">
@@ -179,7 +179,42 @@ export default class  extends Vue {
 .article {
   position: relative;
   background: #fff;
-  padding: 2.142857rem /* 30/14 */ 1.428571rem /* 20/14 */;
+  padding: 2rem 1.5rem;
+  cursor: default;
+
+  &-header {
+    @include flexcenter($jc: space-between);
+    margin-bottom: 10px;
+    .article-time {
+      letter-spacing: 1px;
+      @include textRoundRight();
+      font-size: 1.1rem;
+      color: $fontcolor;
+    }
+    .article-edit {
+      color: $primary;
+      position: relative;
+      @include textRound($color:'#409EFF');
+    }
+  }
+
+  &-img {
+    text-align: center;
+    width: 90%;
+    height: 367px;
+    margin: 0 auto;
+  }
+
+  &-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin: .67em 0;
+    @media only screen and (max-width: 750px) { 
+      font-size: 20px
+    }
+  }
+
   &-placement {
     height: 367px;
     background-color: #f4f5f5;
@@ -194,37 +229,6 @@ export default class  extends Vue {
       height: 20px;
       width: 50%;
       background-color: #f4f5f5;
-    }
-  }
-  &-author {
-    @include flexcenter($jc: space-between);
-    font-size: 1rem /* 14/14 */;
-    .article-time {
-      letter-spacing: 1px;
-      padding-right: 5px;
-    }
-    .article-edit {
-      color: $primary;
-      position: relative;
-      @include textRound($color:'#409EFF');
-      // @media only screen and (max-width: 750px) { 
-      //   display: none
-      // }
-    }
-  }
-  &-img {
-    text-align: center;
-    width: 46.571429rem /* 652/14 */;
-    height: 26.214286rem /* 367/14 */;
-    margin: auto auto;
-  }
-  &-title {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.5;
-    margin: 1.428571rem /* 20/14 */ 0;
-    @media only screen and (max-width: 750px) { 
-      font-size: 20px
     }
   }
 }

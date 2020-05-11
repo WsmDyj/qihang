@@ -17,14 +17,22 @@ body {
 
 html {
   height: 100%;
-  font-size: 14px;
   text-rendering: optimizeLegibility;
+  word-break: break-word;
+  color: #333;
+  background-color: #f4f5f5;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 #app {
-  color: #333;
-  font-size: 14px;
-  background-color: #f4f5f5;
   min-height: 100vh;
+}
+a {
+  text-decoration: none;
+  color: $navcolor;
+}
+
+#nprogress .bar {
+  height: 1px!important;;
+  background: $primary !important; //自定义颜色
 }

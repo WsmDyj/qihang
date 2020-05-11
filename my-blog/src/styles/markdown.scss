@@ -1,14 +1,11 @@
 .article-content {
   font-size: 15px;
   color: #333;
-  line-height: 1.75;
+  line-height: 1.5;
   word-break: break-word;
   font-weight: 400;
   font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   text-rendering: optimizeLegibility;
-  @media only screen and (max-width: 750px) { 
-    font-size: 13px /* 15/14 */;
-  }
   ul {
     padding-left: 28px;
     list-style: inherit;
@@ -62,7 +59,6 @@
 
   p > code:not([class]) {
     padding: 2px 4px;
-    font-size: 90%;
     color: #c7254e;
     background-color: #f9f2f4;
     border-radius: 4px;

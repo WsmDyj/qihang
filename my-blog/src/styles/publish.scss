@@ -1,23 +1,40 @@
 // 页面统一样式
+.logo {
+  margin-right: 1.5rem;
+  &-pc {
+    width: 98px;
+    height: 50px;
+    display: block;
+    @media only screen and (max-width: 750px) { 
+      display: none;
+    }
+  }
+  &-mobile {
+    width: 45px;
+    height: 42px;
+    display: none;
+    @media only screen and (max-width: 750px) { 
+      display: block;
+    }
+  }
+}
+
 .container {
   @include flexcolumn($jc:center, $ai: center);
   .main {
-    width: 994px;
-    margin: auto auto;
-    margin-top: 80px;
+    width: 100%;
+    max-width: 994px;
     position: relative;
     @include flexcenter($jc:space-between, $ai: none);
-    @media only screen and (max-width: 1024px) { 
-      width: 100%;
-    }
     .asside {
-      width: 17.142857rem /* 240/14 */;
+      width: 240px;
       @media only screen and (max-width: 1024px) { 
         display: none
       }
     }
   }
 }
+
 .section, article {
   width: 730px;
   box-sizing: border-box;
@@ -26,6 +43,25 @@
   }
 }
 
-.qh-hairline--bottom {
-  border-bottom: 1px solid $border-color;
+// 首页文字标题样式
+.article-title {
+  font-size: 1.666667rem /* 20/12 */;
+  font-weight: bold;
+  color: $title-color;
+  @include twoLines();
+  &:hover {
+    color: $primary;
+    text-decoration: underline !important;
+  }
+  @media only screen and (max-width: 767px) { 
+    font-size: 1.333333rem /* 16/12 */;
+  }
+}
+
+// 移动端隐藏
+.mobile-none {
+  // display: block;
+  @media only screen and (max-width: 768px) { 
+    display: none;
+  }
 }

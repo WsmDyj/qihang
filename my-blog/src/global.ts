@@ -5,9 +5,9 @@ export interface Qlist {
 }
 
 export interface Qtag {
-  value: string
-  laber: string
-  disabled?: boolean
+  value: string;
+  label: string;
+  disabled?: boolean;
 } 
 
 export const INFORMATION_LIST: Qlist[] = [
@@ -24,17 +24,29 @@ export const NAV_LIST: Qlist[]  = [
 ]
 
 export const TAG_LIST: Qtag[] = [
-  { value: "全部", laber: "0" },
-  { value: "Vue", laber: "1" },
-  { value: "React", laber: "2" },
-  { value: "JavaScript", laber: "3" },
-  { value: "CSS", laber: "4" },
-  { value: "Node", laber: "5" },
-  { value: "Flutter", laber: "6" },
-  { value: "Webpack", laber: "7" },
-  { value: "TypeScript", laber: "8" },
-  { value: "Http", laber: "9" },
-  { value: "Docker", laber: "10" },
-  { value: "性能优化", laber: "11" },
-  { value: "小程序", laber: "12" },
-]
+  { value: "全部", label: "0" },
+  { value: "Vue", label: "1" },
+  { value: "React", label: "2" },
+  { value: "JavaScript", label: "3" },
+  { value: "CSS", label: "4" },
+  { value: "Node", label: "5" },
+  { value: "Flutter", label: "6" },
+  { value: "Webpack", label: "7" },
+  { value: "TypeScript", label: "8" },
+  { value: "Http", label: "9" },
+  { value: "Docker", label: "10" },
+  { value: "性能优化", label: "11" },
+  { value: "小程序", label: "12" },
+];
+
+export const TAG_QUESTION: Qtag[] = [
+  { value: "全部", label: "0" },
+  { value: "已回答", label: "1" },
+  { value: "已解决", label: "2" },
+];
+
+export const TAG_SHARE: Qtag[] = [
+  { value: "视频推荐", label: "0" },
+  { value: "必读书单", label: "1" },
+  { value: "内推招聘", label: "2" },
+];

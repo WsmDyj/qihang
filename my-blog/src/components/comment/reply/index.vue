@@ -1,7 +1,7 @@
 <template>
   <div class="reply">
     <div class="reply-content" v-for="(reply, index) in replys" :key="index" >
-      <authorInfo type="reply" size="medium" :userInfo = reply>
+      <authorInfo type="comment" size="medium" :userInfo = reply>
         <div slot="content" class="reply-box">
           回复 
           <router-link target="_blank" :to="{path: '/author', query:{author: reply.reply_author}}">
@@ -59,7 +59,7 @@ export default class extends Vue {
     }
     .reply-box {
       color: #505050;
-      font-size: .857143rem /* 12/14 */;
+      font-size: 1.083333rem /* 13/12 */;
       margin-top: .571429rem /* 8/14 */;
       .text {
         color: #406599;
@@ -72,8 +72,8 @@ export default class extends Vue {
     .reply-info {
       @include flexcolumn();
       box-sizing: border-box;
-      padding-bottom: .714286rem /* 10/14 */;
-      padding-left: 3.285714rem /* 46/14 */;
+      padding-bottom: 1rem /* 10/14 */;
+      padding-left: 4.3rem /* 46/14 */;
     }
   }
 }

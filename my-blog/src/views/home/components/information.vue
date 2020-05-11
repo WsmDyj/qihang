@@ -2,7 +2,7 @@
   <div class="information">
     <div v-for="(item, index) in lists" :key="index">
       <router-link :to="item.path">
-        <el-image fit="cover" class="information-image" :src="require(`@/assets/home/${item.name}.webp`)" />
+        <el-image fit="cover" class="information-image" :src="require(`@/assets/img/${item.name}.webp`)" />
       </router-link>
     </div>
   </div>

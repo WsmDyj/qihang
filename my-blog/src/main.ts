@@ -28,14 +28,14 @@ import '@/styles/index.scss'
 import list from "vant/lib/list"
 import loading from "vant/lib/loading"
 import empty from "vant/lib/empty"
-import tabs from "vant/lib/tabs"
-import tab from "vant/lib/tab"
+import sticky from "vant/lib/sticky"
+// import tabs from "vant/lib/tabs"
+// import tab from "vant/lib/tab"
 const VantComps: any = {
   list,
   loading,
   empty,
-  tabs,
-  tab,
+  sticky
 };
 
 

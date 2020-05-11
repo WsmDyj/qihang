@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import likeList from '@/components/articleList/homeArticle/index.vue'
+import likeList from '../author/components/likes.vue'
 import { IArticleData  } from '../../api/types'
 import Header from '@/components/header/index.vue'
 import articleLoading from '@/components/loading/articleLoading.vue'

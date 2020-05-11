@@ -26,13 +26,7 @@ const getList = async (author, filters) => {
     sql += `limit ${tagPage}, 15;`
   }
   const lists = await exec(sql)
-  for (let i =0;i <lists.length; i++) {
-    // const userInfo = await getUserInfo(lists[i].author)
-    // const follow = await getFollowList(lists[i].author)
-    lists[i].articleTag = lists[i].articleTag.split(',')
-    // lists[i].author = userInfo
-    // Object.assign(lists[i].author, {followInfo: follow})
-  }
+  
   return lists
 }
 
@@ -43,7 +37,7 @@ const getListHot = async () => {
 }
 
 const getAnswerList = async (author) => {
-  let sql = `select questions.author, question_id, title, content, markdown, createtime, comments, reviews, status from myBlog.questions inner join myBlog.comment on  comment.comment_author = '${author}' and questions.question_id = comment.article_id;`
+  let sql = `select questions.author, articleTag, question_id, title, content, markdown, createtime, comments, reviews, status from myBlog.questions inner join myBlog.comment on  comment.comment_author = '${author}' and questions.question_id = comment.article_id;`
   const lists = await exec(sql)
   return lists
 }

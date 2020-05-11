@@ -1,27 +1,17 @@
 <template>
-  <div class="question" @click="checkAsk">
-    <div class="qa-summary">
-      <div class="summary-author">
-        <span class="author-name">{{ ask.author }}</span>
-        <span class="qa-time">{{ formatDate(ask.createtime) }}
-        </span>
-         <span class="title-type" v-for="(tag, index) in ask.articleTag" :key="index">{{ tag }}</span>
-        <span class="qa-delete" v-if="origin==='author' && visible" @click.stop="deleteAsk(ask)">
-          <i class="el-icon-delete"></i>
-        </span>
-      </div>
-      <div class="summary-title">
-        <span class="title-conter">{{ ask.title }}</span>
-      </div>
+  <div class="item" @click="checkAsk">
+    <div class="item-content">
+      <article-title :article= ask />
+      <div class="item-content__title">{{ ask.title }}</div>
     </div>
-    <div class="qa-rank">
-      <div :class="ask.status == 2 ? 'solve qa-votes' : 'not-solve qa-votes'">
-        <span class="qa-votes-count">{{ ask.comments }}</span>
-        <span class="qa-votes-item">{{ ask.status == 2 ? '解决': '回答'}}</span>
+    <div class="item-action mobile-none">
+      <div class="item-action__votes" :class="ask.status == 2 ? 'solve' : 'not-solve'">
+        <div class="votes-count">{{ ask.comments }}</div>
+        <div class="votes-txt">{{ ask.status == 2 ? '解决': '回答'}}</div>
       </div>
-      <div class="qa-votes">
-        <span class="qa-votes-count">{{ ask.reviews }}</span>
-        <span class="qa-votes-item">浏览</span>
+      <div class="item-action__votes">
+        <div class="votes-count">{{ ask.reviews }}</div>
+        <div class="votes-txt">浏览</div>
       </div>
     </div>
   </div>
@@ -31,15 +21,23 @@
 import { Component, Vue, Watch, Prop, Emit } from 'vue-property-decorator'
 import { Iquestion } from '../../../api/types'
 import { UserModule } from '../../../store/modules/user'
+import articleTitle from '@/components/article/articleTitle.vue'
+
 
 @Component({
+  components: {
+    articleTitle
+  }
 })
-
 export default class extends Vue {
   @Prop() private ask!: Iquestion
   @Prop() private origin!: string
   get nickname() {
     return UserModule.nickname
+  }
+
+  private handleClick(author: string) {
+    window.open(`/author?author=${author}`, '_blank')
   }
 
   get visible() {
@@ -57,97 +55,62 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.question {
+.item {
   background: #fff;
   width: 100%;
   box-sizing: border-box;
-  padding: 12px 20px 6px 20px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid rgba(178,186,194,.15);
+  padding: 1.5rem 2rem;
+  @include flexcenter($jc: none, $ai: center);
+  border-bottom: 1px solid $border-article-color;
   &:hover {
-    background-color: #f7f9f9;
+    background-color: $hover-color;
   }
-  .qa-delete {
-    padding-left: 10px;
-    color: #F56C6C;
+}
+
+.item-content {
+  flex: 1;
+  position: relative;
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    color: #2e3135;
+    cursor: default;
+    @include twoLines();
+    line-height: 1.2;
+    &:hover {
+      text-decoration: underline;
+    }
+    @media only screen and (max-width: 767px) { 
+      font-size: 1.2rem;
+    }
   }
-  .qa-rank {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    color: #757575;
-    width: 140px;
-    @media only screen and (max-width: 750px) { 
-      width: 120px;
+}
+
+.item-action {
+  color: #757575;
+  &__votes {
+    display: inline-block;
+    cursor: default;
+    margin-left: 2.5rem;
+    font-size: 1.083333rem /* 13/12 */;
+    padding: 0.6rem 0.8rem;
+    text-align: center;
+    .votes-count {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
     }
-    .qa-votes {
-      cursor: default;
-      padding: 5px 0;
-      text-align: center;
-    }
-    .solve {
-      background: $primary;
-      color: #fff;
-      width: 45px;
-      border-radius: 4px;
-    }
-    .not-solve {
-      width: 45px;
-      border-radius: 4px;
-      background: rgba(2,127,255,0.08);
-      color: $primary;
-      border: 1px solid rgba(2,127,255,0.16);
-    }
-    .qa-votes-item {
-      display: block;
-      padding-top: 5px;
-    }
-    
   }
-  .qa-summary {
-    width: 100%;
-    position: relative;
-    margin-right: 10px;
-    .summary-author {
-      font-size: .928571rem /* 13/14 */;
-      color: #b2bac2;
-      cursor: default;
-      position: relative;
-      .qa-time {
-        @include textRound();
-        @include textRoundRight();
-      }
-      .title-type {
-        display: inline-block;
-        box-sizing: border-box;
-        position: relative;
-        font-size: .928571rem /* 13/14 */;
-        text-align: center;
-        &:nth-child(even)::before {
-          content: "/";
-          color: #b2bac2;
-          padding: 0 2px;
-        }
-      }
-    }
-    .summary-title {
-      font-size: 17px;
-      font-weight: 600;
-      margin: 10px 0;
-      color: #2e3135;
-      cursor: default;
-      @include twoLines();
-      @media only screen and (max-width: 750px) { 
-        font-size: 15px;
-      }
-      .title-conter {
-        margin-right: 10px;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
+  .solve {
+    background: $primary;
+    color: #fff;
+    border-radius: 4px;
+  }
+  .not-solve {
+    border-radius: 4px;
+    background: rgba(2,127,255,0.08);
+    color: $primary;
+    border: 1px solid rgba(2,127,255,0.16);
   }
 }
 </style>

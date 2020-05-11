@@ -9,9 +9,11 @@
       <!-- <i v-show="!visible" class="iconfont">&#xe618;</i> -->
     </div>
     <div ref="article" v-highlight>
-      <div class="article-content" v-html="comment.comment_conent"></div>
+      <div class="article-content comment-content" v-html="comment.comment_conent"></div>
     </div>
-    <formBox :data = comment @submit='handleSubmit' />
+    <div class="comment-content">
+      <formBox :data = comment @submit='handleSubmit' />
+    </div>
     <div v-show="comment.replys.length > 0">
       <reply @createReply='handleTwoReply' :replys = comment.replys :comment_id = comment.comment_id />
     </div>
@@ -80,9 +82,9 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .comment {
-  padding: 1.428571rem /* 20/14 */;
+  padding: 1.5rem 0;
   position: relative;
-  .comment-header {
+  &-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -93,6 +95,9 @@ export default class extends Vue {
       color: $primary;
       font-size: 50px;
     }
+  }
+  &-content {
+    margin-left: 4rem;
   }
 }
 </style>

@@ -1,24 +1,24 @@
 <template>
   <div class="container">
     <Header />
-    <div class="main">
+    <div class="main mg-top-80">
       <div class="article section">
         <div class="article-container">
-          <div class="article-author">
-            <div class="author-box">
+          <div class="article-header">
+            <div class="article-header__info">
               <author-info :userInfo= ask.author>
                 <div slot="content">
                   <span class="article-time">{{ask.createtime}} </span>
                   <span class="article-review">阅读 {{ ask.reviews }} </span>
-                  <router-link v-show="nickname == ask.author.nickname" :to="{path: '/ask', query:{askId: ask.question_id}}">
+                  <router-link v-if="nickname === ask.author.nickname" :to="{path: '/ask', query:{askId: ask.question_id}}">
                     <span class="article-edit">编辑</span>
                   </router-link>
                 </div>
               </author-info>
             </div>
           </div>
-          <div class="article-title">{{ ask.title }}</div>
-          <div class="ask-tag">
+          <div class="article-main">{{ ask.title }}</div>
+          <div class="article-tags">
             <i class="iconfont">&#xe794;</i>
             <span class="article-tag" v-for="(tag, index) in ask.articleTag" :key="index">{{tag}}</span>
           </div>
@@ -27,29 +27,29 @@
           </div>
         </div>
        
-        <div class="article-comment" v-show="comments.length > 0">
-          <div class="comment-title">
+        <div class="article-comment mg-top-20" v-if="comments.length > 0">
+          <div class="article-comment__title">
             <span @click="show = !show">
               <i class="el-icon-guide"></i>
-              {{comments.length}} 个回答
-              <i :class="show ? 'el-icon-caret-top' : 'el-icon-caret-bottom'"></i>
+              <span> {{comments.length}} 个回答 </span>
+              <i :class="!show ? 'el-icon-caret-top' : 'el-icon-caret-bottom'"></i>
             </span>
           </div>
           <el-collapse-transition>
-            <div v-show="!show">
-              <div class="comment-content" v-for="(comment, index) in comments" :key="index">
+            <div v-if="!show">
+              <div class="article-comment__content" v-for="(comment, index) in comments" :key="index">
                 <comment :show = visible :comment = comment @submit='getComment' />
               </div>
             </div>
           </el-collapse-transition>
         </div>
 
-        <div class="article-comment screen-comment">
-          <div class="comment-title">
+        <div class="article-comment mg-top-20">
+          <div class="article-comment__title">
             <i class="el-icon-edit"></i>
             撰写答案 
           </div>
-          <div class="comment-content">
+          <div class="article-comment__content">
             <commentForm @submit="submitComment" />
           </div>
         </div>
@@ -146,32 +146,37 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article-container {
+  position: relative;
   background: #fff;
-  padding: 1.428571rem /* 20/14 */;
-  .article-author {
+  cursor: default;
+  padding: 2rem 1.5rem;
+  .article-header {
     @include flexcenter($jc: space-between);
+    margin-bottom: 10px;
     .article-time {
       letter-spacing: 1px;
-      padding-right: 5px;
+      @include textRoundRight();
+      font-size: 1.1rem;
+      color: $fontcolor;
     }
     .article-edit {
       color: $primary;
+      position: relative;
       @include textRound($color:'#409EFF');
-      @media only screen and (max-width: 750px) { 
-        display: none
-      }
     }
   }
-  .article-title {
-    font-size: 30px;
+  .article-main {
+    font-size: 2.5rem;
     font-weight: 700;
-    margin: 1.428571rem /* 20/14 */ 0 5px 0;
+    line-height: 1.5;
+    margin: .67em 0 0 0;
     @media only screen and (max-width: 750px) { 
       font-size: 20px
     }
   }
-  .ask-tag {
-    margin-bottom: 1.428571rem /* 20/14 */;
+  .article-tags {
+    margin: 1.6rem 0;
+    font-size: 1.2rem;
     .iconfont {
       color: $primary;
       padding: 2px 5px 0 5px;
@@ -187,16 +192,14 @@ export default class extends Vue {
 }
 .article-comment {
   background: #fff;
-  margin-top: 1.428571rem /* 20/14 */;
   color: $primary;
-  padding: 1.428571rem /* 20/14 */;
-  .comment-title {
+  padding: 2rem 1.5rem;
+  &__title {
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-weight: bold;
   }
-  .comment-content {
-    margin-top: 10px;
+  &__content {
     border-bottom: 1px solid $border-color;
     &:last-child {
       border-bottom: none;

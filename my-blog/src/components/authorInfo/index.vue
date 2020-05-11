@@ -35,41 +35,35 @@ export default class extends Vue {
   }
   .author-info {
     @include flexcolumn($jc: space-around);
-    margin-left: .857143rem /* 12/14 */;
+    margin-left: 1rem;
     .author-name {
-      font-size: 1.071429rem /* 15/14 */;
-      font-weight: bold;
-      color: #333;
-      cursor: pointer;
+      display: inline-block;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: $text-color;
       &--comment {
-        font-size: .928571rem /* 13/14 */;
+        color: $text-color;
+        flex: 1 1 auto;
         color: #333;
+        font-size: 1.083rem;
+        font-weight: 400;
         .author-job {
           color: #8a9aa9;
-          font-size: .857143rem /* 12/14 */;
-          margin-left: .285714rem /* 4/14 */;
-        }
-      }
-      &--reply {
-        font-size: .928571rem /* 13/14 */;
-        color: #333;
-        .author-job {
-          color: #8a9aa9;
-          font-size: .857143rem /* 12/14 */;
-          margin-left: .285714rem /* 4/14 */;
+          margin-left: 4px;
         }
       }
     }
     .author-content {
       width: 100%;
-      font-size: .928571rem /* 13/14 */;
+      font-size: 1.083333rem /* 13/12 */;
       color: $fontcolor;
       &--comment {
-        margin-top: .714286rem /* 10/14 */;
-        color: #505050;
-      }
-      &--reply {
-        margin-top: 0;
+        margin-top: .5rem;
+        font-size: 1.083rem;
+        line-height: 1rem;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        word-break: break-all;
         color: #505050;
       }
     }

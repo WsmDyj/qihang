@@ -42,7 +42,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
-import articleList from '@/components/articleList/homeArticle/index.vue'
+import articleList from '../author/components/likes.vue'
 import authorList from '@/components/authorList/index.vue'
 import { IArticleData, IFollow } from '../../api/types'
 import formatDate from '../../utils/formatDate'

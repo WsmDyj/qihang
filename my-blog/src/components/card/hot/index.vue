@@ -43,7 +43,7 @@ export default class extends Vue {
   .content-item {
     padding: 12px 15px;
     &:hover {
-      background: $hoverBg;
+      background: $hover-color;
     }
     .content-title {
       font-size: 15px;

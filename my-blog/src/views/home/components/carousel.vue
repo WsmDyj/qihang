@@ -2,10 +2,10 @@
   <el-carousel class="carousel" :interval = 4000  trigger="click" height="100%">
     <el-carousel-item v-for="(item, index) in lists" :key="index">
       <div class="carousel-content" @click="checkArticle(item)">
-        <el-image fit="contain" class="carousel-img" :src = item.img></el-image>
+        <el-image fit="contain" class="carousel-img" :src = item.img />
         <div class="carousel-panel">
-          <div class="carousel-title">{{item.title}}</div>
-          <div class="carousel-info">
+          <div class="carousel-panel__title">{{item.title}}</div>
+          <div class="carousel-panel__info">
             <span class="carousel-name">{{item.author}}</span>
             <span class="split-line">—</span>
             <span class="carousel-time">{{item.time}}</span>
@@ -53,59 +53,66 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .carousel {
-  height: 19.285714rem /* 270/14 */;
+  height: 22.5rem /* 270/12 */;
   width: 100%;
   background: #fff;
   border-radius: 2px;
+  @media only screen and (max-width: 767px) { 
+    height: 12rem;
+  }
   .carousel-content {
     width: 100%;
     height: 100%;
     position: relative;
     cursor: default;
-    .carousel-panel {
-      height: 8.857143rem /* 124/14 */;
-      position: absolute;
-      padding: 24px;
-      box-sizing: border-box;
-      border-radius: 2px;
-      z-index: 99;
-      bottom: 0;
-      width: 100%;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      background: linear-gradient(to bottom,rgba(6,6,8,0),rgba(6,6,8,.8));
-      .carousel-title {
-        font-size: 26px;
-        font-weight: 600;
-        padding-bottom: 1rem;
-        @media only screen and (max-width: 750px) { 
-          font-size: 16px
-        }
+  }
+  .carousel-img {
+    width: 100%;
+    height: 100%;
+  }
+  .carousel-panel {
+    height: 50%;
+    position: absolute;
+    padding: 2rem /* 24/12 */;
+    box-sizing: border-box;
+    border-radius: 2px;
+    z-index: 9;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    @include flexcolumn($jc:space-around, $ai: none);
+    background: linear-gradient(to bottom,rgba(6,6,8,0),rgba(6,6,8,.8));
+    @media only screen and (max-width: 767px) { 
+      padding: 1rem 2rem;
+    }
+
+    &__title {
+      font-size: 2rem;
+      font-weight: bold;
+      @include nowrap();
+      @media only screen and (max-width: 767px) { 
+        font-size: 1.5rem;
       }
-      .carousel-info {
-        color: rgba(255,255,255,.5);
-        .carousel-name {
-          color: #fff;
-          font-size: 1rem;
-          font-weight: 500;
-          vertical-align: middle;
-        }
-        .split-line {
-          padding: 0 10px;
-        }
-        .carousel-time {
-          font-size: 1rem;
-          vertical-align: middle;
-        }
+    }
+    &__info {
+      color: rgba(255,255,255,.5);
+      font-size: 1.3rem;
+      font-weight: bold;
+      @media only screen and (max-width: 767px) { 
+        font-size: 1rem;
+      }
+      .carousel-name {
+        color: #fff;
+        vertical-align: middle;
+      }
+      .split-line {
+        padding: 0 1rem;
+        vertical-align: middle;
+      }
+      .carousel-time {
+        vertical-align: middle;
       }
     }
   }
-}
-.carousel-img {
-  border-radius: 4px;
-  width: 100%;
-  height: 19.285714rem /* 270/14 */;
 }
 </style>

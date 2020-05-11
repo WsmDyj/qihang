@@ -1,13 +1,9 @@
 <template>
-  <div class="follow-action">
-    <el-button 
-      :size='size'
-      type="success"
-      :plain=" show ? false : true "
-      @click.stop="follow(author)"
-    >
-      {{ show ? '已关注' : '关注' }}
-  </el-button >
+  <div 
+    class="follow-button" 
+    :class="!show ? `unfollow-button follow-button__${size}` : `following-button follow-button__${size}`" 
+    @click.stop="follow(author)">
+    {{ show ? '已关注' : '关注' }}
   </div>
 </template>
 
@@ -61,16 +57,36 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.follow-action {
-  font-size: 1rem;
-  text-align: center;
+.follow-button {
+  margin: 0 0 0 auto;
   padding: 0;
+  width: 55px;
+  text-align: center;
+  line-height: 26px;
+  height: 26px;
+  font-size: 13px;
+  border: 1px solid $likecolor;
+  cursor: pointer;
+
+  &__medium {
+    width: 106px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
 }
-.unfollow {
+.unfollow-button {
   color: #6cbd45;
   background-color: #fff;
+  &:hover {
+    color: #fff;
+    background-color: #6cbd45;
+  }
 }
-.follow {
+
+.following-button {
   color: #fff;
   background-color: #6cbd45;
 }

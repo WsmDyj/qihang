@@ -31,7 +31,7 @@ export default class extends Vue {
   private tags: Qtag[] = []
 
   private async created() {
-    let data:Qtag[] = TAG_LIST.filter(item => item.laber !== '0')
+    let data:Qtag[] = TAG_LIST.filter(item => item.label !== '0')
     data.forEach((item: Qtag) => {
       Object.assign(item, {disabled: false })
       this.tags.push(item)
@@ -41,17 +41,17 @@ export default class extends Vue {
   private closeTag(tag: string) {
     this.tagCount  = this.tagCount + 1
     this.selectTags = this.selectTags.filter(item => item != tag)
-    this.tags.forEach((item: Itag) => {
+    this.tags.forEach((item: Qtag) => {
       item.disabled = item.value === tag ? false : item.disabled
     })
     this.$emit('select', this.selectTags)
   }
 
-  private selectTag(tag: Itag) {
+  private selectTag(tag: Qtag) {
     if (this.tagCount > 0) {
       this.tagCount = this.tagCount - 1
-      this.tags.forEach((item: Itag) => {
-        item.disabled = item.laber === tag.laber ? true : item.disabled
+      this.tags.forEach((item: Qtag) => {
+        item.disabled = item.label === tag.label ? true : item.disabled
       })
       this.selectTags.push(tag.value)
       this.$emit('select', this.selectTags)

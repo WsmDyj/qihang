@@ -1,30 +1,30 @@
 <template>
-  <div class="article-info">
-    <div class="article-author">
-      <div class="author-info" @click.stop="handleClick(article.author)">
-        <span class="author-avatar">
-          <el-avatar size="small" :src="article.avatar"></el-avatar>
-        </span>
+  <div class="article-footer">
+    <div class="footer-content">
+      <div class="footer-content__author" @click.stop="handleClick(article.author)">
+        <el-avatar size="small" :src="article.avatar"></el-avatar>
+      </div>
+      <div class="footer-item">
         <span class="author-name">{{article.author}}</span>
       </div>
-      <div class="tags">
+      <div class="footer-content__tags footer-item">
         <i class="iconfont">&#xe794;</i>
-        <span class="article-tag">{{article.articleTag}}</span>
+        <span>{{article.articleTag}}</span>
       </div>
     </div>
-    <div class="article-action">
-      <span class="action-item">
+    <div class="footer-action">
+      <span class="footer-action__item mobile-none">
         <i class="iconfont">&#xe60d;</i>
-        <span class="count">{{article.reviews}}</span>
+        <span>{{article.reviews}}</span>
       </span>
-      <span class="action-item">
+      <span class="footer-action__item">
         <i class="iconfont">&#xe610;</i>
-        <span class="count">{{article.comments}}</span>
+        <span>{{article.comments}}</span>
       </span>
-      <span class="action-item">
+      <span class="footer-action__item">
         <i class="iconfont" v-if="!article.islike">&#xe61b;</i>
         <i class="iconfont" v-else :style="{color: article.islike ? '#6cbd65' : '' }">&#xe60c;</i>
-        <span class="count" :style="{color: article.islike ? '#6cbd65' : '' }">{{article.likeCount}}</span>
+        <span :style="{color: article.islike ? '#6cbd65' : '' }">{{article.likeCount}}</span>
       </span>
     </div>
   </div>
@@ -49,65 +49,51 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.article-info {
+.article-footer {
+  @include flexcenter($jc: space-between, $ai: center);
+  margin-top: 4px;
+}
+.footer-item {
+  font-size: 1.083333rem /* 13/12 */;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.footer-content {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  .article-author {
-    vertical-align: middle;
-    font-size: 1rem /* 13/14 */;
-    flex: 1;
-    width: 5.714286rem /* 80/14 */;
-    display: flex;
-    align-items: center;
-    align-items: center;
-    .author-info {
-      padding-right: .714286rem /* 10/14 */;
-      cursor: pointer;
-      .author-avatar {
-        display: inline-block;
-        vertical-align: middle;
-        padding-top: 5px;
-        @media only screen and (max-width: 768px) { 
-          transform: scale(.8);
-        }
-      }
-      .author-name {
-        display: inline-block;
-        vertical-align: middle;
-        padding-left: .857143rem /* 12/14 */;
-      }
-      &:hover {
-        color: $primary;
-      }
+  
+  &__author {
+    cursor: pointer;
+    .author-name {
+      padding-left: 1rem;
+      color: $title-name-color;
     }
-    .tags {
-      flex: 1;
-      vertical-align: middle;
-      @include nowrap();
-      .iconfont {
-        color: $primary;
-        padding: 0 5px;
-      }
-      .article-tag {
-        font-size: 1rem /* 14/14 */;
-        color: $primary;
-      }
+    &:hover {
+      color: $primary;
     }
   }
-  .article-action {
-    font-size: 1rem /* 14/14 */;
-    color: $fontcolor;
-    display: flex;
-    justify-content: space-between;
-    .action-item {
-      padding: 0 .714286rem /* 10/14 */;
-      .iconfont {
-        padding:0 2px;
-      }
-      .count {
-        padding: 0 2px;
-      }
+
+  &__tags {
+    flex: 1;
+    @include nowrap();
+    color: $primary;
+    .iconfont {
+      color: $primary;
+      padding-right: 5px;
+    }
+  }
+}
+.footer-action {
+  font-size: 1.083333rem /* 13/12 */;
+  color: $fontcolor;
+  display: flex;
+  justify-content: space-between;
+
+  &__item {
+    padding: 0 1rem;
+    .iconfont {
+      padding-right: 5px;
     }
   }
 }

@@ -2,7 +2,7 @@
   <div id="comment" class="comment">
     <div class="comment-title">评论</div>
     <div class="comment-form">
-      <el-avatar fit="cover" size="medium" :src= avatar></el-avatar>
+      <el-avatar size="medium" :src= avatar></el-avatar>
       <div class="comment-input">
         <formBox type='first' @submit='createComment' />
       </div>
@@ -95,8 +95,8 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .comment-title {
-  color: #8a9aa9;
-  font-size: 16px;
+  color: $comment-color;
+  font-size: 17px;
   font-weight: 400;
   text-align: center;
   padding: 1.571429rem /* 22/14 */ 0 5px;
@@ -121,14 +121,17 @@ export default class extends Vue {
   }
   .comment-text {
     color: #505050;
-    font-size: 1rem /* 14/14 */;
-    margin-top: .571429rem /* 8/14 */;
+    font-size: 1.083333rem;
+    margin-top: 1rem;
   }
   .comment-info {
     @include flexcolumn();
     box-sizing: border-box;
-    padding-bottom: 1.071429rem /* 15/14 */;
-    padding-left: 3.285714rem /* 46/14 */;
+    font-size: 1rem;
+    color: #8a9aa9;
+    cursor: default;
+    padding-bottom: 1rem;
+    padding-left: 4rem;
   }
 }
 </style>

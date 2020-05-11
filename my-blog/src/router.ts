@@ -20,7 +20,6 @@ const routes = [
     path: "/article",
     name: "article",
     component: () => import("./views/article/index.vue"),
-    meta: { title: "文章页 - 起航" },
   },
   {
     path: "/questions",

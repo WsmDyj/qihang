@@ -2,10 +2,19 @@
   Mixins
 */
 $font-sizes: 14, 15, 16, 18, 20, 22;
+$margin-top: 20, 80, 126;
 
 @each $font-size in $font-sizes {
   .fs-#{$font-size} {
-    font-size: #{$font-size / 14}rem;
+    font-size: #{$font-size / 12}rem;
+  }
+}
+@each $margin-top in $margin-top {
+  .mg-top-#{$margin-top} {
+    margin-top: #{$margin-top}px;
+    @media only screen and (max-width: 768px) { 
+      margin-top: #{$margin-top - 10}px;
+    }
   }
 }
 
@@ -64,7 +73,7 @@ $font-sizes: 14, 15, 16, 18, 20, 22;
   &::before {
     content: "·";
     color: $color;
-    padding: 0 5px;
+    padding: 0 4px;
   }
 }
 /* 文字右边边小原点 */
@@ -72,7 +81,7 @@ $font-sizes: 14, 15, 16, 18, 20, 22;
   &::after {
     content: "·";
     color: $color;
-    padding:0 5px;
+    padding:0 4px;
   }
 }
 

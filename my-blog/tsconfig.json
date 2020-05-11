@@ -34,6 +34,9 @@
       "vant/lib/tab": [
         "src/components/vant/tab"
       ],
+      "vant/lib/sticky": [
+        "src/components/vant/sticky"
+      ],
       "vant/lib/loading": [
         "src/components/vant/loading"
       ],

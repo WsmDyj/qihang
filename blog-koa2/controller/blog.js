@@ -18,13 +18,7 @@ const getList = async (author, page, articleTag) => {
   }
   
   const lists = await exec(sql)
-  // for (let i = 0; i < lists.length; i++) {
-  //   // const userInfo = await getUserInfo(lists[i].author)
-  //   // const follow = await getFollowList(lists[i].author)
-  //   lists[i].articleTag = lists[i].articleTag.split(',')
-  //   // lists[i].author = userInfo
-  //   // Object.assign(lists, {followInfo: follow})
-  // }
+
   return lists
 }
 
