@@ -40,6 +40,7 @@ export default class extends Vue {
   height: 100%;
   &__item {
     font-size: 1.33rem;
+    font-weight: 450;
     padding: 0 1rem;
   }
   @media only screen and (max-width: 767px) { 

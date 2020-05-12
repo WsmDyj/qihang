@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header />
-    <div class="main">
+    <div class="main mg-top-80">
       <div class="section">
         <div class="info-box" v-for="(user, index) in users" :key="index">
           <authorInfo :userInfo= user >

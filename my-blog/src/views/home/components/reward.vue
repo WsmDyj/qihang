@@ -108,7 +108,7 @@ export default class extends Vue {
               border-bottom: none;
             }
             .item-text {
-              color: #222;
+              font-size: 1.1rem;
               padding: 6px 4px;
               box-sizing: border-box;
               flex: 1;
