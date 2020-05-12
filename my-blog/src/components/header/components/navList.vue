@@ -2,7 +2,9 @@
   <div class="navbar-list">
     <div class="navbar-menu">
       <div class="navbar-menu__item" v-for="(item, index) in menu" :key="index">
-        <router-link active-class="active" :to="item.path">{{ item.name }}</router-link>
+        <router-link active-class="active" :to="item.path">
+          <span class="navbar-menu__item--text">{{ item.name }}</span>
+        </router-link>
       </div>
     </div>
     <el-dropdown class="mobile-navbar-menu">
@@ -37,7 +39,6 @@ export default class extends Vue {
   @include flexcenter($jc: space-between);
   height: 100%;
   &__item {
-    font-weight: bold;
     font-size: 1.33rem;
     padding: 0 1rem;
   }

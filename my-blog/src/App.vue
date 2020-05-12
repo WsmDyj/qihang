@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <router-view />
-    <el-tooltip placement="top" content="返回顶部">
       <back-to-top />
-    </el-tooltip>
-    <LiveMessage />
-    <login />
+      <LiveMessage />
+      <login />
   </div>
 </template>
 

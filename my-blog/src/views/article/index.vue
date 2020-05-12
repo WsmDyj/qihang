@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <Header />
-    
     <div class="main mg-top-80">
       <articleAction :article= article />
-        <skeleton  v-if="loading"/>
+      <skeleton v-if="loading"/>
       <div class="article section" v-else>
         <div class="article-header">
           <div class="article-header__info">
@@ -34,7 +33,7 @@
         </div>
       </div>
       <div class="asside">
-        <achievement-card title= "关于作者" :userInfo= article.author ></achievement-card>
+        <achievement-card title= "关于作者" :userInfo= article.author />
         <sticky @scroll="handleScroll" :z-index= 9 :sticky-top="80" v-if='article.content !== ""'>
           <div ref="catalog">
             <catalog :catalog = catalog />
@@ -178,7 +177,7 @@ export default class  extends Vue {
 .article {
   position: relative;
   background: #fff;
-  padding: 2rem 1.5rem;
+  padding: 2rem;
   cursor: default;
 
   &-header {
@@ -200,7 +199,7 @@ export default class  extends Vue {
   &-img {
     text-align: center;
     width: 95%;
-    height: 367px;
+    height: 267px;
     margin: 0 auto;
     @media only screen and (max-width: 750px) { 
       height: 180px;

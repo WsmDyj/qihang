@@ -153,7 +153,6 @@ export default class extends Vue {
       line-height: 30px;
       border-radius: 4px;
       font-size: 1.167rem;
-      font-weight: bold;
       background-color: $primary;
       @media only screen and (max-width: 750px) { 
         display: none

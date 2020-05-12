@@ -7,6 +7,9 @@
           <el-tabs @tab-click="selectNav" v-model="filters.activeIndex">
             <el-tab-pane v-for="(item, index) in actions" :key="index" :label="item.value" :name="item.label"/>
           </el-tabs>
+          <van-tabs @click="filterAsk" class="van-tabs" v-model="activeIndex">
+            <van-tab v-for="(item, index) in actions" :key="index" :title="item.value" :name="item.label" />
+          </van-tabs>
         </div>
       </div>
     </sticky>

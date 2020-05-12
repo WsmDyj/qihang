@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header />
-    <div class="main">
+    <div class="main mg-top-80">
       <Setting />
     </div>
   </div>

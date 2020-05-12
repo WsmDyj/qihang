@@ -5,9 +5,12 @@
       <div class="navigation" :class="{'navigation-fixed': !visible}" >
         <div class="navigation-content">
           <el-tabs @tab-click="filterAsk" class="nav-list" v-model="activeIndex">
-          <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.label">
-          </el-tab-pane>
-        </el-tabs>
+            <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.label">
+            </el-tab-pane>
+          </el-tabs>
+          <van-tabs @click="filterAsk" class="van-tabs" v-model="activeIndex">
+            <van-tab v-for="(item, index) in options" :key="index" :title="item.value" :name="item.label" />
+          </van-tabs>
         </div>
       </div>
     </sticky>

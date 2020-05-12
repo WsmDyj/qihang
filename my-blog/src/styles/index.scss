@@ -18,10 +18,11 @@ body {
 html {
   height: 100%;
   text-rendering: optimizeLegibility;
-  word-break: break-word;
+  // word-break: break-word;
   color: #333;
+  font-weight: 450;
   background-color: #f4f5f5;
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "PingFang SC",miui,system-ui,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
 }
 
 #app {

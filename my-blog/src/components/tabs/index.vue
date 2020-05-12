@@ -27,7 +27,7 @@ export default class extends Vue {
 .tabs {
   display: flex;
   &-item {
-    color: $text-navcolor;
+    color: $navcolor;
     cursor: pointer;
     padding: 0 1rem;
     font-size: 14px;
@@ -36,11 +36,10 @@ export default class extends Vue {
       border-right: none;
     }
     &:hover {
-      color: $nav-primary;
+      color: $primary;
     }
     .active {
       color: $primary;
-      font-weight: bold;
     }
   }
 }

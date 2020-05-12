@@ -87,6 +87,7 @@ export default class extends Vue {
         await UserModule.GetUserInfo()
       }
     }
+    await window.location.reload(false)
   }
 }
 </script>

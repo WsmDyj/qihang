@@ -74,6 +74,9 @@ export default class extends Vue {
   &:first-child {
     padding: 12px 0;
   }
+  &:last-child {
+    border-bottom: 1px solid #f1f1f1;
+  }
   .title {
     color: #333;
     width: 120px;
@@ -112,7 +115,7 @@ export default class extends Vue {
     display: flex;
     margin-left: 12px;
     .box-button {
-      margin-left: 2.142857rem /* 30/14 */;
+      margin-left: 2rem;
       .box-toolitp {
         margin-bottom: 18px;
         font-size: 1rem;

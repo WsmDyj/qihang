@@ -27,7 +27,7 @@
     <div class="nav-menu-group">
       <div class="nav-menu-item" @click="loginOut">
         <i class="iconfont item-icon">&#xe608;</i>
-        <span class="item-text">登出</span>
+        <span class="item-text">安全退出</span>
       </div>
     </div>
   </div>
@@ -42,22 +42,27 @@ export default class extends Vue {
     return UserModule.nickname
   }
   loginOut() {
-    MessageBox.confirm('确定登出吗？每一片贫瘠的土地都需要坚定的挖掘者', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        UserModule.ResetToken()
-        Message({
-          type: 'success',
-          message: '退出登录成功!'
-        });
-      }).catch(() => {
-        Message({
-          type: 'info',
-          message: '已取消退出登录'
-        });          
-      });
+    // MessageBox.confirm('确定登出吗？每一片贫瘠的土地都需要坚定的挖掘者', '提示', {
+    //     confirmButtonText: '确定',
+    //     cancelButtonText: '取消',
+    //     type: 'warning'
+    //   }).then(() => {
+    //     UserModule.ResetToken()
+    //     Message({
+    //       type: 'success',
+    //       message: '退出登录成功!'
+    //     });
+    //   }).catch(() => {
+    //     Message({
+    //       type: 'info',
+    //       message: '已取消退出登录'
+    //     });          
+    //   });
+    var r = confirm("确定退出吗？每一片贫瘠的土地都需要坚定的挖掘者")
+    if (r === true){
+      UserModule.ResetToken()
+      window.location.reload(true);
+    }
   }
 }
 </script>

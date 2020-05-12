@@ -24,20 +24,20 @@ export const NAV_LIST: Qlist[]  = [
 ]
 
 export const TAG_LIST: Qtag[] = [
-  { value: "全部", label: "0" },
-  { value: "Vue", label: "1" },
-  { value: "React", label: "2" },
-  { value: "JavaScript", label: "3" },
-  { value: "CSS", label: "4" },
-  { value: "Node", label: "5" },
-  { value: "Flutter", label: "6" },
-  { value: "Webpack", label: "7" },
-  { value: "TypeScript", label: "8" },
-  { value: "Http", label: "9" },
-  { value: "Docker", label: "10" },
-  { value: "性能优化", label: "11" },
-  { value: "小程序", label: "12" },
-];
+         { value: "全部", label: "0" },
+         { value: "JavaScript", label: "3" },
+         { value: "Vue.js", label: "1" },
+         { value: "React.js", label: "2" },
+         { value: "CSS", label: "4" },
+         { value: "Webpack", label: "7" },
+         { value: "Node.js", label: "5" },
+         { value: "Flutter", label: "6" },
+         { value: "TypeScript", label: "8" },
+         { value: "Http", label: "9" },
+         { value: "Docker", label: "10" },
+         { value: "性能优化", label: "11" },
+         { value: "微信小程序", label: "12" },
+       ];
 
 export const TAG_QUESTION: Qtag[] = [
   { value: "全部", label: "0" },
