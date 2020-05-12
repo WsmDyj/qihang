@@ -4,10 +4,10 @@
     <sticky @scroll="handleScroll" :fixed-top= -306 :z-index= 9 :sticky-top="60">
       <div class="navigation" :class="{'navigation-fixed': !visible}" >
         <div class="navigation-content">
-          <el-tabs @tab-click="selectNav" v-model="filters.activeIndex">
+          <el-tabs @tab-click="selectNav" class="el-tabs" v-model="filters.activeIndex">
             <el-tab-pane v-for="(item, index) in actions" :key="index" :label="item.value" :name="item.label"/>
           </el-tabs>
-          <van-tabs @click="filterAsk" class="van-tabs" v-model="activeIndex">
+          <van-tabs @click="selectNav" class="van-tabs" v-model="filters.activeIndex">
             <van-tab v-for="(item, index) in actions" :key="index" :title="item.value" :name="item.label" />
           </van-tabs>
         </div>

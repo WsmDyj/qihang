@@ -140,7 +140,7 @@ export default class extends Vue {
   .navbar-item {
     margin-right: 2.4rem;
     @media only screen and (max-width: 767px) { 
-      margin-right: 2rem;
+      margin-right: 1.2rem;
     }
     &__button {
       width: 80px;
