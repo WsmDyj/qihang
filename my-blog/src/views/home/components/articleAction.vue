@@ -50,6 +50,8 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article-footer {
+  width: 100%;
+  overflow: hidden;
   @include flexcenter($jc: space-between, $ai: center);
   margin-top: 4px;
 }
@@ -88,11 +90,11 @@ export default class extends Vue {
   font-size: 1.083333rem /* 13/12 */;
   color: $fontcolor;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 
   &__item {
     width: 5rem;
-    text-align: end;
+    text-align: center;
     .iconfont {
       padding-right: 5px;
     }

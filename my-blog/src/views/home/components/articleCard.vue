@@ -5,7 +5,7 @@
       <div class="article-desc">{{article.ellipsis}}</div>
       <articleAction :article= article />
     </div>
-    <div class="article-img mobile-none" v-if="article.articleImg">
+    <div class="article-imgWrap mobile-none" v-if="article.articleImg">
       <el-image fit="cover" lazy class="article-img" :src = article.articleImg ></el-image>
     </div>
   </router-link>
@@ -42,6 +42,9 @@ export default class extends Vue {
   &:hover {
     background-color: $hover-color;
   }
+  &-imgWrap {
+    padding-left: 1rem;
+  }
 
   &-img {
     width: 6.7rem;
@@ -51,8 +54,7 @@ export default class extends Vue {
   }
   
   .article-content {
-    flex: 1 1 auto;
-    margin-right: 1rem;
+    flex: 1;
     @include flexcolumn($jc:space-between, $ai: none);
     .article-desc {
       line-height: 1.5;
