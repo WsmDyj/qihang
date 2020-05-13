@@ -3,14 +3,7 @@
     <Header :visible= visible />
     <sticky @scroll="handleScroll" :fixed-top= -306 :z-index= 9 :sticky-top="60">
       <div class="navigation" :class="{'navigation-fixed': !visible}" >
-        <div class="navigation-content">
-          <el-tabs @tab-click="selectNav" class="el-tabs" v-model="filters.activeIndex">
-            <el-tab-pane v-for="(item, index) in actions" :key="index" :label="item.value" :name="item.label"/>
-          </el-tabs>
-          <van-tabs @click="selectNav" class="van-tabs" v-model="filters.activeIndex">
-            <van-tab v-for="(item, index) in actions" :key="index" :title="item.value" :name="item.label" />
-          </van-tabs>
-        </div>
+        <tabs :tabs = actions @click="selectNav" />
       </div>
     </sticky>
     <div class="main mg-top-126">
@@ -20,7 +13,7 @@
         </div>
         <div class="section-wrapper mg-top-20">
           <div v-if="isEmpty">
-            <van-empty description="这里空空如也" />
+            <empty description="该类目下还没有文章" />
           </div>
           <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
             <div class="section-list" v-for="(article, index) in articles" :key="index">
@@ -43,30 +36,25 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-
 import Header from '@/components/header/index.vue'
 import rankingCard from '@/components/card/rankingCard/index.vue'
 import Sticky from '@/components/Sticky/index.vue'
-
 import carousel from './components/carousel.vue'
 import information from './components/information.vue'
 import articleCard from './components/articleCard.vue'
 import rewardCard from './components/reward.vue'
 import website from './components/website.vue'
-
 import { getArticles, getArticleTags } from '../../api/blog'
 import { IArticleData } from '../../api/types'
-
 import { fommentArticle } from '../../utils/formateArticle'
 import { TAG_LIST, Qtag } from '../../global'
-
-
+import tabs from '@/components/tabs/index.vue'
+import empty from '@/components/emptyBox/index.vue'
 export interface Ifilters {
   page: number
   activeIndex: string
   articleTag: string
 }
-
 @Component({
   name:'home',
   components: {
@@ -78,9 +66,10 @@ export interface Ifilters {
     website,
     information,
     Sticky,
+    tabs,
+    empty
   }
 })
-
 export default class extends Vue {
   private articles: IArticleData[] = []
   private filters: Ifilters = { page: 0, activeIndex: '0', articleTag: '' }
@@ -90,31 +79,27 @@ export default class extends Vue {
   private isEmpty: boolean = false
   private disabled: boolean = false
   private actions: Qtag[] = TAG_LIST
-
   private handleScroll(event: boolean) {
     this.visible = event
   }
-
   private onLoad() {
     this.filters.page = this.filters.page + 1
     this.fetchData()
   }
-
   private async selectNav(tab: Qtag) {
     this.articles = []
     this.noMore = false
     this.isEmpty = false
     this.filters.page = 0
-    this.filters.articleTag = this.actions.filter(item => item.label === this.filters.activeIndex)[0].value
+    this.filters.articleTag = tab.value
     this.fetchData()
   }
-
   private async fetchData() {
     this.loading = true
     const { data } = await getArticles(this.filters)
     if (data.length > 0) {
-      this.loading = false
       this.articles = this.articles.concat(fommentArticle(data))
+      this.loading = false
     } else {
       this.isEmpty = true
     }
@@ -123,10 +108,17 @@ export default class extends Vue {
       this.loading = false
     }
   }
-
-  private created() {
+  private async created() {
     this.fetchData()
   }
 }
 </script>
+<style lang="scss" scoped>
+.section-wrapper {
+  background: #fff;
+  @include flexcolumn($jc:center, $ai: none);
+  min-height: 14.166667rem /* 170/12 */;
+}
+</style>
+
 

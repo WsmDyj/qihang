@@ -88,10 +88,11 @@ export default class extends Vue {
   font-size: 1.083333rem /* 13/12 */;
   color: $fontcolor;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   &__item {
-    padding: 0 1rem;
+    width: 5rem;
+    text-align: end;
     .iconfont {
       padding-right: 5px;
     }

@@ -3,15 +3,7 @@
     <Header :visible= visible />
     <sticky @scroll="handleScroll" :fixed-top= -236 :z-index= 9 :sticky-top="60">
       <div class="navigation" :class="{'navigation-fixed': !visible}" >
-        <div class="navigation-content">
-          <el-tabs @tab-click="filterAsk" class="el-tabs" v-model="activeIndex">
-            <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.label">
-            </el-tab-pane>
-          </el-tabs>
-           <van-tabs @click="filterAsk" class="van-tabs" v-model="activeIndex">
-            <van-tab v-for="(item, index) in options" :key="index" :title="item.value" :name="item.label" />
-          </van-tabs>
-        </div>
+        <tabs :tabs = options @click="filterAsk" />
       </div>
     </sticky>
     <div class="main mg-top-126">
@@ -30,6 +22,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
+import tabs from '@/components/tabs/index.vue'
 import { IVideo, Itag} from '../../api/types'
 import Sticky from '@/components/Sticky/index.vue'
 import videoPane from './components/video/index.vue'
@@ -43,6 +36,7 @@ import { TAG_SHARE, Qtag } from '../../global'
     videoPane,
     bookPane,
     Sticky,
+    tabs
   }
 })
 
@@ -54,7 +48,8 @@ export default class extends Vue {
   private handleScroll(event: boolean) {
     this.visible = event
   }
-  private filterAsk() {
+  private filterAsk(tab: Qtag) {
+    this.activeIndex = tab.label
   }
 }
 </script>

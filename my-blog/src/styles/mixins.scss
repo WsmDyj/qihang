@@ -91,12 +91,11 @@ $margin-top: 20, 30, 40, 80, 126;
     content: "";
     position: absolute;
     width: 1px;
-    margin-top: -5px;
     top: 50%;
+    transform: translate(0, -50%);
     right: $right;
-    height: 12px;
-    background-color: #b2bac2;
-    opacity: .8;
+    height: 100%;
+    background-color: hsla(0,0%,59.2%,.2)
   }
 }
 

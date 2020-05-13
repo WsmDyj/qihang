@@ -5,16 +5,21 @@
         <div class="video-item" v-for="(item, index) in videos" :key="index">
           <videoCard :list= item />
         </div>
+        <!-- <div class="video-item" v-if="videos.length % 2 !== 0"></div> -->
       </div>
     </div>
-    <el-divider>千学不如一看，千看不如一练</el-divider>
+    <div class="divider">
+      <span class="divider-split"></span>
+      <span class="divider-content">千学不如一看，千看不如一练</span>
+      <span class="divider-split"></span>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { getSharelist } from '../../../../api/actions'
-import { IVideo, Itag} from '../../../../api/types'
+import { IVideo, Itag } from '../../../../api/types'
 import videoCard from '../videoCard.vue'
 
 
@@ -35,17 +40,34 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .videos {
   position: relative;
+  @media only screen and (max-width: 767px) { 
+    padding: 0 1rem;
+  }
   .share-video {
     width: 100%;
     .video-conent {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      @media only screen and (max-width: 768px) { 
-        margin: 0 10px;
-      }
     }
   }
 }
-
+.divider {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 30px 0;
+  font-size: 1.083333rem;
+  color: $navcolor;
+  &-split {
+    flex: 1;
+    display: inline-block;
+    height: 1px;
+    background-color: $navcolor;
+    opacity: .5;
+    margin: 0 2rem;
+    
+  }
+}
 </style>

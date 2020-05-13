@@ -1,7 +1,9 @@
 <template>
   <div class="author">
     <div class="author-avatar">
-      <el-avatar :size="90" :src = userInfo.avatar />
+      <el-avatar :size="90" :src = userInfo.avatar>
+        <img src="https://img13.360buyimg.com/imagetools/jfs/t1/124873/15/1130/935/5eba4868Eb3438cb5/e5222b21249a212e.jpg"/>
+      </el-avatar>
     </div>
     <div class="author-info">
       <div class="author-info__username">{{ userInfo.nickname }}</div>

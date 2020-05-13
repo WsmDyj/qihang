@@ -170,6 +170,9 @@ export default class  extends Vue {
       } 
     }
   }
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
 }
 </script>
 
@@ -179,6 +182,9 @@ export default class  extends Vue {
   background: #fff;
   padding: 2rem;
   cursor: default;
+  @media only screen and (max-width: 767px) { 
+    padding: 1rem;
+  }
 
   &-header {
     @include flexcenter($jc: space-between);

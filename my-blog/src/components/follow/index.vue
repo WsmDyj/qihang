@@ -69,7 +69,7 @@ export default class extends Vue {
   cursor: pointer;
 
   &__medium {
-    width: 106px;
+    width: 86px;
     height: 40px;
     font-size: 16px;
     line-height: 40px;

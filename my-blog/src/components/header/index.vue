@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar" :class="{visible: visible}">
+  <div class="navbar navbar" :class="{visible: visible}">
     <div class="navbar-container">
       <div class="logo">
         <el-image class="logo-pc" :src="require('../../assets/img/logo-pc.jpg')" fit="fill" />
@@ -19,9 +19,12 @@
           </div>
 
           <div class="navbar-wrapper" v-if="visivle">
-            <router-link to="/markdown" class="navbar-item navbar-item__button">
+            <div class="navbar-item navbar-item__button">
               <span>写文章</span>
-            </router-link>
+              <!-- <div to="/markdown">
+                写文章
+              </router-link> -->
+            </div>
             <div class="navbar-item">
               <el-badge type="primary">
                 <i class="iconfont navbar-item__notice">&#xe61e;</i>
@@ -93,9 +96,11 @@ export default class extends Vue {
   top: 0;
   left: 0;
   right: 0;
-  transition: all 0.2s;
-  box-sizing: border-box;
+  transition: all .2s;
   transform: translate3d(0, -100%, 0);
+}
+.navbar {
+  box-sizing: border-box;
   z-index: 9;
   width: 100%;
   height: 5rem;
@@ -140,7 +145,7 @@ export default class extends Vue {
   .navbar-item {
     margin-right: 2.4rem;
     @media only screen and (max-width: 767px) { 
-      margin-right: 1.2rem;
+      margin-right: 1.5rem;
     }
     &__button {
       width: 80px;
@@ -150,6 +155,7 @@ export default class extends Vue {
       line-height: 30px;
       border-radius: 4px;
       font-size: 1.167rem;
+      font-weight: bold;
       background-color: $primary;
       @media only screen and (max-width: 750px) { 
         display: none

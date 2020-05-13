@@ -3,7 +3,8 @@ interface articleId {
   article_id: number
 }
 interface author {
-  author: string | (string | null)[]
+  author: string | (string | null)[],
+  page: number
 }
 interface adopt {
   askId: string | (string | null)[]

@@ -7,16 +7,12 @@ import "normalize.css/normalize.css";
 import './utils/rem'
 import "vant/lib/index.css";
 
-import formatDate from "./utils/formatDate";
-
 import * as Element from 'element-ui'
 import "element-ui/lib/theme-chalk/base.css"; // fade style
 import "element-ui/lib/theme-chalk/index.css";
 
 import hljs from 'highlight.js'
 
-
-import './components/index'
 
 import '@/styles/index.scss'
 
@@ -31,6 +27,7 @@ import empty from "vant/lib/empty"
 import sticky from "vant/lib/sticky"
 import tabs from "vant/lib/tabs"
 import tab from "vant/lib/tab"
+import skeleton from "vant/lib/skeleton"
 const VantComps: any = {
   list,
   loading,
@@ -38,6 +35,7 @@ const VantComps: any = {
   sticky,
   tabs,
   tab,
+  skeleton,
 };
 
 
@@ -59,12 +57,6 @@ Vue.directive('highlight', function (el) {
       hljs.highlightBlock(block)
   })
 })
-
-/**
- * 注册全局方法
- * formatDate
- */
-Vue.prototype.formatDate = formatDate
 
 new Vue({
   router,

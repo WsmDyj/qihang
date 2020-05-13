@@ -6,11 +6,11 @@
         <author-card :userInfo = userInfo />
         <div class="section-author mg-top-20">
           <el-tabs v-model="activeIndex">
-            <el-tab-pane :label="`专栏 (${articleList.length})`" name="1">
-              <articlesList @action='actionArticle' :articleList = articleList :userInfo = userInfo />
+            <el-tab-pane label="专栏" name="1">
+              <articlesList />
             </el-tab-pane>
-            <el-tab-pane :label="`赞过的 (${likeList.length})`" name="2">
-              <like-list :likeList = likeList />
+            <el-tab-pane label="赞过的" name="2">
+              <like-list />
             </el-tab-pane>
             <el-tab-pane name="3">
               <span slot="label">关注<i class="el-icon-caret-bottom"></i></span>
@@ -53,7 +53,6 @@ import { formatTime } from '../../utils/formatDate'
 import { getlikesList } from '../../api/actions'
 import { ArticleModule } from '../../store/modules/article'
 import { Message, MessageBox } from 'element-ui'
-import emptyBox from '@/components/emptyBox/index.vue'
 
 const defaultIUserInfo = {
   avatar: '',
@@ -69,7 +68,6 @@ const defaultIUserInfo = {
   name: 'author',
   components: {
     Header,
-    emptyBox,
     authorCard,
     achievementCard,
     followCard,
@@ -84,10 +82,7 @@ export default class extends Vue {
   private author: string | (string | null)[] = ''
   private userInfo: IUserInfo = defaultIUserInfo
   private follows: [] = []
-   private tip: string = '数据加载中，请稍等...'
   private activeIndex: string | (string | null)[] = '1'
-  private articleList: IArticleData[] = []
-  private likeList: IArticleData[] =[]
   private actions: object = {}
 
   private checkFollows(event:object) {
@@ -102,67 +97,17 @@ export default class extends Vue {
     const { data } = await getfollowList({username: params})
     this.follows = data
   }
+  
   private async created() {
     this.author = this.$route.query.author
     await this.getInfo(this.author)
     this.getFollow(this.author)
-    this.getList()
-    this.getLikeArticles()
     this.activeIndex = this.$route.query.activeIndex || '1'
   }
  
   @Watch('actions') 
   private actionsChange(val: {radio: number, label: string}) {
     this.activeIndex = val.label
-  }
-
-   // 自己点赞过的文章
-  get likeArticlId() {
-    return ArticleModule.likeArticlId
-  }
-  // get tip () {
-  //   if (this.articleList.length <= 0) {
-  //     return '这里空空如也'
-  //   }
-  // }
-
-  
-  // 用户写的文章
-  private async getList() {
-    const { data } = await getArticles({author: this.$route.query.author, page: -1})
-    if (data.length <= 0) {
-      this.tip =  '这里空空如也'
-    }
-    this.articleList = data
-  }
-  // 用户点赞的
-  private async getLikeArticles() {
-    const { data } = await getlikesList({author: this.$route.query.author})
-    this.likeList = data
-  }
-  // 删除文章
-  private actionArticle(event: {type: string, articleId: number}) {
-    if (event.type === 'delete') {
-      MessageBox.confirm(
-        '您确定删除这篇博客吗？删除之后可能无法找回了',
-        '确定删除',
-        {
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).then(async () => {
-        await delArticle({id: event.articleId})
-        this.getList()
-        Message({
-          message: '博客删除成功',
-          type: 'success',
-          duration: 5 * 1000
-        })
-      })
-    } else {
-      this.$router.push({path: `/markdown?articleId=${event.articleId}`})
-    }
   }
 }
 </script>
@@ -171,7 +116,6 @@ export default class extends Vue {
 .section-author {
   width: 100%;
   cursor: pointer;
-  background: #fff;
 }
 .join-time {
   @include flexcenter($jc:space-between);

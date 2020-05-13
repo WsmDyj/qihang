@@ -16,6 +16,7 @@
 .section-author {
   .el-tabs__header {
     margin: 0;
+    background-color: #fff;
   }
   .el-tabs__nav-wrap {
     padding: 0 0 0 2rem;
@@ -61,78 +62,8 @@
     }
   }
 }
-
-// 导航吸顶标签tab样式  
-.navigation {
-  position: fixed;
-  left: 0;
-  right: 0;
-  line-height: 44px;
-  top: 5rem;
-  width: 100%;
-  height: 44px;
-  z-index: 100;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-  transition: all .2s;
-  background: #fff;
-  cursor: pointer;
-  font-weight: 450;
-  
-  &-fixed {
-    transition: transform .2s;
-    transform: translate3d(0,-60px,0);
-  }
-  &-content {
-    transition: transform .2s;
-    .el-tabs__nav-wrap {
-      @media only screen and (min-width: 750px) { 
-        padding-left: calc((100vw - 994px) / 2);
-      }
-      &::after {
-        content: none;
-      }
-    }
-  }
-  .el-tabs__item {
-    padding: 0 1rem;
-    font-size: 1.16rem;
-    font-weight: 450;
-    color: $navcolor;
-    &:hover {
-      color: $primary;
-    }
-  }
-  .el-tabs__active-bar {
-    background-color: transparent;
-  }
-  .is-active {
-    color: $primary;
-  }
-  .el-tabs {
-    display: block;
-  }
-  .van-tabs {
-    display: none;
-  }
-  
-  @media only screen and (max-width: 767px) { 
-   .el-tabs {
-      display: none;
-    }
-    .van-tabs {
-      display: block;
-    }
-  }
-  .van-tab {
-    flex-basis: 18% !important;
-  }
-
-  .van-tab--active {
-    color: $primary;
-  }
-  .van-tabs__line {
-    background-color: transparent;
-  }
+.van-list__finished-text {
+  background-color: #f4f5f5;
 }
 
 // 提问输入框
@@ -179,16 +110,6 @@
   }
 }
 
-// 视频按钮
-.share {
-  .el-button--primary {
-    font-size: 14px;
-    color: #fff;
-    border: 1px solid #4d91fd;
-    background-color: #4d91fd;
-  }
-}
-
 // 问答评论
 .form {
   .markdown {
@@ -196,12 +117,4 @@
       display: none !important;
     }
   }
-}
-
-// 底部好文
-.el-divider__text {
-  color: $fontcolor;
-  font-size: 12px;
-  background-color: #f4f5f5;
-  color: $primary;
 }

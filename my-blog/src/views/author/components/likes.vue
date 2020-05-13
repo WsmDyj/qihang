@@ -1,26 +1,20 @@
 <template>
-  <van-list>
-    <router-link target="_blank" :to="{ path: '/article', query:{ articleId: article.article_id }}" class="entry" v-for="(article, index) in likeList" :key="index">
-      <div class="entry-content">
-        <article-title :article= article />
-        <div class="entry-content__title">{{ article.title }}</div>
-        <div class="entry-content__action">
-          <article-action :article= article />
-        </div>
-      </div>
-      <div class="entry-img mobile-none" v-if="article.articleImg">
-        <el-image class="entry-img" :src="article.articleImg" fit="cover" />
-      </div>
-    </router-link>
-  </van-list>
+  <div>
+    <div class="list-empty" v-if="isEmpty" >
+      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="遇见喜欢的就赞它" />
+    </div>
+    <van-list class="list-content" v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad"  v-else>
+      <articleCard :articleList = likeList />
+    </van-list>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IArticleData  } from '../../../api/types'
-import emptyBox from '@/components/emptyBox/index.vue'
-import articleTitle from '@/components/article/articleTitle.vue'
-import articleAction from '@/components/article/articleAction.vue'
+import { getlikesList } from '../../../api/actions'
+import articleCard from '@/components/article/index.vue'
+import { fommentArticle } from '../../../utils/formateArticle'
 interface Irouter {
   path: string;
   query: {
@@ -29,13 +23,38 @@ interface Irouter {
 }
 @Component({
   components: {
-    emptyBox,
-    articleTitle,
-    articleAction
+    articleCard
   }
 })
 export default class extends Vue {
-  @Prop() private likeList!: IArticleData[]
+  private likeList: IArticleData[] = []
+  private loading: boolean = false
+  private noMore: boolean = false
+  private isEmpty: boolean = false
+  private page: number = 0
+
+  private onLoad() {
+    this.page = this.page + 1
+    this.fetchData()
+  }
+  // 用户点赞的
+  private async fetchData() {
+    this.loading = true
+    const { data } = await getlikesList({author: this.$route.query.author, page: this.page})
+    if (data.length > 0) {
+      this.loading = false
+      this.likeList = this.likeList.concat(fommentArticle(data))
+    } else {
+      this.isEmpty = true
+    }
+    if (data.length < 10) {
+      this.noMore = true
+      this.loading = false
+    }
+  }
+  created () {
+    this.fetchData()
+  }
 }
 </script>
 

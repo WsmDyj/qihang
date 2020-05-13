@@ -18,7 +18,7 @@
         />
       </g>
     </svg>
-    <div class="empty-text">{{tootip}}</div>
+    <div class="empty-text">{{description}}</div>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class extends Vue {
-  @Prop() private tootip!: string
+  @Prop() private description!: string
 }
 </script>
 
@@ -37,9 +37,9 @@ export default class extends Vue {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 48px 0;
+  padding: 36px 0;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: bold;
   color: #b2bac2;
   cursor: default;
   user-select: none;

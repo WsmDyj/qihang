@@ -4,7 +4,10 @@
       <div class="entry-nav__title">关注</div>
       <tabs :tabs = tabs @click="selectNav" />
     </div>
-    <van-list>
+     <div class="list-empty" v-if="isEmpty" >
+      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="这里空空如也" />
+    </div>
+    <van-list v-else>
       <div class="entry-content">
         <author-list :lists = lists></author-list>
       </div>
@@ -17,8 +20,9 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import authorList from '@/components/authorList/index.vue'
 import { IFollow } from '../../../api/types'
 import emptyBox from '@/components/emptyBox/index.vue'
-import tabs from '../../../components/tabs/index.vue'
+import tabs from '@/components/tabs/index.vue'
 import { Qtag } from '../../../global'
+import { getfollowList } from '../../../api/follow'
 @Component({
   components: { 
     emptyBox,
@@ -28,7 +32,9 @@ import { Qtag } from '../../../global'
 })
 export default class extends Vue {
   @Prop() private follows!: IFollow[]
-  @Prop() private actions!: object
+   private loading: boolean = false
+  private noMore: boolean = false
+  private isEmpty: boolean = false
   private lists: IFollow[] = []
   private radio: number = 0
   private tabs: Qtag[] = [
@@ -39,16 +45,21 @@ export default class extends Vue {
   @Watch('follows')
   private watchFollows(val: IFollow[]) {
     this.lists = val[this.radio].data
-  }
-
-  @Watch('actions') 
-  private actionsChange(val: {radio: number, label: string}) {
-    this.radio = val.radio
-    this.lists = this.follows[this.radio].data
+    if (val[this.radio].data.length <= 0) {
+      this.isEmpty = true
+    }
   }
   private selectNav(event: Qtag) {
     this.radio = Number(event.label)
+    this.isEmpty = false
     this.lists = this.follows[Number(event.label)].data
+    if (this.follows[Number(event.label)].data.length <= 0) {
+      this.isEmpty = true
+    }
+  }
+  private async getFollow(params: any) {
+    const { data } = await getfollowList({username: params})
+    this.follows = data
   }
 }
 </script>
@@ -58,6 +69,7 @@ export default class extends Vue {
   @include flexcenter($jc:space-between, $ai: center);
   padding: 2rem 1rem 2rem 2rem;
   border-bottom: 1px solid $border-color;
+  background-color: #fff;
   color: $navcolor-header;
   &__title {
     font-size: 1.34rem;

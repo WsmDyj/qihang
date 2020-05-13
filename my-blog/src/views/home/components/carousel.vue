@@ -53,12 +53,13 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .carousel {
-  height: 22.5rem /* 270/12 */;
+  height: 12.5rem;
   width: 100%;
   background: #fff;
   border-radius: 2px;
   @media only screen and (max-width: 767px) { 
-    height: 12rem;
+    height: 10rem;
+    border-radius: 0px;
   }
   .carousel-content {
     width: 100%;
@@ -71,19 +72,17 @@ export default class extends Vue {
     height: 100%;
   }
   .carousel-panel {
-    height: 50%;
     position: absolute;
     padding: 2rem /* 24/12 */;
     box-sizing: border-box;
-    border-radius: 2px;
     z-index: 9;
     bottom: 0;
     width: 100%;
     color: #fff;
     @include flexcolumn($jc:space-around, $ai: none);
-    background: linear-gradient(to bottom,rgba(6,6,8,0),rgba(6,6,8,.8));
+    background: linear-gradient(to bottom,rgba(6,6,8,0),rgba(6,6,8,.6));
     @media only screen and (max-width: 767px) { 
-      padding: 1rem 2rem;
+      padding: 1rem;
     }
 
     &__title {
@@ -96,8 +95,8 @@ export default class extends Vue {
     }
     &__info {
       color: rgba(255,255,255,.5);
-      font-size: 1.3rem;
-      font-weight: bold;
+      font-size: 1.1rem;
+      line-height: 1.5;
       @media only screen and (max-width: 767px) { 
         font-size: 1rem;
       }

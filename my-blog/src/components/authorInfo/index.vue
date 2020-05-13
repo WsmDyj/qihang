@@ -1,7 +1,9 @@
 <template>
   <div class="author">
     <router-link target="_blank" :to="{path: '/author', query:{author: userInfo.nickname}}" class="author-avatar" >
-      <el-avatar :size="size" :src='userInfo.avatar'></el-avatar>
+      <el-avatar :size="size" :src='userInfo.avatar'>
+        <img src="https://img13.360buyimg.com/imagetools/jfs/t1/124873/15/1130/935/5eba4868Eb3438cb5/e5222b21249a212e.jpg"/>
+      </el-avatar>
     </router-link>
     <div class="author-info">
       <router-link target="_blank" :to="{path: '/author', query:{author: userInfo.nickname}}" :class="type ? `author-name--${type}` : 'author-name'">

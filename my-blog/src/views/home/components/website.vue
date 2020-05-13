@@ -1,25 +1,23 @@
 <template>
-  <div class="more">
-    <div class="item">
-      <el-link>关于</el-link> ·
-      <el-link>隐私协议</el-link> ·
-      <el-link>联系我们</el-link> ·
-      <el-link>建议反馈</el-link>
+  <div class="website">
+    <div class="website-item">
+      <span class="website-roundRight hover">关于</span>
+      <span class="website-roundRight hover">隐私协议</span>
+      <span class="website-roundRight hover">联系我们</span>
+      <span class="hover">建议反馈</span>
     </div>
-    <div class="item">
-      <el-link>
-        网站素材均来源于网络，如有侵权请联系作者
-      </el-link>
-      <el-link>
+    <div class="website-item">
+      网站素材均来源于网络，如有侵权请联系作者
+    </div>
+    <div class="website-item">
         📧 972774037@qq.com
-      </el-link>
     </div>
-    <div class="item">
-      <el-link href="http://www.miibeian.gov.cn/" target="_blank">京ICP备19058301号-2</el-link>
+    <div class="website-item">
+      <router-link class="hover" target="_blank" to="http://www.miibeian.gov.cn/">京ICP备19058301号-2</router-link>
     </div>
-    <div class="item">
-      <el-link >©2019 起航 </el-link> ·
-      <el-link href="https://www.aliyun.com/" target="_blank">Powered by aliyun</el-link>
+    <div class="website-item">
+      <span class="website-roundRight">©2019 起航 </span>
+      <span>Powered by aliyun</span>
     </div>
   </div>
 </template>
@@ -33,11 +31,18 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.more {
+.website {
   width: 240px;
-  color: #909090;
-  .item {
-    padding: 2px 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: $navcolor;
+  cursor: pointer;
+  &-roundRight{
+    @include textRoundRight($color: $navcolor);
+    
+  }
+  .hover:hover {
+    color: $primary;
   }
 }
 </style>

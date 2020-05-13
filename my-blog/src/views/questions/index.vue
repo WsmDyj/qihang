@@ -3,22 +3,14 @@
     <Header :visible= visible />
     <sticky @scroll="handleScroll" :fixed-top= -236 :z-index= 9 :sticky-top="60">
       <div class="navigation" :class="{'navigation-fixed': !visible}" >
-        <div class="navigation-content">
-          <el-tabs @tab-click="filterAsk" class="nav-list" v-model="activeIndex">
-            <el-tab-pane v-for="(item, index) in options" :key="index" :label="item.value" :name="item.label">
-            </el-tab-pane>
-          </el-tabs>
-          <van-tabs @click="filterAsk" class="van-tabs" v-model="activeIndex">
-            <van-tab v-for="(item, index) in options" :key="index" :title="item.value" :name="item.label" />
-          </van-tabs>
-        </div>
+        <tabs :tabs = options @click="filterAsk" />
       </div>
     </sticky>
     <div class="main mg-top-126">
       <div class="section">
         <div class="questions-nav">
           <div class="question-nav__tabs">
-            <tabs :tabs = tabs @click="selectNav" />
+            <tabs splitLine = true :tabs = tabs @click="selectNav" />
           </div>
           <router-link target="_blank" to="/ask" class="questions-nav__button mobile-none">
             <i class="el-icon-plus"></i>
@@ -26,14 +18,14 @@
           </router-link>
         </div>
         <div class="questions-content">
-          <div v-if="isEmpty" class="questions-empty">
-            <van-empty description="这里空空如也" />
-          </div>
-          <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
-            <div v-for="(ask, index) in asks" :key="index">
-              <question-item :ask = ask />
+            <div v-if="isEmpty" class="questions-empty">
+              <empty description="该类目下还没有问题" />
             </div>
-          </van-list>
+            <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多数据了'" @load="onLoad" >
+              <div v-for="(ask, index) in asks" :key="index">
+                <question-item :ask = ask />
+              </div>
+            </van-list>
         </div>
       </div>
       <div class="asside">
@@ -47,7 +39,8 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
-import tabs from '../../components/tabs/index.vue'
+import tabs from '@/components/tabs/index.vue'
+import empty from '@/components/emptyBox/index.vue'
 import hotCard from '../../components/card/hot/index.vue'
 import totalCard from './components/total.vue'
 import questionItem from './components/item.vue'
@@ -71,12 +64,12 @@ export interface Ifilters {
     hotCard,
     totalCard,
     Sticky,
+    empty
   },
 })
 
 export default class extends Vue {
   private visible: boolean = true
-  private activeIndex: string = '0'
   private hotList: Iquestion[] = []
   private options: Qtag[] = TAG_LIST
   private tabs: Qtag[] = TAG_QUESTION
@@ -88,12 +81,20 @@ export default class extends Vue {
 
   private filters: Ifilters = { articleTag: '全部', page: 0, status: '0' }
 
-  private filterAsk() {
-    this.filters.articleTag = this.options.filter(item => item.label == this.activeIndex)[0].value
+  private filterAsk(tab: Qtag) {
+    this.filters.page = 0
+    this.asks = []
+    this.noMore = false
+    this.isEmpty = false
+    this.filters.articleTag = tab.value
     this.fetchData()
   }
 
   private selectNav(tab: Qtag){
+    this.filters.page = 0
+    this.asks = []
+    this.noMore = false
+    this.isEmpty = false
     this.filters.status = tab.label
     this.fetchData()
   }
@@ -105,18 +106,15 @@ export default class extends Vue {
 
   private async fetchData() {
     this.loading = true
-    this.filters.page = 0
-    this.asks = []
-    this.noMore = false
-    this.isEmpty = false
     const { data } = await getAskList(this.filters)
     if (data.length > 0) {
       this.loading = false
       this.asks = this.asks.concat(data)
     } else {
       this.isEmpty = true
+      this.asks = []
     }
-    if (data.length < 10) {
+    if (data.length < 20) {
       this.noMore = true
       this.loading = false
     }
@@ -136,22 +134,25 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .questions-nav {
-  padding: 1.3rem 1rem;
+  padding: 1.3rem 2rem;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
   background: #fff;
   @include flexcenter($jc: space-between, $ai: center);
-
+  @media only screen and (max-width: 767px) { 
+    padding: 1.3rem 0rem;
+  }
   &__button {
     color: $primary;
     cursor: pointer;
-    padding: 0 1rem;
     font-size: 1.2rem;
     letter-spacing: 1px;
     font-weight: bold;
   }
 }
-.questions-empty {
-  background: #fff;
-}
+// .questions-content {
+//   background: #fff;
+//   min-height: 7.5rem;
+//   @include flexcolumn($jc:center, $ai: none);
+// }
 </style>

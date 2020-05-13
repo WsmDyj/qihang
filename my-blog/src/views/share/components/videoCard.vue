@@ -38,7 +38,7 @@ export default class extends Vue {
   height: 270px;
   background: #fff;
   @include hoverState();
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   box-sizing: border-box;
   @media only screen and (max-width: 750px) { 
     width: 170px;

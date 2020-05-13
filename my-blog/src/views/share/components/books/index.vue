@@ -15,7 +15,11 @@
       <div :style="{'background': book.readUrl ? '#5dcaad':'#c8c9cc'}" @click="checkBook(book.readUrl)" class="share-check">{{book.readUrl ? '免费试读' : '暂无资源'}}</div>
     </div>
   </div>
-  <el-divider>书贵于精，不贵于多</el-divider>
+  <div class="divider">
+    <span class="divider-split"></span>
+    <span class="divider-content">书贵于精，不贵于多</span>
+    <span class="divider-split"></span>
+  </div>
   </div>
 </template>
 
@@ -64,9 +68,9 @@ export default class extends Vue {
   background: #fff;
   border-radius: 2px;
   @include hoverState();
-  margin-bottom: 1.785714rem /* 25/14 */;
+  margin-bottom: 10px;
   box-sizing: border-box;
-  @media only screen and (max-width: 768px) { 
+  @media only screen and (max-width: 1024px) { 
     width: 100%;
   }
   .book-img {
@@ -115,6 +119,23 @@ export default class extends Vue {
       color: #fff;
       text-align: center;
     }
+  }
+}
+.divider {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 30px 0;
+  font-size: 1.083333rem;
+  color: $navcolor;
+  &-split {
+    flex: 1;
+    display: inline-block;
+    height: 1px;
+    background-color: $navcolor;
+    opacity: .5;
+    margin: 0 2rem;
   }
 }
 </style>

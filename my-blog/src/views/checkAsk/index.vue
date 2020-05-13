@@ -150,7 +150,10 @@ export default class extends Vue {
   position: relative;
   background: #fff;
   cursor: default;
-  padding: 2rem 1.5rem;
+  padding: 2rem;
+  @media only screen and (max-width: 767px) { 
+    padding: 1rem;
+  }
   .article-header {
     @include flexcenter($jc: space-between);
     margin-bottom: 10px;

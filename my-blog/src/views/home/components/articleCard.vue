@@ -5,7 +5,7 @@
       <div class="article-desc">{{article.ellipsis}}</div>
       <articleAction :article= article />
     </div>
-    <div class="article-img mobile-none" v-show="article.articleImg">
+    <div class="article-img mobile-none" v-if="article.articleImg">
       <el-image fit="cover" lazy class="article-img" :src = article.articleImg ></el-image>
     </div>
   </router-link>
@@ -30,30 +30,36 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .article {
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 2rem 2rem;
   background: #fff;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  border-bottom: 1px solid $border-color;
   @include flexcenter($jc: none, $ai: center);
+  @media only screen and (max-width: 767px) { 
+    padding: 1rem;
+  }
+  &:hover {
+    background-color: $hover-color;
+  }
+
   &-img {
-    width: 10rem;
-    height: 10rem;
+    width: 6.7rem;
+    height: 6.7rem;
     border-radius: 3px;
-    margin-left: 1rem;
+    margin:0 1rem;
     position: relative;
   }
   
   .article-content {
     flex: 1 1 auto;
     @include flexcolumn($jc:space-between, $ai: none);
-    
     .article-desc {
       line-height: 1.5;
       margin: 0.5rem 0;
       font-size: 1.166667rem /* 14/12 */;
       @include twoLines($clamp: 2);
-      color: $title-elps-color;
-    }
+        color: $title-elps-color;
+      }
   }
 }
 </style>
