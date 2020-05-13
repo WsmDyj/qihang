@@ -31,6 +31,7 @@ export default class extends Vue {
 .article {
   width: 100%;
   padding: 2rem 2rem;
+  overflow: hidden;
   background: #fff;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
@@ -46,12 +47,12 @@ export default class extends Vue {
     width: 6.7rem;
     height: 6.7rem;
     border-radius: 3px;
-    margin:0 1rem;
     position: relative;
   }
   
   .article-content {
     flex: 1 1 auto;
+    margin-right: 1rem;
     @include flexcolumn($jc:space-between, $ai: none);
     .article-desc {
       line-height: 1.5;
