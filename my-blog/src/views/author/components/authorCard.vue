@@ -26,11 +26,11 @@
         </router-link>
       </div>
     </div>
-    <router-link target="_blank" to="/settings " class="mobile-none" v-if="visible">
+    <router-link target="_blank" to="/settings " v-if="visible">
       <el-button type="primary" plain>编辑个人资料</el-button>
     </router-link>
-    <div class="mobile-none" v-else>
-      <author-follow size='medium' :author= userInfo.nickname />
+    <div v-else>
+      <author-follow :author= userInfo.nickname />
     </div>
   </div>
 </template>
@@ -69,13 +69,19 @@ export default class extends Vue {
   display: flex;
   align-items: flex-end;
   @media only screen and (max-width: 750px) { 
-    padding: 2rem 1rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    .author-info {
+      margin: 1rem 0;
+      align-items: center;
+    }
   }
   .author-info {
     margin-left: 2rem;
-    flex: 1 1 auto;
+    flex: 1;
+    width: 100%;
     @include flexcolumn($jc:flex-start, $ai: none);
-
     &__username {
       font-size: 2.4rem /* 28/12 */;
       font-weight: bold;

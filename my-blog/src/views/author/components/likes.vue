@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="section-wrapper">
     <div class="list-empty" v-if="isEmpty" >
       <empty description="您还没有点赞过的文章" />
     </div>

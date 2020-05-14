@@ -134,7 +134,8 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .questions-nav {
-  padding: 1.3rem 2rem;
+  height: 4rem /* 48/12 */;
+  padding: 0rem 2rem;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
   background: #fff;

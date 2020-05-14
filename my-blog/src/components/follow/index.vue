@@ -1,7 +1,7 @@
 <template>
   <div 
     class="follow-button" 
-    :class="!show ? `unfollow-button follow-button__${size}` : `following-button follow-button__${size}`" 
+    :class="!show ? `unfollow-button ` : `following-button`" 
     @click.stop="follow(author)">
     {{ show ? '已关注' : '关注' }}
   </div>
@@ -17,7 +17,6 @@ import { IFollow } from '../../api/types'
 @Component
 export default class extends Vue {
   @Prop() private author!: string
-  @Prop() private size!: string
   private show: boolean = false
   private lists: string[] = []
 
@@ -69,15 +68,6 @@ export default class extends Vue {
   border: 1px solid rgba(55,199,1,.6);
   border-radius: 2px;
   cursor: pointer;
-
-  &__medium {
-    width: 86px;
-    height: 40px;
-    font-size: 16px;
-    line-height: 40px;
-    border-radius: 4px;
-    font-weight: bold;
-  }
 }
 .unfollow-button {
   color: #6cbd45;

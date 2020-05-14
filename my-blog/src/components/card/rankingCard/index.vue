@@ -10,7 +10,7 @@
       </div>
      
       <div class="card-bottom">
-        <router-link class="link" target="_blank" to="/users">所有用户 ></router-link>
+        <router-link class="link" target="_blank" to="/users">完整榜单 ></router-link>
       </div>
     </cardModule>
   </div>

@@ -81,7 +81,7 @@ export default class extends Vue {
     color: #333;
     width: 120px;
     @media only screen and (max-width: 750px) { 
-      width: 80px;
+      width: 70px;
     }
   }
   .action-box {
@@ -100,10 +100,7 @@ export default class extends Vue {
     .action-button {
       cursor: pointer;
       color: #007fff;
-      font-size: 1rem;
-      .confirm {
-        font-weight: 600;
-      }
+      font-size: 1.083333rem /* 13/12 */;
       .cancel {
         color: #666;
         margin-left: 5px;

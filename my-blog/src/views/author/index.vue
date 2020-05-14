@@ -8,27 +8,10 @@
           <div class="author-tabs">
             <tabs :activeIndex = activeIndex :tabs = tabs @click="selectNav" />
           </div>
-          <!-- <tabs :tabs = tabs @click="selectNav" /> -->
           <articlesList v-if="activeIndex === '0'" />
           <like-list v-if="activeIndex === '1'" />
           <follow-list :follows = follows :actions = actions v-if="activeIndex === '2'" />
           <askList v-if="activeIndex === '3'" />
-          <!-- <el-tabs v-model="activeIndex">
-            <el-tab-pane label="专栏" name="1">
-              <articlesList />
-            </el-tab-pane>
-            <el-tab-pane label="赞过的" name="2">
-              <like-list />
-            </el-tab-pane>
-            <el-tab-pane name="3">
-              <span slot="label">关注<i class="el-icon-caret-bottom"></i></span>
-              <follow-list :follows = follows :actions = actions />
-            </el-tab-pane>
-            <el-tab-pane name="4">
-              <span slot="label">问答<i class="el-icon-caret-bottom"></i></span>
-              <askList/>
-            </el-tab-pane>
-          </el-tabs> -->
         </div>
       </div>
       <div class="asside">
@@ -138,7 +121,7 @@ export default class extends Vue {
   border-bottom: 1px solid $border-article-color;
   padding-left: 2rem;
   font-weight: bold;
-  height: 3.666667rem /* 44/12 */;
+  height: 4rem /* 48/12 */;
   @media only screen and (max-width: 767px) { 
     padding-left: 0rem;
   }

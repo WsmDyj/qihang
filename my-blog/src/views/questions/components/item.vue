@@ -81,7 +81,7 @@ export default class extends Vue {
   &__title {
     font-size: 1.4rem;
     font-weight: 600;
-    margin-top: 1rem;
+    margin-top: 0.6rem;
     color: #2e3135;
     cursor: default;
     @include twoLines();

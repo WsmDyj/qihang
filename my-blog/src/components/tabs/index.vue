@@ -70,6 +70,7 @@ export default class extends Vue {
     }
     .active {
       color: $primary;
+      font-weight: 450;
     }
   }
   .splitLine {
