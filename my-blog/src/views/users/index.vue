@@ -10,7 +10,7 @@
               <div class="info-detail">获得 {{ user.likes }} 赞 · {{ user.reviews }} 阅读</div>
             </div>
           </authorInfo>
-          <author-follow size='small' :author = user.nickname ></author-follow>
+          <author-follow v-if="nickname !== user.nickname" :author = user.nickname ></author-follow>
         </div>
       </div>
     </div>
@@ -24,6 +24,7 @@ import Header from '@/components/header/index.vue'
 import authorInfo from '@/components/authorInfo/index.vue'
 import authorFollow from '@/components/follow/index.vue'
 import { IUserInfo } from '../../api/types'
+import { UserModule } from '../../store/modules/user'
 
 @Component({
   name:'home',
@@ -35,6 +36,10 @@ import { IUserInfo } from '../../api/types'
 })
 export default class extends Vue {
   private users: IUserInfo[] = []
+
+  get nickname() {
+    return UserModule.nickname
+  }
   private async created() {
     const { data } = await getuserList()
     this.users = data
@@ -46,11 +51,17 @@ export default class extends Vue {
 .section {
   background: #fff;
   .info-box {
-    padding: 1.428571rem /* 20/14 */ 3.571429rem /* 50/14 */ 1.428571rem /* 20/14 */ 2.142857rem /* 30/14 */;
+    padding: 1.5rem 2rem /* 30/12 */;
     border-bottom: 1px solid $border-color;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media only screen and (max-width: 767px) { 
+      padding: 1.5rem 1rem;
+    }
+    &:hover {
+      background: $hover-color;
+    }
     .info-desc {
       color: #b9c0c8;
       font-size: 12px;

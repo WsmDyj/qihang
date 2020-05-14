@@ -2,10 +2,10 @@
   <div class="entry">
     <div class="entry-nav">
       <div class="entry-nav__title">问答</div>
-      <tabs :tabs = tabs @click="selectNav" />
+      <tabs splitLine = true :tabs = tabs @click="selectNav" />
     </div>
     <div class="list-empty" v-if="isEmpty" >
-      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="这里空空如也" />
+      <empty description="这里空空如也" />
     </div>
     <van-list class="list-content" v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad"  v-else>
       <div class="entry-content" v-for="(ask, index) in asks" :key="index">
@@ -18,15 +18,15 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { Message, MessageBox } from 'element-ui'
-import emptyBox from '@/components/emptyBox/index.vue'
 import questionItem from '../../questions/components/item.vue'
 import { Iquestion } from '../../../api/types'
 import tabs from '../../../components/tabs/index.vue'
 import { getAskList, deleteAsk, getAnswerList } from '../../../api/question'
 import { Qtag } from '../../../global'
+import empty from '@/components/emptyBox/index.vue'
 @Component({
   components: { 
-    emptyBox,
+    empty,
     tabs,
     questionItem
   }
@@ -93,6 +93,9 @@ export default class extends Vue {
   border-bottom: 1px solid $border-color;
   background-color: #fff;
   color: $navcolor-header;
+  @media only screen and (max-width: 767px) { 
+    padding: 2rem 0 2rem 1rem;
+  }
   &__title {
     font-size: 1.34rem;
     font-weight: bold;

@@ -1,11 +1,13 @@
 <template>
-  <div class="container">
-    <div class="follow" v-for="(item, index) in lists" :key="index">
-      <author-info :userInfo='item'>
-        <div slot="content" class="detail">{{ item.job }} @{{ item.company || '添加公司' }}</div>
-      </author-info>
-      <div class="follow-action">
-        <followAction size='small' :author = item.nickname />
+  <div class="section">
+    <div class="follow-content">
+      <div class="follow-item" v-for="(item, index) in lists" :key="index">
+        <author-info :userInfo='item'>
+          <div slot="content" class="detail">{{ item.job }} @{{ item.company || '添加公司' }}</div>
+        </author-info>
+        <div class="follow-action">
+          <followAction size='small' :author = item.nickname />
+        </div>
       </div>
     </div>
   </div>
@@ -29,21 +31,21 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.follow-content {
   background: #fff;
-  padding: 0 24px;
-  .follow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 6px 0;
-    min-height: 6rem /* 84/14 */;
-    color: #b9c0c8;
-    border-bottom: 1px solid $border-color;
-    &:last-child {
-      border-bottom: none;
-    }
+}
+.follow-item {
+  box-sizing: border-box;
+  @include flexcenter($jc: space-between, $ai: center);
+  padding: 1rem 2rem;
+  min-height: 6rem /* 84/14 */;
+  color: #b9c0c8;
+  border-bottom: 1px solid $border-color;
+  &:hover {
+    background: $hover-color;
+  }
+  &:last-child {
+    border-bottom: none;
   }
 }
 </style>

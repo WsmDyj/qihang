@@ -1,8 +1,8 @@
 <template>
   <div class="information">
-    <div v-for="(item, index) in lists" :key="index">
+    <div class="information-content" v-for="(item, index) in lists" :key="index">
       <router-link :to="item.path">
-        <el-image fit="cover" class="information-image" :src="require(`@/assets/img/${item.name}.webp`)" />
+        <el-image fit="contain" class="information-image" :src="require(`@/assets/img/${item.name}.png`)" />
       </router-link>
     </div>
   </div>
@@ -21,13 +21,16 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .information {
   width: 100%;
+  font-size: 1.16rem;
+  border-radius: 2px;
+  cursor: pointer;
   &-image {
+    border-radius: 2px;
     display: inline-block;
-    border-radius: 3px;
-    margin-bottom: 20px;
-    cursor: pointer;
+    // box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    margin-bottom: 1.3rem;
     width: 240px;
-    height: 85px;
+    height: 137px;
   }
 }
 </style>

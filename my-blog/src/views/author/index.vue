@@ -1,11 +1,19 @@
 <template>
   <div class="container">
-    <Header />
+    <Header :visible = visible />
     <div class="main mg-top-80">
       <div class="section">
         <author-card :userInfo = userInfo />
         <div class="section-author mg-top-20">
-          <el-tabs v-model="activeIndex">
+          <div class="author-tabs">
+            <tabs :activeIndex = activeIndex :tabs = tabs @click="selectNav" />
+          </div>
+          <!-- <tabs :tabs = tabs @click="selectNav" /> -->
+          <articlesList v-if="activeIndex === '0'" />
+          <like-list v-if="activeIndex === '1'" />
+          <follow-list :follows = follows :actions = actions v-if="activeIndex === '2'" />
+          <askList v-if="activeIndex === '3'" />
+          <!-- <el-tabs v-model="activeIndex">
             <el-tab-pane label="专栏" name="1">
               <articlesList />
             </el-tab-pane>
@@ -20,16 +28,18 @@
               <span slot="label">问答<i class="el-icon-caret-bottom"></i></span>
               <askList/>
             </el-tab-pane>
-          </el-tabs>
+          </el-tabs> -->
         </div>
       </div>
       <div class="asside">
-        <achievement-card :author= true title="个人成就" :userInfo = userInfo ></achievement-card>
-        <followCard @checkFollows='checkFollows' :follows = follows />
-        <div class="join-time">
-          <span>加入于</span>
-          <span>{{userInfo.date}}</span>
-        </div>
+        <sticky :z-index= 8 :sticky-top="80">
+          <achievement-card :author= true title="个人成就" :userInfo = userInfo ></achievement-card>
+          <followCard :follows = follows />
+          <div class="join-time">
+            <span>加入于</span>
+            <span>{{userInfo.date}}</span>
+          </div>
+        </sticky>
       </div>
     </div>
   </div>
@@ -43,8 +53,9 @@ import articlesList from './components/articles.vue'
 import likeList from './components/likes.vue'
 import followList from './components/follow.vue'
 import askList from './components/ask.vue'
-import achievementCard from '@/components/card/achievement/index.vue'
-import followCard from '@/components/card/achievement/follow/index.vue'
+import Sticky from '@/components/Sticky/index.vue'
+import achievementCard from '@/components/card/achievementCard/index.vue'
+import followCard from './components/followCard.vue'
 import { IArticleData, IUserInfo, IFollow } from '../../api/types'
 import { getArticles,delArticle } from '../../api/blog'
 import { getUserInfo } from '../../api/user'
@@ -53,7 +64,8 @@ import { formatTime } from '../../utils/formatDate'
 import { getlikesList } from '../../api/actions'
 import { ArticleModule } from '../../store/modules/article'
 import { Message, MessageBox } from 'element-ui'
-
+import tabs from '@/components/tabs/index.vue'
+import { TAG_LIST, Qtag } from '../../global'
 const defaultIUserInfo = {
   avatar: '',
   autograph: '',
@@ -64,6 +76,13 @@ const defaultIUserInfo = {
   comments: 0,
   reviews: 0
 }
+const Tabs_LIST = [
+  { value: "专栏", label: "0" },
+  { value: "赞过的", label: "1" },
+  { value: "关注", label: "2", icon: 'el-icon-caret-bottom' },
+  { value: "问答", label: "3", icon: 'el-icon-caret-bottom' }
+]
+
 @Component({
   name: 'author',
   components: {
@@ -74,7 +93,9 @@ const defaultIUserInfo = {
     likeList,
     articlesList,
     followList,
-    askList
+    Sticky,
+    askList,
+    tabs
   }
 })
 
@@ -82,11 +103,13 @@ export default class extends Vue {
   private author: string | (string | null)[] = ''
   private userInfo: IUserInfo = defaultIUserInfo
   private follows: [] = []
-  private activeIndex: string | (string | null)[] = '1'
+  private visible: boolean = true
+  private activeIndex: string | (string | null)[] = '0'
   private actions: object = {}
+  private tabs: Qtag[] = Tabs_LIST
 
-  private checkFollows(event:object) {
-    this.actions = event
+  private selectNav(tab: Qtag) {
+    this.activeIndex = tab.label
   }
   private async getInfo(params: any) {
     const { data } = await getUserInfo({username: params})
@@ -97,31 +120,34 @@ export default class extends Vue {
     const { data } = await getfollowList({username: params})
     this.follows = data
   }
-  
+  private handleScroll(event: boolean) {
+    this.visible = event
+  }
   private async created() {
     this.author = this.$route.query.author
     await this.getInfo(this.author)
     this.getFollow(this.author)
-    this.activeIndex = this.$route.query.activeIndex || '1'
-  }
- 
-  @Watch('actions') 
-  private actionsChange(val: {radio: number, label: string}) {
-    this.activeIndex = val.label
+    this.activeIndex = this.$route.query.activeIndex || '0'
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.section-author {
-  width: 100%;
-  cursor: pointer;
+.author-tabs {
+  background-color: #fff;
+  border-bottom: 1px solid $border-article-color;
+  padding-left: 2rem;
+  font-weight: bold;
+  height: 3.666667rem /* 44/12 */;
+  @media only screen and (max-width: 767px) { 
+    padding-left: 0rem;
+  }
 }
+
 .join-time {
   @include flexcenter($jc:space-between);
-  position: fixed;
+  margin-top: 4rem;
   width: 240px;
-  top: 390px;
   padding: 1.5rem 0;
   color: #000;
   font-size: 1.25rem;

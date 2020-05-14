@@ -2,7 +2,10 @@
   <div class="item" @click="checkAsk">
     <div class="item-content">
       <article-title :article= ask />
-      <div class="item-content__title">{{ ask.title }}</div>
+      <div class="item-content__title">
+        <span class="item-content__text">{{ ask.title }}</span>
+        <span v-if="origin && visible" class="item-content__delete iconfont" @click.stop="deleteAsk(ask)">&#xe6ea;</span>
+      </div>
     </div>
     <div class="item-action mobile-none">
       <div class="item-action__votes" :class="ask.status == 2 ? 'solve' : 'not-solve'">
@@ -23,10 +26,9 @@ import { Iquestion } from '../../../api/types'
 import { UserModule } from '../../../store/modules/user'
 import articleTitle from '@/components/article/articleTitle.vue'
 
-
 @Component({
   components: {
-    articleTitle
+    articleTitle,
   }
 })
 export default class extends Vue {
@@ -59,7 +61,7 @@ export default class extends Vue {
   background: #fff;
   width: 100%;
   box-sizing: border-box;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   @include flexcenter($jc: none, $ai: center);
   border-bottom: 1px solid $border-article-color;
   @media only screen and (max-width: 767px) { 
@@ -67,6 +69,9 @@ export default class extends Vue {
   }
   &:hover {
     background-color: $hover-color;
+    .item-content__delete {
+      display: inline-block;
+    }
   }
 }
 
@@ -81,12 +86,16 @@ export default class extends Vue {
     cursor: default;
     @include twoLines();
     line-height: 1.2;
-    &:hover {
-      text-decoration: underline;
-    }
-    @media only screen and (max-width: 767px) { 
-      font-size: 1.2rem;
-    }
+    
+  }
+  &__text:hover {
+    text-decoration: underline;
+  }
+  &__delete {
+    display: none;
+    padding-left: 1rem;
+    font-size: 1.4rem;
+    color: #F56C6C;
   }
 }
 

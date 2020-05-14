@@ -59,13 +59,15 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .follow-button {
   margin: 0 0 0 auto;
-  padding: 0;
-  width: 55px;
+  width: 6.6rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
   text-align: center;
-  line-height: 26px;
-  height: 26px;
-  font-size: 13px;
-  border: 1px solid $likecolor;
+  font-size: 1.1rem;
+  color: #37c701;
+  background-color: #fff;
+  border: 1px solid rgba(55,199,1,.6);
+  border-radius: 2px;
   cursor: pointer;
 
   &__medium {
@@ -80,10 +82,6 @@ export default class extends Vue {
 .unfollow-button {
   color: #6cbd45;
   background-color: #fff;
-  &:hover {
-    color: #fff;
-    background-color: #6cbd45;
-  }
 }
 
 .following-button {

@@ -6,8 +6,7 @@
       </el-avatar>
     </router-link>
     <div class="author-info">
-      <router-link target="_blank" :to="{path: '/author', query:{author: userInfo.nickname}}" :class="type ? `author-name--${type}` : 'author-name'">
-        {{ userInfo.nickname }}
+      <router-link target="_blank" v-html="userInfo.nickname" :to="{path: '/author', query:{author: userInfo.nickname}}" :class="type ? `author-name--${type}` : 'author-name'">
         <span class="author-job" v-show="type">@{{userInfo.company || '添加公司'}}</span>
       </router-link>
       <div :class="type ? `author-content--${type}` : 'author-content'">
@@ -32,9 +31,6 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .author {
   display: flex;
-  .author-avatar {
-    cursor: pointer;
-  }
   .author-info {
     @include flexcolumn($jc: space-around);
     margin-left: 1rem;

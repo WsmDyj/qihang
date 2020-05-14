@@ -11,11 +11,11 @@
       </div> -->
     </div>
     <div class="nav-menu-group">
-      <router-link class="nav-menu-item" target="_blank" :to="{path: '/author', query:{activeIndex: '1', author: nickname}}">
+      <router-link class="nav-menu-item" target="_blank" :to="{path: '/author', query:{activeIndex: '0', author: nickname}}">
         <span class="el-icon-user-solid"></span>
         <span class="item-text">我的主页</span>
       </router-link>
-      <router-link target="_blank" :to="{path: '/author', query:{activeIndex: '2', author: nickname}}" class="nav-menu-item">
+      <router-link target="_blank" :to="{path: '/author', query:{activeIndex: '1', author: nickname}}" class="nav-menu-item">
         <i class="iconfont item-icon">&#xe60c;</i>
         <span class="item-text">我赞过的</span>
       </router-link>

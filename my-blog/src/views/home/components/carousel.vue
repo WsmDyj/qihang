@@ -53,12 +53,12 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .carousel {
-  height: 12.5rem;
+  height: 14.166667rem /* 170/12 */;
   width: 100%;
   background: #fff;
   border-radius: 2px;
   @media only screen and (max-width: 767px) { 
-    height: 10rem;
+    height: 12rem;
     border-radius: 0px;
   }
   .carousel-content {

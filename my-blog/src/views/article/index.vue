@@ -48,7 +48,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import comment from '@/components/comment/index.vue'
 import catalog from './components/catalog.vue'
-import achievementCard from '@/components/card/achievement/index.vue'
+import achievementCard from '@/components/card/achievementCard/index.vue'
 import authorFollow from '@/components/follow/index.vue'
 import authorInfo from '@/components/authorInfo/index.vue'
 import Sticky from '@/components/Sticky/index.vue'
@@ -213,12 +213,12 @@ export default class  extends Vue {
   }
 
   &-main {
-    font-size: 2.5rem;
+    font-size: 2.5rem /* 30/12 */;
     font-weight: 700;
     line-height: 1.5;
     margin: .67em 0;
-    @media only screen and (max-width: 750px) { 
-      font-size: 20px
+    @media only screen and (max-width: 769px) { 
+      font-size: 2rem;
     }
   }
 }

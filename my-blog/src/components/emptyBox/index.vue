@@ -1,5 +1,6 @@
 <template>
   <div class="empty-box">
+    <!-- <el-image src='http://storage.360buyimg.com/ola/mid-portal-site/1.2.13/media/empty.2eJOY.png' /> -->
     <svg width="66" height="68" viewBox="0 0 66 68" class="icon empty-icon">
       <g fill="none" fill-rule="evenodd" transform="translate(4 3)">
         <g fill="#F7F7F7">

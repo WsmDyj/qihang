@@ -1,22 +1,31 @@
 <template>
   <nav class="nav">
     <ul class="nav-list">
-      <li class="nav-item" :class="{splitLine: splitLine}" v-for="(tab, index) in tabs" :key="index">
-        <span @click="handleClick(tab)" :class="{active: current === tab.label}">{{tab.value}}</span>
+      <li class="nav-item" @click="handleClick(tab)" :class="{splitLine: splitLine}" v-for="(tab, index) in tabs" :key="index">
+        <span :class="{active: current === tab.label}">
+          {{tab.value}}
+          <i v-if="tab.icon" :class="tab.icon" />
+        </span>
       </li>
     </ul>
   </nav>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
 import { Qtag } from '../../global'
 
 @Component
 export default class extends Vue {
   @Prop() private tabs!: Qtag[]
+  @Prop() private activeIndex!:string
   @Prop() private splitLine!: Boolean
   private current: string = '0'
+
+  @Watch('activeIndex')
+  private async watchAuthor(val: string) {
+    this.current = val
+  }
 
   @Emit('click')
   private handleClick(tab: Qtag) {
@@ -56,7 +65,7 @@ export default class extends Vue {
     }
     @media (min-width: 1024px) {
       &:first-child {
-      padding: 0 1rem 0 0;
+        padding: 0 1rem 0 0;
       }
     }
     .active {
@@ -65,6 +74,9 @@ export default class extends Vue {
   }
   .splitLine {
     @include splitLine($right: 0);
+    &:last-child:after {
+      content: none;
+    }
   }
 }
 </style>

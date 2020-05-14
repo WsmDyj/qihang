@@ -69,7 +69,7 @@ export default class extends Vue {
   display: flex;
   align-items: flex-end;
   @media only screen and (max-width: 750px) { 
-    padding: 2rem 2rem;
+    padding: 2rem 1rem;
   }
   .author-info {
     margin-left: 2rem;

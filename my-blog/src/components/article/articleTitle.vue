@@ -27,7 +27,6 @@ export default class extends Vue {
   
   created() {
     this.articleTime = formatDate(this.article.createtime)
-    console.log(this.articleTime)
   }
 }
 </script>

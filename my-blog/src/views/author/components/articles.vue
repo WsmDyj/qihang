@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="section-wrapper">
     <div class="list-empty" v-if="isEmpty" >
-      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="您还未发表过文章" />
+      <empty description="您还未发表过文章" />
     </div>
     <van-list class="list-content" v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad"  v-else>
       <div class="entry" v-for="(article, index) in articleList" :key="index">
@@ -41,10 +41,12 @@ import articleAction from '@/components/article/articleAction.vue'
 import { UserModule } from '../../../store/modules/user'
 import { getArticles,delArticle } from '../../../api/blog'
 import { fommentArticle } from '../../../utils/formateArticle'
+import empty from '@/components/emptyBox/index.vue'
 @Component({
   components: {
     articleAction,
     articleTitle,
+    empty
   }
 })
 export default class extends Vue {
@@ -111,6 +113,9 @@ export default class extends Vue {
   padding: 2rem;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
+  @media only screen and (max-width: 767px) { 
+    padding: 2rem 1rem;
+  }
   &:hover {
     background: $hover-color;
   }

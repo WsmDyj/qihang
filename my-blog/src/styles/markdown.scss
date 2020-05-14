@@ -1,9 +1,8 @@
 .article-content {
   font-size: 15px;
   color: #333;
-  line-height: 1.5;
+  line-height: 1.75;
   word-break: break-word;
-  font-weight: 400;
   font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
   text-rendering: optimizeLegibility;
   ul {
@@ -51,6 +50,8 @@
   }
   p {
     display: block;
+    font-size: 16px;
+    line-height: 26px;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
@@ -75,25 +76,41 @@
   }
   a {
     text-decoration: none;
-    color: #0269c8;
+    color: $primary;
     border-bottom: 1px solid #d1e9ff;
   }
   table {
     display: inline-block!important;
     max-width: 100%;
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 1.2;
     border: 1px solid #f6f6f6;
     thead {
       background: #f6f6f6;
       color: #000;
       text-align: left;
       tr {
+        padding-top: 10px;
         display: table-row;
         vertical-align: inherit;
         border-color: inherit;
         td, th {
           padding: 12px 6px;
           line-height: 24px;
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      tr {
+        padding-top: 10px;
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        td, th {
+          border-bottom: 1px solid #f6f6f6;
+          padding: 6px;
+          line-height: 1.2;
           text-align: left;
         }
       }

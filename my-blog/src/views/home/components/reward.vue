@@ -20,7 +20,7 @@
             <div class="reward-right">
               <div class="reward-title">
                 已有10人赞赏
-                <el-tooltip class="item" effect="dark" content="感谢以下用户的支持" placement="top">
+                <el-tooltip class="item" effect="dark" content="每周周一更新" placement="top">
                   <i class="el-icon-info"></i>
                 </el-tooltip>
               </div>

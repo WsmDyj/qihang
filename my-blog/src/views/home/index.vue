@@ -114,11 +114,6 @@ export default class extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.section-wrapper {
-  background: #fff;
-  @include flexcolumn($jc:center, $ai: none);
-  min-height: 14.166667rem /* 170/12 */;
-}
 </style>
 
 

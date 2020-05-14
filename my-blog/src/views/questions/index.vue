@@ -18,14 +18,14 @@
           </router-link>
         </div>
         <div class="questions-content">
-            <div v-if="isEmpty" class="questions-empty">
-              <empty description="该类目下还没有问题" />
+          <div v-if="isEmpty" class="questions-empty">
+            <empty description="该类目下还没有问题" />
+          </div>
+          <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多数据了'" @load="onLoad" >
+            <div v-for="(ask, index) in asks" :key="index">
+              <question-item :ask = ask />
             </div>
-            <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多数据了'" @load="onLoad" >
-              <div v-for="(ask, index) in asks" :key="index">
-                <question-item :ask = ask />
-              </div>
-            </van-list>
+          </van-list>
         </div>
       </div>
       <div class="asside">
@@ -41,7 +41,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import Header from '@/components/header/index.vue'
 import tabs from '@/components/tabs/index.vue'
 import empty from '@/components/emptyBox/index.vue'
-import hotCard from '../../components/card/hot/index.vue'
+import hotCard from '../../components/card/hotCard/index.vue'
 import totalCard from './components/total.vue'
 import questionItem from './components/item.vue'
 import { Iquestion } from '../../api/types'
@@ -150,9 +150,9 @@ export default class extends Vue {
     font-weight: bold;
   }
 }
-// .questions-content {
-//   background: #fff;
-//   min-height: 7.5rem;
-//   @include flexcolumn($jc:center, $ai: none);
-// }
+.questions-content {
+  background: #fff;
+  min-height: 7.5rem;
+  @include flexcolumn($jc:center, $ai: none);
+}
 </style>

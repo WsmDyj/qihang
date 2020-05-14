@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="list-empty" v-if="isEmpty" >
-      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="遇见喜欢的就赞它" />
+      <empty description="您还没有点赞过的文章" />
     </div>
     <van-list class="list-content" v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad"  v-else>
       <articleCard :articleList = likeList />
@@ -15,6 +15,7 @@ import { IArticleData  } from '../../../api/types'
 import { getlikesList } from '../../../api/actions'
 import articleCard from '@/components/article/index.vue'
 import { fommentArticle } from '../../../utils/formateArticle'
+import empty from '@/components/emptyBox/index.vue'
 interface Irouter {
   path: string;
   query: {
@@ -23,7 +24,8 @@ interface Irouter {
 }
 @Component({
   components: {
-    articleCard
+    articleCard,
+    empty
   }
 })
 export default class extends Vue {

@@ -3,7 +3,7 @@
     <router-link target="_blank" :to="{ path: '/article', query:{ articleId: article.article_id }}" class="entry" v-for="(article, index) in articleList" :key="index">
       <div class="entry-content">
         <article-title :article= article />
-        <div class="entry-content__title">{{ article.title }}</div>
+        <div class="entry-content__title" v-html='article.title'></div>
         <div class="entry-content__action">
           <article-action :article= article />
         </div>
@@ -34,10 +34,13 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .entry {
   box-sizing: border-box;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   background: #fff;
   border-bottom: 1px solid $border-color;
   @include flexcenter($jc: space-between, $ai: center);
+  @media only screen and (max-width: 767px) { 
+    padding: 1rem;
+  }
   &:hover {
     background: $hover-color;
   }

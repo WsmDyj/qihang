@@ -8,13 +8,18 @@ export interface Qtag {
   value: string;
   label: string;
   disabled?: boolean;
+  icon?: string
 } 
 
 export const INFORMATION_LIST: Qlist[] = [
-  { id: 0, name: "today", path: "/article?articleId=18u4gt2bddvk00" },
-  { id: 1, name: "week", path: "/excellent" },
-  { id: 2, name: "recommend", path: "/share" },
-]
+        //  {
+        //    id: 0,
+        //    name: "today",
+        //    path: "/article?articleId=18u4gt2bddvk00",
+        //  },
+         { id: 1, name: "notice", path: "/excellent" },
+         { id: 2, name: "group", path: "/share" },
+       ];
 
 export const NAV_LIST: Qlist[]  = [
   { id: 0, name: "首页", path: "/" },

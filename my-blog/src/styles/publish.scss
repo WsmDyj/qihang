@@ -25,6 +25,7 @@
     width: 100%;
     max-width: 994px;
     position: relative;
+    margin-bottom: 20px;
     @include flexcenter($jc:space-between, $ai: none);
     .asside {
       width: 240px;
@@ -42,19 +43,24 @@
     width: 100%;
   }
 }
+.section-wrapper {
+  background: #fff;
+  @include flexcolumn($jc:center, $ai: none);
+  min-height: 14.166667rem /* 170/12 */;
+}
 
 // 首页文字标题样式
 .article-title {
-  font-size: 1.666667rem /* 20/12 */;
+  font-size: 1.7rem;
   font-weight: bold;
   color: $title-color;
   @include twoLines();
   &:hover {
     color: $primary;
-    text-decoration: underline !important;
+    // text-decoration: underline !important;
   }
   @media only screen and (max-width: 767px) { 
-    font-size: 1.333333rem /* 16/12 */;
+    font-size: 1.4rem;
   }
 }
 
@@ -87,10 +93,7 @@
     display: none;
   }
 }
-// .list-empty {
-//   background: #fff;
-// }
-// .list-content {
-//   min-height: 240px;
-//   background: #fff;
-// }
+.search-keyword {
+  color: #e8001c;
+  font-weight: bold;
+}

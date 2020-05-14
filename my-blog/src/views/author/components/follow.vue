@@ -2,10 +2,10 @@
   <div class="entry">
     <div class="entry-nav">
       <div class="entry-nav__title">关注</div>
-      <tabs :tabs = tabs @click="selectNav" />
+      <tabs splitLine = true :tabs = tabs @click="selectNav" />
     </div>
      <div class="list-empty" v-if="isEmpty" >
-      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="这里空空如也" />
+      <empty description="这里空空如也" />
     </div>
     <van-list v-else>
       <div class="entry-content">
@@ -19,20 +19,20 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import authorList from '@/components/authorList/index.vue'
 import { IFollow } from '../../../api/types'
-import emptyBox from '@/components/emptyBox/index.vue'
+import empty from '@/components/emptyBox/index.vue'
 import tabs from '@/components/tabs/index.vue'
 import { Qtag } from '../../../global'
 import { getfollowList } from '../../../api/follow'
 @Component({
   components: { 
-    emptyBox,
+    empty,
     authorList,
     tabs
   }
 })
 export default class extends Vue {
   @Prop() private follows!: IFollow[]
-   private loading: boolean = false
+  private loading: boolean = false
   private noMore: boolean = false
   private isEmpty: boolean = false
   private lists: IFollow[] = []
@@ -42,7 +42,7 @@ export default class extends Vue {
     { value: '关注者', label: '1'},
   ]
   
-  @Watch('follows')
+  @Watch('follows',{immediate: true})
   private watchFollows(val: IFollow[]) {
     this.lists = val[this.radio].data
     if (val[this.radio].data.length <= 0) {
@@ -71,6 +71,9 @@ export default class extends Vue {
   border-bottom: 1px solid $border-color;
   background-color: #fff;
   color: $navcolor-header;
+  @media only screen and (max-width: 767px) { 
+    padding: 2rem 0 2rem 1rem;
+  }
   &__title {
     font-size: 1.34rem;
     font-weight: bold;

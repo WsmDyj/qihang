@@ -59,10 +59,10 @@ export default class extends Vue {
     .article-desc {
       line-height: 1.5;
       margin: 0.5rem 0;
-      font-size: 1.166667rem /* 14/12 */;
+      font-size: 1.083333rem /* 13/12 */;
       @include twoLines($clamp: 2);
-        color: $title-elps-color;
-      }
+      color: $title-elps-color;
+    }
   }
 }
 </style>
