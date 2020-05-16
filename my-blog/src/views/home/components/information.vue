@@ -28,7 +28,7 @@ export default class extends Vue {
     border-radius: 2px;
     display: inline-block;
     // box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
-    margin-bottom: 1.3rem;
+    margin-bottom: 1rem;
     width: 240px;
     height: 137px;
   }

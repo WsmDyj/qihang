@@ -2,7 +2,9 @@
   <div id="comment" class="comment">
     <div class="comment-title">评论</div>
     <div class="comment-form">
-      <el-avatar size="medium" :src= avatar></el-avatar>
+      <div class="comment-avatar">
+        <el-avatar size="medium" :src= avatar></el-avatar>
+      </div>
       <div class="comment-input">
         <formBox type='first' @submit='createComment' />
       </div>
@@ -31,6 +33,7 @@ import { UserModule }  from '../../store/modules/user'
 import { createComment, getComment, createReply } from '../../api/comments'
 import { IComment, IReply } from '../../api/types'
 import GenNonDuplicateID from '../../utils/createId'
+import formatDate from '../../utils/formatDate'
 
 export interface Scommon {
   article_id: string | (string | null)[]
@@ -97,9 +100,8 @@ export default class extends Vue {
 .comment-title {
   color: $comment-color;
   font-size: 17px;
-  font-weight: 400;
   text-align: center;
-  padding: 1.571429rem /* 22/14 */ 0 5px;
+  padding: 2rem 0;
 }
 .comment-form {
   display: flex;
@@ -114,15 +116,30 @@ export default class extends Vue {
   }
 }
 .comment-content {
-  margin: 1.428571rem /* 20/14 */ 2.142857rem /* 30/14 */ 1.428571rem /* 20/14 */ 3.571429rem /* 50/14 */;
-  border-bottom: 1px solid #f1f1f1;
-  &:last-child {
-    border-bottom: none;
+  margin: 1.2rem 3rem;
+  box-sizing: border-box;
+  position: relative;
+  @media only screen and (max-width: 767px) { 
+    margin: 1.2rem 2rem;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    width: calc(100% - 4rem);
+    bottom: 0;
+    right: 0;
+    // transform: translate(0, -50%);
+    height: 1px;
+    background-color: #f1f1f1;
   }
   .comment-text {
+    margin-top: .55rem;
+    font-size: 1.083rem;
+    line-height: 1.833rem;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-all;
     color: #505050;
-    font-size: 1.083333rem;
-    margin-top: 1rem;
   }
   .comment-info {
     @include flexcolumn();

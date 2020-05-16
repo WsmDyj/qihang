@@ -1,14 +1,24 @@
 <template>
-  <nav class="nav">
-    <ul class="nav-list">
-      <li class="nav-item" @click="handleClick(tab)" :class="{splitLine: splitLine}" v-for="(tab, index) in tabs" :key="index">
-        <span :class="{active: current === tab.label}">
-          {{tab.value}}
-          <i v-if="tab.icon" :class="tab.icon" />
-        </span>
-      </li>
-    </ul>
-  </nav>
+  <div class="tabs-container">
+    <van-tabs 
+      title-inactive-color='#71777c' 
+      title-active-color = '#007fff'
+      v-model="current"
+      @change="handleClick"
+      swipeable 
+      :border="false"
+      :ellipsis="false" 
+      :line-width="0"
+    >
+      <van-tab
+        class="tabs-item"
+        :title-style="tabStyle"
+        :title="tab.value"  
+        v-for="(tab, index) in tabs" 
+        :key="index"
+      />
+    </van-tabs>
+  </div>
 </template>
 
 <script lang="ts">
@@ -20,64 +30,33 @@ export default class extends Vue {
   @Prop() private tabs!: Qtag[]
   @Prop() private activeIndex!:string
   @Prop() private splitLine!: Boolean
-  private current: string = '0'
+  private current: number = 0
+  private tabStyle: object = {
+    padding: '0 2rem 0 0',
+  }
 
   @Watch('activeIndex')
   private async watchAuthor(val: string) {
-    this.current = val
+    this.current = Number(val)
   }
 
   @Emit('click')
-  private handleClick(tab: Qtag) {
-    this.current = tab.label
-    return tab
+  private handleClick(name: string, title: string) {
+    let currentTab: Qtag = { label: name.toString(), value: title }
+    return currentTab
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.nav {
+.tabs-container {
   height: 100%;
-  .nav-list {
-    height: 100%;
-    max-width: 994px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    line-height: 1;
-    @media (max-width: 993px) {
-      width: auto;
-      overflow-x: auto;
-    }
-  }
-  &-item {
-    color: $navcolor;
-    cursor: pointer;
-    position: relative;
-    padding: 0 1rem;
-    height: 100%;
-    align-items: center;
-    display: flex;
-    flex-shrink: 0;
-    font-size: 1.16rem;
-    &:hover {
-      color: $primary;
-    }
-    @media (min-width: 1024px) {
-      &:first-child {
-        padding: 0 1rem 0 0;
-      }
-    }
-    .active {
-      color: $primary;
-      font-weight: 450;
-    }
-  }
-  .splitLine {
-    @include splitLine($right: 0);
-    &:last-child:after {
-      content: none;
-    }
+  width: 100%;
+  max-width: 994px;
+  margin: 0 auto;
+  // background: red;
+  @media (max-width: 768px) {
+    margin: 0 1rem;
   }
 }
 </style>

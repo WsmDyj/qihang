@@ -35,19 +35,23 @@ export default class extends Vue {
   background: #fff;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
-  @include flexcenter($jc: none, $ai: center);
+  @include flexcenter($jc: space-between, $ai: center);
   @media only screen and (max-width: 767px) { 
-    padding: 1rem;
+    padding: 1.5rem 1rem;
   }
   &:hover {
     background-color: $hover-color;
   }
-  &-imgWrap {
-    padding-left: 1rem;
+  .article-imgWrap {
+    width: 7.7rem;
+    height: 6.7rem;
+    box-sizing: border-box;
+    margin-left: 2rem;
+    background-color: #fff;
   }
 
   &-img {
-    width: 6.7rem;
+    width: 7.7rem;
     height: 6.7rem;
     border-radius: 3px;
     position: relative;
@@ -55,6 +59,7 @@ export default class extends Vue {
   
   .article-content {
     flex: 1;
+    overflow: hidden;
     @include flexcolumn($jc:space-between, $ai: none);
     .article-desc {
       line-height: 1.5;

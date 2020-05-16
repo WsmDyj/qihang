@@ -2,7 +2,9 @@
   <div class="entry">
     <div class="entry-nav">
       <div class="entry-nav__title">关注</div>
-      <tabs splitLine = true :tabs = tabs @click="selectNav" />
+      <div class="entry-nav__tabs">
+        <tabs splitLine = true :tabs = tabs @click="selectNav" />
+      </div>
     </div>
      <div class="list-empty" v-if="isEmpty" >
       <empty description="这里空空如也" />
@@ -67,17 +69,20 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .entry-nav {
   @include flexcenter($jc:space-between, $ai: center);
-  padding: 2rem 1rem 2rem 2rem;
+  padding: 1rem 0rem 1rem 2rem;
   border-bottom: 1px solid $border-color;
   background-color: #fff;
   color: $navcolor-header;
-  @media only screen and (max-width: 767px) { 
-    padding: 2rem 0 2rem 1rem;
+  @media only screen and (max-width: 768px) { 
+    padding: 1rem;
   }
   &__title {
     font-size: 1.34rem;
     font-weight: bold;
     color: $title-color;
+  }
+  &__tabs {
+    width: 11rem;
   }
 }
 </style>

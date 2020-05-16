@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar navbar" :class="{visible: visible}">
+  <div class="navbar" :class="{visible: visible}">
     <div class="navbar-container">
       <div class="logo">
         <el-image class="logo-pc" :src="require('../../assets/img/logo-pc.jpg')" fit="fill" />
@@ -112,11 +112,12 @@ export default class extends Vue {
     height: 100%;
     width: 100%;
     max-width: 994px;
-    @media only screen and (max-width: 769px) {
-      width: 96%;
-    }
+    
   }
 
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
   &-content {
     @include flexcenter($jc: space-between);
     flex: 1;

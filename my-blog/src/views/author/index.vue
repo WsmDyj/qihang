@@ -6,7 +6,9 @@
         <author-card :userInfo = userInfo />
         <div class="section-author mg-top-20">
           <div class="author-tabs">
-            <tabs :activeIndex = activeIndex :tabs = tabs @click="selectNav" />
+            <div class="author-tabs__nav">
+              <tabs :activeIndex = activeIndex :tabs = tabs @click="selectNav" />
+            </div>
           </div>
           <articlesList v-if="activeIndex === '0'" />
           <like-list v-if="activeIndex === '1'" />
@@ -116,14 +118,22 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.author-tabs {
+.section-author {
+  width: 100%;
   background-color: #fff;
-  border-bottom: 1px solid $border-article-color;
-  padding-left: 2rem;
+}
+.author-tabs {
+  border-bottom: 2px solid $border-color;
+  width: 100%;
   font-weight: bold;
-  height: 4rem /* 48/12 */;
-  @media only screen and (max-width: 767px) { 
-    padding-left: 0rem;
+  &__nav {
+    width: 300px;
+    padding: 0 1.2rem;
+    box-sizing: border-box;
+    @media only screen and (max-width: 768px) { 
+      padding: 0 20px 0 0;
+      width: 100%;
+    }
   }
 }
 

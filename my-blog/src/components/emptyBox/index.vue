@@ -38,7 +38,7 @@ export default class extends Vue {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 36px 0;
+  padding: 26px 0;
   font-size: 13px;
   font-weight: bold;
   color: #b2bac2;

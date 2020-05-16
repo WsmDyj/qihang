@@ -133,22 +133,23 @@ export default class extends Vue {
   @include flexcenter($jc:space-between);
   width: 100%;
   color: #8a9aa9;
-  margin-top: .857143rem /* 12/14 */;
   font-size: .857143rem /* 12/14 */;
+  padding: 1rem 0 0;
   cursor: pointer;
   .comment-time {
+    font-size: 1.083rem;
     color: #8a9aa9;
     cursor: default;
   }
   .comment-action {
     @include flexcenter($jc: none);
     .action-title {
-      padding: 0 .357143rem /* 5/14 */;
+      padding: 0 .357143rem;
     }
   }
 }
 .form-box {
-  padding: .857143rem /* 12/14 */ 1.142857rem /* 16/14 */;
+  padding: 1rem 1.1rem;
   margin-top: 1.071429rem /* 15/14 */;
   background-color: #fafbfc;
   position: relative;

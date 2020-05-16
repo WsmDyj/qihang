@@ -6,6 +6,8 @@ import './permission'
 import "normalize.css/normalize.css";
 import './utils/rem'
 import "vant/lib/index.css";
+import formatDate from './utils/formatDate'
+
 
 import * as Element from 'element-ui'
 import "element-ui/lib/theme-chalk/base.css"; // fade style
@@ -13,9 +15,7 @@ import "element-ui/lib/theme-chalk/index.css";
 
 import hljs from 'highlight.js'
 
-
 import '@/styles/index.scss'
-
 
 /**
  * vant 引入的全局注册的公共组件
@@ -42,7 +42,7 @@ const VantComps: any = {
 Object.keys(VantComps).map((key) => { 
   Vue.component(`van-${key}`, VantComps[key]) 
 })
-
+Vue.prototype.formatDate = formatDate
 Vue.config.productionTip = false;
 Vue.use(Element);
 

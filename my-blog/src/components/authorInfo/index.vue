@@ -34,6 +34,7 @@ export default class extends Vue {
   .author-info {
     @include flexcolumn($jc: space-around);
     margin-left: 1rem;
+    padding: 0.2rem 0;
     .author-name {
       display: inline-block;
       font-size: 1.3rem;

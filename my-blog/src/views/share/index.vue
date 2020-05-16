@@ -3,7 +3,9 @@
     <Header :visible= visible />
     <sticky @scroll="handleScroll" :fixed-top= -236 :z-index= 9 :sticky-top="60">
       <div class="navigation" :class="{'navigation-fixed': !visible}" >
-        <tabs :tabs = options @click="filterAsk" />
+        <div class="share-tabs">
+          <tabs :tabs = options @click="filterAsk" />
+        </div>
       </div>
     </sticky>
     <div class="main mg-top-126">
@@ -55,5 +57,4 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

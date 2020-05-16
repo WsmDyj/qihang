@@ -3,7 +3,7 @@
   color: #333;
   line-height: 1.75;
   word-break: break-word;
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+  // font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-rendering: optimizeLegibility;
   ul {
     padding-left: 28px;
@@ -50,8 +50,11 @@
   }
   p {
     display: block;
+    word-spacing: 2px;
     font-size: 16px;
     line-height: 26px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;

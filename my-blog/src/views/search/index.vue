@@ -120,11 +120,17 @@ export default class extends Vue {
   height: 48px;
   background: #fff;
   padding-left: 2rem;
-  padding-right: 1rem;
   color: $fontcolor;
-  &__result {
-    font-size: 13px;
+  font-size: 15px;
+  @media only screen and (max-width: 765px) { 
+    padding: 0 1rem;
   }
+   @media only screen and (max-width: 768px) and (min-width: 750px) { 
+    padding: 0rem 1rem 0rem 2rem;
+  }
+}
+.search-group {
+  width: 12.99rem;
 }
 .search-content {
   width: 100%;

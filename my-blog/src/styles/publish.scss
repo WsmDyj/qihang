@@ -46,7 +46,7 @@
 .section-wrapper {
   background: #fff;
   @include flexcolumn($jc:center, $ai: none);
-  min-height: 14.166667rem /* 170/12 */;
+  min-height: 148px;
 }
 
 // 首页文字标题样式
@@ -77,9 +77,8 @@
   box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
   transition: all .2s;
   background: #fff;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: 450;
-  
   &-fixed {
     transition: transform .2s;
     transform: translate3d(0,-60px,0);

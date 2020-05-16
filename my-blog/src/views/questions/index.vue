@@ -140,8 +140,8 @@ export default class extends Vue {
   border-bottom: 1px solid $border-color;
   background: #fff;
   @include flexcenter($jc: space-between, $ai: center);
-  @media only screen and (max-width: 767px) { 
-    padding: 1.3rem 0rem;
+  @media only screen and (max-width: 768px) { 
+    padding: 0rem;
   }
   &__button {
     color: $primary;
@@ -151,6 +151,7 @@ export default class extends Vue {
     font-weight: bold;
   }
 }
+
 .questions-content {
   background: #fff;
   min-height: 7.5rem;

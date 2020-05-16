@@ -14,7 +14,7 @@
         <span>{{article.reviews}}</span>
       </span>
       <span class="footer-action__item">
-        <i class="iconfont">&#xe610;</i>
+        <i class="iconfont">&#xe61c;</i>
         <span>{{article.comments}}</span>
       </span>
       <span class="footer-action__item">
@@ -46,7 +46,6 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article-footer {
-  width: 100%;
   @include flexcenter($jc: space-between, $ai: center);
   margin-top: 4px;
   font-size: 1.083333rem /* 13/12 */;
