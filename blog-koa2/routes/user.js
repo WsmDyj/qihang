@@ -71,9 +71,8 @@ router.post('/sendSmsCodeToUser', async function (ctx, next) {
   if ('Code' in result) {
     ctx.body = new SuccessModel({message: '验证码发送成功'})
   } else {
-    ctx.body = new SuccessModel({ message: '验证码发送成功' })
     const limit = result.data.Message.split(':')[1]
-    // ctx.body = limit >= 10 ? new ErrorModel({message: '同一手机号每天只能发送 10 条验证码'}) : new ErrorModel({message: '同一手机号每小时只能发送 5 条验证码'})
+    ctx.body = limit >= 10 ? new ErrorModel({message: '同一手机号每天只能发送 10 条验证码'}) : new ErrorModel({message: '同一手机号每小时只能发送 5 条验证码'})
   }
 })
 
@@ -123,25 +122,38 @@ router.get('/oauth', async function(ctx, next) {
 
 router.post('/register', async function (ctx, next) {
   const { username, password, code, nickname } = ctx.request.body
-  console.log(CODE)
-  if (code != CODE) {
-    ctx.body = new ErrorModel({message: '验证码不正确，请重新输入！'})
+  const data = await register(username, password, nickname)
+  if (data) {
+    ctx.session.username = username
+    ctx.session.nickname = nickname
+    let secret = 'WJiol#23123_'
+
+    let payload = { username: username, time: new Date().getTime() }
+    let token = jwt.sign(payload, secret)
+
+    ctx.body = new SuccessModel({ accessToken: token, message: '注册成功，欢迎来到起点！' })
+    return
   } else {
-    const data = await register(username, password, nickname)
-    if(data) {
-      ctx.session.username = username
-      ctx.session.nickname = nickname
-      let secret = 'WJiol#23123_'
-
-      let payload = {username: username,time:new Date().getTime()}
-      let token = jwt.sign(payload, secret)
-
-      ctx.body = new SuccessModel({accessToken: token,message:'注册成功，欢迎来到起点！'})
-      return
-    } else {
-      ctx.body = new ErrorModel({message: '用户名重复了，请换个名称在试试！'})
-    }
+    ctx.body = new ErrorModel({ message: '用户名重复了，请换个名称在试试！' })
   }
+  // if (code != CODE) {
+  //   ctx.body = new ErrorModel({message: '验证码不正确，请重新输入！'})
+  // } else {
+  //   const data = await register(username, password, nickname)
+  //   if(data) {
+  //     ctx.session.username = username
+  //     ctx.session.nickname = nickname
+  //     let secret = 'WJiol#23123_'
+
+  //     let payload = {username: username,time:new Date().getTime()}
+  //     let token = jwt.sign(payload, secret)
+
+  //     ctx.body = new SuccessModel({accessToken: token,message:'注册成功，欢迎来到起点！'})
+  //     return
+  //   } else {
+  //     ctx.body = new ErrorModel({message: '用户名重复了，请换个名称在试试！'})
+  //   }
+  // }
 })
 
 router.get('/getInfo', async function (ctx, next) {
