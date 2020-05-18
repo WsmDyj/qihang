@@ -118,5 +118,4 @@ export default class extends Vue {
 .item-code {
   display: flex
 }
-
 </style>

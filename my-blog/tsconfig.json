@@ -34,6 +34,12 @@
       "vant/lib/tab": [
         "src/components/vant/tab"
       ],
+      "vant/lib/swipe": [
+        "node_modules/vant/types/swipe"
+      ],
+      "vant/lib/swipe-item": [
+        "src/components/vant/swipe-item"
+      ],
       "vant/lib/skeleton": [
         "src/components/vant/skeleton"
       ],

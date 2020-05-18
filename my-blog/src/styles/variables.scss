@@ -29,20 +29,14 @@
 }
 
 // 跑马灯
-.el-carousel__indicators--horizontal {
-  right: 1rem;
-  transform: translateX(75%);
-  bottom: 1rem;
-  .el-carousel__button {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-  @media only screen and (max-width: 750px) {
-    right: 1rem;
-    bottom: 0px;
-  }
-}
+// .van-swipe__indicators {
+//   position: absolute;
+//   bottom: 2rem;
+//   right: 3rem;
+//   display: flex;
+//   justify-content: flex-end;
+//   transform: none;
+// }
 
 // 注册验证码
 .el-input-group__append, .el-input-group__prepend {

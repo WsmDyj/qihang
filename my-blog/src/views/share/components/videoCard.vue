@@ -38,11 +38,11 @@ export default class extends Vue {
   height: 270px;
   background: #fff;
   @include hoverState();
-  margin-bottom: 10px;
+  margin-bottom: 2rem;
   box-sizing: border-box;
   @media only screen and (max-width: 750px) { 
-    width: 170px;
-    height: 240px;
+    width: calc((100vw - 3.4rem)/2);
+    height: 250px;
   }
   .share-img {
     width: 100%;

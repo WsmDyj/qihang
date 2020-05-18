@@ -19,12 +19,9 @@
           </div>
 
           <div class="navbar-wrapper" v-if="visivle">
-            <div class="navbar-item navbar-item__button">
+            <router-link to="/markdown" class="navbar-item navbar-item__button">
               <span>写文章</span>
-              <!-- <div to="/markdown">
-                写文章
-              </router-link> -->
-            </div>
+            </router-link>
             <div class="navbar-item">
               <el-badge type="primary">
                 <i class="iconfont navbar-item__notice">&#xe61e;</i>
@@ -181,6 +178,7 @@ export default class extends Vue {
   }
 }
 .visible {
+  transition: all .2s;
   transform: translateZ(0);
 }
 </style>

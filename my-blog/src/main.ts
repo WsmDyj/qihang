@@ -27,6 +27,8 @@ import empty from "vant/lib/empty"
 import sticky from "vant/lib/sticky"
 import tabs from "vant/lib/tabs"
 import tab from "vant/lib/tab"
+import swipe from "vant/lib/swipe"
+import swipeItem from "vant/lib/swipe-item"
 import skeleton from "vant/lib/skeleton"
 const VantComps: any = {
   list,
@@ -35,13 +37,14 @@ const VantComps: any = {
   sticky,
   tabs,
   tab,
+  swipe,
+  swipeItem,
   skeleton,
 };
-
-
 Object.keys(VantComps).map((key) => { 
   Vue.component(`van-${key}`, VantComps[key]) 
 })
+
 Vue.prototype.formatDate = formatDate
 Vue.config.productionTip = false;
 Vue.use(Element);

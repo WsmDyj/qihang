@@ -31,7 +31,7 @@ import videoCard from '../videoCard.vue'
 export default class extends Vue {
   private videos:IVideo[] = []
   private async created() {
-    const { data } = await getSharelist()
+    const { data } = await getSharelist({type: 'video'})
     this.videos = data
   }
 }
@@ -40,15 +40,16 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .videos {
   position: relative;
-  @media only screen and (max-width: 767px) { 
-    padding: 0 1rem;
-  }
+  margin-left: 1rem;
   .share-video {
     width: 100%;
     .video-conent {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      // justify-content: space-between;
+      .video-item {
+        margin-right: 1.2rem;
+      }
     }
   }
 }
@@ -65,7 +66,7 @@ export default class extends Vue {
     display: inline-block;
     height: 1px;
     background-color: $navcolor;
-    opacity: .5;
+    opacity: .2;
     margin: 0 2rem;
     
   }

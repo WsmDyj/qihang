@@ -3,12 +3,12 @@ const {
   getShareLists
 } = require('../controller/share')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/share')
 
 router.get('/list', async function (ctx, next) {
-  const data = await getShareLists()
+  let type = ctx.query.type
+  const data = await getShareLists(type)
   ctx.body =  new SuccessModel(data)
 })
 

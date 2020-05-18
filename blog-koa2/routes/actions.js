@@ -44,7 +44,8 @@ router.post('/removelike',loginCheck, async function(ctx, next) {
 
 router.get('/getLikelists', async function (ctx, next) {
   const author = ctx.query.author || ctx.session.nickname
-  const data = await getLikelists(author)
+  let page = ctx.query.page || '0'
+  const data = await getLikelists(author, page)
   ctx.body =  new SuccessModel(data)
 })
 module.exports = router

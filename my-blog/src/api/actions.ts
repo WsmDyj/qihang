@@ -45,8 +45,9 @@ export const getlikesList = (params?: author) =>
     params
   })
 
-export const getSharelist = () =>
+export const getSharelist = (params: any) =>
   request({
-    url: 'api/share/list',
-    method: 'get',
-  })
+    url: "api/share/list",
+    method: "get",
+    params,
+  });

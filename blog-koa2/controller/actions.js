@@ -75,8 +75,12 @@ const removeLike = async (actionsdData = {}) => {
 
 
 
-const getLikelists = async (author) => {
-  const sql = `SELECT blogs.article_id,articleTag, author, title,likeCount, articleImg, comments, reviews FROM blogs, likes where likes.like_author = '${author}' and likes.article_id = blogs.article_id order by likes.id desc;`
+const getLikelists = async (author, page) => {
+  const tagPage = Number(page) * 10
+  let sql = `SELECT blogs.article_id, createtime, articleTag, author, title,likeCount, articleImg, comments, reviews FROM blogs, likes where likes.like_author = '${author}' and likes.article_id = blogs.article_id order by likes.id desc `
+  if (tagPage >= 0) {
+    sql += ` limit ${tagPage} , 10;`
+  }
   return exec(sql)
 }
 

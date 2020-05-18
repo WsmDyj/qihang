@@ -1,7 +1,7 @@
 <template>
-  <el-carousel class="carousel" :interval = 4000  trigger="click" height="100%">
-    <el-carousel-item v-for="(item, index) in lists" :key="index">
-      <div class="carousel-content" @click="checkArticle(item)">
+  <van-swipe class="carousel" indicator-color='#fff' lazy-render width="100%">
+    <van-swipeItem v-for="(item, index) in lists" :key="index">
+      <router-link class="carousel-content" target="_blank" :to="{path: '/article', query: { articleId: item.article_id }}">
         <el-image fit="contain" class="carousel-img" :src = item.img />
         <div class="carousel-panel">
           <div class="carousel-panel__title">{{item.title}}</div>
@@ -11,15 +11,14 @@
             <span class="carousel-time">{{item.time}}</span>
           </div>
         </div>
-      </div>
-    </el-carousel-item>
-  </el-carousel>
+      </router-link>
+    </van-swipeItem>
+  </van-swipe>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IArticleData } from '../../../api/types'
-
 @Component
 export default class extends Vue {
   private lists: any = [
@@ -45,9 +44,6 @@ export default class extends Vue {
       img: 'https://img11.360buyimg.com/imagetools/jfs/t1/116375/32/3931/166684/5eaa9c6eEde6cb991/a562315f39e599ce.png'
     }
   ]
-  private checkArticle(article: IArticleData) {
-    window.open(`/article?articleId=${article.article_id}`, '_blank')
-  }
 }
 </script>
 

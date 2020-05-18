@@ -6,6 +6,7 @@
         mode="markdown"
         :height = 286
         v-model="markdown"
+        :options="{hideModeSwitch: true, previewStyle: 'tab'}"
       />
     </div>
     <div class="sumbit">

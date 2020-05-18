@@ -3,7 +3,8 @@
     <Header :visible= visible />
     <sticky @scroll="handleScroll" :fixed-top= -236 :z-index= 9 :sticky-top="60">
       <div class="navigation" :class="{'navigation-fixed': !visible}" >
-        <div class="share-tabs">
+        <div class="tabs-placeholder"></div>
+        <div class="tabs-nav">
           <tabs :tabs = options @click="filterAsk" />
         </div>
       </div>
@@ -57,4 +58,13 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.tabs-placeholder {
+  display: inline-block;
+  height: 100%;
+  width: calc((100% - 994px)/2);
+}
+.tabs-nav {
+  display: inline-block;
+  width: 20rem;
+}
 </style>

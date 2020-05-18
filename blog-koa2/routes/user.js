@@ -87,7 +87,7 @@ router.get('/oauth', async function(ctx, next) {
       accept: 'application/json'
     }
   })
-  const accessToken = tokenResponse.data.access_token
+  const accessToken = await tokenResponse.data.access_token
   const result = await axios({
     method: 'get',
     url: `https://api.github.com/user`,
