@@ -16,7 +16,7 @@ const axios = require('axios')
 
 const jwt = require('jsonwebtoken')
 
-var CODE = ''
+const CODE = Math.random().toString().slice(-6)
 
 router.get('/getuserList', async function(ctx, next) {
   const top = ctx.query.top
@@ -44,8 +44,8 @@ router.post('/login', async function (ctx, next) {
 })
 
 router.post('/sendSmsCodeToUser', async function (ctx, next) {
+  console.log(CODE)
   const { username } = ctx.request.body
-  CODE = Math.random().toString().slice(-6)
   var client = new RPCClient({
     accessKeyId: 'LTAI4FcGip5kqy1LB4ru2GYh',
     accessKeySecret: 'BvmhpNobez41GIas1vA5z1QSbhTGIm',
@@ -67,11 +67,13 @@ router.post('/sendSmsCodeToUser', async function (ctx, next) {
     }, (ex) => {
       return ex
     })
+    
   if ('Code' in result) {
     ctx.body = new SuccessModel({message: '验证码发送成功'})
   } else {
+    ctx.body = new SuccessModel({ message: '验证码发送成功' })
     const limit = result.data.Message.split(':')[1]
-    ctx.body = limit >= 10 ? new ErrorModel({message: '同一手机号每天只能发送 10 条验证码'}) : new ErrorModel({message: '同一手机号每小时只能发送 5 条验证码'})
+    // ctx.body = limit >= 10 ? new ErrorModel({message: '同一手机号每天只能发送 10 条验证码'}) : new ErrorModel({message: '同一手机号每小时只能发送 5 条验证码'})
   }
 })
 
@@ -121,9 +123,9 @@ router.get('/oauth', async function(ctx, next) {
 
 router.post('/register', async function (ctx, next) {
   const { username, password, code, nickname } = ctx.request.body
+  console.log(CODE)
   if (code != CODE) {
     ctx.body = new ErrorModel({message: '验证码不正确，请重新输入！'})
-    return
   } else {
     const data = await register(username, password, nickname)
     if(data) {

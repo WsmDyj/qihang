@@ -12,7 +12,8 @@ if (env === 'dev') {
     password: '123456',
     port: '3306',
     database: 'myBlog',
-    charset:'UTF8MB4_GENERAL_CI'
+    charset:'UTF8MB4_GENERAL_CI',
+    useConnectionPooling: true
   }
 
   // redis
@@ -30,7 +31,8 @@ if (env === 'production') {
     password: '123456',
     port: '3306',
     database: 'myBlog',
-    charset: 'UTF8MB4_GENERAL_CI'
+    charset: 'UTF8MB4_GENERAL_CI',
+    useConnectionPooling: true
   }
 
   // redis
