@@ -33,7 +33,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-typescript": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
+    "@vue/cli-service": "^5.0.8",
     "sass-loader": "^8.0.0",
     "stylus-resources-loader": "0.0.4",
     "typescript": "~3.5.3",
