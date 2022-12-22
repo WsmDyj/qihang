@@ -14,7 +14,7 @@
     "bluebird": "^3.7.1",
     "cross-env": "^6.0.0",
     "debug": "^4.1.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
